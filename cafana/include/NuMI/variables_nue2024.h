@@ -124,12 +124,12 @@ namespace vars::nue2024
     template<class T>
         double opening_angle(const T & obj)
         {
-            auto & m(obj.particles[utilities::leading_particle_index(obj, 2)]);
+            auto & e(obj.particles[utilities::leading_particle_index(obj, 1)]);
             auto & p(obj.particles[utilities::leading_particle_index(obj, 4)]);
             if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
-                return std::acos(m.truth_start_dir[0] * p.truth_start_dir[0] + m.truth_start_dir[1] * p.truth_start_dir[1] + m.truth_start_dir[2] * p.truth_start_dir[2]);
+                return std::acos(e.truth_start_dir[0] * p.truth_start_dir[0] + e.truth_start_dir[1] * p.truth_start_dir[1] + e.truth_start_dir[2] * p.truth_start_dir[2]);
             else
-                return std::acos(m.start_dir[0] * p.start_dir[0] + m.start_dir[1] * p.start_dir[1] + m.start_dir[2] * p.start_dir[2]);
+                return std::acos(e.start_dir[0] * p.start_dir[0] + e.start_dir[1] * p.start_dir[1] + e.start_dir[2] * p.start_dir[2]);
         }
 
     /**
@@ -298,7 +298,7 @@ namespace vars::nue2024
      * @return the particle angle with respect to NuMI beam.
      */
     template<class T>
-        double delta_pt(const T & interaction)
+        double delta_pT(const T & interaction)
         {
             TVector3 plT(NuMI_transverse_momentum(interaction,1));
             TVector3 ppT(NuMI_transverse_momentum(interaction,4));

@@ -346,10 +346,10 @@ namespace vars
     */
     
     template<class T>
-        double electron_softmax(const T & interaction)
+        double leading_electron_softmax(const T & interaction)
         {
-            sauto & m(obj.particles[utilities::leading_particle_index(obj, 1)]);
-            return m.pid_scores[1];
+            sauto & e(obj.particles[utilities::leading_particle_index(obj, 1)]);
+            return e.pid_scores[1];
         }
 
     /**

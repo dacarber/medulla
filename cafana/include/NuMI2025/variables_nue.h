@@ -401,7 +401,7 @@ namespace vars::nue
             
             if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
             {
-               return -5 
+               return -5; 
             }
             size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].vertex_distance;
@@ -412,7 +412,7 @@ namespace vars::nue
         {
             if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
             {
-               return -5 
+               return -5;
             }
             size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].axial_spread;
@@ -422,7 +422,7 @@ namespace vars::nue
         {
             if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
             {
-               return -5 
+               return -5;
             }
             size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].directional_spread;
@@ -432,7 +432,7 @@ namespace vars::nue
         {
             if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
             {
-               return -5 
+               return -5;
             }
             size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].start_straightness;
@@ -442,7 +442,7 @@ namespace vars::nue
         {  
             if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
             {
-               return -5 
+               return -5;
             }
             size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].start_dedx;

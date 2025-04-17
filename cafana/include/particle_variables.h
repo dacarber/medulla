@@ -263,7 +263,7 @@ namespace pvars
             }
             else
             {
-                if(PIDFUNC(p) < 2) [[likely]]
+                if(PIDFUNC(p) < 2) //[[likely]]
                     energy += calo_ke(p);
                 else
                 {

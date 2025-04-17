@@ -335,7 +335,6 @@ namespace utilities_nue
 		{
 		    max_electron_ke = p.ke;
 		    leading_electron_index = i;
-		    auto & electron = p;
 		}
 	    }
 
@@ -346,10 +345,10 @@ namespace utilities_nue
 				{
 				    max_proton_ke = p.ke;
 				    leading_proton_index = i;
-				    auto & proton = p;
 				}
 			} // end particle loop
-	  
+	 const auto & electron = obj.particles[leading_electron_index];
+	 const auto & proton = obj.particles[leading_proton_index];
 
 	// Fill struct
 	s.transverse_momentum_mag = sqrt(pow(pT0, 2) + pow(pT1, 2) + pow(pT2, 2));

@@ -81,11 +81,12 @@ namespace vars::nue
      * @param obj The interaction to apply the variable on.
      * @return the enumerated category of the interaction.
     */
-    double category_topology(const caf::SRInteractionTruthDLPProxy & obj)
+    double category_topology(const caf::SRInteractionTruthDLPProxy & interaction)
     {   
         double cat(7);
+        i
         if(interaction.nu_id >= 0){
-            std::vector<uint32_t> counts(utilities::count_primaries(obj));
+            std::vector<uint32_t> counts(utilities::count_primaries(interaction));
             if(counts[1] == 1 && counts[2] == 0)
                 {
                     if(counts[0] == 0 && counts[3] == 0 && counts[4] == 1 && cuts::containment_cut(interaction)) cat = 0; //&& interaction.is_fiducial

@@ -84,7 +84,6 @@ namespace vars::nue
     double category_topology(const caf::SRInteractionTruthDLPProxy & interaction)
     {   
         double cat(7);
-        i
         if(interaction.nu_id >= 0){
             std::vector<uint32_t> counts(utilities::count_primaries(interaction));
             if(counts[1] == 1 && counts[2] == 0)
@@ -158,7 +157,7 @@ namespace vars::nue
             x = x/r;
             y = y/r;
             z = z/r;
-            return std::acos(x *particle.start_dir[0] + y *particle.start_dir[1]+z *particle.start_dir[2]);
+            return std::acos(x *p.start_dir[0] + y *p.start_dir[1]+z *p.start_dir[2]);
             
         }
     /**
@@ -196,7 +195,7 @@ namespace vars::nue
      * @return the particle angle with respect to NuMI beam.
      */
     template<class T>
-        double NuMI_polar_angle(const T & p)
+        double NuMI_polar_angle(const T & interaction)
         {
             double r;
             std::vector<double> dir_vector(3,0);
@@ -221,7 +220,7 @@ namespace vars::nue
      * @return the particle angle with respect to NuMI beam.
      */
     template<class T>
-        double NuMI_azimuthal_angle(const T & p)
+        double NuMI_azimuthal_angle(const T & interaction)
         {
             double r;
             std::vector<double> dir_vector(3,0);

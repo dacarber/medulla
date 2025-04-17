@@ -335,7 +335,7 @@ namespace utilities_nue
 		{
 		    max_electron_ke = p.ke;
 		    leading_electron_index = i;
-		    auto electron = p
+		    auto electron = p;
 		}
 	    }
 
@@ -346,7 +346,7 @@ namespace utilities_nue
 				{
 				    max_proton_ke = p.ke;
 				    leading_proton_index = i;
-				    auto proton = p
+				    auto proton = p;
 				}
 			} // end particle loop
 	  

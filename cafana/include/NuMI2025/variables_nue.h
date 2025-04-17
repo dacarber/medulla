@@ -559,7 +559,7 @@ namespace vars::nue
       uint16_t cat(4);
 
       // Nu                                                                                                                         
-      if(interaction.is_neutrino)
+      if(interaction.nu_id >= 0)
         {
       // Signal
       if(s.num_primary_electrons_thresh == 1 && s.num_primary_protons_thresh == 1 && s.is_cc && s.is_fiducial) cat = 1;

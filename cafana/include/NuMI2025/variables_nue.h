@@ -130,7 +130,7 @@ namespace vars::nue
             auto & e(obj.particles[utilities::leading_particle_index(obj, 1)]);
             auto & p(obj.particles[utilities::leading_particle_index(obj, 4)]);
             if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
-                return std::acos(e.truth_start_dir[0] * p.truth_start_dir[0] + e.truth_start_dir[1] * p.truth_start_dir[1] + e.truth_start_dir[2] * p.truth_start_dir[2]);
+                return std::acos(e.start_dir[0] * p.start_dir[0] + e.start_dir[1] * p.start_dir[1] + e.start_dir[2] * p.start_dir[2]);
             else
                 return std::acos(e.start_dir[0] * p.start_dir[0] + e.start_dir[1] * p.start_dir[1] + e.start_dir[2] * p.start_dir[2]);
         }
@@ -408,7 +408,7 @@ namespace vars::nue
             
         }
     template<class T>
-        double leading_electron_axial_spread(const T & interaction)
+        float leading_electron_axial_spread(const T & interaction)
         {
             if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
             {
@@ -418,7 +418,7 @@ namespace vars::nue
             return interaction.particles[i].axial_spread;
         }
     template<class T>
-        double leading_electron_directional_spread(const T & interaction)
+        float leading_electron_directional_spread(const T & interaction)
         {
             if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
             {
@@ -438,7 +438,7 @@ namespace vars::nue
             return interaction.particles[i].start_straightness;
         }
     template<class T>
-        double leading_electron_dedx(const T & interaction)
+        float leading_electron_dedx(const T & interaction)
         {  
             if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
             {

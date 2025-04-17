@@ -287,10 +287,10 @@ namespace utilities_nue
       reco_inter reco_interaction_info(const T & obj)
       {
 	// Initialize structure
-      	int primary_electrons(0);
-  int primary_electrons_thresh(0);
-  int primary_protons(0);
-  int primary_protons_thresh(0);
+      	int primary_electrons_count(0);
+  int primary_electrons_count_thresh(0);
+  int primary_protons_count(0);
+  int primary_protons_count_thresh(0);
 	reco_inter s;
 	  
 	// Initialize relevant TVector3s
@@ -335,6 +335,7 @@ namespace utilities_nue
 		{
 		    max_electron_ke = p.ke;
 		    leading_electron_index = i;
+		    electron = p
 		}
 	    }
 
@@ -345,6 +346,7 @@ namespace utilities_nue
 				{
 				    max_proton_ke = p.ke;
 				    leading_proton_index = i;
+				    proton = p
 				}
 			} // end particle loop
 	  

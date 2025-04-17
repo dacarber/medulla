@@ -60,7 +60,7 @@ void NuMINue2025_MC()
      */
     #define CUT cuts::nue::all_1eNp_cut
     #define TCUT cuts::neutrino
-    std::map<std::string, ana::SpillMultiVar> vars_selected_nu_phase;
+    std::map<std::string, ana::SpillMultiVar> vars_selected_nu;
     vars_selected_nu_phase.insert({"nu_id", SpineVar<TTYPE,RTYPE>(&vars::neutrino_id, &CUT, &TCUT)});
     //vars_selected_nu_phase.insert({"CutType", SpineVar<RTYPE,RTYPE>(&vars::nue::cut_type, &CUT, &TCUT)}); // GUNDAM
     //vars_selected_nu_phase.insert({"IsSignal", SpineVar<TTYPE,RTYPE>(&vars::nue::is_signal_mc, &CUT, &TCUT)}); // GUNDAM

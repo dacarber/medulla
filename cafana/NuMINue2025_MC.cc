@@ -34,7 +34,7 @@
 #include "TDirectory.h"
 #include "TFile.h"
 
-void main()
+int main()
 {
     // Output filename
     //ana::Analysis analysis("sbnd_ccpi0_mc_03_april_2025");

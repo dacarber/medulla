@@ -64,7 +64,7 @@ void NuMINue2025_MC()
     vars_selected_nu_phase.insert({"nu_id", SpineVar<TTYPE,RTYPE>(&vars::neutrino_id, &CUT, &TCUT)});
     //vars_selected_nu_phase.insert({"CutType", SpineVar<RTYPE,RTYPE>(&vars::nue::cut_type, &CUT, &TCUT)}); // GUNDAM
     //vars_selected_nu_phase.insert({"IsSignal", SpineVar<TTYPE,RTYPE>(&vars::nue::is_signal_mc, &CUT, &TCUT)}); // GUNDAM
-    v//ars_selected_nu_phase.insert({"IsData", SpineVar<RTYPE,RTYPE>(&vars::nue::is_not_data, &CUT, &TCUT)}); // GUNDAM
+    //vars_selected_nu_phase.insert({"IsData", SpineVar<RTYPE,RTYPE>(&vars::nue::is_not_data, &CUT, &TCUT)}); // GUNDAM
     vars_selected_nu_phase.insert({"baseline", SpineVar<MCTRUTH,RTYPE>(&mctruth::true_neutrino_baseline, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"category", SpineVar<TTYPE,RTYPE>(&vars::nue::category, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"category_topology", SpineVar<TTYPE,RTYPE>(&vars::nue::category_topology, &CUT, &TCUT)});
@@ -133,9 +133,9 @@ void NuMINue2025_MC()
     #define TCUT cuts::cosmic
     std::map<std::string, ana::SpillMultiVar> vars_selected_cos_phase;
     vars_selected_cosmic_phase.insert({"nu_id", SpineVar<TTYPE,RTYPE>(&vars::neutrino_id, &CUT, &TCUT)});
-    vars_selected_cosmic_phase.insert({"CutType", SpineVar<RTYPE,RTYPE>(&vars::nue::cut_type, &CUT, &TCUT)}); // GUNDAM
-    vars_selected_cosmic_phase.insert({"IsSignal", SpineVar<TTYPE,RTYPE>(&vars::ccpi0ana_phase::is_signal_mc, &CUT, &TCUT)}); // GUNDAM
-    vars_selected_cosmic_phase.insert({"IsData", SpineVar<RTYPE,RTYPE>(&vars::ccpi0ana_phase::is_not_data, &CUT, &TCUT)}); // GUNDAM
+    //vars_selected_cosmic_phase.insert({"CutType", SpineVar<RTYPE,RTYPE>(&vars::nue::cut_type, &CUT, &TCUT)}); // GUNDAM
+    //vars_selected_cosmic_phase.insert({"IsSignal", SpineVar<TTYPE,RTYPE>(&vars::ccpi0ana_phase::is_signal_mc, &CUT, &TCUT)}); // GUNDAM
+    //vars_selected_cosmic_phase.insert({"IsData", SpineVar<RTYPE,RTYPE>(&vars::ccpi0ana_phase::is_not_data, &CUT, &TCUT)}); // GUNDAM
     vars_selected_cosmic_phase.insert({"baseline", SpineVar<MCTRUTH,RTYPE>(&mctruth::true_neutrino_baseline, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"category", SpineVar<TTYPE,RTYPE>(&vars::nue::category, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"category_topology", SpineVar<TTYPE,RTYPE>(&vars::nue::category_topology, &CUT, &TCUT)});

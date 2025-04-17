@@ -160,10 +160,10 @@ namespace utilities_nue
 	//TVector3 beamdir(BEAMDIR);
 	  
 	// Initialize output variables
-	int num_primary_electrons(0);
-  int num_primary_electrons_thresh(0);
-  int num_primary_protons(0);
-  int num_primary_protons_thresh(0);
+	int primary_electrons(0);
+  int primary_electrons_thresh(0);
+  int primary_protons(0);
+  int primary_protons_thresh(0);
   bool is_fiducial(false);
   bool has_contained_tracks(false);
   bool is_neutrino(false);
@@ -180,9 +180,10 @@ namespace utilities_nue
   double leading_proton_muon_softmax;
   double leading_proton_pion_softmax;
   double leading_proton_primary;
-
+  double pT0(0), pT1(0), pT2(0);
 	// Particle loop
 	size_t leading_electron_index(0);
+	size_t leading_proton_index(0);
 	double max_electron_ke(-99999);
 	for(size_t i(0); i < obj.particles.size(); ++i)
 	{
@@ -286,6 +287,11 @@ namespace utilities_nue
       reco_inter reco_interaction_info(const T & obj)
       {
 	// Initialize structure
+      	double pT0(0), pT1(0), pT2(0);
+      	int primary_electrons(0);
+  int primary_electrons_thresh(0);
+  int primary_protons(0);
+  int primary_protons_thresh(0);
 	reco_inter s;
 	  
 	// Initialize relevant TVector3s
@@ -320,7 +326,9 @@ namespace utilities_nue
 	    TVector3 _p(p.momentum[0], p.momentum[1], p.momentum[2]);
 	    TVector3 pL = _p.Dot(beamdir) * beamdir;
 	    TVector3 pT = _p - pL;
-
+	    pT0 += pT[0];
+	    pT1 += pT[1];
+	    pT2 += pT[2];
 	    // Muons
 	    if(PIDFUNC(p) == 1)
 	    {

@@ -128,6 +128,32 @@ namespace cuts
      */
     template<class T>
         bool containment_cut(const T & obj) { return obj.is_contained; }
+    /**
+     * @brief Apply a containment cut on the entire interaction (tracks only).
+     * @details The containment cut is applied on all tracks. The
+     * interaction is considered contained if all tracks and all spacepoints
+     * are contained within 5cm of the detector edges (configured in a SPINE
+     * post-processor). Additionally, no spacepoints are allowed to be
+     * reconstructed in a TPC that did not create it. This is an unphysical
+     * condition that can occur when a cosmic muon is moved according to an
+     * assumed t0 that is very out-of-time.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to select on.
+     * @return true if the vertex is contained. 
+     */
+    template<class T>
+        bool track_containment_cut(const T & obj)
+        {
+        bool passes(true);
+        for(auto & p : obj.particles)
+            {
+            if(p.is_primary && p.pid > 1 && !p.is_contained)
+            {
+            passes = false;
+        }
+            }
+        return passes;
+    }
 
     /**
      * @brief Apply a flash time cut on the interaction.

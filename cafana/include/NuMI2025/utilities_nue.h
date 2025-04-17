@@ -160,10 +160,10 @@ namespace utilities_nue
 	//TVector3 beamdir(BEAMDIR);
 	  
 	// Initialize output variables
-	int primary_electrons(0);
-  int primary_electrons_thresh(0);
-  int primary_protons(0);
-  int primary_protons_thresh(0);
+	int primary_electrons_count(0);
+  int primary_electrons_count_thresh(0);
+  int primary_protons_count(0);
+  int primary_protons_count_thresh(0);
   bool is_fiducial(false);
   bool has_contained_tracks(false);
   bool is_neutrino(false);
@@ -287,7 +287,6 @@ namespace utilities_nue
       reco_inter reco_interaction_info(const T & obj)
       {
 	// Initialize structure
-      	double pT0(0), pT1(0), pT2(0);
       	int primary_electrons(0);
   int primary_electrons_thresh(0);
   int primary_protons(0);
@@ -352,8 +351,8 @@ namespace utilities_nue
 
 	// Fill struct
 	s.transverse_momentum_mag = sqrt(pow(pT0, 2) + pow(pT1, 2) + pow(pT2, 2));
-	s.leading_electron_energy = leading_electron_energy;
-  s.leading_proton_energy = (proton.ke);
+	s.leading_electron_energy = max_electron_ke;
+  s.leading_proton_energy = (max_proton_ke);
   s.leading_electron_conv_dist = (electron.vertex_distance);
   s.leading_electron_axial_spread =  (electron.axial_spread);
   s.leading_electron_dir_spread =  (electron.directional_spread);

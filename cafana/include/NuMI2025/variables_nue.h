@@ -397,31 +397,53 @@ namespace vars::nue
         }
     template<class T>
         double leading_electron_vertex_distance(const T & interaction)
-        {
+        {   
+            
+            if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
+            {
+               return -5 
+            }
             size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].vertex_distance;
+            
         }
     template<class T>
         double leading_electron_axial_spread(const T & interaction)
         {
+            if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
+            {
+               return -5 
+            }
             size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].axial_spread;
         }
     template<class T>
         double leading_electron_directional_spread(const T & interaction)
         {
+            if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
+            {
+               return -5 
+            }
             size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].directional_spread;
         }
     template<class T>
         double leading_electron_start_straightness(const T & interaction)
         {
+            if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
+            {
+               return -5 
+            }
             size_t i(utilities::leading_particle_index(interaction, 1));
-            return interaction.particles[i].directional_spread;
+            return interaction.particles[i].start_straightness;
         }
     template<class T>
         double leading_electron_dedx(const T & interaction)
-        {
+        {  
+            if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
+            {
+               return -5 
+            }
             size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].start_dedx;
         }

@@ -58,7 +58,7 @@ void NuMINue2025_MC()
      * create the variables.  These names are used in the TTree that is created
      * by the Tree class to store the results of the analysis.
      */
-    #define CUT cuts::cuts_nue::all_1eNp_cut
+    #define CUT cuts::nue::all_1eNp_cut
     #define TCUT cuts::neutrino
     std::map<std::string, ana::SpillMultiVar> vars_selected_nu_phase;
     vars_selected_nu_phase.insert({"nu_id", SpineVar<TTYPE,RTYPE>(&vars::neutrino_id, &CUT, &TCUT)});

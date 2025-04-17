@@ -20,6 +20,7 @@
 #include "include/utilities.h"
 #include "include/cuts.h"
 #include "include/NuMI2025/cuts_nue.h"
+#include "include/NuMI2025/utilities_nue.h"
 
 /**
  * @namespace vars::muon2024
@@ -247,7 +248,7 @@ namespace vars::nue
      * @return the particle angle with respect to NuMI beam.
      */
     template<class T>
-        double NuMI_transverse_momentum(const T & obj, int pid)
+        TVector3 NuMI_transverse_momentum(const T & interaction, int pid)
         {
             //TVector3 beamdir(0, 0, 1); // BNB
         std::vector<double> dir_vector(3,0);                    
@@ -550,9 +551,9 @@ namespace vars::nue
 
 
     
-    double is_signal_mc(const caf::SRInteractionTruthDLPProxy & obj)
+    double is_signal_mc(const caf::SRInteractionTruthDLPProxy & interaction)
     {
-      truth_inter s = utilities_nue::truth_interaction_info(obj);
+      truth_inter s = utilities_nue::truth_interaction_info(interaction);
 
       // Cosmic                                                                                                              
       uint16_t cat(4);

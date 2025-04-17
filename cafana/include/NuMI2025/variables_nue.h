@@ -20,7 +20,7 @@
 #include "include/utilities.h"
 #include "include/cuts.h"
 #include "include/NuMI2025/cuts_nue.h"
-#include "include/NuMI2025/utilities_nue.h"
+//#include "include/NuMI2025/utilities_nue.h"
 
 /**
  * @namespace vars::muon2024
@@ -535,6 +535,7 @@ namespace vars::nue
             double cat(1);
             return cat;
     }
+    
     //To do for Gundam
         /**
      * @brief GUNDAM variable for enumerating interaction categories.                                                                                          
@@ -550,12 +551,12 @@ namespace vars::nue
      */
 
 
-    
+    /*
     double is_signal_mc(const caf::SRInteractionTruthDLPProxy & interaction)
     {
       truth_inter s = utilities_nue::truth_interaction_info(interaction);
 
-      // Cosmic                                                                                                              
+      // Cosmic                                                                                                           
       uint16_t cat(4);
 
       // Nu                                                                                                                         
@@ -573,7 +574,7 @@ namespace vars::nue
 
       return cat;
     }
-    
+    */
 
 }
 #endif // VARS_NUE_H

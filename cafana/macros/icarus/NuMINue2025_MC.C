@@ -123,7 +123,7 @@ void NuMINue2025_MC()
 
     #undef TCUT
     #define TCUT cuts::cosmic
-    std::map<std::string, ana::SpillMultiVar> vars_selected_cos_phase;
+    std::map<std::string, ana::SpillMultiVar> vars_selected_cosmic_phase;
     vars_selected_cosmic_phase.insert({"nu_id", SpineVar<TTYPE,RTYPE>(&vars::neutrino_id, &CUT, &TCUT)});
     //vars_selected_cosmic_phase.insert({"CutType", SpineVar<RTYPE,RTYPE>(&vars::nue::cut_type, &CUT, &TCUT)}); // GUNDAM
     //vars_selected_cosmic_phase.insert({"IsSignal", SpineVar<TTYPE,RTYPE>(&vars::ccpi0ana_phase::is_signal_mc, &CUT, &TCUT)}); // GUNDAM
@@ -182,7 +182,7 @@ void NuMINue2025_MC()
     vars_selected_cosmic_phase.insert({"true_vertex_y", SpineVar<TTYPE,RTYPE>(&vars::vertex_y, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_vertex_z", SpineVar<RTYPE,RTYPE>(&vars::vertex_z, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"true_vertex_z", SpineVar<TTYPE,RTYPE>(&vars::vertex_z, &CUT, &TCUT)});
-    analysis.AddTree("SelectedCos_PhaseCuts", vars_selected_cos_phase, false);
+    analysis.AddTree("SelectedCos_PhaseCuts", vars_selected_cosmic_phase, false);
 
     #undef TCUT
     #define TCUT cuts::no_cut

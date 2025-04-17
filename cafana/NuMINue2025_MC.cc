@@ -34,7 +34,7 @@
 #include "TDirectory.h"
 #include "TFile.h"
 
-void NuMINue2025_MC()
+void main()
 {
     // Output filename
     //ana::Analysis analysis("sbnd_ccpi0_mc_03_april_2025");

@@ -361,74 +361,74 @@ namespace vars::nue
     template<class T>
         double leading_proton_softmax(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 4));
+            size_t i(utilities::leading_particle_index(interaction, 4));
             return interaction.particles[i].pid_scores[4];
         }
     template<class T>
         double leading_proton_ke(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 4));
+            size_t i(utilities::leading_particle_index(interaction, 4));
             return interaction.particles[i].csda_ke;
         }
     template<class T>
         double leading_proton_muon_softmax(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 4));
+            size_t i(utilities::leading_particle_index(interaction, 4));
             return interaction.particles[i].pid_scores[2];
         }
     template<class T>
         double leading_proton_pion_softmax(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 4));
+            size_t i(utilities::leading_particle_index(interaction, 4));
             return interaction.particles[i].pid_scores[3];
         }
     template<class T>
         double leading_proton_primary_score(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 4));
+            size_t i(utilities::leading_particle_index(interaction, 4));
             return interaction.particles[i].primary_scores[1];
         }
 
     template<class T>
         double leading_electron_ke(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 1));
+            size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].calo_ke;
         }
     template<class T>
         double leading_electron_vertex_distance(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 1));
+            size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].vertex_distance;
         }
     template<class T>
         double leading_electron_axial_spread(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 1));
+            size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].axial_spread;
         }
     template<class T>
         double leading_electron_directional_spread(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 1));
+            size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].directional_spread;
         }
     template<class T>
         double leading_electron_start_straightness(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 1));
+            size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].directional_spread;
         }
     template<class T>
         double leading_electron_dedx(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 1));
+            size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].start_dedx;
         }
     template<class T>
         double leading_electron_primary_score(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 1));
+            size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].primary_scores[1];
         }
         /**
@@ -443,7 +443,7 @@ namespace vars::nue
     template<class T>
         double leading_electron_softmax(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 1));
+            size_t i(utilities::leading_particle_index(interaction, 1));
             return interaction.particles[i].pid_scores[0];
         }
     template<class T>
@@ -465,42 +465,42 @@ namespace vars::nue
     template<class T>
         double leading_electron_NuMI_angle(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 1));
+            size_t i(utilities::leading_particle_index(interaction, 1));
             double angle(NuMI_angle(interaction.particles[i]));
             return angle;
         }
     template<class T>
         double leading_proton_NuMI_angle(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 4));
+            size_t i(utilities::leading_particle_index(interaction, 4));
             double angle(NuMI_angle(interaction.particles[i]));
             return angle;
         }
     template<class T>
         double leading_electron_NuMI_polar_angle(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 1));
+            size_t i(utilities::leading_particle_index(interaction, 1));
             double angle(NuMI_polar_angle(interaction.particles[i]));
             return angle;
         }
     template<class T>
         double leading_proton_NuMI_polar_angle(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 4));
+            size_t i(utilities::leading_particle_index(interaction, 4));
             double angle(NuMI_polar_angle(interaction.particles[i]));
             return angle;
         }
     template<class T>
         double leading_electron_NuMI_azimuthal_angle(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 1));
+            size_t i(utilities::leading_particle_index(interaction, 1));
             double angle(NuMI_azimuthal_angle(interaction.particles[i]));
             return angle;
         }
     template<class T>
         double leading_proton_NuMI_azimuthal_angle(const T & interaction)
         {
-            size_t i(leading_particle_index(interaction, 4));
+            size_t i(utilities::leading_particle_index(interaction, 4));
             double angle(NuMI_azimuthal_angle(interaction.particles[i]));
             return angle;
         }

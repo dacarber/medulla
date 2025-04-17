@@ -160,10 +160,10 @@ namespace utilities_nue
 	//TVector3 beamdir(BEAMDIR);
 	  
 	// Initialize output variables
-	int primary_electrons_count(0);
-  int primary_electrons_count_thresh(0);
-  int primary_protons_count(0);
-  int primary_protons_count_thresh(0);
+	int primary_electron_count(0);
+  int primary_electron_count_thresh(0);
+  int primary_proton_count(0);
+  int primary_proton_count_thresh(0);
   bool is_fiducial(false);
   bool has_contained_tracks(false);
   bool is_neutrino(false);
@@ -287,10 +287,10 @@ namespace utilities_nue
       reco_inter reco_interaction_info(const T & obj)
       {
 	// Initialize structure
-      	int primary_electrons_count(0);
-  int primary_electrons_count_thresh(0);
-  int primary_protons_count(0);
-  int primary_protons_count_thresh(0);
+      	int primary_electron_count(0);
+  int primary_electron_count_thresh(0);
+  int primary_proton_count(0);
+  int primary_proton_count_thresh(0);
 	reco_inter s;
 	  
 	// Initialize relevant TVector3s
@@ -335,7 +335,7 @@ namespace utilities_nue
 		{
 		    max_electron_ke = p.ke;
 		    leading_electron_index = i;
-		    electron = p
+		    auto electron = p
 		}
 	    }
 
@@ -346,7 +346,7 @@ namespace utilities_nue
 				{
 				    max_proton_ke = p.ke;
 				    leading_proton_index = i;
-				    proton = p
+				    auto proton = p
 				}
 			} // end particle loop
 	  

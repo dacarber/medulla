@@ -57,6 +57,9 @@ category_types = ['histogram', 'histogram', 'histogram', 'histogram', 'scatter']
 file = 'configurations/common/samples.toml'
 choose = {'samples' = ['mc']}
 
+[[this_includes]]
+file = 'configurations/common/styles.toml'
+
 #[variables.true_neutrino_energy]
 #key = 'true_edep'
 #range = [0,6]

@@ -1,0 +1,50 @@
+[variables]
+
+[variables.reco_electron_energy]
+key = 'reco_electron_energy'
+range = [0,3000]
+nbins = 30
+xlabel = 'Reconstructed Electorn Energy [MeV]'
+
+[variables.reco_electron_pT_mag]
+key = 'reco_electron_pT_mag'
+range = [0,1000]
+nbins = 20
+xlabel = 'Reconstructed Electron Transverse Momentum [MeV/c]'
+
+[variables.reco_electron_conv_dist]
+key = 'reco_electron_conv_dist'
+range = [0,100]
+nbins = 25
+xlabel = 'Reconstructed Electron Conversion Distance [MeV]'
+
+[variables.reco_electron_axial_spread]
+key = 'reco_electron_axial_spread'
+range = [-1,1]
+nbins = 40
+xlabel = 'Reconstructed Eelctron Axial Spread'
+
+[variables.reco_electron_dir_spread]
+key = 'reco_electron_dir_spread'
+range = [0,1]
+nbins = 40
+xlabel = 'Reconstructed Electron Directional Spread'
+
+[variables.reco_electron_softmax]
+key = 'reco_electron_softmax'
+range = [0,1]
+nbins =	25
+xlabel = 'Reconstructed Electron Softmax'
+
+[variables.reco_electron_primary_score]
+key = 'reco_electron_primary_score'
+range = [0,1]
+nbins = 50
+xlabel = 'Reconstructed Electron Primary Score]'
+
+
+#[variables.true_neutrino_energy]
+#key = 'true_edep'
+#range = [0,6]
+#nbins = 30
+#xlabel = 'True Neutrino Energy [GeV]'

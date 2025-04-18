@@ -43,7 +43,7 @@ nbins = 50
 xlabel = 'Reconstructed Electron Primary Score]'
 
 [output]
-path = '/exp/icarus/app/users/dcarber/spine_analysis/'
+path = '/exp/icarus/app/users/dcarber/spine_analysis/plots'
 
 [analysis]
 ordinate_sample = 'mc'

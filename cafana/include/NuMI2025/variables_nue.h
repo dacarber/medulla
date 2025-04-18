@@ -72,46 +72,42 @@ namespace vars::nue
      * using only signal, neutrino background, and cosmic background as the
      * three categories.
      * 0: 1e1p (contained and fiducial)
-     * 1: 1e1p (not contained or not fiducial)
-     * 2: 1eNp (N > 1, contained and fiducial)
-     * 3: 1eNp (N > 1, not contained or fiducial)
+     * 1: 1eNp (contained or fiducial)
+     * 2: 1e (contained and fiducial)
+     * 3: 1e1piNp 
      * 4: 1eX (not 1eNp, contained and fiducial)
-     * 5: 1eX (not 1eNp, not contained or fiducial)
-     * 6: Other nu
-     * 7: cosmic
+     * 5: NC
+     * 6: Other nue
+     * 7: Numu CC
+     * 8: Unocntained
+     * 9: Cosmic
      * @param obj The interaction to apply the variable on.
      * @return the enumerated category of the interaction.
     */
     double category_topology(const caf::SRInteractionTruthDLPProxy & interaction)
     {   
-        double cat(7);
+        double cat(9);
         if(interaction.nu_id >= 0){
             std::vector<uint32_t> counts(utilities::count_primaries(interaction));
             if(counts[1] == 1 && counts[2] == 0)
                 {
-                    if(counts[0] == 0 && counts[3] == 0 && counts[4] == 1 && cuts::containment_cut(interaction)) cat = 0; //&& interaction.is_fiducial
-                            else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 1) cat = 8;
-                            else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 0) cat = 1;
-                            else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1 && cuts::containment_cut(interaction)) cat = 2; //&& interaction.is_fiducial
-                            else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1) cat = 8;
-                            else if(counts[0] == 0 && counts[3] == 1 && counts[4] == 1) cat = 3;
-                            else if(interaction.current_type == 0) cat = 4;
-                        }
-                        else if(interaction.current_type == 0 && counts[2] == 1) cat = 7;
-                        else if(interaction.current_type == 0 && interaction.pdg_code == 12) cat = 4;
-                        else if(interaction.current_type == 0 && interaction.pdg_code == 14) cat = 7;
-                        else if(interaction.current_type == 1) cat = 5;
+                    if(counts[0] == 0 && counts[3] == 0 && counts[4] == 1 && cuts::track_containment_cut(interaction) && interaction.is_fiducial) cat = 0; 
+                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 1) cat = 8;
+                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1 && cuts::containment_cut(interaction) && interaction.is_fiducial) cat = 1;
+                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1) cat = 8;
+                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 0) cat = 2;
+                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 0) cat = 2;
+                    else if(counts[0] == 0 && counts[3] == 1 && counts[4] > 0) cat = 3;
+                    else if(interaction.current_type == 0) cat = 4;
+                    else if(interaction.current_type == 1) cat = 5;
+                }
+                else if(interaction.current_type == 0 && counts[2] == 1) cat = 7;
+                else if(interaction.current_type == 1) cat = 5;
+                else if(interaction.current_type == 0 && interaction.pdg_code == 12) cat = 6;
+                else if(interaction.current_type == 0 && interaction.pdg_code == 14) cat = 7;
+                else if(interaction.current_type == 1) cat = 5;
 
         }
-        /*
-        if(cuts::nue::signal_1e1p(obj)) cat = 0;
-        else if(cuts::nue::nonsignal_1e1p(obj)) cat = 1;
-        else if(cuts::nue::signal_1eNp(obj)) cat = 2;
-        else if(cuts::nue::nonsignal_1eNp(obj)) cat = 3;
-        else if(cuts::nue::signal_1eX(obj)) cat = 4;
-        else if(cuts::nue::nonsignal_1eX(obj)) cat = 5;
-        else if(cuts::neutrino(obj)) cat = 6;
-        */
         return cat;
     }
     /**

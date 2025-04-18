@@ -61,9 +61,9 @@ choose = {'samples' = ['mc']}
 file = 'configurations/common/styles.toml'
 
 [[figure]]
-name = 'reco_visible_energy'
+name = 'reco_electron_energy'
 type = 'SimpleFigure'
-artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_visible_energy'},]
+artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_energy'},]
 style = 'selected_icarus'
 
 #[variables.true_neutrino_energy]

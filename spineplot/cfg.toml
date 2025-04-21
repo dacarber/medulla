@@ -83,3 +83,12 @@ style = 'selected_icarus'
 type = 'SpineSpectra1D'
 variable = 'reco_proton_softmax'
 draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+[[figure]]
+name = 'reco_dpT'
+type = 'SimpleFigure'
+artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_dpT'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'reco_dpT'
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}

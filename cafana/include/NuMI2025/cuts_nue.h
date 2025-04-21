@@ -31,6 +31,7 @@
  */
 namespace cuts::nue
 {
+    
     /**
      * @brief Apply a 1mu1p topological (final state) cut.
      * @details The interaction must have a topology matching 1mu1p as defined by

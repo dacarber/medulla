@@ -272,7 +272,7 @@ namespace vars::nue
         // pT = p - pL                                                                                                                                                                                                                                            
         //    = p-(p dot beamdir) * beamdir    
         size_t i(utilities::leading_particle_index(interaction, pid));  
-        part = interaction.particles[i]
+        part = interaction.particles[i];
         TVector3 p;
         TVector3 pL;
         TVector3 pT;

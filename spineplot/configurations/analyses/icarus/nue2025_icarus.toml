@@ -88,6 +88,7 @@ type = 'SpineSpectra1D'
 variable = 'reco_electron_energy'
 #yrange = [0, 120]
 draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true,}
+'''
 [[figure]]
 name = 'reco_electron_pT_mag'
 type = 'SimpleFigure'
@@ -178,7 +179,7 @@ type = 'SpineSpectra1D'
 variable = 'reco_proton_pion_softmax'
 #yrange = [0, 120]
 draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true,}
-
+'''
 #[variables.true_neutrino_energy]
 #key = 'true_edep'
 #range = [0,6]

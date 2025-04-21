@@ -16,7 +16,7 @@
 
 #include "include/particle_variables.h"
 #include "include/particle_cuts.h"
-
+#include "include/NuMI2025/cuts_nue.h"
 /**
  * @namespace utilities
  * @brief Namespace for organizing utility functions for supporting analysis

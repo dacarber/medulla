@@ -149,8 +149,8 @@ class SpineSpectra1D(SpineSpectra):
             self._plotdata[self._categories[category]] += h[0]
             self._binedges[self._categories[category]] = h[1]
 
-    def draw(self, ax, style, show_component_number=False,
-             show_component_percentage=False, invert_stack_order=False,
+    def draw(self, ax, style, show_component_number=True,
+             show_component_percentage=True, invert_stack_order=True,
              fit_type=None, logx=False, logy=False,
              draw_error=None) -> None:
         """

@@ -1,0 +1,34 @@
+
+[[this_includes]]
+file = 'configurations/analyses/icarus/nue2025_icarus.toml'
+
+[[this_includes]]
+file = 'configurations/common/styles.toml'
+
+[samples]
+[samples.mc]
+key = "mc"
+exposure_type = "pot"
+trees = ['SelectedNu_Cuts']
+
+[output]
+path = '/Users/danielcarber/Documents/ICARUS/NuMI_Nue/Plots'
+
+[analysis]
+ordinate_sample = 'mc'
+category_branch = 'category_topology'
+category_assignment = [[0,1], [2346], [5], [7],[8],[9], [-100]]
+category_labels = ['1eNp', 'Other CC $\nu$e', 'NC $\nu$', '$\nu\mu$ CC','Uncontained','Cosmic', 'Run 2 Data']
+category_colors = ['C0', 'C1', 'C3', 'C4', 'C5','C6','C2']
+category_types = ['histogram', 'histogram', 'histogram', 'histogram', 'histogram', 'histogram', 'scatter']
+
+
+[[figure]]
+name = 'reco_electron_energy'
+type = 'SimpleFigure'
+artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_energy'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'reco_electron_energy'
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}

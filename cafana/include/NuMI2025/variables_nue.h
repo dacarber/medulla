@@ -264,30 +264,31 @@ namespace vars::nue
         double pT0(0), pT1(0), pT2(0);
 
         // Loop over particles                                                                                                                                                                                                                                        
-        for(auto & part : interaction.particles)
-          {
+        //for(auto & part : interaction.particles)
+         // {
 
             //if(!part.is_primary or part.pid != 4 ) continue;
-            if (part.is_primary && (part.pid ==4 || part.pid == 1)){
-                // pT = p - pL                                                                                                                                                                                                                                            
-                //    = p-(p dot beamdir) * beamdir                                                                                                                                                                                                                         
-                TVector3 p;
-                TVector3 pL;
-                TVector3 pT;
+            //if (part.is_primary && pcuts::final_state_signal(part) &&(part.pid ==4 || part.pid == 1)){
+        // pT = p - pL                                                                                                                                                                                                                                            
+        //    = p-(p dot beamdir) * beamdir    
+        utilities::leading_particle_index(interaction, pid)                                                                                                                                                                                                                     
+        TVector3 p;
+        TVector3 pL;
+        TVector3 pT;
 
-                p.SetX(part.momentum[0]);
-                p.SetY(part.momentum[1]);
-                p.SetZ(part.momentum[2]);
+        p.SetX(part.momentum[0]);
+        p.SetY(part.momentum[1]);
+        p.SetZ(part.momentum[2]);
 
-                pL = p.Dot(beamdir) * beamdir;
-                pT = p - pL;
-                pT0 += pT[0];
-                pT1 += pT[1];
-                pT2 += pT[2];
-            }
+        pL = p.Dot(beamdir) * beamdir;
+        pT = p - pL;
+        pT0 += pT[0];
+        pT1 += pT[1];
+        pT2 += pT[2];
+            //}
 
                                                                                                                                                                                                                                           
-        }
+        //}
         TVector3 ppT(pT0,pT1,pT2);
         return ppT;
         }

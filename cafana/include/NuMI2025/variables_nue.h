@@ -107,7 +107,7 @@ namespace vars::nue
                 else if(interaction.current_type == 0 && interaction.pdg_code == 12) cat = 6;
                 else if(interaction.current_type == 0 && interaction.pdg_code == 14) cat = 7;
                 else if(interaction.current_type == 1) cat = 5;
-                else cat = 9
+                else cat = 9;
 
         }
         return cat;

@@ -271,7 +271,8 @@ namespace vars::nue
             //if (part.is_primary && pcuts::final_state_signal(part) &&(part.pid ==4 || part.pid == 1)){
         // pT = p - pL                                                                                                                                                                                                                                            
         //    = p-(p dot beamdir) * beamdir    
-        utilities::leading_particle_index(interaction, pid)                                                                                                                                                                                                                     
+        size_t i(utilities::leading_particle_index(interaction, pid));  
+        part = interaction.particles[i]
         TVector3 p;
         TVector3 pL;
         TVector3 pT;

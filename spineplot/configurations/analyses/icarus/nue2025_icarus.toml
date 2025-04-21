@@ -86,9 +86,7 @@ style = 'basic'
 [[figure.artists]]
 type = 'SpineSpectra1D'
 variable = 'reco_electron_energy'
-#yrange = [0, 120]
-draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true,}
-
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
 #[variables.true_neutrino_energy]
 #key = 'true_edep'
 #range = [0,6]

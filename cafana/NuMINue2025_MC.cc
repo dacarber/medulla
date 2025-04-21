@@ -176,7 +176,7 @@ int main()
     vars_purity_phase.insert({"baseline", SpineVar<MCTRUTH,RTYPE>(&mctruth::true_neutrino_baseline, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"category", SpineVar<TTYPE,RTYPE>(&vars::nue::category, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"category_topology", SpineVar<TTYPE,RTYPE>(&vars::nue::category_topology, &cuts::no_cut, &TCUT)});
-    vars_purity_phase.insert({"interaction_mode", SpineVar<MCTRUTH,RTYPE>(&mctruth::interaction_mode, &cuts::no_cut, &TCUT)});
+    //vars_purity_phase.insert({"interaction_mode", SpineVar<MCTRUTH,RTYPE>(&mctruth::interaction_mode, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_electron_energy", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_ke, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"true_electron_energy", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_electron_ke, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_electron_pT_mag", SpineVar<RTYPE,RTYPE>(&vars::nue::electron_transverse_momentum_mag, &cuts::no_cut, &TCUT)});

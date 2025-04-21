@@ -9,7 +9,7 @@ file = 'configurations/common/styles.toml'
 [samples.mc]
 key = "mc"
 exposure_type = "pot"
-trees = ['SelectedNu_Cuts']
+trees = ['SelectedNu_Cuts','SelectedCos_PhaseCuts']
 
 [output]
 path = '/Users/danielcarber/Documents/ICARUS/NuMI_Nue/Plots'
@@ -31,4 +31,55 @@ style = 'selected_icarus'
 [[figure.artists]]
 type = 'SpineSpectra1D'
 variable = 'reco_electron_energy'
+range = [70, 3000]
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+
+[[figure]]
+name = 'reco_electron_pT_mag'
+type = 'SimpleFigure'
+artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_pT_mag'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'reco_electron_pT_mag'
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+
+[[figure]]
+name = 'reco_electron_conv_dist'
+type = 'SimpleFigure'
+artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_conv_dist'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'reco_electron_conv_dist'
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+
+[[figure]]
+name = 'reco_electron_axial_spread'
+type = 'SimpleFigure'
+artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_axial_spread'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'reco_electron_axial_spread'
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+
+[[figure]]
+name = 'reco_electron_dir_spread'
+type = 'SimpleFigure'
+artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_dir_spread'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'reco_electron_dir_spread'
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+
+[[figure]]
+name = 'reco_proton_softmax'
+type = 'SimpleFigure'
+artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_proton_softmax'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'reco_proton_softmax'
 draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}

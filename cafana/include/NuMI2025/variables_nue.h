@@ -80,20 +80,21 @@ namespace vars::nue
      * 6: Other nue
      * 7: Numu CC
      * 8: Unocntained
-     * 9: Cosmic
+     * 9: Other
+     * 10: Cosmic
      * @param obj The interaction to apply the variable on.
      * @return the enumerated category of the interaction.
     */
     double category_topology(const caf::SRInteractionTruthDLPProxy & interaction)
     {   
-        double cat(9);
+        double cat(10);
         if(interaction.nu_id >= 0){
             std::vector<uint32_t> counts(utilities::count_primaries(interaction));
-            if(counts[1] == 1 && counts[2] == 0)
+            if(counts[1] == 1 && counts[2] == 0 && interaction.is_fiducial)
                 {
-                    if(counts[0] == 0 && counts[3] == 0 && counts[4] == 1 && cuts::track_containment_cut(interaction) && interaction.is_fiducial) cat = 0; 
+                    if(counts[0] == 0 && counts[3] == 0 && counts[4] == 1 && cuts::track_containment_cut(interaction)) cat = 0; 
                     else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 1) cat = 8;
-                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1 && cuts::track_containment_cut(interaction) && interaction.is_fiducial) cat = 1;
+                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1 && cuts::track_containment_cut(interaction)) cat = 1;
                     else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1) cat = 8;
                     else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 0) cat = 2;
                     else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 0) cat = 2;
@@ -106,6 +107,7 @@ namespace vars::nue
                 else if(interaction.current_type == 0 && interaction.pdg_code == 12) cat = 6;
                 else if(interaction.current_type == 0 && interaction.pdg_code == 14) cat = 7;
                 else if(interaction.current_type == 1) cat = 5;
+                else cat = 9
 
         }
         return cat;
@@ -389,7 +391,7 @@ namespace vars::nue
         double leading_electron_ke(const T & interaction)
         {
             size_t i(utilities::leading_particle_index(interaction, 1));
-            return interaction.particles[i].calo_ke;
+            return interaction.particles[i].ke;
         }
     template<class T>
         double leading_electron_vertex_distance(const T & interaction)

@@ -93,7 +93,7 @@ namespace vars::nue
                 {
                     if(counts[0] == 0 && counts[3] == 0 && counts[4] == 1 && cuts::track_containment_cut(interaction) && interaction.is_fiducial) cat = 0; 
                     else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 1) cat = 8;
-                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1 && cuts::containment_cut(interaction) && interaction.is_fiducial) cat = 1;
+                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1 && cuts::track_containment_cut(interaction) && interaction.is_fiducial) cat = 1;
                     else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1) cat = 8;
                     else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 0) cat = 2;
                     else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 0) cat = 2;

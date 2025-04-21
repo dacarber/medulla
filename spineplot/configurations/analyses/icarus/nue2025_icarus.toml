@@ -62,8 +62,8 @@ xlabel = "Reconstructed Proton's Pion Softmax"
 
 [variables.reco_dpT]
 key = 'reco_dpT'
-range = [0,2000]
-nbins =	20
+range = [0,1400]
+nbins =	27
 xlabel = "Reconstructed Delta PT"
 #[output]
 #path = '/exp/icarus/app/users/dcarber/spine_analysis/plots'

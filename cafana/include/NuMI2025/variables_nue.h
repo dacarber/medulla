@@ -101,6 +101,7 @@ namespace vars::nue
                     else if(counts[0] == 0 && counts[3] == 1 && counts[4] > 0) cat = 3;
                     else if(interaction.current_type == 0) cat = 4;
                     else if(interaction.current_type == 1) cat = 5;
+                    else cat =9;
                 }
                 else if(interaction.current_type == 0 && counts[2] == 1) cat = 7;
                 else if(interaction.current_type == 1) cat = 5;

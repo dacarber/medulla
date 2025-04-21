@@ -70,7 +70,7 @@ namespace utilities
             for(size_t i(0); i < obj.particles.size(); ++i)
             {
                 const auto & p = obj.particles[i];
-                double energy(p.csda_ke);
+                double energy(p.ke);
                 if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
                     energy = pvars::ke(p);
                 if(PIDFUNC(p) == pid && energy > leading_ke)

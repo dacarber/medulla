@@ -4,18 +4,18 @@
 key = 'reco_electron_energy'
 range = [0,3000]
 nbins = 15
-xlabel = 'Reconstructed Electorn Energy [MeV]'
+xlabel = 'Reconstructed Electron Energy [MeV]'
 
 [variables.reco_electron_pT_mag]
 key = 'reco_electron_pT_mag'
-range = [0,1000]
-nbins = 20
+range = [0,1400]
+nbins = 28
 xlabel = 'Reconstructed Electron Transverse Momentum [MeV/c]'
 
 [variables.reco_electron_conv_dist]
 key = 'reco_electron_conv_dist'
-range = [0,100]
-nbins = 100
+range = [0,10]
+nbins = 20
 xlabel = 'Reconstructed Electron Conversion Distance [MeV]'
 
 [variables.reco_electron_axial_spread]

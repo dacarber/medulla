@@ -82,7 +82,7 @@ file = 'configurations/common/styles.toml'
 name = 'reco_electron_energy'
 type = 'SimpleFigure'
 artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_energy'},]
-style = 'selected_icarus'
+style = 'basic'
 [[figure.artists]]
 type = 'SpineSpectra1D'
 variable = 'reco_electron_energy'

@@ -48,7 +48,7 @@ namespace cuts::nue
             size_t i(utilities::leading_particle_index(obj, 1));
             size_t p(utilities::leading_particle_index(obj, 4));
 
-            return obj.particles[i].axial_spread >0.02 && obj.particles[i].directional_spread < 0.24 && obj.particles[i].vertex_distance <7.5 && obj.particles[p].softmax[4] >0.6 && obj.particles[p].softmax[2] <0.04 && obj.particles[p].softmax[3] <0.24;
+            return obj.particles[i].axial_spread >0.02 && obj.particles[i].directional_spread < 0.24 && obj.particles[i].vertex_distance <7.5 && obj.particles[p].pid_scores[4] >0.6 && obj.particles[p].pid_scores[2] <0.04 && obj.particles[p].pid_scores[3] <0.24;
         }
     /**
      * @brief Apply a 1mu1p topological (final state) cut.

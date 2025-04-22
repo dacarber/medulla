@@ -42,7 +42,7 @@ int main()
     //ana::Analysis analysis("icarus_bnb_ccpi0_mc_08_april_2025");
     ana::Analysis analysis("testtest");
 
-    ana::SpectrumLoader mc("/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_CV_flat_caf_combo*.root");
+    ana::SpectrumLoader mc("/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_CV_flat_cafs/NuMI_CV_flat_caf_combo*.root");
     analysis.AddLoader("mc", &mc, true);
 
     // SBND

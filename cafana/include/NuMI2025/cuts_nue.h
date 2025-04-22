@@ -217,6 +217,7 @@ namespace cuts::nue
         bool quality_cuts(const T & obj) { 
             size_t i(utilities::leading_particle_index(obj, 1));
 
-            return obj.particles[i].axial_spread >0.02 }
+            return obj.particles[i].axial_spread >0.02;
+        }
 }
 #endif // CUTS_MUON2024_H

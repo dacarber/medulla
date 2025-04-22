@@ -60,7 +60,7 @@ int main()
      * by the Tree class to store the results of the analysis.
      */
     #define CUT cuts::nue::all_1eNp_cut
-    #define TCUT cuts::neutrino
+    #define TCUT cuts::no_cut
     std::map<std::string, ana::SpillMultiVar> vars_selected_nu_phase;
     vars_selected_nu_phase.insert({"nu_id", SpineVar<TTYPE,RTYPE>(&vars::neutrino_id, &CUT, &TCUT)});
     //vars_selected_nu_phase.insert({"CutType", SpineVar<RTYPE,RTYPE>(&vars::nue::cut_type, &CUT, &TCUT)}); // GUNDAM
@@ -71,11 +71,11 @@ int main()
     vars_selected_nu_phase.insert({"category_topology", SpineVar<TTYPE,RTYPE>(&vars::nue::category_topology, &CUT, &TCUT)});
     //vars_selected_nu_phase.insert({"interaction_mode", SpineVar<MCTRUTH,RTYPE>(&mctruth::interaction_mode, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_electron_energy", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_ke, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_electron_energy", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_electron_ke, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"true_electron_energy", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_electron_ke, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_electron_pT_mag", SpineVar<RTYPE,RTYPE>(&vars::nue::electron_transverse_momentum_mag, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_electron_pT_mag", SpineVar<TTYPE,RTYPE>(&vars::nue::electron_transverse_momentum_mag, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"true_electron_pT_mag", SpineVar<TTYPE,RTYPE>(&vars::nue::electron_transverse_momentum_mag, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_electron_NuMI_angle", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_NuMI_angle, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_electron_NuMI_angle", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_electron_NuMI_angle, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"true_electron_NuMI_angle", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_electron_NuMI_angle, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_electron_conv_dist", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_vertex_distance, &CUT, &TCUT)});   
     vars_selected_nu_phase.insert({"reco_electron_axial_spread", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_axial_spread, &CUT, &TCUT)});   
     vars_selected_nu_phase.insert({"reco_electron_dir_spread", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_directional_spread, &CUT, &TCUT)});
@@ -85,37 +85,37 @@ int main()
     vars_selected_nu_phase.insert({"reco_NuMI_polar", SpineVar<RTYPE,RTYPE>(&vars::nue::NuMI_polar_angle, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"true_NuMI_polar", SpineVar<TTYPE,RTYPE>(&vars::nue::NuMI_polar_angle, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_NuMI_azi", SpineVar<RTYPE,RTYPE>(&vars::nue::NuMI_azimuthal_angle, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_NuMI_azi", SpineVar<TTYPE,RTYPE>(&vars::nue::NuMI_azimuthal_angle, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"true_NuMI_azi", SpineVar<TTYPE,RTYPE>(&vars::nue::NuMI_azimuthal_angle, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_proton_energy", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_proton_ke, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_proton_energy", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_proton_ke, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"true_proton_energy", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_proton_ke, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_proton_pT_mag", SpineVar<RTYPE,RTYPE>(&vars::nue::proton_transverse_momentum_mag, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_proton_pT_mag", SpineVar<TTYPE,RTYPE>(&vars::nue::proton_transverse_momentum_mag, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"true_proton_pT_mag", SpineVar<TTYPE,RTYPE>(&vars::nue::proton_transverse_momentum_mag, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_proton_NuMI_angle", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_proton_NuMI_angle, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_proton_NuMI_angle", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_proton_NuMI_angle, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"true_proton_NuMI_angle", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_proton_NuMI_angle, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_proton_softmax", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_proton_softmax, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_proton_muon_softmax", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_proton_muon_softmax, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_proton_pion_softmax", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_proton_pion_softmax, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_proton_primary_score", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_proton_primary_score, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_dpT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_pT, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_dpT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_pT, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"true_dpT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_pT, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_dalphaT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_alphaT, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_dalphaT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_alphaT, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"true_dalphaT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_alphaT, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_dphiT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_phiT, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_dphiT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_phiT, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"true_dphiT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_phiT, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_opening_angle", SpineVar<RTYPE,RTYPE>(&vars::nue::opening_angle, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_opening_angle", SpineVar<TTYPE,RTYPE>(&vars::nue::opening_angle, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"true_opening_angle", SpineVar<TTYPE,RTYPE>(&vars::nue::opening_angle, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_visible_energy", SpineVar<RTYPE,RTYPE>(&vars::visible_energy, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_visible_energy", SpineVar<TTYPE,RTYPE>(&vars::visible_energy, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"true_visible_energy", SpineVar<TTYPE,RTYPE>(&vars::visible_energy, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_vertex_x", SpineVar<RTYPE,RTYPE>(&vars::vertex_x, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_vertex_x", SpineVar<TTYPE,RTYPE>(&vars::vertex_x, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"true_vertex_x", SpineVar<TTYPE,RTYPE>(&vars::vertex_x, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_vertex_y", SpineVar<RTYPE,RTYPE>(&vars::vertex_y, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_vertex_y", SpineVar<TTYPE,RTYPE>(&vars::vertex_y, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"true_vertex_y", SpineVar<TTYPE,RTYPE>(&vars::vertex_y, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_vertex_z", SpineVar<RTYPE,RTYPE>(&vars::vertex_z, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_vertex_z", SpineVar<TTYPE,RTYPE>(&vars::vertex_z, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"true_vertex_z", SpineVar<TTYPE,RTYPE>(&vars::vertex_z, &CUT, &TCUT)});
     analysis.AddTree("SelectedNu_Cuts", vars_selected_nu_phase, false);
 
     #undef TCUT
-    #define TCUT cuts::cosmic
+    #define TCUT cuts::no_cut
     std::map<std::string, ana::SpillMultiVar> vars_selected_cosmic_phase;
     vars_selected_cosmic_phase.insert({"nu_id", SpineVar<TTYPE,RTYPE>(&vars::neutrino_id, &CUT, &TCUT)});
     //vars_selected_cosmic_phase.insert({"CutType", SpineVar<RTYPE,RTYPE>(&vars::nue::cut_type, &CUT, &TCUT)}); // GUNDAM

@@ -108,7 +108,7 @@ namespace cuts::nue
      * @note This cut is intended to be used for the muon2024 analysis.
      */
     template<class T>
-        bool all_1eNp_cut(const T & obj) { return cuts::fiducial_cut<T>(obj) && cuts::track_containment_cut<T>(obj) && cuts::flash_cut<T>(obj) && topological_1eNp_cut<T>(obj); && quality_cuts<T>(obj) }
+        bool all_1eNp_cut(const T & obj) { return cuts::fiducial_cut<T>(obj) && cuts::track_containment_cut<T>(obj) && cuts::flash_cut<T>(obj) && topological_1eNp_cut<T>(obj) && quality_cuts<T>(obj); }
 
     /**
      * @brief Apply a fiducial volume, containment, flash time (BNB), and 1muX

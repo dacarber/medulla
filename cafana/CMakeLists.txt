@@ -76,4 +76,6 @@ target_link_libraries(spine_benchmark PRIVATE common)
 
 add_executable(nue_2025 NuMINue2025_MC.cc)
 target_link_libraries(nue_2025 PRIVATE common)
+add_executable(nue_data_2025 NuMINue2025_data.cc)
+target_link_libraries(nue_data_2025 PRIVATE common)
 

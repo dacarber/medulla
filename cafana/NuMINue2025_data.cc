@@ -14,7 +14,7 @@
 //#define PIDFUNC pvars::custom_pid
 #define PROTON_BINDING_ENERGY 30.9 // MeV
 #define BEAM_IS_NUMI true
-#define WRITE_PURITY_TREES true
+#define WRITE_PURITY_TREES false
 
 #include "include/mctruth.h"
 #include "include/variables.h"
@@ -40,9 +40,9 @@ int main()
     //ana::Analysis analysis("sbnd_ccpi0_mc_03_april_2025");
     //ana::Analysis analysis("sbnd_ccpi0_mc_03_april_2025");
     //ana::Analysis analysis("icarus_bnb_ccpi0_mc_08_april_2025");
-    ana::Analysis analysis("testtest");
+    ana::Analysis analysis("NuMI_data");
 
-    ana::SpectrumLoader mc("/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_data_flat_cafs/*.root");
+    ana::SpectrumLoader mc("/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_data_flat_cafs/NuMI_data*.root");
     analysis.AddLoader("onbeam", &onbeam, false);
 
     // SBND
@@ -66,10 +66,10 @@ int main()
     //vars_selected_nu_phase.insert({"CutType", SpineVar<RTYPE,RTYPE>(&vars::nue::cut_type, &CUT, &TCUT)}); // GUNDAM
     //vars_selected_nu_phase.insert({"IsSignal", SpineVar<TTYPE,RTYPE>(&vars::nue::is_signal_mc, &CUT, &TCUT)}); // GUNDAM
     //vars_selected_nu_phase.insert({"IsData", SpineVar<RTYPE,RTYPE>(&vars::nue::is_not_data, &CUT, &TCUT)}); // GUNDAM
-    vars_selected_nu_phase.insert({"baseline", SpineVar<MCTRUTH,RTYPE>(&mctruth::true_neutrino_baseline, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"baseline", SpineVar<MCTRUTH,RTYPE>(&mctruth::true_neutrino_baseline, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"category", SpineVar<TTYPE,RTYPE>(&vars::nue::category, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"category_topology", SpineVar<TTYPE,RTYPE>(&vars::nue::category_topology, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"interaction_mode", SpineVar<MCTRUTH,RTYPE>(&mctruth::interaction_mode, &CUT, &TCUT)});
+    //vars_selected_nu_phase.insert({"interaction_mode", SpineVar<MCTRUTH,RTYPE>(&mctruth::interaction_mode, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_electron_energy", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_ke, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"true_electron_energy", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_electron_ke, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_electron_pT_mag", SpineVar<RTYPE,RTYPE>(&vars::nue::electron_transverse_momentum_mag, &CUT, &TCUT)});
@@ -121,10 +121,10 @@ int main()
     //vars_selected_cosmic_phase.insert({"CutType", SpineVar<RTYPE,RTYPE>(&vars::nue::cut_type, &CUT, &TCUT)}); // GUNDAM
     //vars_selected_cosmic_phase.insert({"IsSignal", SpineVar<TTYPE,RTYPE>(&vars::ccpi0ana_phase::is_signal_mc, &CUT, &TCUT)}); // GUNDAM
     //vars_selected_cosmic_phase.insert({"IsData", SpineVar<RTYPE,RTYPE>(&vars::ccpi0ana_phase::is_not_data, &CUT, &TCUT)}); // GUNDAM
-    vars_selected_cosmic_phase.insert({"baseline", SpineVar<MCTRUTH,RTYPE>(&mctruth::true_neutrino_baseline, &CUT, &TCUT)});
+    //vars_selected_cosmic_phase.insert({"baseline", SpineVar<MCTRUTH,RTYPE>(&mctruth::true_neutrino_baseline, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"category", SpineVar<TTYPE,RTYPE>(&vars::nue::category, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"category_topology", SpineVar<TTYPE,RTYPE>(&vars::nue::category_topology, &CUT, &TCUT)});
-    vars_selected_cosmic_phase.insert({"interaction_mode", SpineVar<MCTRUTH,RTYPE>(&mctruth::interaction_mode, &CUT, &TCUT)});
+    //vars_selected_cosmic_phase.insert({"interaction_mode", SpineVar<MCTRUTH,RTYPE>(&mctruth::interaction_mode, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_electron_energy", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_ke, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"true_electron_energy", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_electron_ke, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_electron_pT_mag", SpineVar<RTYPE,RTYPE>(&vars::nue::electron_transverse_momentum_mag, &CUT, &TCUT)});
@@ -173,10 +173,10 @@ int main()
     #define TCUT cuts::no_cut
     std::map<std::string, ana::SpillMultiVar> vars_purity_phase;
     vars_purity_phase.insert({"nu_id", SpineVar<TTYPE,RTYPE>(&vars::neutrino_id, &CUT, &TCUT)});
-    vars_purity_phase.insert({"baseline", SpineVar<MCTRUTH,RTYPE>(&mctruth::true_neutrino_baseline, &CUT, &TCUT)});
+    //vars_purity_phase.insert({"baseline", SpineVar<MCTRUTH,RTYPE>(&mctruth::true_neutrino_baseline, &CUT, &TCUT)});
     vars_purity_phase.insert({"category", SpineVar<TTYPE,RTYPE>(&vars::nue::category, &CUT, &TCUT)});
     vars_purity_phase.insert({"category_topology", SpineVar<TTYPE,RTYPE>(&vars::nue::category_topology, &CUT, &TCUT)});
-    vars_purity_phase.insert({"interaction_mode", SpineVar<MCTRUTH,RTYPE>(&mctruth::interaction_mode, &CUT, &TCUT)});
+    //vars_purity_phase.insert({"interaction_mode", SpineVar<MCTRUTH,RTYPE>(&mctruth::interaction_mode, &CUT, &TCUT)});
     vars_purity_phase.insert({"reco_electron_energy", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_ke, &CUT, &TCUT)});
     vars_purity_phase.insert({"true_electron_energy", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_electron_ke, &CUT, &TCUT)});
     vars_purity_phase.insert({"reco_electron_pT_mag", SpineVar<RTYPE,RTYPE>(&vars::nue::electron_transverse_momentum_mag, &CUT, &TCUT)});

@@ -258,8 +258,8 @@ namespace vars::nue
         dir_vector[0] = dir_vector[0]/r;
         dir_vector[1] = dir_vector[1]/r;
         dir_vector[2] = dir_vector[2]/r;                                                                                                                                                                                              
-        TVector3 beamdir(dir_vector[0], dir_vector[1], dir_vector[2]); // NuMI                                                                                                                                                                                                 
-
+        //TVector3 beamdir(dir_vector[0], dir_vector[1], dir_vector[2]); // NuMI                                                                                                                                                                                                 
+        TVector3 beamdir(0.39431672, 0.04210058, 0.91800973);
         // Output                                                                                                                                                                                                                                                     
         double pT0(0), pT1(0), pT2(0);
 

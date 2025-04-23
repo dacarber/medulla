@@ -248,10 +248,10 @@ int main()
     vars_signal_phase.insert({"reco_proton_softmax", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_proton_softmax, &cuts::no_cut , &SIGCUT)});
     vars_signal_phase.insert({"reco_proton_muon_softmax", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_proton_muon_softmax, &cuts::no_cut , &SIGCUT)});
     vars_signal_phase.insert({"reco_proton_pion_softmax", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_proton_pion_softmax, &cuts::no_cut , &SIGCUT)});
-    vars_signal_phase.insert({"flash_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::flash_cut), &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"fiducial_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::fiducial_cut), &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"track_containment_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::track_containment_cut), &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"all_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::nue::all_1eNp_cut), &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"flash_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::flash_cut), &cuts::no_cut, &SIGCUT)});
+    vars_signal_phase.insert({"fiducial_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::fiducial_cut), &cuts::no_cut, &SIGCUT)});
+    vars_signal_phase.insert({"track_containment_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::track_containment_cut), &cuts::no_cut, &SIGCUT)});
+    vars_signal_phase.insert({"all_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::nue::all_1eNp_cut), &cuts::no_cut, &SIGCUT)});
     
     analysis.AddTree("Efficiency_PhaseCuts", vars_signal_phase, true);
     

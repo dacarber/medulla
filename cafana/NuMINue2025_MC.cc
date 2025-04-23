@@ -14,7 +14,7 @@
 //#define PIDFUNC pvars::custom_pid
 #define PROTON_BINDING_ENERGY 30.9 // MeV
 #define BEAM_IS_NUMI true
-#define WRITE_PURITY_TREES 
+#define WRITE_PURITY_TREES false
 
 #include "include/mctruth.h"
 #include "include/variables.h"

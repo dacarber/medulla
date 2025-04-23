@@ -178,7 +178,6 @@ namespace cuts::nue
      * @note This cut is intended to be used for the muon2024 analysis for
      * defining the signal.
      */
-    template<class T>
     bool signal_1eNp(const caf::SRInteractionTruthDLPProxy & obj) { return cuts::neutrino(obj) && cuts::fiducial_cut(obj) && cuts::track_containment_cut(obj) && topological_1eNp_cut(obj); }
 
     /**

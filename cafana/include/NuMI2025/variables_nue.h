@@ -56,13 +56,6 @@ namespace vars::nue
     double category(const caf::SRInteractionTruthDLPProxy & obj)
     {
         double cat(7);
-        if(cuts::nue::signal_1e1p(obj)) cat = 0;
-        else if(cuts::nue::nonsignal_1e1p(obj)) cat = 1;
-        else if(cuts::nue::signal_1eNp(obj)) cat = 2;
-        else if(cuts::nue::nonsignal_1eNp(obj)) cat = 3;
-        else if(cuts::nue::signal_1eX(obj)) cat = 4;
-        else if(cuts::nue::nonsignal_1eX(obj)) cat = 5;
-        else if(cuts::neutrino(obj)) cat = 6;
         return cat;
     }
 

@@ -242,7 +242,7 @@ int main()
     vars_signal_phase.insert({"true_electron_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_electron_ke, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_electrom_pT_mag", SpineVar<TTYPE,TTYPE>(&vars::nue::electron_transverse_momentum_mag, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_proton_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_proton_ke, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"reco_electron_conv_dist", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_conv_dist, &cuts::no_cut , &SIGCUT)});
+    vars_signal_phase.insert({"reco_electron_conv_dist", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_vertex_distance, &cuts::no_cut , &SIGCUT)});
     vars_signal_phase.insert({"reco_electron_axial_spread", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_axial_spread, &cuts::no_cut , &SIGCUT)});
     vars_signal_phase.insert({"reco_electron_dir_spread", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_directional_spread, &cuts::no_cut , &SIGCUT)});
     vars_signal_phase.insert({"reco_proton_softmax", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_proton_softmax, &cuts::no_cut , &SIGCUT)});

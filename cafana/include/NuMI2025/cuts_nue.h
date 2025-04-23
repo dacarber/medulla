@@ -126,7 +126,7 @@ namespace cuts::nue
      * @note This cut is intended to be used for the muon2024 analysis.
      */
     template<class T>
-        bool all_1eNp_cut(const T & obj) { return cuts::fiducial_cut<T>(obj) && cuts::track_containment_cut<T>(obj) && cuts::flash_cut<T>(obj) && topological_1eNp_cut<T>(obj) ; }//&& quality_cuts<T>(obj)
+        bool all_1eNp_cut(const T & obj) { return cuts::fiducial_cut<T>(obj) && cuts::track_containment_cut<T>(obj) && cuts::flash_cut<T>(obj) && topological_1eNp_cut<T>(obj) ; }
 
     /**
      * @brief Apply a fiducial volume, containment, flash time (BNB), and 1muX
@@ -141,7 +141,7 @@ namespace cuts::nue
      * @note This cut is intended to be used for the muon2024 analysis.
      */
     template<class T>
-        bool all_1eX_cut(const T & obj) { return cuts::fiducial_cut<T>(obj) && cuts::track_containment_cut<T>(obj) && cuts::flash_cut<T>(obj) && topological_1eX_cut<T>(obj); }
+        bool all_1eX_cut(const T & obj) { return cuts::fiducial_cut<T>(obj) && cuts::track_containment_cut<T>(obj) && cuts::flash_cut<T>(obj) && topological_1eX_cut<T>(obj); }//quality_cuts<T>(obj)
 
     /**
      * @brief Apply a cut to select the 1mu1p signal.
@@ -179,7 +179,7 @@ namespace cuts::nue
      * defining the signal.
      */
     template<class T>
-        bool signal_1eNp(const caf::SRInteractionTruthDLPProxy & obj) { return cuts::neutrino(obj) && cuts::fiducial_cut(obj) && cuts::track_containment_cut(obj) && topological_1eNp_cut(obj); }
+    bool signal_1eNp(const caf::SRInteractionTruthDLPProxy & obj) { return cuts::neutrino<T>(obj) && cuts::fiducial_cut<T>(obj) && cuts::track_containment_cut<T>(obj) && topological_1eNp_cut<T>(obj); }
 
     /**
      * @brief Apply a cut to select the 1muNp non-signal.

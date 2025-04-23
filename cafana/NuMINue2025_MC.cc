@@ -227,7 +227,7 @@ int main()
     #define SIGCUT cuts::nue::signal_1eNp
     std::map<std::string, ana::SpillMultiVar> vars_signal_phase;
     
-    vars_signal_phase.insert({"nu_id", SpineVar<TTYPE,TTYPE>(&vars::neutrino_id, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"nu_id", SpineVar<TTYPE,TTYPE>(&vars::neutrino_id, &cuts::no_cut, &SIGCUT)});
     //vars_signal_phase.insert({"CutType", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::cut_type, &SIGCUT, &SIGCUT)}); // GUNDAM
     //vars_signal_phase.insert({"IsSignal", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::is_signal_mc, &SIGCUT, &SIGCUT)}); // GUNDAM
     //vars_signal_phase.insert({"IsData", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::is_not_data, &SIGCUT, &SIGCUT)}); // GUNDAM
@@ -238,11 +238,11 @@ int main()
     //vars_signal_phase.insert({"interaction_type", SpineVar<MCTRUTH,TTYPE>(&mctruth::interaction_type, &SIGCUT, &SIGCUT)});
     //vars_signal_phase.insert({"true_energy", SpineVar<MCTRUTH,TTYPE>(&mctruth::true_neutrino_energy, &SIGCUT, &SIGCUT)});
     //vars_signal_phase.insert({"category", SpineVar<TTYPE,TTYPE>(&vars::nue::category, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"category_topology", SpineVar<TTYPE,TTYPE>(&vars::nue::category_topology, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"true_electron_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_electron_ke, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"reco_electron_energy", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_ke, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"true_electrom_pT_mag", SpineVar<TTYPE,TTYPE>(&vars::nue::electron_transverse_momentum_mag, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"true_proton_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_proton_ke, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"category_topology", SpineVar<TTYPE,TTYPE>(&vars::nue::category_topology, &cuts::no_cut, &SIGCUT)});
+    vars_signal_phase.insert({"true_electron_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_electron_ke, &cuts::no_cut, &SIGCUT)});
+    vars_signal_phase.insert({"reco_electron_energy", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_ke, &cuts::no_cut, &SIGCUT)});
+    vars_signal_phase.insert({"true_electrom_pT_mag", SpineVar<TTYPE,TTYPE>(&vars::nue::electron_transverse_momentum_mag, &cuts::no_cut, &SIGCUT)});
+    vars_signal_phase.insert({"true_proton_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_proton_ke, &cuts::no_cut, &SIGCUT)});
     vars_signal_phase.insert({"reco_electron_conv_dist", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_vertex_distance, &cuts::no_cut , &SIGCUT)});
     vars_signal_phase.insert({"reco_electron_axial_spread", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_axial_spread, &cuts::no_cut , &SIGCUT)});
     vars_signal_phase.insert({"reco_electron_dir_spread", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_directional_spread, &cuts::no_cut , &SIGCUT)});

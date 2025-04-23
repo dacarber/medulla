@@ -14,7 +14,7 @@
 //#define PIDFUNC pvars::custom_pid
 #define PROTON_BINDING_ENERGY 30.9 // MeV
 #define BEAM_IS_NUMI true
-#define WRITE_PURITY_TREES false
+#define WRITE_PURITY_TREES true
 
 #include "include/mctruth.h"
 #include "include/variables.h"
@@ -223,7 +223,7 @@ int main()
     if constexpr(WRITE_PURITY_TREES)
 		  analysis.AddTree("Purity_PhaseCuts", vars_purity_phase, false);
     //analysis.AddTree("Purity_PhaseCuts", vars_purity_phase, true);
-    /*
+    
     #define SIGCUT cuts::nue::signal_1eNp
     std::map<std::string, ana::SpillMultiVar> vars_signal_phase;
     
@@ -237,34 +237,25 @@ int main()
     //vars_signal_phase.insert({"interaction_mode", SpineVar<MCTRUTH,TTYPE>(&mctruth::interaction_mode, &SIGCUT, &SIGCUT)});
     //vars_signal_phase.insert({"interaction_type", SpineVar<MCTRUTH,TTYPE>(&mctruth::interaction_type, &SIGCUT, &SIGCUT)});
     //vars_signal_phase.insert({"true_energy", SpineVar<MCTRUTH,TTYPE>(&mctruth::true_neutrino_energy, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"category", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::category, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"category_topology", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::category_topology, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"category", SpineVar<TTYPE,TTYPE>(&vars::nue::category, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"category_topology", SpineVar<TTYPE,TTYPE>(&vars::nue::category_topology, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_electron_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_electron_ke, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_electrom_pT_mag", SpineVar<TTYPE,TTYPE>(&vars::nue::electron_transverse_momentum_mag, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_proton_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_proton_ke, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"reco_electron_conv_dist", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::pi0_leading_photon_conv_dist, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"true_pi0_subleading_photon_energy", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::pi0_subleading_photon_energy, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"true_pi0_subleading_photon_conv_dist", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::pi0_subleading_photon_conv_dist, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"true_pi0_momentum_mag", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::pi0_momentum_mag, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"true_pi0_beam_costheta", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::pi0_beam_costheta, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"true_pi0_photons_costheta", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::pi0_mass, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"true_pi0_mass", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::pi0_mass, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"reco_electron_conv_dist", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_conv_dist, &cuts::no_cut , &SIGCUT)});
+    vars_signal_phase.insert({"reco_electron_axial_spread", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_axial_spread, &cuts::no_cut , &SIGCUT)});
+    vars_signal_phase.insert({"reco_electron_dir_spread", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_directional_spread, &cuts::no_cut , &SIGCUT)});
+    vars_signal_phase.insert({"reco_proton_softmax", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_proton_softmax, &cuts::no_cut , &SIGCUT)});
+    vars_signal_phase.insert({"reco_proton_muon_softmax", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_proton_muon_softmax, &cuts::no_cut , &SIGCUT)});
+    vars_signal_phase.insert({"reco_proton_pion_softmax", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_proton_pion_softmax, &cuts::no_cut , &SIGCUT)});
     vars_signal_phase.insert({"flash_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::flash_cut), &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"fiducial_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::fiducial_cut), &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"track_containment_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::track_containment_cut), &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"one_muon_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::ccpi0ana_phase::one_muon_cut), &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"zero_charged_pions_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::ccpi0ana_phase::zero_charged_pions_cut), &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"two_or_three_photons_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::ccpi0ana_phase::two_or_three_photons_cut), &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"topology_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::ccpi0ana_phase::topological_1mu0pi2gamma_cut), &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"pi0_mass_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::ccpi0ana_phase::pi0_mass_cut), &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"true_vertex_x", SpineVar<TTYPE,TTYPE>(&vars::vertex_x, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"true_vertex_y", SpineVar<TTYPE,TTYPE>(&vars::vertex_y, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"true_vertex_z", SpineVar<TTYPE,TTYPE>(&vars::vertex_z, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"all_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::ccpi0ana_phase::all_1mu0pi2gamma_cut), &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"all_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::nue::all_1eNp_cut), &SIGCUT, &SIGCUT)});
     
-    analysis.AddTree("Signal_PhaseCuts", vars_signal_phase, true);
+    analysis.AddTree("Efficiency_PhaseCuts", vars_signal_phase, true);
     
-    */
+    
     /**
      * @brief Run the analysis.
      * @details This runs the analysis on the samples specified by the

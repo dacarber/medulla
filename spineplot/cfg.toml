@@ -11,12 +11,12 @@ file = 'configurations/common/styles.toml'
 #exposure_type = "pot"
 #override_category = -100
 #trees = ['SelectedNu_Cuts',]
-#presel = "reco_electron_axial_spread > 0.2"
+
 [samples.mc]
 key = "mc"
 exposure_type = "pot"
 trees = ['SelectedNu_Cuts','SelectedCos_PhaseCuts']
-#presel = "reco_electron_axial_spread > 0.2"
+
 
 [output]
 path = '/Users/danielcarber/Documents/ICARUS/NuMI_Nue/Plots'

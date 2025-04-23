@@ -8,8 +8,8 @@ xlabel = 'Reconstructed Electron Energy [MeV]'
 
 [variables.reco_electron_pT_mag]
 key = 'reco_electron_pT_mag'
-range = [0,1400]
-nbins = 28
+range = [0,2000]
+nbins = 25
 xlabel = 'Reconstructed Electron Transverse Momentum [MeV/c]'
 
 [variables.reco_electron_conv_dist]
@@ -21,7 +21,7 @@ xlabel = 'Reconstructed Electron Conversion Distance [MeV]'
 [variables.reco_electron_axial_spread]
 key = 'reco_electron_axial_spread'
 range = [-1,1]
-nbins = 40
+nbins = 32
 xlabel = 'Reconstructed Eelctron Axial Spread'
 
 [variables.reco_electron_dir_spread]
@@ -62,8 +62,8 @@ xlabel = "Reconstructed Proton's Pion Softmax"
 
 [variables.reco_dpT]
 key = 'reco_dpT'
-range = [0,1400]
-nbins =	27
+range = [0,2000]
+nbins =	25
 xlabel = "Reconstructed Delta PT"
 #[output]
 #path = '/exp/icarus/app/users/dcarber/spine_analysis/plots'

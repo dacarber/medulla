@@ -14,7 +14,7 @@
 //#define PIDFUNC pvars::custom_pid
 #define PROTON_BINDING_ENERGY 30.9 // MeV
 #define BEAM_IS_NUMI true
-#define WRITE_PURITY_TREES true
+#define WRITE_PURITY_TREES 
 
 #include "include/mctruth.h"
 #include "include/variables.h"
@@ -224,7 +224,7 @@ int main()
 		  analysis.AddTree("Purity_PhaseCuts", vars_purity_phase, false);
     //analysis.AddTree("Purity_PhaseCuts", vars_purity_phase, true);
     
-    #define SIGCUT cuts::nue::all_1eNp_cut
+    #define SIGCUT cuts::nue::signal_1eNp
     std::map<std::string, ana::SpillMultiVar> vars_signal_phase;
     
     vars_signal_phase.insert({"nu_id", SpineVar<TTYPE,TTYPE>(&vars::neutrino_id, &SIGCUT, &SIGCUT)});
@@ -240,6 +240,7 @@ int main()
     vars_signal_phase.insert({"category", SpineVar<TTYPE,TTYPE>(&vars::nue::category, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"category_topology", SpineVar<TTYPE,TTYPE>(&vars::nue::category_topology, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_electron_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_electron_ke, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"reco_electron_energy", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_ke, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_electrom_pT_mag", SpineVar<TTYPE,TTYPE>(&vars::nue::electron_transverse_momentum_mag, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_proton_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_proton_ke, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"reco_electron_conv_dist", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_vertex_distance, &cuts::no_cut , &SIGCUT)});

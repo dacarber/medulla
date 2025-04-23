@@ -224,7 +224,7 @@ int main()
 		  analysis.AddTree("Purity_PhaseCuts", vars_purity_phase, false);
     //analysis.AddTree("Purity_PhaseCuts", vars_purity_phase, true);
     
-    #define SIGCUT cuts::nue::signal_1eNp
+    #define SIGCUT cuts::nue::signal_1eNp_cut
     std::map<std::string, ana::SpillMultiVar> vars_signal_phase;
     
     vars_signal_phase.insert({"nu_id", SpineVar<TTYPE,TTYPE>(&vars::neutrino_id, &SIGCUT, &SIGCUT)});
@@ -251,7 +251,7 @@ int main()
     vars_signal_phase.insert({"flash_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::flash_cut), &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"fiducial_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::fiducial_cut), &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"track_containment_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::track_containment_cut), &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"all_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::nue::all_1eNp), &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"all_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::nue::all_1eNp_cut), &SIGCUT, &SIGCUT)});
     
     analysis.AddTree("Efficiency_PhaseCuts", vars_signal_phase, false);
     

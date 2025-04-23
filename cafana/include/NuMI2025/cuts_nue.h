@@ -179,7 +179,7 @@ namespace cuts::nue
      * defining the signal.
      */
     template<class T>
-    bool signal_1eNp(const caf::SRInteractionTruthDLPProxy & obj) { return cuts::neutrino<T>(obj) && cuts::fiducial_cut<T>(obj) && cuts::track_containment_cut<T>(obj) && topological_1eNp_cut<T>(obj); }
+    bool signal_1eNp(const caf::SRInteractionTruthDLPProxy & obj) { return cuts::neutrino(obj) && cuts::fiducial_cut<T>(obj) && cuts::track_containment_cut<T>(obj) && topological_1eNp_cut<T>(obj); }
 
     /**
      * @brief Apply a cut to select the 1muNp non-signal.

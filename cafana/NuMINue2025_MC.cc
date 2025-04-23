@@ -228,9 +228,9 @@ int main()
     std::map<std::string, ana::SpillMultiVar> vars_signal_phase;
     
     vars_signal_phase.insert({"nu_id", SpineVar<TTYPE,TTYPE>(&vars::neutrino_id, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"CutType", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::cut_type, &SIGCUT, &SIGCUT)}); // GUNDAM
-    vars_signal_phase.insert({"IsSignal", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::is_signal_mc, &SIGCUT, &SIGCUT)}); // GUNDAM
-    vars_signal_phase.insert({"IsData", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::is_not_data, &SIGCUT, &SIGCUT)}); // GUNDAM
+    //vars_signal_phase.insert({"CutType", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::cut_type, &SIGCUT, &SIGCUT)}); // GUNDAM
+    //vars_signal_phase.insert({"IsSignal", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::is_signal_mc, &SIGCUT, &SIGCUT)}); // GUNDAM
+    //vars_signal_phase.insert({"IsData", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::is_not_data, &SIGCUT, &SIGCUT)}); // GUNDAM
     //vars_signal_phase.insert({"baseline", SpineVar<MCTRUTH,TTYPE>(&mctruth::true_neutrino_baseline, &SIGCUT, &SIGCUT)});
     //vars_signal_phase.insert({"pdg", SpineVar<MCTRUTH,TTYPE>(&mctruth::true_neutrino_pdg, &SIGCUT, &SIGCUT)});
     //vars_signal_phase.insert({"cc", SpineVar<MCTRUTH,TTYPE>(&mctruth::true_neutrino_cc, &SIGCUT, &SIGCUT)});

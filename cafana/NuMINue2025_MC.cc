@@ -223,7 +223,7 @@ int main()
     if constexpr(WRITE_PURITY_TREES)
 		  analysis.AddTree("Purity_PhaseCuts", vars_purity_phase, false);
     //analysis.AddTree("Purity_PhaseCuts", vars_purity_phase, true);
-    
+    /*
     #define SIGCUT cuts::nue::signal_1eNp
     std::map<std::string, ana::SpillMultiVar> vars_signal_phase;
     
@@ -255,7 +255,7 @@ int main()
     
     analysis.AddTree("Efficiency_PhaseCuts", vars_signal_phase, false);
     
-    
+    */
     /**
      * @brief Run the analysis.
      * @details This runs the analysis on the samples specified by the

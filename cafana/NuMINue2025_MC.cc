@@ -224,7 +224,7 @@ int main()
 		  analysis.AddTree("Purity_PhaseCuts", vars_purity_phase, false);
     //analysis.AddTree("Purity_PhaseCuts", vars_purity_phase, true);
     
-    #define SIGCUT cuts::nue::all_1eNp_cut
+    #define SIGCUT cuts::nue::signal_1eNp
     std::map<std::string, ana::SpillMultiVar> vars_signal_phase;
     
     vars_signal_phase.insert({"nu_id", SpineVar<TTYPE,TTYPE>(&vars::neutrino_id, &SIGCUT, &SIGCUT)});

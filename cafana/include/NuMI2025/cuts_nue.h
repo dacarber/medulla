@@ -17,6 +17,7 @@
 
 #include "include/utilities.h"
 #include "include/cuts.h"
+#include "include/NuMI2025/utilities_nue.h"
 
 /**
  * @namespace cuts::muon2024

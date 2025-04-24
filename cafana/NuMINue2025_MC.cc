@@ -180,7 +180,7 @@ int main()
     vars_purity_phase.insert({"flash_cut", SpineVar<RTYPE,RTYPE>(WRAP_BOOL(cuts::flash_cut), &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"fiducial_cut", SpineVar<RTYPE,RTYPE>(WRAP_BOOL(cuts::fiducial_cut), &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"track_containment_cut", SpineVar<RTYPE,RTYPE>(WRAP_BOOL(cuts::track_containment_cut), &cuts::no_cut, &TCUT)});
-    vars_purity_phase.insert({"all_1eNp_cut", SpineVar<RTYPE,RTYPE>(WRAP_BOOL(cuts::nue::all_1eNp_cut), &SIGCUT, &SIGCUT)});
+    vars_purity_phase.insert({"all_1eNp_cut", SpineVar<RTYPE,RTYPE>(WRAP_BOOL(cuts::nue::all_1eNp_cut), &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_electron_energy", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_ke, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"true_electron_energy", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_electron_ke, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_electron_pT_mag", SpineVar<RTYPE,RTYPE>(&vars::nue::electron_transverse_momentum_mag, &cuts::no_cut, &TCUT)});

@@ -402,5 +402,6 @@ namespace utilities_nue
 	return s;
       }
 
+	}
 }
 #endif // UTILITIES_NUE_H

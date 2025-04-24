@@ -43,16 +43,7 @@ struct truth_inter {
   bool is_neutrino;
   bool is_cc;
   double leading_electron_energy;
-  double leading_electron_conv_dist;
-  double leading_electron_axial_spread;
-  double leading_electron_dir_spread;
-  double leading_electron_softmax;
-  double leading_electron_primary;
   double leading_proton_energy;
-  double leading_proton_softmax;
-  double leading_proton_muon_softmax;
-  double leading_proton_pion_softmax;
-  double leading_proton_primary;
 
 };
 
@@ -181,16 +172,7 @@ namespace utilities_nue
   bool is_cc(false);
   double transverse_momentum_mag;
   double leading_electron_energy;
-  double leading_electron_conv_dist;
-  double leading_electron_axial_spread;
-  double leading_electron_dir_spread;
-  double leading_electron_softmax;
-  double leading_electron_primary;
   double leading_proton_energy;
-  double leading_proton_softmax;
-  double leading_proton_muon_softmax;
-  double leading_proton_pion_softmax;
-  double leading_proton_primary;
   double pT0(0), pT1(0), pT2(0);
 	// Particle loop
 	size_t leading_electron_index(0);
@@ -259,30 +241,12 @@ namespace utilities_nue
 
 	  s.leading_electron_energy = leading_electron_energy;
 	  s.leading_proton_energy = (proton.ke);
-	  s.leading_electron_conv_dist = (electron.vertex_distance);
-	  s.leading_electron_axial_spread =  (electron.axial_spread);
-	  s.leading_electron_dir_spread =  (electron.directional_spread);
-	  s.leading_electron_softmax=  (electron.pid_scores[0]);
-	  s.leading_electron_primary =  (electron.primary_scores[1]);
-	  s.leading_proton_softmax =  (proton.pid_scores[4]);
-	  s.leading_proton_muon_softmax =  (proton.pid_scores[2]);
-	  s.leading_proton_pion_softmax =  (proton.pid_scores[3]);
-	  s.leading_proton_primary =  (proton.primary_scores[1]);
 	        
 	} // end signal 
 	else
 	{
 		s.leading_electron_energy = -5;
 	  s.leading_proton_energy = -5;
-	  s.leading_electron_conv_dist = -5;
-	  s.leading_electron_axial_spread =  -5;
-	  s.leading_electron_dir_spread =  -5;
-	  s.leading_electron_softmax=  -5;
-	  s.leading_electron_primary =  -5;
-	  s.leading_proton_softmax =  -5;
-	  s.leading_proton_muon_softmax =  -5;
-	  s.leading_proton_pion_softmax =  -5;
-	  s.leading_proton_primary = -5;
 	  
 	}
 	

@@ -16,8 +16,9 @@
 #include <algorithm>
 
 #include "include/utilities.h"
-#include "include/cuts.h"
 #include "include/NuMI2025/utilities_nue.h"
+#include "include/cuts.h"
+
 
 /**
  * @namespace cuts::muon2024
@@ -117,7 +118,7 @@ namespace cuts::nue
      * @note This cut is intended to be used for the muon2024 analysis.
      */
     template<class T>
-        bool all_1e1p_cut(const T & obj) { return cuts::fiducial_cut<T>(obj) && cuts::track_containment_cut<T>(obj) && cuts::flash_cut<T>(obj) && topological_1e1p_cut<T>(obj); }
+        bool all_1e1p_cut(const T & obj) { return ::cuts::fiducial_cut<T>(obj) && cuts::track_containment_cut<T>(obj) && cuts::flash_cut<T>(obj) && topological_1e1p_cut<T>(obj); }
 
     /**
      * @brief Apply a fiducial volume, containment, flash time (BNB), and 1muNp

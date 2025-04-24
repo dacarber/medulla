@@ -31,7 +31,7 @@
  * @note The namespace is intended to be used in conjunction with the cuts
  * namespace, which is used for organizing generic cuts which act on interactions.
  */
-namespace cut::nue
+namespace cuts::nue
 {
     /**
      * @brief Apply a fiducial volume, containment, flash time (BNB), and 1muNp

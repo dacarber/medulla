@@ -249,7 +249,7 @@ namespace utilities::nue
 	
 	
 	// Obtain info about signal particles, if they exist
-	if(primary_electron_count_thresh == 1 && primary_proton_count_thresh == 1 && obj.current_type == 0 && cuts::fiducial_cut<T>(obj))
+	if(primary_electron_count_thresh == 1 && primary_proton_count_thresh == 1 && obj.current_type == 0 && obj.is_fiducial)
 	{      
 	  // Get leading muon info
 	  const auto & electron = obj.particles[leading_electron_index];
@@ -297,7 +297,7 @@ namespace utilities::nue
 	s.num_primary_pions = primary_pion_count;
 	s.num_primary_pions_thresh = primary_pion_count_thresh;
 	s.transverse_momentum_mag = sqrt(pow(pT0, 2) + pow(pT1, 2) + pow(pT2, 2));
-	s.is_fiducial = cuts::fiducial_cut<T>(obj);
+	s.is_fiducial = obj.is_fiducial;
 	s.has_contained_tracks = cuts::track_containment_cut<T>(obj);
 	if(obj.nu_id > -1) is_neutrino = true;
 	s.is_neutrino = is_neutrino;

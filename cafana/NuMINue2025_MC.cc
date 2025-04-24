@@ -237,8 +237,8 @@ int main()
     //vars_signal_phase.insert({"interaction_mode", SpineVar<MCTRUTH,TTYPE>(&mctruth::interaction_mode, &SIGCUT, &SIGCUT)});
     //vars_signal_phase.insert({"interaction_type", SpineVar<MCTRUTH,TTYPE>(&mctruth::interaction_type, &SIGCUT, &SIGCUT)});
     //vars_signal_phase.insert({"true_energy", SpineVar<MCTRUTH,TTYPE>(&mctruth::true_neutrino_energy, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"category", SpineVar<TTYPE,TTYPE>(&vars::nue::category, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"category_topology", SpineVar<TTYPE,TTYPE>(&vars::nue::category_topology, &cuts::no_cut, &SIGCUT)});
+    //vars_signal_phase.insert({"category", SpineVar<TTYPE,TTYPE>(&vars::nue::category, &SIGCUT, &SIGCUT)});
+    //vars_signal_phase.insert({"category_topology", SpineVar<TTYPE,TTYPE>(&vars::nue::category_topology, &cuts::no_cut, &SIGCUT)});
     vars_signal_phase.insert({"true_electron_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_electron_ke, &cuts::no_cut, &SIGCUT)});
     vars_signal_phase.insert({"reco_electron_energy", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_ke, &cuts::no_cut, &SIGCUT)});
     vars_signal_phase.insert({"true_electrom_pT_mag", SpineVar<TTYPE,TTYPE>(&vars::nue::electron_transverse_momentum_mag, &cuts::no_cut, &SIGCUT)});
@@ -252,7 +252,7 @@ int main()
     vars_signal_phase.insert({"flash_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::flash_cut), &cuts::no_cut, &SIGCUT)});
     vars_signal_phase.insert({"fiducial_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::fiducial_cut), &cuts::no_cut, &SIGCUT)});
     vars_signal_phase.insert({"track_containment_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::track_containment_cut), &cuts::no_cut, &SIGCUT)});
-    vars_signal_phase.insert({"all_1eNp_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::nue::all_1eNp_cut), &cuts::no_cut, &SIGCUT)});
+    //vars_signal_phase.insert({"all_1eNp_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::nue::all_1eNp_cut), &cuts::no_cut, &SIGCUT)});
     
     analysis.AddTree("Efficiency_PhaseCuts", vars_signal_phase, true);
     

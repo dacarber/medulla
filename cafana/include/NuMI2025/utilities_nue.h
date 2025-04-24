@@ -32,6 +32,12 @@ struct truth_inter {
   int num_primary_electrons_thresh;
   int num_primary_protons;
   int num_primary_protons_thresh;
+  int num_primary_photons;
+  int num_primary_photons_thresh;
+  int num_primary_muons;
+  int num_primary_muons_thresh;
+  int num_primary_pions;
+  int num_primary_pions_thresh;
   double transverse_momentum_mag;
   bool is_fiducial;
   bool has_contained_tracks;
@@ -164,6 +170,12 @@ namespace utilities_nue
   int primary_electron_count_thresh(0);
   int primary_proton_count(0);
   int primary_proton_count_thresh(0);
+  int primary_photon_count(0);
+  int primary_photon_count_thresh(0);
+  int primary_muon_count(0);
+  int primary_muon_count_thresh(0);
+  int primary_pion_count(0);
+  int primary_pion_count_thresh(0);
   bool is_fiducial(false);
   bool has_contained_tracks(false);
   bool is_neutrino(false);
@@ -216,6 +228,22 @@ namespace utilities_nue
 	      primary_proton_count++;
 	      if(p.ke >= MIN_PROTON_ENERGY) primary_proton_count_thresh++;
 	    }
+	    // Protons
+	    if(PIDFUNC(p) == 0)
+	    {
+	      primary_photon_count++;
+	      if(p.ke >= MIN_PHOTON_ENERGY) primary_photon_count_thresh++;
+	    }
+	    if(PIDFUNC(p) == 2)
+	    {
+	      primary_muon_count++;
+	      if(p.ke >= MIN_MUON_ENERGY) primary_muon_count_thresh++;
+	    }
+	    if(PIDFUNC(p) == 3)
+	    {
+	      primary_pion_count++;
+	      if(p.ke >= MIN_PION_ENERGY) primary_pion_count_thresh++;
+	    }
 	  } // end primary loop
 	} // end particle loop
 
@@ -263,6 +291,12 @@ namespace utilities_nue
 	s.num_primary_electrons_thresh = primary_electron_count_thresh;
 	s.num_primary_protons = primary_proton_count;
 	s.num_primary_protons_thresh = primary_proton_count_thresh;
+	s.num_primary_photons= primary_photon_count;
+	s.num_primary_photons_thresh = primary_photon_count_thresh;
+	s.num_primary_muons = primary_muon_count;
+	s.num_primary_muons_thresh = primary_muon_count_thresh;
+	s.num_primary_pions = primary_pion_count;
+	s.num_primary_pions_thresh = primary_pion_count_thresh;
 	s.transverse_momentum_mag = sqrt(pow(pT0, 2) + pow(pT1, 2) + pow(pT2, 2));
 	s.is_fiducial = cuts::fiducial_cut<T>(obj);
 	s.has_contained_tracks = cuts::track_containment_cut<T>(obj);

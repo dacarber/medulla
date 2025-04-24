@@ -81,6 +81,11 @@ namespace cuts::nue
             std::vector<uint32_t> c(utilities::count_primaries(obj));
             return c[0] == 0 && c[1] == 1 && c[2] == 0 && c[3] == 0 && c[4] >= 1;
         }
+    bool true_topological_1eNp_cut(const caf::SRInteractionTruthDLPProxy & obj)
+        {
+            std::vector<uint32_t> c(utilities::count_primaries(obj));
+            return c[0] == 0 && c[1] == 1 && c[2] == 0 && c[3] == 0 && c[4] >= 1;
+        }
     
     /**
      * @brief Apply a 1muX topological (final state) cut.
@@ -178,7 +183,7 @@ namespace cuts::nue
      * @note This cut is intended to be used for the muon2024 analysis for
      * defining the signal.
      */
-    bool signal_1eNp(const caf::SRInteractionTruthDLPProxy & obj) { return cuts::neutrino(obj) && cuts::fiducial_cut<T>(obj) && cuts::track_containment_cut<T>(obj) && topological_1eNp_cut<T>(obj); }
+    bool signal_1eNp(const caf::SRInteractionTruthDLPProxy & obj) { return cuts::neutrino(obj) && cuts::true_fiducial_cut(obj) && cuts::true_track_containment_cut(obj) && true_topological_1eNp_cut(obj); }
 
     /**
      * @brief Apply a cut to select the 1muNp non-signal.

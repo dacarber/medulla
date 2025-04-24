@@ -112,6 +112,10 @@ namespace cuts
         {
             return obj.is_fiducial ; //&& !(obj.vertex[0] > 210.215 && obj.vertex[1] > 60 && (obj.vertex[2] > 290 && obj.vertex[2] < 390))
         }
+    bool true_fiducial_cut(const caf::SRInteractionTruthDLPProxy & obj)
+    {
+        return obj.is_fiducial ; //&& !(obj.vertex[0] > 210.215 && obj.vertex[1] > 60 && (obj.vertex[2] > 290 && obj.vertex[2] < 390))
+    }
     
     /**
      * @brief Apply a containment cut on the entire interaction.
@@ -155,6 +159,18 @@ namespace cuts
         return passes;
     }
 
+    bool true_track_containment_cut(const caf::SRInteractionTruthDLPProxy & obj)
+    {
+    bool passes(true);
+    for(auto & p : obj.particles)
+        {
+        if(p.is_primary && p.pid > 1 && !p.is_contained)
+        {
+        passes = false;
+    }
+        }
+    return passes;
+    }
     /**
      * @brief Apply a flash time cut on the interaction.
      * @details The flash time cut is applied on the interaction. The flash time

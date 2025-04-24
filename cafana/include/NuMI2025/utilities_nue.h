@@ -12,7 +12,6 @@
  */
 #ifndef UTILITIES_NUE_H
 #define UTILITIES_NUE_H
-#pragma once
 #include <iostream>
 #include <vector>
 #include <TVector3.h>
@@ -86,7 +85,7 @@ struct reco_inter {
  * vars and cuts namespaces, which are used for organizing variables and cuts
  * which act on interactions.
  */
-namespace utilities_nue
+namespace utilities::nue
 {
     /**
      * @brief Check if the particle meets final state signal requirements.

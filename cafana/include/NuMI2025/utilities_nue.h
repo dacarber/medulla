@@ -85,7 +85,7 @@ struct reco_inter {
  * vars and cuts namespaces, which are used for organizing variables and cuts
  * which act on interactions.
  */
-namespace utilities::nue_sel
+namespace utilities_nue
 {
     /**
      * @brief Check if the particle meets final state signal requirements.

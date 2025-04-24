@@ -180,10 +180,10 @@ namespace cuts::nue
      * @note This cut is intended to be used for the muon2024 analysis for
      * defining the signal.
      */
-    //bool signal_1eNp(const caf::SRInteractionTruthDLPProxy & obj) { 
+    bool signal_1eNp(const caf::SRInteractionTruthDLPProxy & obj) { 
      //   truth_inter s = utilities_nue::truth_interaction_info(obj);
       //  return s.num_primary_electrons_thresh == 1 && s.num_primary_protons_thresh > 0 && s.num_primary_photons_thresh == 0 && s.num_primary_muons_thresh == 0 && s.num_primary_pions_thresh == 0 && s.is_neutrino && s.has_contained_tracks && s.is_fiducial; }
-
+        return false;}
     /**
      * @brief Apply a cut to select the 1muNp non-signal.
      * @details This function applies a cut on the final state, fiducial volume,

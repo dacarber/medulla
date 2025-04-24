@@ -1,12 +1,12 @@
 
 /**
- * @file cuts_muon2024.h
- * @brief Header file for definitions of analysis cuts specific to the muon2024
+ * @file cuts_nue.h
+ * @brief Header file for definitions of analysis cuts specific to the nue
  * analysis.
  * @details This file contains definitions of analysis cuts which can be used
- * to select interactions specific to the muon2024 analysis. The cuts are
+ * to select interactions specific to the nue analysis. The cuts are
  * intended to be used in conjunction with the generic cuts defined in cuts.h.
- * @author mueller@fnal.gov
+ * @author daniel.carber@colostate.edu
 */
 #ifndef CUTS_NUE_H
 #define CUTS_NUE_H
@@ -15,7 +15,7 @@
 #include <cmath>
 #include <algorithm>
 
-//#include "include/utilities.h"
+#include "include/utilities.h"
 #include "include/NuMI2025/utilities_nue.h"
 //#include "include/cuts.h"
 

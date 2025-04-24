@@ -12,11 +12,11 @@
  */
 #ifndef UTILITIES_NUE_H
 #define UTILITIES_NUE_H
-
+#pragma once
 #include <iostream>
 #include <vector>
 #include <TVector3.h>
-#include "include/cuts.h"
+//#include "include/cuts.h"
 //#include "include/beaminfo.h"
 
 #define MIN_PHOTON_ENERGY 25

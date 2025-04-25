@@ -1,15 +1,15 @@
 
 [input]
 path = 'icarus_bnb_ccpi0_mc_onbeam_offbeam.root'
-caflist = 'input_files.txt'
+caflist = '/exp/icarus/app/users/dcarber/spine_analysis/full_path_mc_caf_list.txt'
 
 [output]
-path = 'icarus_bnb_ccpi0_mc_onbeam_offbeam_syst.root'
+path = 'icarus_numi_nue_mc_onbeam_offbeam_syst.root'
 histogram_destination = 'variations/'
 
 [[sysvar]]
-name = 'pi0_mass'
-bins = [40, 0, 400]
+name = 'reco_electron_energy'
+bins = [25, 0, 2000]
 
 #[variations]
 #keys = ['mc', 'var00', 'var01', 'var02', 'var03m', 'var03p', 'var04', 'var05', 'var06', 'var07', 'var08', 'var09']
@@ -21,9 +21,9 @@ bins = [40, 0, 400]
 #nuniverses = 10000
 
 [[tree]]
-origin = 'events/mc/SelectedNu_PhaseCuts'
+origin = 'events/mc/SelectedNu_Cuts'
 destination = 'events/mc/'
-name = 'SelectedNu_PhaseCuts'
+name = 'SelectedNu_Cuts'
 action = 'add_weights'
 table_types = ['multisim', 'multisigma']
 #table_types = ['multisim', 'multisigma', 'variation']
@@ -37,7 +37,7 @@ table_types = ['multisim', 'multisigma']
 #table_types = ['multisim', 'multisigma', 'variation']
 
 [[tree]]
-origin = 'events/onbeam/SelectedNu_PhaseCuts'
+origin = 'events/onbeam/SelectedNu_Cuts'
 destination = 'events/onbeam/'
 name = 'SelectedNu_PhaseCuts'
 action = 'copy'

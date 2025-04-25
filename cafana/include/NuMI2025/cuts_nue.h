@@ -50,7 +50,7 @@ namespace cuts::nue
             size_t i(utilities::leading_particle_index(obj, 1));
             size_t p(utilities::leading_particle_index(obj, 4));
 
-            return obj.particles[i].axial_spread >0.02 && obj.particles[i].directional_spread < 0.24 && obj.particles[i].vertex_distance <7.5 && obj.particles[p].pid_scores[4] >0.6 && obj.particles[p].pid_scores[2] <0.04 && obj.particles[p].pid_scores[3] <0.24;
+            return obj.particles[i].axial_spread >0.02 && obj.particles[i].directional_spread < 0.25 && obj.particles[i].vertex_distance <7.5 && obj.particles[p].pid_scores[4] >0.6 && obj.particles[p].pid_scores[2] <0.04;
         }
     /**
      * @brief Apply a 1mu1p topological (final state) cut.
@@ -143,7 +143,7 @@ namespace cuts::nue
      * @note This cut is intended to be used for the muon2024 analysis.
      */
     template<class T>
-        bool all_1eX_cut(const T & obj) { return fiducial_cut<T>(obj) && track_containment_cut<T>(obj) && flash_cut<T>(obj) && topological_1eX_cut<T>(obj); }//quality_cuts<T>(obj)
+        bool all_1eX_cut(const T & obj) { return fiducial_cut<T>(obj) && track_containment_cut<T>(obj) && flash_cut<T>(obj) && topological_1eX_cut<T>(obj) && quality_cuts<T>(obj); }//quality_cuts<T>(obj)
 
     /**
      * @brief Apply a cut to select the 1mu1p signal.

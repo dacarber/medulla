@@ -237,10 +237,10 @@ int main()
     //vars_signal_phase.insert({"IsData", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::is_not_data, &SIGCUT, &SIGCUT)}); // GUNDAM
     //vars_signal_phase.insert({"baseline", SpineVar<MCTRUTH,TTYPE>(&mctruth::true_neutrino_baseline, &SIGCUT, &SIGCUT)});
     //vars_signal_phase.insert({"pdg", SpineVar<MCTRUTH,TTYPE>(&mctruth::true_neutrino_pdg, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"cc", SpineVar<MCTRUTH,TTYPE>(&mctruth::true_neutrino_cc, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"interaction_mode", SpineVar<MCTRUTH,TTYPE>(&mctruth::interaction_mode, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"interaction_type", SpineVar<MCTRUTH,TTYPE>(&mctruth::interaction_type, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"true_energy", SpineVar<MCTRUTH,TTYPE>(&mctruth::true_neutrino_energy, &SIGCUT, &SIGCUT)});
+    //vars_signal_phase.insert({"cc", SpineVar<MCTRUTH,TTYPE>(&mctruth::true_neutrino_cc, &SIGCUT, &SIGCUT)});
+    //vars_signal_phase.insert({"interaction_mode", SpineVar<MCTRUTH,TTYPE>(&mctruth::interaction_mode, &SIGCUT, &SIGCUT)});
+    //vars_signal_phase.insert({"interaction_type", SpineVar<MCTRUTH,TTYPE>(&mctruth::interaction_type, &SIGCUT, &SIGCUT)});
+    //vars_signal_phase.insert({"true_energy", SpineVar<MCTRUTH,TTYPE>(&mctruth::true_neutrino_energy, &SIGCUT, &SIGCUT)});
     //vars_signal_phase.insert({"category", SpineVar<TTYPE,TTYPE>(&vars::nue::category, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"category_topology", SpineVar<TTYPE,TTYPE>(&vars::nue::category_topology, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_electron_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_electron_ke, &SIGCUT, &SIGCUT)});

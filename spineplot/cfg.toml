@@ -6,11 +6,11 @@ file = 'configurations/analyses/icarus/nue2025_icarus.toml'
 file = 'configurations/common/styles.toml'
 
 [samples]
-#[samples.onbeam]
-#key = "onbeam"
-#exposure_type = "pot"
-#override_category = -100
-#trees = ['SelectedNu_Cuts',]
+[samples.onbeam]
+key = "onbeam"
+exposure_type = "pot"
+override_category = -100
+trees = ['SelectedNu_Cuts',]
 
 [samples.mc]
 key = "mc"
@@ -22,7 +22,7 @@ trees = ['SelectedNu_Cuts','SelectedCos_PhaseCuts']
 path = '/Users/danielcarber/Documents/ICARUS/NuMI_Nue/Plots'
 
 [analysis]
-ordinate_sample = 'mc'
+ordinate_sample = 'onbeam'
 category_branch = 'category_topology'
 category_assignment = [[0,1], [2,3,4,6], [5], [7],[8],[9],[10], [-100]]
 category_labels = ['1eNp', 'Other CC $\nu_e$', 'NC $\nu$', '$\nu_\mu$ CC','Uncontained','Other','Cosmic', 'Run 2 Data']

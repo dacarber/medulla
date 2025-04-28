@@ -5,7 +5,7 @@ caflist = '/exp/icarus/app/users/dcarber/spine_analysis/full_path_mc_caf_list.tx
 
 [output]
 path = '/exp/icarus/app/users/dcarber/spine_analysis/spine/icarus_numi_nue_mc_onbeam_offbeam_syst.root'
-histogram_destination = 'variations/'
+histogram_destination = '/exp/icarus/app/users/dcarber/spine_analysis/variations/'
 
 [[sysvar]]
 name = 'reco_electron_energy'

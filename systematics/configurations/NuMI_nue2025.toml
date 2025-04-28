@@ -1,6 +1,6 @@
 
 [input]
-path = 'icarus_bnb_ccpi0_mc_onbeam_offbeam.root'
+path = 'icarus_numi_nue_mc_onbeam_offbeam.root'
 caflist = '/exp/icarus/app/users/dcarber/spine_analysis/full_path_mc_caf_list.txt'
 
 [output]

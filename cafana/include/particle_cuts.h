@@ -59,7 +59,7 @@ namespace pcuts
             if(is_primary(p))
             {
                 double energy(pvars::ke(p));
-                if((PIDFUNC(p) == 1 && energy > 70) || (PIDFUNC(p) != 1 && PIDFUNC(p) < 4 && energy > 25) || (PIDFUNC(p) == 4 && energy > 40))
+                if((PIDFUNC(p) == 1 && energy > 200) || (PIDFUNC(p) != 1 && PIDFUNC(p) < 4 && energy > 25) || (PIDFUNC(p) == 4 && energy > 40))
                     passes = true;
             }
             return passes;

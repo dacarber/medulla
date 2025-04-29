@@ -716,5 +716,3 @@ index = 126
 name = 'piplus_Flux'
 type = 'multisim'
 index = 127
-
-calc.write_results();

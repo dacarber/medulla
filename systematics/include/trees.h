@@ -380,6 +380,8 @@ namespace sys::trees
             {
                 for(const caf::SRTrueInteraction & nu : mc)
                 {
+                    std::cout<<std::trunc(nu.E*100000)<<" : "<<candidates.find(index)<<endl;
+
                     index_t index(*rrun, *rsubrun, *revt, nu.index, std::trunc(nu.E*100000));
                     if(candidates.find(index) != candidates.end())
                     {

@@ -46,7 +46,7 @@ namespace sys::trees
      * @brief Type definitions for the selected signal candidates indexing, the
      * universe weights, and systematic indexing (variable name and index).
      */
-    typedef std::tuple<Double_t, Double_t, Double_t, Double_t> index_t;
+    typedef std::tuple<Double_t, Double_t, Double_t, Double_t, Double_t> index_t;
     typedef std::map<index_t, size_t> map_t;
     typedef std::pair<std::string, int64_t> syst_t;
 

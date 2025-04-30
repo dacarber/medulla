@@ -376,6 +376,7 @@ namespace sys::trees
              * the code retrieves the universe weights for the parent neutrino and
              * stores them in the output TTree.
              */
+            std::cout<<"std::trunc(nu.E*100000)<<" : "<<candidates.find(index)"<<endl;
             while(reader.Next())
             {
                 for(const caf::SRTrueInteraction & nu : mc)

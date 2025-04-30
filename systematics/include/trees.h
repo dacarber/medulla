@@ -384,7 +384,7 @@ namespace sys::trees
                 {
                     //std::cout<<std::trunc(nu.E*100000)<<" : "<<candidates.find(index)<<endl;
 
-                    index_t index(*rrun, *rsubrun, *revt, nu.index, std::trunc(nu.E*100000));
+                    index_t index(*rrun, *rsubrun, *revt, nu.index, nu.E);
                     if(candidates.find(index) != candidates.end())
                     {
                         calc.increment_nominal_count(1.0);

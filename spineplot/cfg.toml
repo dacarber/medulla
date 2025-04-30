@@ -10,12 +10,12 @@ file = 'configurations/common/styles.toml'
 key = "onbeam"
 exposure_type = "pot"
 override_category = -100
-trees = ['SelectedNu_Cuts',]
+trees = ['SelectedNu_PhaseCuts',]
 [samples.offbeam]
 key = "offbeam"
 exposure_type = "Livetime"
 override_category = -1
-trees = ['SelectedNu_Cuts',]
+trees = ['SelectedCos_PhaseCuts',]
 [samples.mc]
 key = "mc"
 exposure_type = "pot"

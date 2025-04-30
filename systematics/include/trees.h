@@ -236,7 +236,7 @@ namespace sys::trees
         for(int i(0); i < input_tree->GetEntries(); ++i)
         {
             input_tree->GetEntry(i);
-            candidates.insert(std::make_pair<index_t, size_t>(std::make_tuple(run, subrun, event, nu_id), i));
+            candidates.insert(std::make_pair<index_t, size_t>(std::make_tuple(run, subrun, event, nu_id,nu_e), i));
         }
 
         /**
@@ -366,6 +366,7 @@ namespace sys::trees
             TTreeReaderValue<uint32_t> revt(reader, "rec.hdr.evt");
             TTreeReaderArray<caf::SRTrueInteraction> mc(reader, "rec.mc.nu");
 
+
             /**
              * @brief Loop over the events in the input CAF file.
              * @details This block loops over the events in the input CAF file. At
@@ -378,7 +379,7 @@ namespace sys::trees
             {
                 for(const caf::SRTrueInteraction & nu : mc)
                 {
-                    index_t index(*rrun, *rsubrun, *revt, nu.index);
+                    index_t index(*rrun, *rsubrun, *revt, nu.index, nu.E);
                     if(candidates.find(index) != candidates.end())
                     {
                         calc.increment_nominal_count(1.0);

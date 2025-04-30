@@ -201,6 +201,7 @@ namespace sys::trees
             input_tree->SetBranchAddress(brname.c_str(), &brs[brname]);
         }
         input_tree->SetBranchAddress("nu_id", &nu_id);
+        input_tree->SetBranchAddress("nu_E", &nu_E);
         input_tree->SetBranchAddress("Run", &run);
         input_tree->SetBranchAddress("Subrun", &subrun);
         input_tree->SetBranchAddress("Evt", &event);
@@ -236,7 +237,7 @@ namespace sys::trees
         for(int i(0); i < input_tree->GetEntries(); ++i)
         {
             input_tree->GetEntry(i);
-            candidates.insert(std::make_pair<index_t, size_t>(std::make_tuple(run, subrun, event, nu_id,nu_e), i));
+            candidates.insert(std::make_pair<index_t, size_t>(std::make_tuple(run, subrun, event, nu_id,nu_E), i));
         }
 
         /**

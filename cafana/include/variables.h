@@ -52,6 +52,8 @@ namespace vars
      */
     double neutrino_id(const caf::SRInteractionTruthDLPProxy & obj) { return obj.nu_id; }
 
+    double neutrino_E(const caf::SRInteractionTruthDLPProxy & obj) { return obj.energy_init; }
+
     /**
      * @brief Variable for the best-match IoU of the interaction.
      * @details The best-match IoU is the intersection over union of the

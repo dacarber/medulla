@@ -193,6 +193,7 @@ namespace sys::trees
         TTree * input_tree = (TTree *) input->Get(table.get_string_field("origin").c_str());
         std::map<std::string, double> brs;
         double nu_id;
+        double nu_E;
         Int_t run, subrun, event;
         for(int i(0); i < input_tree->GetNbranches()-3; ++i)
         {
@@ -376,12 +377,12 @@ namespace sys::trees
              * the code retrieves the universe weights for the parent neutrino and
              * stores them in the output TTree.
              */
-            std::cout<<"std::trunc(nu.E*100000)<<" : "<<candidates.find(index)"<<endl;
+            //std::cout<<"std::trunc(nu.E*100000)<<" : "<<candidates.find(index)"<<endl;
             while(reader.Next())
             {
                 for(const caf::SRTrueInteraction & nu : mc)
                 {
-                    std::cout<<std::trunc(nu.E*100000)<<" : "<<candidates.find(index)<<endl;
+                    //std::cout<<std::trunc(nu.E*100000)<<" : "<<candidates.find(index)<<endl;
 
                     index_t index(*rrun, *rsubrun, *revt, nu.index, std::trunc(nu.E*100000));
                     if(candidates.find(index) != candidates.end())

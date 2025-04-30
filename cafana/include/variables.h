@@ -52,7 +52,7 @@ namespace vars
      */
     double neutrino_id(const caf::SRInteractionTruthDLPProxy & obj) { return obj.nu_id; }
 
-    double neutrino_E(const caf::SRInteractionTruthDLPProxy & obj) { return obj.energy_init; }
+    double neutrino_E(const caf::SRInteractionTruthDLPProxy & obj) { return std::trunc(obj.energy_init*100000); }
 
     /**
      * @brief Variable for the best-match IoU of the interaction.

@@ -10,7 +10,7 @@ file = 'configurations/common/styles.toml'
 key = "onbeam"
 exposure_type = "pot"
 override_category = -100
-trees = ['SelectedNu_PhaseCuts',]
+trees = ['SelectedNu_Cuts',]
 [samples.offbeam]
 key = "offbeam"
 exposure_type = "Livetime"
@@ -112,3 +112,67 @@ style = 'selected_icarus'
 type = 'SpineSpectra1D'
 variable = 'reco_electron_softmax'
 draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+
+[[figure]]
+name = 'reco_electron_dedx'
+type = 'SimpleFigure'
+artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_dedx'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'reco_electron_dedx'
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+
+[[figure]]
+name = 'reco_opening_angle'
+type = 'SimpleFigure'
+artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_opening_angle'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'reco_opening_angle'
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+
+[[figure]]
+name = 'reco_dalphaT'
+type = 'SimpleFigure'
+artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_dalphaT'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'reco_dalphaT'
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+
+[[figure]]
+name = 'reco_dphiT'
+type = 'SimpleFigure'
+artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_dphiT'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'reco_dphiT'
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+
+[[figure]]
+name = 'reco_NuMI_polar'
+type = 'SimpleFigure'
+artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_NuMI_polar'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'reco_NuMI_polar'
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+
+[[figure]]
+name = 'reco_NuMI_azi'
+type = 'SimpleFigure'
+artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_NuMI_azi'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'reco_NuMI_azi'
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+
+
+
+

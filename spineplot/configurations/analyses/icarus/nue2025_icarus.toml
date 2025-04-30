@@ -12,6 +12,12 @@ range = [0,2000]
 nbins = 25
 xlabel = 'Reconstructed Electron Transverse Momentum [MeV/c]'
 
+[variables.reco_proton_pT_mag]
+key = 'reco_proton_pT_mag'
+range = [0,2000]
+nbins = 25
+xlabel = 'Reconstructed Protons Transverse Momentum [MeV/c]'
+
 [variables.reco_electron_conv_dist]
 key = 'reco_electron_conv_dist'
 range = [0,10]
@@ -64,7 +70,54 @@ xlabel = "Reconstructed Proton's Pion Softmax"
 key = 'reco_dpT'
 range = [0,2000]
 nbins =	25
-xlabel = "Reconstructed Delta PT"
+xlabel = "Reconstructed \u03B4$P_{T}$ [MeV/c]"
+
+[variables.reco_dalphaT]
+key = 'reco_dalphaT'
+range = [0.0,3.2]
+nbins =	20
+xlabel = "Reconstructed \u03B4$\u03B1_{T}$ [Radian]"
+
+[variables.reco_dphiT]
+key = 'reco_dphiT'
+range = [0.0,3.2]
+nbins =	20
+xlabel = "Reconstructed \u03B4$\u03A6_{T}$ [Radian]"
+
+[variables.reco_opening_angle]
+key = 'reco_opening_angle'
+range = [0.0,3.2]
+nbins =	20
+xlabel = "Reconstructed Opening Angle [Radian]"
+
+[variables.reco_electron_NuMI_angle]
+key = 'reco_electron_NuMI_angle'
+range = [0.0,3.2]
+nbins =	20
+xlabel = "Reconstructed Electron NuMI Angle [Radian]"
+
+[variables.reco_proton_NuMI_angle]
+key = 'reco_proton_NuMI_angle'
+range = [0.0,3.2]
+nbins =	20
+xlabel = "Reconstructed Proton NuMI Angle [Radian]"
+
+[variables.reco_electron_dedx]
+key = 'reco_electron_dedx'
+range = [0,10]
+nbins =	25
+xlabel = "Reconstructed Electron Starting dE/dX [MeV/cm]"
+
+[variables.reco_NuMI_polar]
+key = 'reco_NuMI_polar'
+range = [0.0,3.2]
+nbins =	100
+xlabel = "Reconstructed Polar Angle w.r.t. NuMI"
+[variables.reco_NuMI_azi]
+key = 'reco_NuMI_azi'
+range = [0.0,3.2]
+nbins =	100
+xlabel = "Reconstructed Azimuthal Angle w.r.t. NuMI"
 #[output]
 #path = '/exp/icarus/app/users/dcarber/spine_analysis/plots'
 

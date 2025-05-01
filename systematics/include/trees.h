@@ -404,6 +404,8 @@ namespace sys::trees
                         run = *rrun;
                         subrun = *rsubrun;
                         event = *revt;
+                        matches_energy = nu.E == brs["true_energy"];
+                        matches_baseline = nu.baseline == brs["baseline"];
                         output_tree->Fill();
                         
                         /**

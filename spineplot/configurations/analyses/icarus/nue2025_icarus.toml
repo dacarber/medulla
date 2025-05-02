@@ -118,35 +118,3 @@ key = 'reco_NuMI_azi'
 range = [0.0,3.2]
 nbins =	100
 xlabel = "Reconstructed Azimuthal Angle w.r.t. NuMI"
-#[output]
-#path = '/exp/icarus/app/users/dcarber/spine_analysis/plots'
-
-#[analysis]
-#ordinate_sample = 'mc'
-#category_branch = 'category_topology'
-#category_assignment = [[0,1], [2346], [5], [7],[8],[9], [-100]]
-#category_labels = ['1$e$Np', 'Other CC $\nu$e', 'NC $\nu$', '$\nu\mu$ CC','Uncontained','Cosmic', 'Run 2 Data']
-#category_colors = ['C0', 'C1', 'C3', 'C4', 'C5','C6','C2']
-#category_types = ['histogram', 'histogram', 'histogram', 'histogram', 'histogram', 'histogram', 'scatter']
-
-#[[this_includes]]
-#file = 'configurations/common/samples.toml'
-#choose = {'samples' = ['mc']}
-
-#[[this_includes]]
-#file = 'configurations/common/styles.toml'
-
-#[[figure]]
-#name = 'reco_electron_energy'
-#type = 'SimpleFigure'
-#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_energy'},]
-#style = 'selected_icarus'
-#[[figure.artists]]
-#type = 'SpineSpectra1D'
-#variable = 'reco_electron_energy'
-#draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
-#[variables.true_neutrino_energy]
-#key = 'true_edep'
-#range = [0,6]
-#nbins = 30
-#xlabel = 'True Neutrino Energy [GeV]'

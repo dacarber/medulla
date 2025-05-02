@@ -20,13 +20,14 @@ trees = ['SelectedCos_PhaseCuts',]
 key = "mc"
 exposure_type = "pot"
 trees = ['SelectedNu_Cuts']
-presel = 'baseline == 1'
+presel = 'matches_baseline == 1'
 systematics = ['multisimTree']
 [samples.mc_cos]
 key = "mc"
 exposure_type = "pot"
 trees = ['SelectedCos_PhaseCuts']
-systematics = ['multisimTree']
+#presel = 'matches_baseline == 1'
+#systematics = ['multisimTree']
 #[samples.mc]
 #key = "mc"
 #exposure_type = "pot"
@@ -40,26 +41,32 @@ path = '/Users/danielcarber/Documents/ICARUS/NuMI_Nue/Plots'
 [[systematic_recipe]]
 name = 'flux'
 label = 'Flux Systematics'
-pattern = '_Flux'
-#pattern = '\b\w*_Flux\b'
+#pattern = '_Flux'
+pattern = '\b\w*_Flux\b'
 
 [[systematic_recipe]]
 name = 'xsec'
 label = 'Interaction Systematics'
-#pattern = '\bGENIEReWeight_SBN_v1_multisim_\w+\b'
-pattern = 'GENIEReWeight_SBN_v1_multisim'
+pattern = '\bGENIEReWeight_SBN_v1_multisim_\w+\b'
+#pattern = 'GENIEReWeight_SBN_v1_multisim'
+
+[[systematic_recipe]]
+name = 'minerva'
+label = 'Interaction Systematics'
+pattern = '\bGENIEReWeight_SBN_v1_multisim_\w+\b'
+#pattern = 'MINERvA'
 
 [[systematic_recipe]]
 name = 'stats'
 label = 'Statistical Uncertainty'
 #pattern = 'mc_statistical'
-#pattern = '(mc_nu|mc_cos|offbeam)_statistical'
-pattern = '(mc|offbeam)_statistical'
+pattern = '(mc_nu|mc_cos|offbeam)_statistical'
+#pattern = '(mc|offbeam)_statistical'
 
 [[systematic_recipe]]
 name = 'flux_xsec'
 label = 'Flux + Interaction Uncertainty'
-pattern = '(flux|xsec|stats)'
+pattern = '(flux|xsec|minerva|stats)'
                 
 #[[systematic_recipe]]
 #name = 'all'
@@ -82,6 +89,7 @@ name = 'reco_electron_energy'
 type = 'SimpleFigure'
 artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_energy'},]
 style = 'selected_icarus'
+
 [[figure.artists]]
 type = 'SpineSpectra1D'
 variable = 'reco_electron_energy'

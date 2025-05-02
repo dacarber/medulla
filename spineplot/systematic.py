@@ -131,6 +131,7 @@ class Systematic:
         # where the systematic weights are stored in a TTree.
         if self._handle is not None:
             # Read the weights from the TTree
+            print(sum(mask),self._handle)
             weights_array = np.stack(self._handle.array(library='np'))[mask, :]
             
             if weights_array.shape[1] == 7:

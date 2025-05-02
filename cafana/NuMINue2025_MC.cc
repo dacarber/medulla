@@ -261,7 +261,7 @@ int main()
     vars_signal_phase.insert({"flash_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::flash_cut), &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"fiducial_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::fiducial_cut), &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"track_containment_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::track_containment_cut), &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"all_1eNp_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::nue::all_1eNp_cut), &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"all_1eNp_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::nue::all_1eNp_cut_base), &SIGCUT, &SIGCUT)});
     
     analysis.AddTree("Efficiency_PhaseCuts", vars_signal_phase, true);
     

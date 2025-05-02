@@ -130,7 +130,7 @@ namespace cuts::nue
     template<class T>
         bool all_1eNp_cut(const T & obj) { return fiducial_cut<T>(obj) && cuts::track_containment_cut<T>(obj) && flash_cut<T>(obj) && topological_1eNp_cut<T>(obj) && quality_cuts<T>(obj); }
     template<class T>
-        bool all_1eNp_cut_base(const T & obj) { return fiducial_cut<T>(obj) && cuts::track_containment_cut<T>(obj) && flash_cut<T>(obj) && topological_1eNp_cut<T>(obj) && quality_cuts<T>(obj); }
+        bool all_1eNp_cut_base(const T & obj) { return fiducial_cut<T>(obj) && cuts::track_containment_cut<T>(obj) && flash_cut<T>(obj) && topological_1eNp_cut<T>(obj);}
 
     /**
      * @brief Apply a fiducial volume, containment, flash time (BNB), and 1muX

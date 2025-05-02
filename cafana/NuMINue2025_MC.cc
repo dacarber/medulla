@@ -236,7 +236,7 @@ int main()
     std::map<std::string, ana::SpillMultiVar> vars_signal_phase;
     
     vars_signal_phase.insert({"nu_id", SpineVar<TTYPE,TTYPE>(&vars::neutrino_id, &SIGCUT, &SIGCUT)});
-    vars_selected_nu_phase.insert({"nu_E", SpineVar<TTYPE,RTYPE>(&vars::neutrino_E, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"nu_E", SpineVar<TTYPE,RTYPE>(&vars::neutrino_E,  &SIGCUT,  &SIGCUT)});
     //vars_signal_phase.insert({"CutType", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::cut_type, &SIGCUT, &SIGCUT)}); // GUNDAM
     //vars_signal_phase.insert({"IsSignal", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::is_signal_mc, &SIGCUT, &SIGCUT)}); // GUNDAM
     //vars_signal_phase.insert({"IsData", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::is_not_data, &SIGCUT, &SIGCUT)}); // GUNDAM

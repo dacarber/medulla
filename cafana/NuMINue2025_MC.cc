@@ -251,7 +251,11 @@ int main()
     vars_signal_phase.insert({"true_electron_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_electron_ke, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"reco_electron_energy", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_ke, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_electrom_pT_mag", SpineVar<TTYPE,TTYPE>(&vars::nue::electron_transverse_momentum_mag, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"reco_electrom_pT_mag", SpineVar<RTYPE,TTYPE>(&vars::nue::electron_transverse_momentum_mag, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_proton_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_proton_ke, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"reco_proton_energy", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_proton_ke, &SIGCUT, &SIGCUT)});
+    vars_purity_phase.insert({"reco_proton_pT_mag", SpineVar<RTYPE,TTYPE>(&vars::nue::proton_transverse_momentum_mag, &SIGCUT, &SIGCUT)});
+    vars_purity_phase.insert({"true_proton_pT_mag", SpineVar<TTYPE,TTYPE>(&vars::nue::proton_transverse_momentum_mag, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"reco_electron_conv_dist", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_vertex_distance, &SIGCUT , &SIGCUT)});
     vars_signal_phase.insert({"reco_electron_axial_spread", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_axial_spread, &SIGCUT , &SIGCUT)});
     vars_signal_phase.insert({"reco_electron_dir_spread", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_directional_spread, &SIGCUT , &SIGCUT)});

@@ -66,7 +66,7 @@ pattern = '(mc_nu|mc_cos|offbeam)_statistical'
 [[systematic_recipe]]
 name = 'flux_xsec'
 label = 'Flux + Interaction Uncertainty'
-pattern = '(flux|xsec|minerva|stats)'
+pattern = '(flux|xsec|stats)'
                 
 #[[systematic_recipe]]
 #name = 'all'

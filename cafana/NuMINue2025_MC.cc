@@ -70,6 +70,8 @@ int main()
     vars_selected_nu_phase.insert({"baseline", SpineVar<MCTRUTH,RTYPE>(&mctruth::true_neutrino_baseline, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"category", SpineVar<TTYPE,RTYPE>(&vars::nue::category, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"category_topology", SpineVar<TTYPE,RTYPE>(&vars::nue::category_topology, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"reco_topology", SpineVar<RTYPE,RTYPE>(&vars::nue::reco_topology, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"true_topology", SpineVar<TTYPE,RTYPE>(&vars::nue::truth_topology, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"interaction_mode", SpineVar<MCTRUTH,RTYPE>(&mctruth::interaction_mode, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_electron_energy", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_ke, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"true_electron_energy", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_electron_ke, &CUT, &TCUT)});
@@ -127,6 +129,8 @@ int main()
     vars_selected_cosmic_phase.insert({"baseline", SpineVar<MCTRUTH,RTYPE>(&mctruth::true_neutrino_baseline, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"category", SpineVar<TTYPE,RTYPE>(&vars::nue::category, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"category_topology", SpineVar<TTYPE,RTYPE>(&vars::nue::category_topology, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"reco_topology", SpineVar<RTYPE,RTYPE>(&vars::nue::reco_topology, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"true_topology", SpineVar<TTYPE,RTYPE>(&vars::nue::truth_topology, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"interaction_mode", SpineVar<MCTRUTH,RTYPE>(&mctruth::interaction_mode, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_electron_energy", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_ke, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"true_electron_energy", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_electron_ke, &CUT, &TCUT)});
@@ -180,6 +184,8 @@ int main()
     //vars_purity_phase.insert({"baseline", SpineVar<MCTRUTH,RTYPE>(&mctruth::true_neutrino_baseline, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"category", SpineVar<TTYPE,RTYPE>(&vars::nue::category, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"category_topology", SpineVar<TTYPE,RTYPE>(&vars::nue::category_topology, &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"reco_topology", SpineVar<RTYPE,RTYPE>(&vars::nue::reco_topology, &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"true_topology", SpineVar<TTYPE,RTYPE>(&vars::nue::truth_topology, &cuts::no_cut, &TCUT)});
     //vars_purity_phase.insert({"interaction_mode", SpineVar<MCTRUTH,RTYPE>(&mctruth::interaction_mode, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"flash_cut", SpineVar<RTYPE,RTYPE>(WRAP_BOOL(cuts::flash_cut), &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"fiducial_cut", SpineVar<RTYPE,RTYPE>(WRAP_BOOL(cuts::fiducial_cut), &cuts::no_cut, &TCUT)});
@@ -248,6 +254,8 @@ int main()
     //vars_signal_phase.insert({"true_energy", SpineVar<MCTRUTH,TTYPE>(&mctruth::true_neutrino_energy, &SIGCUT, &SIGCUT)});
     //vars_signal_phase.insert({"category", SpineVar<TTYPE,TTYPE>(&vars::nue::category, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"category_topology", SpineVar<TTYPE,TTYPE>(&vars::nue::category_topology, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"reco_topology", SpineVar<RTYPE,TTYPE>(&vars::nue::reco_topology, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"true_topology", SpineVar<TTYPE,TTYPE>(&vars::nue::truth_topology, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_electron_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_electron_ke, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"reco_electron_energy", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_ke, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_electrom_pT_mag", SpineVar<TTYPE,TTYPE>(&vars::nue::electron_transverse_momentum_mag, &SIGCUT, &SIGCUT)});

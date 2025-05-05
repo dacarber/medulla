@@ -106,6 +106,32 @@ namespace vars::nue
         }
         return cat;
     }
+        /**
+     * @brief Variable for enumerating interaction categories.
+     * @details This variable provides a basic categorization of interactions
+     * using only signal, neutrino background, and cosmic background as the
+     * three categories.
+     * @param obj The interaction to apply the variable on.
+     * @return the enumerated category of the interaction.
+    */
+
+    double truth_topology(const caf::SRInteractionTruthDLPProxy & interaction)
+    {   
+        double topo(0);
+        if(interaction.nu_id >= 0){
+            std::vector<uint32_t> counts(utilities::count_primaries(interaction));
+            topo = count[0]*1e8 + count[1]*1e6 + count[2]*1e4 + count[3]*1e2 + count[4]
+        return cat;
+    }
+
+    double reco_topology(const T & interaction)
+    {   
+        double topo(0);
+        if(interaction.nu_id >= 0){
+            std::vector<uint32_t> counts(utilities::count_primaries(interaction));
+            topo = count[0]*1e8 + count[1]*1e6 + count[2]*1e4 + count[3]*1e2 + count[4]
+        return cat;
+    }
     /**
      * @brief Variable for the opening angle between leading muon and proton.
      * @details The leading muon and proton are defined as the particles with the

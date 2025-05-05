@@ -50,11 +50,6 @@ label = 'Interaction Systematics'
 pattern = '\bGENIEReWeight_SBN_v1_multisim_\w+\b'
 #pattern = 'GENIEReWeight_SBN_v1_multisim'
 
-[[systematic_recipe]]
-name = 'minerva'
-label = 'Interaction Systematics'
-pattern = '\bGENIEReWeight_SBN_v1_multisim_\w+\b'
-#pattern = 'MINERvA'
 
 [[systematic_recipe]]
 name = 'stats'

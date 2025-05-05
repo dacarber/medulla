@@ -119,14 +119,14 @@ namespace vars::nue
     {   
         double topo(0);
             std::vector<uint32_t> counts(utilities::count_primaries(interaction));
-            topo = count[0]*1e8 + count[1]*1e6 + count[2]*1e4 + count[3]*1e2 + count[4];
+            topo = counts[0]*1e8 + counts[1]*1e6 + counts[2]*1e4 + counts[3]*1e2 + counts[4];
     }
 
     double reco_topology(const T & interaction)
     {   
         double topo(0);
             std::vector<uint32_t> counts(utilities::count_primaries(interaction));
-            topo = count[0]*1e8 + count[1]*1e6 + count[2]*1e4 + count[3]*1e2 + count[4];
+            topo = counts[0]*1e8 + counts[1]*1e6 + counts[2]*1e4 + counts[3]*1e2 + counts[4];
 
         return topo;
     }

@@ -120,8 +120,8 @@ namespace vars::nue
         double topo(0);
         if(interaction.nu_id >= 0){
             std::vector<uint32_t> counts(utilities::count_primaries(interaction));
-            topo = count[0]*1e8 + count[1]*1e6 + count[2]*1e4 + count[3]*1e2 + count[4]
-        return cat;
+            topo = count[0]*1e8 + count[1]*1e6 + count[2]*1e4 + count[3]*1e2 + count[4];
+        return topo;
     }
 
     double reco_topology(const T & interaction)
@@ -129,8 +129,8 @@ namespace vars::nue
         double topo(0);
         if(interaction.nu_id >= 0){
             std::vector<uint32_t> counts(utilities::count_primaries(interaction));
-            topo = count[0]*1e8 + count[1]*1e6 + count[2]*1e4 + count[3]*1e2 + count[4]
-        return cat;
+            topo = count[0]*1e8 + count[1]*1e6 + count[2]*1e4 + count[3]*1e2 + count[4];
+        return topo;
     }
     /**
      * @brief Variable for the opening angle between leading muon and proton.

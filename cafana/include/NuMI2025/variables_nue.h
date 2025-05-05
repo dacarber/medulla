@@ -122,7 +122,7 @@ namespace vars::nue
             topo = counts[0]*1e8 + counts[1]*1e6 + counts[2]*1e4 + counts[3]*1e2 + counts[4];
         return topo;
     }
-
+    template<class T>
     double reco_topology(const T & interaction)
     {   
         double topo(0);

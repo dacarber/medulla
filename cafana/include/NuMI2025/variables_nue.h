@@ -439,7 +439,7 @@ namespace vars::nue
             //}
             double nu_energy = neutrino_energy(interaction);
             size_t i(utilities::leading_particle_index(interaction, 1));
-            double electron_energy = pvar::ke(interaction.particles[i]) + ELECTRON_MASS;
+            double electron_energy = pvars::ke(interaction.particles[i]) + ELECTRON_MASS;
             TVector3 p;
             p.SetX(interaction.particles[i].momentum[0]);
             p.SetY(interaction.particles[i].momentum[1]);
@@ -460,7 +460,7 @@ namespace vars::nue
             double MN =37147.393;
             double nu_energy = neutrino_energy(interaction);
             size_t i(utilities::leading_particle_index(interaction, 1));
-            double electron_energy = pvar::ke(interaction.particles[i]) + ELECTRON_MASS;
+            double electron_energy = pvars::ke(interaction.particles[i]) + ELECTRON_MASS;
             double Q = Qsquared(interaction);
             double W = std::sqrt(std::pow(MN,2)+2*MN*(nu_energy-electron_energy) - Q);
             
@@ -473,9 +473,9 @@ namespace vars::nue
 
 
             TVector3 p;
-            p.SetX(particles.momentum[0]);
-            p.SetY(particles.momentum[1]);
-            p.SetZ(particles.momentum[2]);
+            p.SetX(particle.momentum[0]);
+            p.SetY(particle.momentum[1]);
+            p.SetZ(particle.momentum[2]);
             TVector3 beamdir(0.39431672, 0.04210058, 0.91800973);
             double cos_theta = p.Dot(beamdir)/(p.Mag()*beamdir.Mag());
             

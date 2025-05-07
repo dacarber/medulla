@@ -25,6 +25,7 @@
 //#include "include/cuts.h"
 //#include "include/NuMI2025/cuts_nue.h"
 //#include "include/NuMI2025/utilities_nue.h"
+#include "particle_variables.h"
 
 /**
  * @namespace vars::muon2024
@@ -427,7 +428,7 @@ namespace vars::nue
                     nu_energy+=pvars::ke(p) + 40;
                 }
             }
-            return nu_energy
+            return nu_energy;
         }
     template<class T>
         double Qsquared(const T & interaction)
@@ -461,7 +462,7 @@ namespace vars::nue
             size_t i(utilities::leading_particle_index(interaction, 1));
             double electron_energy = pvar::ke(interaction.particles[i]) + ELECTRON_MASS;
             double Q = Qsquared(interaction);
-            double W = std::sqrt(std:pow(MN,2)+2*MN*(nu_energy-electron_energy) - Q);
+            double W = std::sqrt(std::pow(MN,2)+2*MN*(nu_energy-electron_energy) - Q);
             
             return W;
 

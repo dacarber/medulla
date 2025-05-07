@@ -123,8 +123,10 @@ class Sample:
         # systematic uncertainties.
         if systematics is not None:    
             for sys in systematics:
-                systs = [k for k in self._file_handle[sys].keys() if k not in ['Run', 'Subrun', 'Evt']]
+                systs = [k for k in self._file_handle[sys].keys() if k not in ['Run', 'Subrun', 'Evt','Nu_E']]
                 self._systematics.update({syst: Systematic(syst, self._file_handle[sys][syst]) for syst in systs})
+                print(sys)
+
         
         # Add statistical uncertainty. This can always be added to the
         # sample, because it is not dependent on some external source
@@ -243,6 +245,7 @@ class Sample:
         """
         for syst in self._systematics.values():
             syst.process(self, self._presel_mask)
+            #print(syst)
                 
         # Each recipe has a name, which is used to identify the
         # combination of systematic uncertainties, and a pattern,

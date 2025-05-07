@@ -191,6 +191,7 @@ int main()
     vars_purity_phase.insert({"fiducial_cut", SpineVar<RTYPE,RTYPE>(WRAP_BOOL(cuts::fiducial_cut), &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"track_containment_cut", SpineVar<RTYPE,RTYPE>(WRAP_BOOL(cuts::track_containment_cut), &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"all_1eNp_cut", SpineVar<RTYPE,RTYPE>(WRAP_BOOL(cuts::nue::all_1eNp_cut), &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"signal_1eNp", SpineVar<RTYPE,RTYPE>(WRAP_BOOL(cuts::nue::signal_1eNp), &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_electron_energy", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_ke, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"true_electron_energy", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_electron_ke, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_electron_pT_mag", SpineVar<RTYPE,RTYPE>(&vars::nue::electron_transverse_momentum_mag, &cuts::no_cut, &TCUT)});
@@ -270,6 +271,10 @@ int main()
     vars_signal_phase.insert({"reco_proton_softmax", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_proton_softmax, &SIGCUT , &SIGCUT)});
     vars_signal_phase.insert({"reco_proton_muon_softmax", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_proton_muon_softmax, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"reco_proton_pion_softmax", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_proton_pion_softmax, &SIGCUT , &SIGCUT)});
+    vars_signal_phase.insert({"reco_Q", SpineVar<RTYPE,TTYPE>(&vars::nue::Qsquared, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"true_Q", SpineVar<TTYPE,TTYPE>(&vars::nue::Qsquared, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"reco_W", SpineVar<RTYPE,TTYPE>(&vars::nue::W, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"true_W", SpineVar<TTYPE,TTYPE>(&vars::nue::W, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"flash_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::flash_cut), &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"fiducial_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::fiducial_cut), &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"track_containment_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::track_containment_cut), &SIGCUT, &SIGCUT)});

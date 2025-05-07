@@ -345,5 +345,28 @@ namespace cuts
             std::vector<uint32_t> c(utilities::count_primaries(obj));
             return c[1] > 0;
         }
+    /**
+     * @brief Apply a cut to select interactions with at least one primary
+     * electron.
+     * @details This function applies a cut to select interactions with at
+     * least one primary electron in the final state as defined by the
+     * @ref utilities::count_primaries function.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to select on.
+     * @return true if the interaction has at least one primary electron.
+     */
+    template<class T>
+        bool has_shower(const T & obj)
+        {
+            std::vector<uint32_t> c(utilities::count_primaries_no_threshold(obj));
+            return (c[1] > 0 || c[0] > 0);
+        }
+
+    template<class T>
+        bool has_track(const T & obj)
+        {
+            std::vector<uint32_t> c(utilities::count_primaries_no_threshold(obj));
+            return (c[2] > 0 || c[3] > 0 || c[4] > 0);
+        }
 }
 #endif

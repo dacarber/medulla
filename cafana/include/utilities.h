@@ -50,6 +50,17 @@ namespace utilities
             }
             return counts;
         }
+    template<class T>
+        std::vector<uint32_t> count_primaries_no_threshold(const T & obj)
+        {
+            std::vector<uint32_t> counts(5, 0);
+            for(auto &p : obj.particles)
+            {
+                if(pcuts::final_state_signal_no_threshold(p))
+                    ++counts[PIDFUNC(p)];
+            }
+            return counts;
+        }
 
     /**
      * @brief Finds the index corresponding to the leading particle of the specifed

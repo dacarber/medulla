@@ -131,7 +131,6 @@ class Systematic:
         # where the systematic weights are stored in a TTree.
         if self._handle is not None:
             # Read the weights from the TTree
-            print(sum(mask),self._handle)
             weights_array = np.stack(self._handle.array(library='np'))[mask, :]
             
             if weights_array.shape[1] == 7:
@@ -182,7 +181,9 @@ class Systematic:
                 # One-bin uncertainty
                 diff = np.sum(diff, axis=0)
                 self._std = np.sqrt((diff @ diff.T) / (self._universe_weights.shape[1]))
+                #print("One Bin Uncertainty:",np.sqrt((diff @ diff.T) / (self._universe_weights.shape[1])))
                 self._std /= self._universe_weights.shape[0]
+                #print("2, One Bin Uncertainty:",np.sqrt((diff @ diff.T) / (self._universe_weights.shape[1]))/self._universe_weights.shape[0])
 
             self._universe_weights = None
         # The handle is None, which is taken to be the case where we

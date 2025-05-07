@@ -64,6 +64,18 @@ namespace pcuts
             }
             return passes;
         }
+    template<class T>
+        bool final_state_signal_no_threshold(const T & p)
+        {
+            bool passes(false);
+            if(is_primary(p))
+            {
+                double energy(pvars::ke(p));
+                if((PIDFUNC(p) == 1 && energy > 0) || (PIDFUNC(p) != 1 && PIDFUNC(p) < 0 && energy > 0) || (PIDFUNC(p) == 4 && energy > 0))
+                    passes = true;
+            }
+            return passes;
+        }
 
     /**
      * @brief Check if the particle is throughgoing.

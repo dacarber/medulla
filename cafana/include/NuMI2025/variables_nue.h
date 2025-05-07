@@ -25,7 +25,7 @@
 //#include "include/cuts.h"
 //#include "include/NuMI2025/cuts_nue.h"
 //#include "include/NuMI2025/utilities_nue.h"
-#include "particle_variables.h"
+#include "include/particle_variables.h"
 
 /**
  * @namespace vars::muon2024

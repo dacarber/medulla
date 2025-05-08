@@ -244,16 +244,5 @@ type = 'SpineSpectra1D'
 variable = 'reco_proton_energy'
 draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
 
-[[figure]]
-name = 'true_proton_energy'
-type = 'SimpleFigure'
-artists = [{'type' = 'SpineSpectra1D', 'variable' = 'true_proton_energy'},]
-style = 'selected_icarus'
-[[figure.artists]]
-type = 'SpineSpectra1D'
-variable = 'true_proton_energy'
-draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
-
-
 
 

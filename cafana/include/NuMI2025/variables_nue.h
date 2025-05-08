@@ -446,7 +446,7 @@ namespace vars::nue
             p.SetZ(interaction.particles[i].momentum[2]);
             TVector3 beamdir(0.39431672, 0.04210058, 0.91800973);
             double cos_theta = p.Dot(beamdir)/(p.Mag()*beamdir.Mag());
-            double Q = 2*nu_energy*(electron_energy - p.Mag()*cos_theta) - ELECTRON_MASS;
+            double Q = 2*nu_energy*(electron_energy - p.Mag()*cos_theta) - std::pow(ELECTRON_MASS,2);
             return Q;
 
         }

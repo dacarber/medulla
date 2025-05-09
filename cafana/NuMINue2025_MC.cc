@@ -115,6 +115,15 @@ int main()
     vars_selected_nu_phase.insert({"true_vertex_y", SpineVar<TTYPE,RTYPE>(&vars::vertex_y, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_vertex_z", SpineVar<RTYPE,RTYPE>(&vars::vertex_z, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"true_vertex_z", SpineVar<TTYPE,RTYPE>(&vars::vertex_z, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"reco_electron_polar", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_NuMI_polar_angle, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"true_electron_polar", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_electron_NuMI_polar_angle, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"reco_proton_polar", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_proton_NuMI_polar_angle, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"true_proton_polar", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_proton_NuMI_polar_angle, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"reco_Q", SpineVar<RTYPE,RTYPE>(&vars::nue::Qsquared, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"true_Q", SpineVar<TTYPE,RTYPE>(&vars::nue::Qsquared, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"reco_W", SpineVar<RTYPE,RTYPE>(&vars::nue::W, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"true_W", SpineVar<TTYPE,RTYPE>(&vars::nue::W, &CUT, &TCUT)});
+
 
     analysis.AddTree("SelectedNu_Cuts", vars_selected_nu_phase, false);
 
@@ -174,7 +183,22 @@ int main()
     vars_selected_cosmic_phase.insert({"true_vertex_y", SpineVar<TTYPE,RTYPE>(&vars::vertex_y, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_vertex_z", SpineVar<RTYPE,RTYPE>(&vars::vertex_z, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"true_vertex_z", SpineVar<TTYPE,RTYPE>(&vars::vertex_z, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"reco_electron_polar", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_NuMI_polar_angle, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"true_electron_polar", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_electron_NuMI_polar_angle, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"reco_proton_polar", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_proton_NuMI_polar_angle, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"true_proton_polar", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_proton_NuMI_polar_angle, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"reco_Q", SpineVar<RTYPE,RTYPE>(&vars::nue::Qsquared, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"true_Q", SpineVar<TTYPE,RTYPE>(&vars::nue::Qsquared, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"reco_W", SpineVar<RTYPE,RTYPE>(&vars::nue::W, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"true_W", SpineVar<TTYPE,RTYPE>(&vars::nue::W, &CUT, &TCUT)});
+
+
+
     analysis.AddTree("SelectedCos_PhaseCuts", vars_selected_cosmic_phase, false);
+
+    
+
+
 
     #undef TCUT
     #define TCUT cuts::no_cut
@@ -234,6 +258,14 @@ int main()
     vars_purity_phase.insert({"true_vertex_y", SpineVar<TTYPE,RTYPE>(&vars::vertex_y, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_vertex_z", SpineVar<RTYPE,RTYPE>(&vars::vertex_z, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"true_vertex_z", SpineVar<TTYPE,RTYPE>(&vars::vertex_z, &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"reco_electron_polar", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_NuMI_polar_angle, &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"true_electron_polar", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_electron_NuMI_polar_angle, &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"reco_proton_polar", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_proton_NuMI_polar_angle, &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"true_proton_polar", SpineVar<TTYPE,RTYPE>(&vars::nue::leading_proton_NuMI_polar_angle, &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"reco_Q", SpineVar<RTYPE,RTYPE>(&vars::nue::Qsquared, &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"true_Q", SpineVar<TTYPE,RTYPE>(&vars::nue::Qsquared, &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"reco_W", SpineVar<RTYPE,RTYPE>(&vars::nue::W, &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"true_W", SpineVar<TTYPE,RTYPE>(&vars::nue::W, &cuts::no_cut, &TCUT)});
 
     if constexpr(WRITE_PURITY_TREES)
 		  analysis.AddTree("Purity_PhaseCuts", vars_purity_phase, false);

@@ -314,6 +314,16 @@ int main()
     vars_signal_phase.insert({"true_Q", SpineVar<TTYPE,TTYPE>(&vars::nue::Qsquared, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"reco_W", SpineVar<RTYPE,TTYPE>(&vars::nue::W, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_W", SpineVar<TTYPE,TTYPE>(&vars::nue::W, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"reco_dpT", SpineVar<RTYPE,TTYPE>(&vars::dpT_lp, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"true_dpT", SpineVar<TTYPE,TTYPE>(&vars::dpT_lp, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"reco_phiT", SpineVar<RTYPE,TTYPE>(&vars::phiT, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"true_phiT", SpineVar<TTYPE,TTYPE>(&vars::phiT, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"reco_alphaT", SpineVar<RTYPE,TTYPE>(&vars::alphaT, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"true_alphaT", SpineVar<TTYPE,TTYPE>(&vars::alphaT, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"reco_electron_polar", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_NuMI_polar_angle, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"true_electron_polar", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_electron_NuMI_polar_angle, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"reco_proton_polar", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_proton_NuMI_polar_angle, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"true_proton_polar", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_proton_NuMI_polar_angle, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"flash_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::flash_cut), &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"fiducial_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::fiducial_cut), &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"track_containment_cut", SpineVar<RTYPE,TTYPE>(WRAP_BOOL(cuts::track_containment_cut), &SIGCUT, &SIGCUT)});

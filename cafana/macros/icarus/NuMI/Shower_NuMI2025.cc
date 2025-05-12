@@ -1,7 +1,7 @@
 
 /**
- * @file ccpi0AnaMC.C
- * @brief The main analysis macro for the ICARUS numu CC pi0 selection..
+ * @file Shower_NuMI2025.cc
+ * @brief The main analysis macro for the ICARUS NuMI shower selection..
  * @details This macro drives the analysis by configuring the variables, cuts,
  * and samples to be used in the analysis. This is accomplished through the use
  * of the Analysis class, which containerizes the configuration of the analysis
@@ -40,7 +40,7 @@ int main()
     //ana::Analysis analysis("sbnd_ccpi0_mc_03_april_2025");
     //ana::Analysis analysis("sbnd_ccpi0_mc_03_april_2025");
     //ana::Analysis analysis("icarus_bnb_ccpi0_mc_08_april_2025");
-    ana::Analysis analysis("testtest");
+    ana::Analysis analysis("NuMI_showers");
 
     ana::SpectrumLoader mc("/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_CV_flat_cafs/NuMI_CV_flat_caf_combo*.root");
     analysis.AddLoader("mc", &mc, true);

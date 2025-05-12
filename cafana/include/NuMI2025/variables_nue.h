@@ -433,6 +433,7 @@ namespace vars::nue
     template<class T>
         double Qsquared(const T & interaction)
         {
+            double nu_energy(0);
             if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>){
                 std::vector<uint32_t> counts(utilities::count_primaries(interaction));
                 double nu_energy = interaction.energy_init + 40*counts[4];

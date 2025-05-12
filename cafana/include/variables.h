@@ -593,8 +593,8 @@ namespace vars
         {
             double nu_energy = neutrino_energy(interaction);
             if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>){
-                proton_num = utilities::count_primaries()
-                nu_energy = interaction.energy_init;
+                std::vector<uint32_t> counts(utilities::count_primaries(interaction));
+                nu_energy = interaction.energy_init+40*counts[4];
             }
             double MN =37147.393;
             size_t i(utilities::leading_particle_index(interaction, 1));

@@ -520,12 +520,11 @@ namespace vars
         double pn_lp(const T & obj) { return std::sqrt(std::pow(vars::dpT_lp(obj), 2) + std::pow(vars::dpL_lp(obj), 2)); }
      /**
      * @brief Varianble for the reconstructed neutrino energy.
-     * @details The NuMI beam angle is ~23° from the BNB beam line and the particle
-     * angle is defined at the vector from the particle startpoint and 
-     * (31512.0380,3364.4912,73363.2532).
+     * @details Grabs the neutrino energy to be utilized in
+     * the calculation of Q^2 and W.
      * @tparam T the type of interaction (true or reco).
-     * @param p the particle to apply the variable on.
-     * @return the particle angle with respect to NuMI beam.
+     * @param interaction the interaction to apply the variable on.
+     * @return the interaction energy.
      */
     template<class T>
         double neutrino_energy(const T & interaction)
@@ -554,5 +553,58 @@ namespace vars
             }
             return nu_energy;
         }
+    /**
+     * @brief Varianble for the Q^2 of an interaction.
+     * @details Grabs the energy that is being transfered to the 
+     * hadronic system.
+     * @tparam T the type of interaction (true or reco).
+     * @param interaction the interaction to apply the variable on.
+     * @return Q^2.
+     */
+    template<class T>
+        double Qsquared(const T & interaction)
+        {
+            double nu_energy = neutrino_energy(interaction);
+            if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>){
+                std::vector<uint32_t> counts(utilities::count_primaries(interaction));
+                double nu_energy = interaction.energy_init + 40*counts[4];
+            }
+            
+            size_t i(utilities::leading_particle_index(interaction, 1));
+            double electron_energy = pvars::ke(interaction.particles[i]) + ELECTRON_MASS;
+            TVector3 p;
+            p.SetX(interaction.particles[i].momentum[0]);
+            p.SetY(interaction.particles[i].momentum[1]);
+            p.SetZ(interaction.particles[i].momentum[2]);
+            TVector3 beamdir(0.39431672, 0.04210058, 0.91800973);
+            double cos_theta = p.Dot(beamdir)/(p.Mag()*beamdir.Mag());
+            double Q = 2*nu_energy*(electron_energy - p.Mag()*cos_theta) - std::pow(ELECTRON_MASS,2);
+            return Q;
+        }
+    /**
+     * @brief Varianble for the W of an interaction.
+     * @details Grabs the hardonic invariant mass.
+     * @tparam T the type of interaction (true or reco).
+     * @param interaction the interaction to apply the variable on.
+     * @return W.
+     */
+    template<class T>
+        double W(const T & interaction)
+        {
+            double nu_energy = neutrino_energy(interaction);
+            if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>){
+                proton_num = utilities::count_primaries()
+                nu_energy = interaction.energy_init;
+            }
+            double MN =37147.393;
+            size_t i(utilities::leading_particle_index(interaction, 1));
+            double electron_energy = pvars::ke(interaction.particles[i]) + ELECTRON_MASS;
+            double Q = Qsquared(interaction);
+            double W = std::sqrt(std::pow(MN,2)+2*MN*(nu_energy-electron_energy) - Q);
+            
+            return W;
+
+        }
+
 }
 #endif // VARIABLES_H

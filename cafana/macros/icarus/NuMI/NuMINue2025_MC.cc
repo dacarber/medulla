@@ -320,6 +320,8 @@ int main()
     vars_signal_phase.insert({"true_phiT", SpineVar<TTYPE,TTYPE>(&vars::phiT, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"reco_alphaT", SpineVar<RTYPE,TTYPE>(&vars::alphaT, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_alphaT", SpineVar<TTYPE,TTYPE>(&vars::alphaT, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"reco_opening_angle", SpineVar<RTYPE,TTYPE>(&vars::nue::opening_angle, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"true_opening_angle", SpineVar<TTYPE,TTYPE>(&vars::nue::opening_angle, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"reco_electron_polar", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_NuMI_polar_angle, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_electron_polar", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_electron_NuMI_polar_angle, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"reco_proton_polar", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_proton_NuMI_polar_angle, &SIGCUT, &SIGCUT)});

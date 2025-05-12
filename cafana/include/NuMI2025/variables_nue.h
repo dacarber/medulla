@@ -438,9 +438,6 @@ namespace vars::nue
                 std::vector<uint32_t> counts(utilities::count_primaries(interaction));
                 double nu_energy = interaction.energy_init + 40*counts[4];
             }
-
-                
-
             
             size_t i(utilities::leading_particle_index(interaction, 1));
             double electron_energy = pvars::ke(interaction.particles[i]) + ELECTRON_MASS;

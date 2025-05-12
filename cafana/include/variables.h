@@ -518,5 +518,41 @@ namespace vars
      */
     template<class T>
         double pn_lp(const T & obj) { return std::sqrt(std::pow(vars::dpT_lp(obj), 2) + std::pow(vars::dpL_lp(obj), 2)); }
+     /**
+     * @brief Varianble for the reconstructed neutrino energy.
+     * @details The NuMI beam angle is ~23° from the BNB beam line and the particle
+     * angle is defined at the vector from the particle startpoint and 
+     * (31512.0380,3364.4912,73363.2532).
+     * @tparam T the type of interaction (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the particle angle with respect to NuMI beam.
+     */
+    template<class T>
+        double neutrino_energy(const T & interaction)
+        {
+            double nu_energy(0);
+            for(auto &p : interaction.particles)
+            {
+                if(pcuts::final_state_signal(p))
+                {
+                    if (p.pid == 0){
+                        nu_energy+=pvars::ke(p);
+                    } 
+                    else if (p.pid == 1){
+                        nu_energy+=pvars::ke(p) + ELECTRON_MASS;
+                    }
+                    else if (p.pid == 2){
+                        nu_energy+=pvars::ke(p) + MUON_MASS;
+                    }
+                    else if (p.pid == 3){
+                        nu_energy+=pvars::ke(p) + PION_MASS;
+                    }
+                    else if (p.pid == 4){
+                        nu_energy+=pvars::ke(p) + 40;
+                    }
+                }
+            }
+            return nu_energy;
+        }
 }
 #endif // VARIABLES_H

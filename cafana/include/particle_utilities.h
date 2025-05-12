@@ -135,7 +135,8 @@ namespace utilities
             unit = std::make_tuple(0, 0, 1);
         else
         {
-            three_vector beam = std::make_tuple(315.120380 + std::get<0>(vtx), 33.644912 + std::get<1>(vtx), 733.632532 + std::get<2>(vtx));
+            //three_vector beam = std::make_tuple(315.120380 + std::get<0>(vtx), 33.644912 + std::get<1>(vtx), 733.632532 + std::get<2>(vtx));
+            three_vector beam =  std::make_tuple(0.39431672, 0.04210058, 0.91800973);
             unit = normalize(beam);
         }
         double scale = dot_product(p, unit);

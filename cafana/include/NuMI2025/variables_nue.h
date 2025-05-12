@@ -433,11 +433,15 @@ namespace vars::nue
     template<class T>
         double Qsquared(const T & interaction)
         {
-            //if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>){
-            //    proton_num = utilities::count_primaries()
-            //    nu_energy = interaction.energy_init;
-            //}
-            double nu_energy = neutrino_energy(interaction);
+            if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>){
+                std::vector<uint32_t> counts(utilities::count_primaries(interaction));
+                double nu_energy = interaction.energy_init + 40*counts[4];
+            }
+            else
+            {
+                double nu_energy = neutrino_energy(interaction);
+            }
+            
             size_t i(utilities::leading_particle_index(interaction, 1));
             double electron_energy = pvars::ke(interaction.particles[i]) + ELECTRON_MASS;
             TVector3 p;

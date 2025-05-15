@@ -222,12 +222,7 @@ int main(int argc, char ** argv)
     std::map<std::string, ana::SpillMultiVar> vars_purity_phase;
     vars_purity_phase.insert({"nu_id", SpineVar<TTYPE,RTYPE>(&vars::neutrino_id, &cuts::no_cut, &TCUT)});
     vars_selected_nu_phase.insert({"nu_E", SpineVar<TTYPE,RTYPE>(&vars::neutrino_E, &CUT, &TCUT)});
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /// GUNDAM VARIABLES /////////////////////////////////////////////////////////////////////////////////////////////
-    vars_signal_phase.insert({"CutType", SpineVar<TTYPE,TTYPE>(&vars::cut_type, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"IsData", SpineVar<TTYPE,TTYPE>(&vars::is_not_data, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"IsNu", SpineVar<TTYPE,TTYPE>(&vars::is_nu, &SIGCUT, &SIGCUT)});
-    /// END GUNDAM VARIABLES /////////////////////////////////////////////////////////////////////////////////////////
+    
     
     //vars_purity_phase.insert({"baseline", SpineVar<MCTRUTH,RTYPE>(&mctruth::true_neutrino_baseline, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"category", SpineVar<TTYPE,RTYPE>(&vars::nue::category, &cuts::no_cut, &TCUT)});
@@ -299,6 +294,12 @@ int main(int argc, char ** argv)
     std::map<std::string, ana::SpillMultiVar> vars_signal_phase;
     
     vars_signal_phase.insert({"nu_id", SpineVar<TTYPE,TTYPE>(&vars::neutrino_id, &SIGCUT, &SIGCUT)});
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// GUNDAM VARIABLES /////////////////////////////////////////////////////////////////////////////////////////////
+    vars_signal_phase.insert({"CutType", SpineVar<TTYPE,TTYPE>(&vars::cut_type, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"IsData", SpineVar<TTYPE,TTYPE>(&vars::is_not_data, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"IsNu", SpineVar<TTYPE,TTYPE>(&vars::is_nu, &SIGCUT, &SIGCUT)});
+    /// END GUNDAM VARIABLES /////////////////////////////////////////////////////////////////////////////////////////
     //vars_selected_nu_phase.insert({"nu_E", SpineVar<TTYPE,RTYPE>(&vars::neutrino_E,  &SIGCUT,  &SIGCUT)});
     //vars_signal_phase.insert({"CutType", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::cut_type, &SIGCUT, &SIGCUT)}); // GUNDAM
     //vars_signal_phase.insert({"IsSignal", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::is_signal_mc, &SIGCUT, &SIGCUT)}); // GUNDAM

@@ -39,6 +39,7 @@ int main()
     // Output filename
     ana::Analysis analysis("NuMI_nue_MC");
 
+    //ana::SpectrumLoader mc("/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_CV_Nue_flat_cafs/*.root");
     ana::SpectrumLoader mc("/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_CV_flat_cafs/NuMI_CV_flat_caf_combo*.root");
     analysis.AddLoader("mc", &mc, true);
 
@@ -73,6 +74,7 @@ int main()
     vars_selected_nu_phase.insert({"reco_electron_conv_dist", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_vertex_distance, &CUT, &TCUT)});   
     vars_selected_nu_phase.insert({"reco_electron_axial_spread", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_axial_spread, &CUT, &TCUT)});   
     vars_selected_nu_phase.insert({"reco_electron_dir_spread", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_directional_spread, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"reco_electron_straightness", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_start_straightness, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_electron_softmax", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_softmax, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_electron_primary_score", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_primary_score, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_electron_dedx", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_dedx, &CUT, &TCUT)});
@@ -114,7 +116,7 @@ int main()
     vars_selected_nu_phase.insert({"true_Q", SpineVar<TTYPE,RTYPE>(&vars::nue::Qsquared, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_W", SpineVar<RTYPE,RTYPE>(&vars::nue::W, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"true_W", SpineVar<TTYPE,RTYPE>(&vars::nue::W, &CUT, &TCUT)});
-    
+
 
 
     analysis.AddTree("SelectedNu_Cuts", vars_selected_nu_phase, false);
@@ -142,6 +144,7 @@ int main()
     vars_selected_cosmic_phase.insert({"reco_electron_conv_dist", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_vertex_distance, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_electron_axial_spread", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_axial_spread, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_electron_dir_spread", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_directional_spread, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"reco_electron_straightness", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_start_straightness, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_electron_softmax", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_softmax, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_electron_primary_score", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_primary_score, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_electron_dedx", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_dedx, &CUT, &TCUT)});
@@ -217,6 +220,7 @@ int main()
     vars_purity_phase.insert({"reco_electron_conv_dist", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_vertex_distance, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_electron_axial_spread", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_axial_spread, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_electron_dir_spread", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_directional_spread, &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"reco_electron_straightness", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_start_straightness, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_electron_softmax", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_softmax, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_electron_primary_score", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_primary_score, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_electron_dedx", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_electron_dedx, &cuts::no_cut, &TCUT)});
@@ -283,6 +287,7 @@ int main()
     vars_signal_phase.insert({"true_topology", SpineVar<TTYPE,TTYPE>(&vars::nue::truth_topology, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_electron_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_electron_ke, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"reco_electron_energy", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_ke, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"reco_electron_straightness", SpineVar<RTYPE,TTYPE>(&vars::nue::leading_electron_start_straightness, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_electron_pT_mag", SpineVar<TTYPE,TTYPE>(&vars::nue::electron_transverse_momentum_mag, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"reco_electron_pT_mag", SpineVar<RTYPE,TTYPE>(&vars::nue::electron_transverse_momentum_mag, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_proton_energy", SpineVar<TTYPE,TTYPE>(&vars::nue::leading_proton_ke, &SIGCUT, &SIGCUT)});

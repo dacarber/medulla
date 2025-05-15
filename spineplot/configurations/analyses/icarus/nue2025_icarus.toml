@@ -39,7 +39,7 @@ xlabel = 'Reconstructed Electron Directional Spread'
 [variables.reco_electron_softmax]
 key = 'reco_electron_softmax'
 range = [0,1]
-nbins =	25
+nbins =	50
 xlabel = 'Reconstructed Electron Softmax'
 
 [variables.reco_electron_primary_score]
@@ -121,6 +121,11 @@ xlabel = "Reconstructed Azimuthal Angle w.r.t. NuMI"
 
 [variables.reco_proton_energy]
 key = 'reco_proton_energy'
-range = [0,3000]
-nbins = 15
+range = [40,1000]
+nbins = 25
 xlabel = 'Reconstructed Proton Energy [MeV]'
+#[variables.true_proton_energy]
+#key = 'true_proton_energy'
+#range = [0,3000]
+#nbins = 15
+#xlabel = 'True Proton Energy [MeV]'

@@ -605,6 +605,50 @@ namespace vars
             return W;
 
         }
+     /**
+     * @brief Variable for enumerating cut type.
+     * @details This variable provides a basic categorization of cuts
+     * using only signal and sideband as the two cateogories.
+     * 1: Signal
+     * 2: Sideband
+     * @param obj the interaction to apply the variable on.
+     * @return the enumerated category of the cut. 
+     */
+    template<class T>
+        double cut_type(const T & obj)
+        {
+      // Signal
+      double cat(1);
 
+      return cat;
+        }
+
+    template<class T>
+        double is_not_data(const T & obj)
+        {
+        double cat(0);
+        return cat;
+    }
+ 
+    template<class T>
+        double is_data(const T & obj)
+    {
+            double cat(1);
+            return cat;
+    }
+
+    template<class T>
+        double is_not_nu(const T & obj)
+        {
+      double cat(0);
+      return cat;
+    }
+
+    template<class T>
+        double is_nu(const T & obj)
+        {
+            double cat(1);
+            return cat;
+    }
 }
 #endif // VARIABLES_H

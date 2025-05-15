@@ -61,6 +61,15 @@ namespace vars::nue
     double category(const caf::SRInteractionTruthDLPProxy & obj)
     {
         double cat(7);
+
+        if(interaction.nu_id >= 0){
+            if (interaction.current_type == 0)
+            {
+                if (interaction.pdg_code == 12) cat == 0;
+                else if (interaction.pdg_code == 14) cat == 1;
+
+            }
+        }
         return cat;
     }
 

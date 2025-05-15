@@ -62,16 +62,16 @@ int main(int argc, char ** argv)
     vars_selected_nu_phase.insert({"nu_E", SpineVar<TTYPE,RTYPE>(&vars::neutrino_E, &CUT, &TCUT)});
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /// GUNDAM VARIABLES ////////////////////////////////////////////////////////////////////////////////////////////////
-    vars_selected_nu_phase.insert({"CutType", SpineVar<RTYPE,RTYPE>(&vars::ccpi0ana_phase::cut_type, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"CutType", SpineVar<RTYPE,RTYPE>(&vars::cut_type, &CUT, &TCUT)});
     if(std::string(argv[4]) == "sim")
     {
-        vars_selected_nu_phase.insert({"IsData", SpineVar<RTYPE,RTYPE>(&vars::ccpi0ana_phase::is_not_data, &CUT, &TCUT)});
-        vars_selected_nu_phase.insert({"IsNu", SpineVar<RTYPE,RTYPE>(&vars::ccpi0ana_phase::is_nu, &CUT, &TCUT)});
+        vars_selected_nu_phase.insert({"IsData", SpineVar<RTYPE,RTYPE>(&vars::is_not_data, &CUT, &TCUT)});
+        vars_selected_nu_phase.insert({"IsNu", SpineVar<RTYPE,RTYPE>(&vars::is_nu, &CUT, &TCUT)});
     }
     else
     {
-        vars_selected_nu_phase.insert({"IsData", SpineVar<RTYPE,RTYPE>(&vars::ccpi0ana_phase::is_data, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"IsNu", SpineVar<RTYPE,RTYPE>(&vars::ccpi0ana_phase::is_not_nu, &CUT, &TCUT)});
+        vars_selected_nu_phase.insert({"IsData", SpineVar<RTYPE,RTYPE>(&vars::is_data, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"IsNu", SpineVar<RTYPE,RTYPE>(&vars::is_not_nu, &CUT, &TCUT)});
     }
     /// END GUNDAM VARIABLES /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -144,12 +144,12 @@ int main(int argc, char ** argv)
     vars_selected_nu_phase.insert({"nu_E", SpineVar<TTYPE,RTYPE>(&vars::neutrino_E, &CUT, &TCUT)});
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /// GUNDAM VARIABLES ////////////////////////////////////////////////////////////////////////////////////////////////
-    vars_selected_cosmic_phase.insert({"CutType", SpineVar<RTYPE,RTYPE>(&vars::ccpi0ana_phase::cut_type, &CUT, &TCUT)});
-    vars_selected_cosmic_phase.insert({"IsNu", SpineVar<RTYPE,RTYPE>(&vars::ccpi0ana_phase::is_not_nu, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"CutType", SpineVar<RTYPE,RTYPE>(&vars::cut_type, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"IsNu", SpineVar<RTYPE,RTYPE>(&vars::is_not_nu, &CUT, &TCUT)});
     if(std::string(argv[4]) == "sim")
-      vars_selected_cosmic_phase.insert({"IsData", SpineVar<RTYPE,RTYPE>(&vars::ccpi0ana_phase::is_not_data, &CUT, &TCUT)});
+      vars_selected_cosmic_phase.insert({"IsData", SpineVar<RTYPE,RTYPE>(&vars::is_not_data, &CUT, &TCUT)});
     else
-      vars_selected_cosmic_phase.insert({"IsData", SpineVar<RTYPE,RTYPE>(&vars::ccpi0ana_phase::is_data, &CUT, &TCUT)});
+      vars_selected_cosmic_phase.insert({"IsData", SpineVar<RTYPE,RTYPE>(&vars::is_data, &CUT, &TCUT)});
     /// END GUNDAM VARIABLES ////////////////////////////////////////////////////////////////////////////////////////////
     
     vars_selected_cosmic_phase.insert({"baseline", SpineVar<MCTRUTH,RTYPE>(&mctruth::true_neutrino_baseline, &CUT, &TCUT)});
@@ -224,9 +224,9 @@ int main(int argc, char ** argv)
     vars_selected_nu_phase.insert({"nu_E", SpineVar<TTYPE,RTYPE>(&vars::neutrino_E, &CUT, &TCUT)});
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /// GUNDAM VARIABLES /////////////////////////////////////////////////////////////////////////////////////////////
-    vars_signal_phase.insert({"CutType", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::cut_type, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"IsData", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::is_not_data, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"IsNu", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::is_nu, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"CutType", SpineVar<TTYPE,TTYPE>(&vars::cut_type, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"IsData", SpineVar<TTYPE,TTYPE>(&vars::is_not_data, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"IsNu", SpineVar<TTYPE,TTYPE>(&vars::is_nu, &SIGCUT, &SIGCUT)});
     /// END GUNDAM VARIABLES /////////////////////////////////////////////////////////////////////////////////////////
     
     //vars_purity_phase.insert({"baseline", SpineVar<MCTRUTH,RTYPE>(&mctruth::true_neutrino_baseline, &cuts::no_cut, &TCUT)});

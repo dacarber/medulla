@@ -58,7 +58,7 @@ namespace vars::nue
      * @param obj The interaction to apply the variable on.
      * @return the enumerated category of the interaction.
     */
-    double category(const caf::SRInteractionTruthDLPProxy & obj)
+    double category(const caf::SRInteractionTruthDLPProxy & interaction)
     {
         double cat(7);
 

@@ -1,10 +1,10 @@
 
 [input]
-path = '/exp/icarus/app/users/dcarber/spine_analysis/spine/cafana/build/icarus_numi_nue_mc_onbeam_offbeam.root'
+path = '/exp/icarus/app/users/dcarber/spine_analysis/spine/cafana/build/icarus_numi_nue_mc_onbeam_offbeam_gundam.root'
 caflist = '/exp/icarus/app/users/dcarber/spine_analysis/full_path_mc_caf_list.txt'
 
 [output]
-path = 'icarus_numi_nue_mc_onbeam_offbeam_syst.root'
+path = 'icarus_numi_nue_mc_onbeam_offbeam_syst_gundam.root'
 histogram_destination = 'variations/'
 
 [[sysvar]]

@@ -6,33 +6,10 @@ file = 'configurations/analyses/icarus/nue2025_icarus.toml'
 file = 'configurations/common/styles.toml'
 
 [samples]
-[samples.onbeam]
-key = "onbeam"
-exposure_type = "pot"
-override_category = -100
-trees = ['SelectedNu_PhaseCuts',]
-[samples.offbeam]
-key = "offbeam"
-exposure_type = "Livetime"
-override_category = -1
-trees = ['SelectedCos_PhaseCuts',]
-[samples.mc_nu]
+[samples.mc]
 key = "mc"
 exposure_type = "pot"
-trees = ['SelectedNu_Cuts']
-presel = 'matches_baseline == 1'
-systematics = ['multisimTree']
-print_sys = true
-[samples.mc_cos]
-key = "mc"
-exposure_type = "pot"
-trees = ['SelectedCos_PhaseCuts']
-#presel = 'matches_baseline == 1'
-#systematics = ['multisimTree']
-#[samples.mc]
-#key = "mc"
-#exposure_type = "pot"
-#trees = ['SelectedNu_Cuts','SelectedCos_PhaseCuts']
+trees = ['SelectedNu_Cuts','SelectedCos_PhaseCuts']
 
 
 
@@ -86,7 +63,7 @@ pattern = '(flux|xsec|stats)'
 
 
 [analysis]
-ordinate_sample = 'onbeam'
+ordinate_sample = 'mc'
 category_branch = 'category_topology'
 category_assignment = [[0,1], [2,3,4,6], [5], [7],[8],[9],[10,-1], [-100]]
 category_labels = ['1eNp', 'Other CC $\nu_e$', 'NC $\nu$', '$\nu_\mu$ CC','Uncontained','Other','Cosmic', 'Run 2 Data']
@@ -104,7 +81,7 @@ style = 'selected_icarus'
 type = 'SpineSpectra1D'
 variable = 'reco_electron_energy'
 range = [70, 3000]
-draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true}
 
 [[figure]]
 name = 'reco_electron_pT_mag'

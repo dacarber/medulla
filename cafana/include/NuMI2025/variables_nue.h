@@ -208,7 +208,7 @@ namespace vars::nue
     template<class T>
         double azimuthal_angle(const T & p)
         {
-            if(pa.start_dir[1] >0)
+            if(p.start_dir[1] >0)
 
                 return std::acos(p.start_dir[0] / std::sqrt(std::pow(p.start_dir[0], 2) + std::pow(p.start_dir[1], 2)));
             else

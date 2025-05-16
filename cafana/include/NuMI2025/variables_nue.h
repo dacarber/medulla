@@ -204,11 +204,12 @@ namespace vars::nue
      * @param p the particle to apply the variable on.
      * @return the particle angle with respect to NuMI beam.
      */
-    /*
+    
     template<class T>
         double azimuthal_angle(const T & p)
         {
             if(pa.start_dir[1] >0)
+
                 return std::acos(p.start_dir[0] / std::sqrt(std::pow(p.start_dir[0], 2) + std::pow(p.start_dir[1], 2)));
             else
                 return -std::acos(p.start_dir[0] / std::sqrt(std::pow(p.start_dir[0], 2) + std::pow(p.start_dir[1], 2)));
@@ -219,7 +220,7 @@ namespace vars::nue
         {
             return std::acos(p.start_dir[2]);
         }
-    */
+    
     /**
      * @brief Varianble for the angle with respect to NuMI beam line.
      * @details The NuMI beam angle is ~23° from the BNB beam line and the particle
@@ -659,14 +660,14 @@ namespace vars::nue
         double leading_electron_NuMI_azimuthal_angle(const T & interaction)
         {
             size_t i(utilities::leading_particle_index(interaction, 1));
-            double angle(NuMI_azimuthal_angle(interaction.particles[i]));
+            double angle(azimuthal_angle(interaction.particles[i]));
             return angle;
         }
     template<class T>
         double leading_proton_NuMI_azimuthal_angle(const T & interaction)
         {
             size_t i(utilities::leading_particle_index(interaction, 4));
-            double angle(NuMI_azimuthal_angle(interaction.particles[i]));
+            double angle(azimuthal_angle(interaction.particles[i]));
             return angle;
         }
     /**

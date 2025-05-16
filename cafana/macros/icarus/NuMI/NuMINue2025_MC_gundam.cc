@@ -41,7 +41,7 @@ int main(int argc, char ** argv)
     ana::Analysis analysis(argv[2]);
 
     // Input
-    ana::SpectrumLoader sl(argv[1] + std::string("*flat.root"));
+    ana::SpectrumLoader sl(argv[1] + std::string("*.root"));
 
     // Configure loader
     analysis.AddLoader(argv[3], &sl, std::string(argv[4]) == "sim" ? true : false);

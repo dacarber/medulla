@@ -295,6 +295,7 @@ namespace sys::trees
         TTree * input_tree = (TTree *) input->Get(table.get_string_field("origin").c_str());
         std::map<std::string, double> brs;
         double nu_id;
+        double nu_E;
         Int_t run, subrun, event;
         for(int i(0); i < input_tree->GetNbranches()-3; ++i)
         {

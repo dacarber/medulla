@@ -215,11 +215,11 @@ namespace vars::nue
                 return -std::acos(p.start_dir[0] / std::sqrt(std::pow(p.start_dir[0], 2) + std::pow(p.start_dir[1], 2)));
             
         }
-    template<class T>
-        double polar_angle(const T & p)
-        {
-            return std::acos(p.start_dir[2]);
-        }
+    //template<class T>
+    //    double polar_angle(const T & p)
+    //    {
+    //        return std::acos(p.start_dir[2]);
+    //    }
     
     /**
      * @brief Varianble for the angle with respect to NuMI beam line.

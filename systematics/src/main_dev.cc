@@ -1,4 +1,3 @@
-
 /**
  * @file main.cc
  * @brief Main function for the code that adds TTrees with systematics to the

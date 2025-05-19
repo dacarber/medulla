@@ -310,7 +310,7 @@ int main(int argc, char ** argv)
     //vars_signal_phase.insert({"interaction_mode", SpineVar<MCTRUTH,TTYPE>(&mctruth::interaction_mode, &SIGCUT, &SIGCUT)});
     //vars_signal_phase.insert({"interaction_type", SpineVar<MCTRUTH,TTYPE>(&mctruth::interaction_type, &SIGCUT, &SIGCUT)});
     //vars_signal_phase.insert({"true_energy", SpineVar<MCTRUTH,TTYPE>(&mctruth::true_neutrino_energy, &SIGCUT, &SIGCUT)});
-    //vars_signal_phase.insert({"category", SpineVar<TTYPE,TTYPE>(&vars::nue::category, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"category", SpineVar<TTYPE,TTYPE>(&vars::nue::category, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"category_topology", SpineVar<TTYPE,TTYPE>(&vars::nue::category_topology, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"reco_topology", SpineVar<RTYPE,TTYPE>(&vars::nue::reco_topology, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_topology", SpineVar<TTYPE,TTYPE>(&vars::nue::truth_topology, &SIGCUT, &SIGCUT)});

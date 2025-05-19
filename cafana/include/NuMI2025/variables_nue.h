@@ -65,14 +65,14 @@ namespace vars::nue
         if(interaction.nu_id >= 0){
             if (interaction.current_type == 0)
             {
-                if (interaction.pdg_code == 12) cat == 0;
-                else if (interaction.pdg_code == 14) cat == 1;
+                if (interaction.pdg_code == 12) cat = 0;
+                else if (interaction.pdg_code == 14) cat = 1;
 
             }
             else if (interaction.current_type == 1)
             {
-                if (interaction.pdg_code == 12) cat == 2;
-                else if (interaction.pdg_code == 14) cat == 3;
+                if (interaction.pdg_code == 12) cat = 2;
+                else if (interaction.pdg_code == 14) cat = 3;
             }
         }
         return cat;

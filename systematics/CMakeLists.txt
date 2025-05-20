@@ -43,6 +43,9 @@ add_executable(run_systematics_gundam src/main_dev.cc ${SYSINC})
 # Link the ROOT libraries to the target
 target_link_libraries(run_systematics ${ROOT_LIBRARIES} ${sbnanaobj_LIBRARY_DIRS}/libsbnanaobj_StandardRecord.so tomlplusplus::tomlplusplus configuration systematics detsys)
 
+target_link_libraries(run_systematics_gundam ${ROOT_LIBRARIES} ${sbnanaobj_LIBRARY_DIRS}/libsbnanaobj_StandardRecord.so tomlplusplus::tomlplusplus configuration systematics detsys)
+
+
 # Include the ROOT headers
 include_directories(${ROOT_INCLUDE_DIRS} ${SBNANAOBJ_INCLUDE_DIRS} include/ tomlplusplus/include)
 

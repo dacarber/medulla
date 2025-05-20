@@ -684,11 +684,11 @@ namespace sys::trees
             caf->Close();
             nprocessed++;
         } // End of loop over the input CAF files.
-
+        std::cout"1"<<std::endl;
         directory->WriteObject(output_tree, table.get_string_field("name").c_str());
         for(auto & [key, value] : systrees)
             directory->WriteObject(value, (key+"Tree").c_str());
-        
+        std::cout"2"<<std::endl;
         // Write the systematic histograms to the output file.
         TDirectory * histogram_directory = create_directory(output, config.get_string_field("output.histogram_destination"));
         for(auto & [key, value] : results2d)
@@ -704,6 +704,8 @@ namespace sys::trees
             }
             delete value;
         }
+
+        std::cout"3"<<std::endl;
         for(auto & [key, value] : results1d)
         {
             std::string name = value->GetName();

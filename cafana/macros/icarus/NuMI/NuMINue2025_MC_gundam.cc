@@ -300,7 +300,7 @@ int main(int argc, char ** argv)
     vars_signal_phase.insert({"IsData", SpineVar<TTYPE,TTYPE>(&vars::is_not_data, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"IsNu", SpineVar<TTYPE,TTYPE>(&vars::is_nu, &SIGCUT, &SIGCUT)});
     /// END GUNDAM VARIABLES /////////////////////////////////////////////////////////////////////////////////////////
-    vars_signal_phase.insert({"nu_E", SpineVar<TTYPE,RTYPE>(&vars::neutrino_E,  &SIGCUT,  &SIGCUT)});
+    vars_signal_phase.insert({"nu_E", SpineVar<TTYPE,TTYPE>(&vars::neutrino_E,  &SIGCUT,  &SIGCUT)});
     //vars_signal_phase.insert({"CutType", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::cut_type, &SIGCUT, &SIGCUT)}); // GUNDAM
     //vars_signal_phase.insert({"IsSignal", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::is_signal_mc, &SIGCUT, &SIGCUT)}); // GUNDAM
     //vars_signal_phase.insert({"IsData", SpineVar<TTYPE,TTYPE>(&vars::ccpi0ana_phase::is_not_data, &SIGCUT, &SIGCUT)}); // GUNDAM

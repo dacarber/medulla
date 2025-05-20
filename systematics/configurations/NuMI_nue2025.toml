@@ -37,6 +37,14 @@ table_types = ['multisim', 'multisigma']
 #table_types = ['multisim', 'multisigma', 'variation']
 
 [[tree]]
+origin = 'events/mc/Efficiency_PhaseCuts'
+destination = 'events/mc/'
+name = 'Efficiency_PhaseCuts'
+action = 'add_weights'
+table_types = ['multisim', 'multisigma']
+#table_types = ['multisim', 'multisigma', 'variation']
+
+[[tree]]
 origin = 'events/onbeam/SelectedNu_Cuts'
 destination = 'events/onbeam/'
 name = 'SelectedNu_PhaseCuts'
@@ -47,6 +55,7 @@ origin = 'events/offbeam/SelectedCos_PhaseCuts'
 destination = 'events/offbeam/'
 name = 'SelectedCos_PhaseCuts'
 action = 'copy'
+
 
 #[[sys]]
 #name = 'var00'

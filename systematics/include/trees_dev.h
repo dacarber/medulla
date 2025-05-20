@@ -712,9 +712,9 @@ namespace sys::trees
             histogram_directory->WriteObject(value, name.c_str());
             delete value;
         }
-        std::cout<<"4å"<<std::endl;
+        std::cout<<"4"<<std::endl;
         // Write detector systematic histograms to the output file.
-        calc.write_results();
+        //calc.write_results();
     }
 }
 #endif

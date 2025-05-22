@@ -141,7 +141,7 @@ int main(int argc, char ** argv)
     #define TCUT cuts::cosmic
     std::map<std::string, ana::SpillMultiVar> vars_selected_cosmic_phase;
     vars_selected_cosmic_phase.insert({"nu_id", SpineVar<TTYPE,RTYPE>(&vars::neutrino_id, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"nu_E", SpineVar<TTYPE,RTYPE>(&vars::neutrino_E, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"nu_E", SpineVar<TTYPE,RTYPE>(&vars::neutrino_E, &CUT, &TCUT)});
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /// GUNDAM VARIABLES ////////////////////////////////////////////////////////////////////////////////////////////////
     vars_selected_cosmic_phase.insert({"CutType", SpineVar<RTYPE,RTYPE>(&vars::cut_type, &CUT, &TCUT)});

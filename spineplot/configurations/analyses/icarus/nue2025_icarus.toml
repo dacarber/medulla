@@ -124,6 +124,11 @@ key = 'reco_proton_energy'
 range = [40,1000]
 nbins = 25
 xlabel = 'Reconstructed Proton Energy [MeV]'
+#[variables.reco_electron_costheta]
+#key = 'reco_electron_polar'
+#range = [0.0,3.2]
+#nbins =	100
+#xlabel = "Reconstructed Polar Angle w.r.t. NuMI"
 #[variables.true_proton_energy]
 #key = 'true_proton_energy'
 #range = [0,3000]

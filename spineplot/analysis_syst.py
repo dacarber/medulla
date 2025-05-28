@@ -1,7 +1,11 @@
+
 import os
 import toml
+import ROOT
 import uproot
+import pandas as pd
 from matplotlib import pyplot as plt
+import re
 
 from sample import Sample
 from figure import SpineFigure, SimpleFigure
@@ -12,6 +16,7 @@ from roc import ROCCurve
 from ternary import Ternary
 from style import Style
 from variable import Variable
+from systematic import Systematic
 
 class ConfigException(Exception):
     pass
@@ -67,7 +72,7 @@ class Analysis:
             self._categories.update({c : self._config['analysis']['category_labels'][ci] for c in cat})
         self._colors = {c : self._config['analysis']['category_colors'][ci] for ci, c in enumerate(self._config['analysis']['category_labels'])}
         self._category_types = {c : self._config['analysis']['category_types'][ci] for ci, c in enumerate(self._config['analysis']['category_labels'])}
-        print(self._config['analysis']['category_branch'])
+
         # Initialize the samples
         if 'samples' not in self._config.keys():
             raise ConfigException(f"No samples defined in the TOML file. Please check for a valid sample configuration block in the TOML file ('{toml_path}').")
@@ -214,7 +219,7 @@ class Analysis:
 
     def run(self, close_figs=True) -> None:
         """
-        Runs the analysis on the samples.
+        Run5Bs the analysis on the samples.
 
         Parameters
         ----------
@@ -230,21 +235,136 @@ class Analysis:
         if self._config['analysis']['ordinate_sample'] not in self._samples.keys():
             raise ConfigException(f"Ordinate sample '{self._config['analysis']['ordinate_sample']}' not found in sample list. Please check the sample configuration block (table='samples') in the TOML file ('{self._toml_path}').")
         ordinate = self._samples[self._config['analysis']['ordinate_sample']]
+        ### Combine mc_nu and mc_cos for statistical uncertainty analysis
+        mc_dfs = [s._data for s in self._samples.values() if 'mc' in s._name]
+        mc_dfs_data_attr = pd.concat(mc_dfs)
+        mc_dfs_data_attr['matches_energy'] = [True]*len(mc_dfs_data_attr)
         for s in self._samples.values():
+            if s._name == 'mc_cos':
+                s._data = mc_dfs_data_attr
+                print(s._data)
+                for syst in s._systematics.values():
+                    syst.process(s, 'matches_energy == 1')
             s.set_weight(target=ordinate)
 
-        for artist in self._artists:
-            for sample in self._samples.values():
-                artist.add_sample(sample, sample==ordinate)
+        # Assess systematics
+        regxp_stat = re.compile('statistical')
+        regxp_flux = re.compile('_Flux')
+        regxp_multisim_xsec = re.compile('GENIEReWeight_SBN_v1_multisim')
+        regxp_multisigma_xsec = re.compile('GENIEReWeight_SBN_v1_multisigma')
+        regxp_det = re.compile('var(01|02|03|04|05|06|07|08|09|10)+')
 
-        # Check if the output path exists. If not, create it.
-        if not os.path.exists(self._output_path):
-            os.makedirs(self._output_path)
-        for figname, figure in self._figures.items():
-            figure.create()
-            figure.figure.savefig(f"{self._output_path}/{figname}.png")
-            if close_figs:
-                figure.close()
+        # Statistical MC uncertainty
+        mc_cos_sample = [s for s in self._samples.values() if 'mc_cos' in s._name][0]
+        mc_stat_syst = [syst for syst in mc_cos_sample._systematics.values() if regxp_stat.search(syst._name)][0]
+        
+        # Statistical offbeam uncertainty
+        offbeam_sample = [s for s in self._samples.values() if 'offbeam' in s._name][0]
+        offbeam_stat_syst = [syst for syst in offbeam_sample._systematics.values() if regxp_stat.search(syst._name)][0]
+        
+        # Get flux, xsec, and det. syst. uncertainties
+        mc_nu_sample = [s for s in self._samples.values() if 'mc_nu' in s._name][0]
+        mc_nu_flux_systs = [syst for syst in mc_nu_sample._systematics.values() if regxp_flux.search(syst._name)]
+        mc_nu_flux_combined_syst = Systematic.combine(mc_nu_flux_systs, 'total_flux_syst', None)
+        
+        # multisim
+        mc_nu_multisim_xsec_systs = [syst for syst in mc_nu_sample._systematics.values() if regxp_multisim_xsec.search(syst._name)]
+        multisim_buzzwords = ['ZExpAVariation', 'CCRES', 'NCRES', 'NCELVariation', 'DISBY', 'FSI']
+        mc_nu_multisim_xsec_systs = [syst for syst in mc_nu_multisim_xsec_systs if any(bw in syst._name for bw in multisim_buzzwords)]
+        mc_nu_multisim_xsec_combined_syst = Systematic.combine(mc_nu_multisim_xsec_systs, 'total_multisim_xsec_syst', None)
+
+        # multisigma
+        #mc_nu_multisigma_xsec_systs = [syst for syst in mc_nu_sample._systematics.values() if regxp_multisigma_xsec.search(syst._name)]
+        #multisigma_buzzwords = ['VecFFCCQEshape', 'RPA_CCQE', 'CoulombCCQE', 'NormCCMEC', 'NormNCMEC', 'RDec', 'Theta', 'NormCCCOH', 'NormNCCOH', 'NonRES']
+        #mc_nu_multisigma_xsec_systs = [syst for syst in mc_nu_multisigma_xsec_systs if any(bw in syst._name for bw in multisigma_buzzwords)]
+        #print(mc_nu_multisigma_xsec_systs)
+        #mc_nu_multisigma_xsec_combined_syst = Systematic.combine(mc_nu_multisigma_xsec_systs, 'total_multisigma_xsec_syst', None)
+        
+        #mc_nu_det_systs = [syst for syst in mc_nu_sample._systematics.values() if regxp_det.search(syst._name)]
+        #mc_nu_det_combined_syst = Systematic.combine(mc_nu_det_systs, 'total_det_syst', None)
+
+        #print(mc_stat_syst)
+        #print(offbeam_stat_syst)
+        #print(mc_nu_flux_combined_syst)
+        #print(mc_nu_multisim_xsec_combined_syst)
+        #print(mc_nu_multisigma_xsec_combined_syst)
+        #print(mc_nu_det_combined_syst)
+        
+        #all_systs = [mc_stat_syst, offbeam_stat_syst, mc_nu_flux_combined_syst, mc_nu_multisim_xsec_combined_syst, mc_nu_multisigma_xsec_combined_syst, mc_nu_det_combined_syst]
+        all_systs = [mc_stat_syst, offbeam_stat_syst, mc_nu_flux_combined_syst, mc_nu_multisim_xsec_combined_syst,]
+        total_syst = Systematic.combine(all_systs, 'total_syst', None)
+        print(total_syst)
+
+        #######################################
+        ### Convert from ndarray to TMatrixTSym
+        #######################################
+        
+        ########
+        ### xsec
+        ########
+
+        # pi0 costheta
+        multisim_xsec_reco_electron_energy_cov = mc_nu_multisim_xsec_combined_syst._covariances['total_multisim_xsec_syst_reco_electron_energy']
+        multisim_xsec_reco_electron_energy_cov_tmatrix = self.ndarray_to_tmatrixtsym(multisim_xsec_reco_electron_energy_cov)
+        outf = ROOT.TFile('multisim_xsec_reco_electron_energy_cov.root', 'RECREATE')
+        outf.WriteObject(multisim_xsec_reco_electron_energy_cov_tmatrix, 'multisim_xsec_reco_electron_energy_cov')
+        outf.Close()
+        
+        # pi0 mom
+        multisim_xsec_reco_proton_energy_cov = mc_nu_multisim_xsec_combined_syst._covariances['total_multisim_xsec_syst_reco_proton_energy']
+        multisim_xsec_reco_proton_energy_cov_tmatrix = self.ndarray_to_tmatrixtsym(multisim_xsec_reco_proton_energy_cov)
+        outf = ROOT.TFile('multisim_xsec_reco_proton_energy_cov.root', 'RECREATE')
+        outf.WriteObject(multisim_xsec_reco_proton_energy_cov_tmatrix, 'multisim_xsec_reco_proton_energy_cov')
+        outf.Close()
+
+        # muon costheta
+        multisim_xsec_reco_dpT_cov = mc_nu_multisim_xsec_combined_syst._covariances['total_multisim_xsec_syst_reco_dpT']
+        multisim_xsec_reco_dpT_cov_tmatrix = self.ndarray_to_tmatrixtsym(multisim_xsec_reco_dpT_cov)
+        outf = ROOT.TFile('multisim_xsec_reco_dpT_cov.root', 'RECREATE')
+        outf.WriteObject(multisim_xsec_reco_dpT_cov_tmatrix, 'multisim_xsec_reco_dpT_cov')
+        outf.Close()
+
+        # muon mom
+        multisim_xsec_reco_electron_polar_cov = mc_nu_multisim_xsec_combined_syst._covariances['total_multisim_xsec_syst_reco_electron_polar']
+        multisim_xsec_reco_electron_polar_cov_tmatrix = self.ndarray_to_tmatrixtsym(multisim_xsec_reco_electron_polar_cov)
+        outf = ROOT.TFile('multisim_xsec_reco_electron_polar_cov.root', 'RECREATE')
+        outf.WriteObject(multisim_xsec_reco_electron_polar_cov_tmatrix, 'multisim_xsec_reco_electron_polar_cov')
+        outf.Close()
+
+        
+        ########
+        ### flux
+        ########
+
+        # pi0 costheta
+        flux_reco_electron_energy_cov = mc_nu_flux_combined_syst._covariances['total_flux_syst_reco_electron_energy']
+        flux_reco_electron_energy_cov_tmatrix = self.ndarray_to_tmatrixtsym(flux_reco_electron_energy_cov)
+        outf = ROOT.TFile('flux_reco_electron_energy_cov.root', 'RECREATE')
+        outf.WriteObject(flux_reco_electron_energy_cov_tmatrix, 'flux_reco_electron_energy_cov')
+        outf.Close()
+        
+        # pi0 mom
+        flux_reco_proton_energy_cov = mc_nu_flux_combined_syst._covariances['total_flux_syst_reco_proton_energy']
+        flux_reco_proton_energy_cov_tmatrix = self.ndarray_to_tmatrixtsym(flux_reco_proton_energy_cov)
+        outf = ROOT.TFile('flux_reco_proton_energy_cov.root', 'RECREATE')
+        outf.WriteObject(flux_reco_proton_energy_cov_tmatrix, 'flux_reco_proton_energy_cov')
+        outf.Close()
+
+        # muon costheta
+        flux_reco_dpT_cov = mc_nu_flux_combined_syst._covariances['total_flux_syst_reco_dpT']
+        flux_reco_dpT_cov_tmatrix = self.ndarray_to_tmatrixtsym(flux_reco_dpT_cov)
+        outf = ROOT.TFile('flux_reco_dpT_cov.root', 'RECREATE')
+        outf.WriteObject(flux_reco_dpT_cov_tmatrix, 'flux_reco_dpT_cov')
+        outf.Close()
+
+        # muon mom
+        flux_reco_electron_polar_cov = mc_nu_flux_combined_syst._covariances['total_flux_syst_reco_electron_polar']
+        flux_reco_electron_polar_cov_tmatrix = self.ndarray_to_tmatrixtsym(flux_reco_electron_polar_cov)
+        outf = ROOT.TFile('flux_reco_electron_polar_cov.root', 'RECREATE')
+        outf.WriteObject(flux_reco_electron_polar_cov_tmatrix, 'flux_reco_electron_polar_cov')
+        outf.Close()
+
+
 
     def run_interactively(self, figure) -> SpineFigure:
         """
@@ -310,3 +430,15 @@ class Analysis:
                         config[key].update(value)
                     else:
                         config[key] = value
+
+
+    @staticmethod
+    def ndarray_to_tmatrixtsym(np_array):
+        size = np_array.shape[0]
+        tmatrix = ROOT.TMatrixDSym(size)
+
+        for i in range(size):
+            for j in range(i, size):
+                tmatrix[i][j] = np_array[i, j]
+                tmatrix[j][i] = np_array[i, j]
+        return tmatrix

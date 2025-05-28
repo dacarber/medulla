@@ -268,6 +268,7 @@ class Systematic:
             A new Systematic object with the covariance matrices added.
         """
         new_systematic = Systematic(name, None, label)
+        #print(systematics)
         new_systematic._variables = systematics[0]._variables
         new_systematic._covariances = dict()
         for kvar, vvar in new_systematic._variables.items():

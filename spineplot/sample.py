@@ -91,7 +91,7 @@ class Sample:
 
         if override_exposure is not None:
             self.override_exposure(override_exposure, exposure_type)
-
+        print(trees)
         self._data = pd.concat([self._file_handle[tree].arrays(library='pd') for tree in trees])
         if self._category_branch not in self._data.columns:
             self._data[self._category_branch] = 0

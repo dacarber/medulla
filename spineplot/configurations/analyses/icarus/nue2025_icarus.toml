@@ -78,6 +78,24 @@ range = [0,2100]
 nbins =	14
 xlabel = "Reconstructed \u03B4$P_{T}$ [MeV/c]"
 
+[variables.reco_dpT_lp]
+key = 'reco_dpT_lp'
+range = [0,2100]
+nbins =	14
+xlabel = "Reconstructed \u03B4$P_{T}$_lp [MeV/c]"
+
+[variables.true_dpT]
+key = 'true_dpT'
+range = [0,2100]
+nbins =	14
+xlabel = "Reconstructed \u03B4$P_{T}$ [MeV/c]"
+
+[variables.true_dpT_lp]
+key = 'true_dpT_lp'
+range = [0,2100]
+nbins =	14
+xlabel = "Reconstructed \u03B4$P_{T}$_lp [MeV/c]"
+
 [variables.reco_dalphaT]
 key = 'reco_dalphaT'
 range = [0.0,3.2]

@@ -6,11 +6,11 @@ file = 'configurations/analyses/icarus/nue2025_icarus.toml'
 file = 'configurations/common/styles.toml'
 
 [samples]
-[samples.onbeam]
-key = "onbeam"
-exposure_type = "pot"
-override_category = -100
-trees = ['SelectedNu_PhaseCuts',]
+#[samples.onbeam]
+#key = "onbeam"
+#exposure_type = "pot"
+#override_category = -100
+#trees = ['SelectedNu_PhaseCuts',]
 #presel = "flash_time > -1.3 and flash_time < 0.5"
 #[samples.offbeam]
 #key = "offbeam"
@@ -238,5 +238,33 @@ type = 'SpineSpectra1D'
 variable = 'reco_proton_energy'
 draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
 
+[[figure]]
+name = 'reco_dpT_lp'
+type = 'SimpleFigure'
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_dpT_lp'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'reco_dpT_lp'
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true}#, 'draw_error' = 'flux_xsec'
 
+[[figure]]
+name = 'true_dpT'
+type = 'SimpleFigure'
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'true_dpT'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'true_dpT'
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true}#, 'draw_error' = 'flux_xsec'
+
+[[figure]]
+name = 'true_dpT_lp'
+type = 'SimpleFigure'
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'true_dpT_lp'},]
+style = 'selected_icarus'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'true_dpT_lp'
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true}#, 'draw_error' = 'flux_xsec'
 

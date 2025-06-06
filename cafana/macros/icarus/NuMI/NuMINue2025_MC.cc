@@ -94,8 +94,8 @@ int main()
     vars_selected_nu_phase.insert({"reco_proton_primary_score", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_proton_primary_score, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_dpT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_pT, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"true_dpT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_pT, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"reco_dpT_lp", SpineVar<RTYPE,RTYPE>(&vars::dpT_lp, &CUT, &TCUT)});
-    vars_selected_nu_phase.insert({"true_dpT_lp", SpineVar<TTYPE,RTYPE>(&vars::dpT_lp, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"reco_dpT_lp", SpineVar<RTYPE,RTYPE>(&vars::dpT, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"true_dpT_lp", SpineVar<TTYPE,RTYPE>(&vars::dpT, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_dalphaT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_alphaT, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"true_dalphaT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_alphaT, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_dphiT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_phiT, &CUT, &TCUT)});
@@ -166,8 +166,8 @@ int main()
     vars_selected_cosmic_phase.insert({"reco_proton_primary_score", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_proton_primary_score, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_dpT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_pT, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"true_dpT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_pT, &CUT, &TCUT)});
-    vars_selected_cosmic_phase.insert({"reco_dpT_lp", SpineVar<RTYPE,RTYPE>(&vars::dpT_lp, &CUT, &TCUT)});
-    vars_selected_cosmic_phase.insert({"true_dpT_lp", SpineVar<TTYPE,RTYPE>(&vars::dpT_lp, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"reco_dpT_lp", SpineVar<RTYPE,RTYPE>(&vars::dpT, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"true_dpT_lp", SpineVar<TTYPE,RTYPE>(&vars::dpT, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_dalphaT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_alphaT, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"true_dalphaT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_alphaT, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_dphiT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_phiT, &CUT, &TCUT)});
@@ -244,8 +244,8 @@ int main()
     vars_purity_phase.insert({"reco_proton_primary_score", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_proton_primary_score, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_dpT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_pT, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"true_dpT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_pT, &cuts::no_cut, &TCUT)});
-    vars_purity_phase.insert({"reco_dpT_lp", SpineVar<RTYPE,RTYPE>(&vars::dpT_lp, &cuts::no_cut, &TCUT)});
-    vars_purity_phase.insert({"true_dpT_lp", SpineVar<TTYPE,RTYPE>(&vars::dpT_lp, &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"reco_dpT_lp", SpineVar<RTYPE,RTYPE>(&vars::dpT, &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"true_dpT_lp", SpineVar<TTYPE,RTYPE>(&vars::dpT, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_dalphaT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_alphaT, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"true_dalphaT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_alphaT, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_dphiT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_phiT, &cuts::no_cut, &TCUT)});
@@ -328,8 +328,8 @@ int main()
     vars_signal_phase.insert({"true_Q", SpineVar<TTYPE,TTYPE>(&vars::nue::Qsquared, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"reco_W", SpineVar<RTYPE,TTYPE>(&vars::nue::W, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_W", SpineVar<TTYPE,TTYPE>(&vars::nue::W, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"reco_dpT", SpineVar<RTYPE,TTYPE>(&vars::dpT_lp, &SIGCUT, &SIGCUT)});
-    vars_signal_phase.insert({"true_dpT", SpineVar<TTYPE,TTYPE>(&vars::dpT_lp, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"reco_dpT", SpineVar<RTYPE,TTYPE>(&vars::dpT, &SIGCUT, &SIGCUT)});
+    vars_signal_phase.insert({"true_dpT", SpineVar<TTYPE,TTYPE>(&vars::dpT, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"reco_phiT", SpineVar<RTYPE,TTYPE>(&vars::phiT, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"true_phiT", SpineVar<TTYPE,TTYPE>(&vars::phiT, &SIGCUT, &SIGCUT)});
     vars_signal_phase.insert({"reco_alphaT", SpineVar<RTYPE,TTYPE>(&vars::alphaT, &SIGCUT, &SIGCUT)});

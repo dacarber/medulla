@@ -11,6 +11,7 @@ key = "onbeam"
 exposure_type = "pot"
 override_category = -100
 trees = ['SelectedNu_PhaseCuts',]
+#presel = "flash_time > -1.3 and flash_time < 0.5"
 #[samples.offbeam]
 #key = "offbeam"
 #exposure_type = "Livetime"
@@ -20,13 +21,15 @@ trees = ['SelectedNu_PhaseCuts',]
 key = "mc"
 exposure_type = "pot"
 trees = ['SelectedNu_Cuts']
-presel = 'matches_baseline == 1'
-systematics = ['multisimTree']
-print_sys = true
+#presel = "flash_time > 0.2 and flash_time < 2.0"
+#presel = 'matches_baseline == 1'
+#systematics = ['multisimTree']
+#print_sys = true
 [samples.mc_cos]
 key = "mc"
 exposure_type = "pot"
 trees = ['SelectedCos_PhaseCuts']
+#presel = "flash_time > 0.2 and flash_time < 2.0"
 #presel = 'matches_baseline == 1'
 #systematics = ['multisimTree']
 #[samples.mc]
@@ -86,10 +89,10 @@ pattern = '(flux|xsec|stats)'
 
 
 [analysis]
-ordinate_sample = 'onbeam'
+ordinate_sample = 'mc_nu'
 category_branch = 'category_topology'
 category_assignment = [[0,1], [2,3,4,6], [5], [7],[8],[9],[11,-1], [-100]]
-category_labels = ['1eNp', 'Other CC $\nu_e$', 'NC $\nu$', '$\nu_\mu$ CC','OOFVS','Other','Cosmic', 'Run 2 Data']
+category_labels = ['1eNp', 'Other CC $\nu_e$', 'NC $\nu$', '$\nu_\mu$ CC','OOFVS','Other','Cosmic', 'Data']
 category_colors = ['C0', 'C1', 'C3', 'C4', 'C5','C6','C7','black']
 category_types = ['histogram', 'histogram', 'histogram', 'histogram', 'histogram','histogram', 'histogram', 'scatter']
 
@@ -97,19 +100,30 @@ category_types = ['histogram', 'histogram', 'histogram', 'histogram', 'histogram
 [[figure]]
 name = 'reco_electron_energy'
 type = 'SimpleFigure'
-artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_energy'},]
-style = 'selected_icarus'
-
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_energy','yrange' = [70, 3000],'draw_kwargs' = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}},]
+style = 'selected_sbnd'
 [[figure.artists]]
 type = 'SpineSpectra1D'
 variable = 'reco_electron_energy'
-range = [70, 3000]
-draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+#yrange = [0, 1000]
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true}#, 'draw_error' = 'flux_xsec'
+
+[[figure]]
+name = 'reco_visible_energy'
+type = 'SimpleFigure'
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_energy','yrange' = [70, 3000],'draw_kwargs' = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}},]
+style = 'selected_sbnd'
+[[figure.artists]]
+type = 'SpineSpectra1D'
+variable = 'reco_visible_energy'
+#yrange = [0, 1000]
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true}#, 'draw_error' = 'flux_xsec'
+
 
 [[figure]]
 name = 'reco_electron_pT_mag'
 type = 'SimpleFigure'
-artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_pT_mag'},]
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_pT_mag'},]
 style = 'selected_icarus'
 [[figure.artists]]
 type = 'SpineSpectra1D'
@@ -129,7 +143,7 @@ draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = tru
 [[figure]]
 name = 'reco_electron_axial_spread'
 type = 'SimpleFigure'
-artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_axial_spread'},]
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_axial_spread'},]
 style = 'selected_icarus'
 [[figure.artists]]
 type = 'SpineSpectra1D'
@@ -139,7 +153,7 @@ draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = tru
 [[figure]]
 name = 'reco_electron_dir_spread'
 type = 'SimpleFigure'
-artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_dir_spread'},]
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_dir_spread'},]
 style = 'selected_icarus'
 [[figure.artists]]
 type = 'SpineSpectra1D'
@@ -149,7 +163,7 @@ draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = tru
 [[figure]]
 name = 'reco_proton_softmax'
 type = 'SimpleFigure'
-artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_proton_softmax'},]
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_proton_softmax'},]
 style = 'selected_icarus'
 [[figure.artists]]
 type = 'SpineSpectra1D'
@@ -158,16 +172,16 @@ draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = tru
 [[figure]]
 name = 'reco_dpT'
 type = 'SimpleFigure'
-artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_dpT'},]
-style = 'selected_icarus'
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_dpT'},]
+style = 'selected_sbnd'
 [[figure.artists]]
 type = 'SpineSpectra1D'
 variable = 'reco_dpT'
-draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true, 'draw_error' = 'flux_xsec'}
+draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = true, 'invert_stack_order' = true}#, 'draw_error' = 'flux_xsec'
 [[figure]]
 name = 'reco_electron_softmax'
 type = 'SimpleFigure'
-artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_softmax'},]
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_softmax'},]
 style = 'selected_icarus'
 [[figure.artists]]
 type = 'SpineSpectra1D'
@@ -177,7 +191,7 @@ draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = tru
 [[figure]]
 name = 'reco_electron_dedx'
 type = 'SimpleFigure'
-artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_dedx'},]
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_electron_dedx'},]
 style = 'selected_icarus'
 [[figure.artists]]
 type = 'SpineSpectra1D'
@@ -187,7 +201,7 @@ draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = tru
 [[figure]]
 name = 'reco_opening_angle'
 type = 'SimpleFigure'
-artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_opening_angle'},]
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_opening_angle'},]
 style = 'selected_icarus'
 [[figure.artists]]
 type = 'SpineSpectra1D'
@@ -197,7 +211,7 @@ draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = tru
 [[figure]]
 name = 'reco_dalphaT'
 type = 'SimpleFigure'
-artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_dalphaT'},]
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_dalphaT'},]
 style = 'selected_icarus'
 [[figure.artists]]
 type = 'SpineSpectra1D'
@@ -207,7 +221,7 @@ draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = tru
 [[figure]]
 name = 'reco_dphiT'
 type = 'SimpleFigure'
-artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_dphiT'},]
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_dphiT'},]
 style = 'selected_icarus'
 [[figure.artists]]
 type = 'SpineSpectra1D'
@@ -217,7 +231,7 @@ draw_kwargs = {'show_component_number' = true, 'show_component_percentage' = tru
 [[figure]]
 name = 'reco_proton_energy'
 type = 'SimpleFigure'
-artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_proton_energy'},]
+#artists = [{'type' = 'SpineSpectra1D', 'variable' = 'reco_proton_energy'},]
 style = 'selected_icarus'
 [[figure.artists]]
 type = 'SpineSpectra1D'

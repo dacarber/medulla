@@ -254,7 +254,6 @@ class SpineSpectra1D(SpineSpectra):
                 h.append(plt.Rectangle((0, 0), 1, 1, fc='gray', alpha=0.5, hatch='///'))
                 l.append(systs[0].label)
             ax.legend(h, l)
-
         if isinstance(self._yrange, (tuple, list)):
             ax.set_ylim(*self._yrange)
         elif isinstance(self._yrange, (int, float)):

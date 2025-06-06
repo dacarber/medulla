@@ -77,8 +77,8 @@ class SpineFigure:
         """
         with self._style as style:
             for axi, ax in enumerate(self._axs):
-                print("Figure:",self._draw_kwargs[1],axi)
-                self._artists[axi].draw(ax, **self._draw_kwargs[1], style=style)
+                #print("Figure:",self._draw_kwargs[1],axi)
+                self._artists[axi].draw(ax, **self._draw_kwargs[axi], style=style)
             self._figure.suptitle(self._title)
     
     def close(self):

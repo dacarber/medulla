@@ -94,6 +94,8 @@ int main()
     vars_selected_nu_phase.insert({"reco_proton_primary_score", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_proton_primary_score, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_dpT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_pT, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"true_dpT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_pT, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"reco_dpT_lp", SpineVar<RTYPE,RTYPE>(&vars::dpT_lp, &CUT, &TCUT)});
+    vars_selected_nu_phase.insert({"true_dpT_lp", SpineVar<TTYPE,RTYPE>(&vars::dpT_lp, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_dalphaT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_alphaT, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"true_dalphaT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_alphaT, &CUT, &TCUT)});
     vars_selected_nu_phase.insert({"reco_dphiT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_phiT, &CUT, &TCUT)});
@@ -164,6 +166,8 @@ int main()
     vars_selected_cosmic_phase.insert({"reco_proton_primary_score", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_proton_primary_score, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_dpT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_pT, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"true_dpT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_pT, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"reco_dpT_lp", SpineVar<RTYPE,RTYPE>(&vars::dpT_lp, &CUT, &TCUT)});
+    vars_selected_cosmic_phase.insert({"true_dpT_lp", SpineVar<TTYPE,RTYPE>(&vars::dpT_lp, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_dalphaT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_alphaT, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"true_dalphaT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_alphaT, &CUT, &TCUT)});
     vars_selected_cosmic_phase.insert({"reco_dphiT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_phiT, &CUT, &TCUT)});
@@ -240,6 +244,8 @@ int main()
     vars_purity_phase.insert({"reco_proton_primary_score", SpineVar<RTYPE,RTYPE>(&vars::nue::leading_proton_primary_score, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_dpT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_pT, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"true_dpT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_pT, &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"reco_dpT_lp", SpineVar<RTYPE,RTYPE>(&vars::dpT_lp, &cuts::no_cut, &TCUT)});
+    vars_purity_phase.insert({"true_dpT_lp", SpineVar<TTYPE,RTYPE>(&vars::dpT_lp, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_dalphaT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_alphaT, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"true_dalphaT", SpineVar<TTYPE,RTYPE>(&vars::nue::delta_alphaT, &cuts::no_cut, &TCUT)});
     vars_purity_phase.insert({"reco_dphiT", SpineVar<RTYPE,RTYPE>(&vars::nue::delta_phiT, &cuts::no_cut, &TCUT)});
@@ -296,6 +302,8 @@ int main()
     vars_purity_phase.insert({"true_proton_pT_mag", SpineVar<TTYPE,TTYPE>(&vars::nue::proton_transverse_momentum_mag, &SIGCUT, &SIGCUT)});
     vars_purity_phase.insert({"reco_dpT", SpineVar<RTYPE,TTYPE>(&vars::nue::delta_pT, &SIGCUT, &SIGCUT)});
     vars_purity_phase.insert({"true_dpT", SpineVar<TTYPE,TTYPE>(&vars::nue::delta_pT, &SIGCUT, &SIGCUT)});
+    vars_purity_phase.insert({"reco_dpT_lp", SpineVar<RTYPE,TTYPE>(&vars::dpT_lp, &SIGCUT, &SIGCUT)});
+    vars_purity_phase.insert({"true_dpT_lp", SpineVar<TTYPE,TTYPE>(&vars::dpT_lp, &SIGCUT, &SIGCUT)});
     vars_purity_phase.insert({"reco_dphiT", SpineVar<RTYPE,TTYPE>(&vars::nue::delta_phiT, &SIGCUT, &SIGCUT)});
     vars_purity_phase.insert({"true_dphiT", SpineVar<TTYPE,TTYPE>(&vars::nue::delta_phiT, &SIGCUT, &SIGCUT)});
     vars_purity_phase.insert({"reco_dalphaT", SpineVar<RTYPE,TTYPE>(&vars::nue::delta_alphaT, &SIGCUT, &SIGCUT)});

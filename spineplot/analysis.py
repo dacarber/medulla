@@ -67,7 +67,7 @@ class Analysis:
             self._categories.update({c : self._config['analysis']['category_labels'][ci] for c in cat})
         self._colors = {c : self._config['analysis']['category_colors'][ci] for ci, c in enumerate(self._config['analysis']['category_labels'])}
         self._category_types = {c : self._config['analysis']['category_types'][ci] for ci, c in enumerate(self._config['analysis']['category_labels'])}
-        print(self._config['analysis']['category_branch'])
+
         # Initialize the samples
         if 'samples' not in self._config.keys():
             raise ConfigException(f"No samples defined in the TOML file. Please check for a valid sample configuration block in the TOML file ('{toml_path}').")
@@ -120,7 +120,7 @@ class Analysis:
                             if not all(self._variables[x['variable']]._validity_check.values()):
                                 missing_samples = [k for k, v in self._variables[x['variable']]._validity_check.items() if not v]
                                 raise ConfigException(f"Variable '{x['variable']}' not found in all samples ({' '.join(missing_samples)}).")
-                            
+                            print("Artist:",x)
                             # Create the artist
                             art = SpineSpectra1D(self._variables[x['variable']], restrict_categories,
                                                  self._colors, self._category_types, x.get('title', None),

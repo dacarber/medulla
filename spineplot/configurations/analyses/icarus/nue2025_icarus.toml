@@ -88,13 +88,13 @@ xlabel = "Reconstructed \u03B4$P_{T}$_lp [MeV/c]"
 key = 'true_dpT'
 range = [0,2100]
 nbins =	14
-xlabel = "Reconstructed \u03B4$P_{T}$ [MeV/c]"
+xlabel = "True \u03B4$P_{T}$ [MeV/c]"
 
 [variables.true_dpT_lp]
 key = 'true_dpT_lp'
 range = [0,2100]
 nbins =	14
-xlabel = "Reconstructed \u03B4$P_{T}$_lp [MeV/c]"
+xlabel = "True \u03B4$P_{T}$_lp [MeV/c]"
 
 [variables.reco_dalphaT]
 key = 'reco_dalphaT'

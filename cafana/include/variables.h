@@ -309,7 +309,7 @@ namespace vars
                 if(pcuts::final_state_signal(p))
                 {
                     // Find the leading charged lepton and proton
-                    if((PIDFUNC(p) == 1 || PIDFUNC(p) == 2) && pvars::ke(p) > l_ke && PRIMARYFUNC(p) == 1)
+                    if((PIDFUNC(p) == 1 ) && pvars::ke(p) > l_ke && PRIMARYFUNC(p) == 1)
                     {
                         l_ke = pvars::ke(p);
                         utilities::three_vector momentum = {pvars::px(p), pvars::py(p), pvars::pz(p)};

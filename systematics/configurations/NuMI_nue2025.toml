@@ -1,0 +1,892 @@
+
+[input]
+path = '/exp/icarus/app/users/dcarber/spine_analysis/spine/cafana/build/icarus_numi_nue_mc_onbeam_offbeam_gundam.root'
+caflist = '/exp/icarus/app/users/dcarber/spine_analysis/full_path_mc_caf_list.txt'
+
+[output]
+path = 'icarus_numi_nue_mc_onbeam_offbeam_syst_gundam.root'
+histogram_destination = 'variations/'
+
+[[sysvar]]
+name = 'reco_electron_energy'
+bins = [25, 0, 2000]
+
+#[variations]
+#keys = ['mc', 'var00', 'var01', 'var02', 'var03m', 'var03p', 'var04', 'var05', 'var06', 'var07', 'var08', 'var09']
+#origin = 'events/'
+#tree = 'SelectedNu_PhaseCuts'
+#result_destination = 'detsys_results/'
+#variable = 'pi0_mass'
+#bins = [40, 0, 400]
+#nuniverses = 10000
+
+[[tree]]
+origin = 'events/mc/SelectedNu_Cuts'
+destination = 'events/mc/'
+name = 'SelectedNu_Cuts'
+action = 'add_weights'
+table_types = ['multisim', 'multisigma']
+#table_types = ['multisim', 'multisigma', 'variation']
+
+[[tree]]
+origin = 'events/mc/SelectedCos_PhaseCuts'
+destination = 'events/mc/'
+name = 'SelectedCos_PhaseCuts'
+action = 'copy'
+table_types = ['multisim', 'multisigma']
+#table_types = ['multisim', 'multisigma', 'variation']
+
+[[tree]]
+origin = 'events/mc/Efficiency_PhaseCuts'
+destination = 'events/mc/'
+name = 'Efficiency_PhaseCuts'
+action = 'add_weights'
+table_types = ['multisim', 'multisigma']
+#table_types = ['multisim', 'multisigma', 'variation']
+
+[[tree]]
+origin = 'events/onbeam/SelectedNu_PhaseCuts'
+destination = 'events/onbeam/'
+name = 'SelectedNu_PhaseCuts'
+action = 'copy'
+
+[[tree]]
+origin = 'events/offbeam/SelectedCos_PhaseCuts'
+destination = 'events/offbeam/'
+name = 'SelectedCos_PhaseCuts'
+action = 'copy'
+
+
+#[[sys]]
+#name = 'var00'
+#type = 'variation'
+#index = -1
+#nsigma = [-3, -2, -1, 0, 1, 2, 3]
+#scale = [-3, -2, -1, 1, 1, 2, 3]
+#ordinate = 'mc'
+#points = ['var00', 'var00', 'var00', 'mc', 'var00', 'var00', 'var00']
+
+#[[sys]]
+#name = 'var01'
+#type = 'variation'
+#index = -1
+#nsigma = [-3, -2, -1, 0, 1, 2, 3]
+#scale = [-3, -2, -1, 1, 1, 2, 3]
+#ordinate = 'mc'
+#points = ['var01', 'var01', 'var01', 'mc', 'var01', 'var01', 'var01']
+
+#[[sys]]
+#name = 'var02'
+#type = 'variation'
+#index = -1
+#nsigma = [-3, -2, -1, 0, 1, 2, 3]
+#scale = [-3, -2, -1, 1, 1, 2, 3]
+#ordinate = 'mc'
+#points = ['var02', 'var02', 'var02', 'mc', 'var02', 'var02', 'var02']
+
+#[[sys]]
+#name = 'var03'
+#type = 'variation'
+#index = -1
+#nsigma = [-3, -2, -1, 0, 1, 2, 3]
+#scale = [3, 2, 1, 1, 1, 2, 3]
+#ordinate = 'mc'
+#points = ['var03m', 'var03m', 'var03m', 'mc', 'var03p', 'var03p', 'var03p']
+
+#[[sys]]
+#name = 'var04'
+#type = 'variation'
+#index = -1
+#nsigma = [-3, -2, -1, 0, 1, 2, 3]
+#scale = [-3, -2, -1, 1, 1, 2, 3]
+#ordinate = 'mc'
+#points = ['var04', 'var04', 'var04', 'mc', 'var04', 'var04', 'var04']
+
+#[[sys]]
+#name = 'var05'
+#type = 'variation'
+#index = -1
+#nsigma = [-3, -2, -1, 0, 1, 2, 3]
+#scale = [-3, -2, -1, 1, 1, 2, 3]
+#ordinate = 'var00'
+#points = ['var05', 'var05', 'var05', 'var00', 'var05', 'var05', 'var05']
+
+#[[sys]]
+#name = 'var06'
+#type = 'variation'
+#index = -1
+#nsigma = [-3, -2, -1, 0, 1, 2, 3]
+#scale = [-3, -2, -1, 1, 1, 2, 3]
+#ordinate = 'mc'
+#points = ['var06', 'var06', 'var06', 'mc', 'var06', 'var06', 'var06']
+
+#[[sys]]
+#name = 'var07'
+#type = 'variation'
+#index = -1
+#nsigma = [-3, -2, -1, 0, 1, 2, 3]
+#scale = [-3, -2, -1, 1, 1, 2, 3]
+#ordinate = 'var00'
+#points = ['var07', 'var07', 'var07', 'var00', 'var07', 'var07', 'var07']
+
+#[[sys]]
+#name = 'var08'
+#type = 'variation'
+#index = -1
+#nsigma = [-3, -2, -1, 0, 1, 2, 3]
+#scale = [-3, -2, -1, 1, 1, 2, 3]
+#ordinate = 'mc'
+#points = ['var08', 'var08', 'var08', 'mc', 'var08', 'var08', 'var08']
+
+#[[sys]]
+#name = 'var09'
+#type = 'variation'
+#index = -1
+#nsigma = [-3, -2, -1, 0, 1, 2, 3]
+#scale = [-3, -2, -1, 1, 1, 2, 3]
+#ordinate = 'mc'
+#points = ['var09', 'var09', 'var09', 'mc', 'var09', 'var09', 'var09']
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA1CCQE'
+name_short = 'ZExpA1CCQE'
+type = 'multisigma'
+index = 0
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA2CCQE'
+name_short = 'ZExpA2CCQE'
+type = 'multisigma'
+index = 1
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA3CCQE'
+name_short = 'ZExpA3CCQE'
+type = 'multisigma'
+index = 2
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA4CCQE'
+name_short = 'ZExpA4CCQE'
+type = 'multisigma'
+index = 3
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_VecFFCCQEshape'
+name_short = 'VecFFCCQEshape'
+type = 'multisigma'
+index = 4
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_RPA_CCQE'
+name_short = 'RPA_CCQE'
+type = 'multisigma'
+index = 5
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_CoulombCCQE'
+name_short = 'CoulombCCQE'
+type = 'multisigma'
+index = 6
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NormCCMEC'
+name_short = 'NormCCMEC'
+type = 'multisigma'
+index = 7
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NormNCMEC'
+name_short = 'NormNCMEC'
+type = 'multisigma'
+index = 8
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_DecayAngMEC'
+name_short = 'DecayAngMEC'
+type = 'multisigma'
+index = 9
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_MaNCEL'
+name_short = 'MaNCEL'
+type = 'multisigma'
+index = 10
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_EtaNCEL'
+name_short = 'EtaNCEL'
+type = 'multisigma'
+index = 11
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_MaCCRES'
+name_short = 'MaCCRES'
+type = 'multisigma'
+index = 12
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_MvCCRES'
+name_short = 'MvCCRES'
+type = 'multisigma'
+index = 13
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_MaNCRES'
+name_short = 'MaNCRES'
+type = 'multisigma'
+index = 14
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_MvNCRES'
+name_short = 'MvNCRES'
+type = 'multisigma'
+index = 15
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvpCC1pi'
+name_short = 'NonRESBGvpCC1pi'
+type = 'multisigma'
+index = 16
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvpCC2pi'
+name_short = 'NonRESBGvpCC2pi'
+type = 'multisigma'
+index = 17
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvpNC1pi'
+name_short = 'NonRESBGvpNC1pi'
+type = 'multisigma'
+index = 18
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvpNC2pi'
+name_short = 'NonRESBGvpNC2pi'
+type = 'multisigma'
+index = 19
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvnCC1pi'
+name_short = 'NonRESBGvnCC1pi'
+type = 'multisigma'
+index = 20
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvnCC2pi'
+name_short = 'NonRESBGvnCC2pi'
+type = 'multisigma'
+index = 21
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvnNC1pi'
+name_short = 'NonRESBGvnNC1pi'
+type = 'multisigma'
+index = 22
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvnNC2pi'
+name_short = 'NonRESBGvnNC2pi'
+type = 'multisigma'
+index = 23
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvbarpCC1pi'
+name_short = 'NonRESBGvbarpCC1pi'
+type = 'multisigma'
+index = 24
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvbarpCC2pi'
+name_short = 'NonRESBGvbarpCC2pi'
+type = 'multisigma'
+index = 25
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvbarpNC1pi'
+name_short = 'NonRESBGvbarpNC1pi'
+type = 'multisigma'
+index = 26
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvbarpNC2pi'
+name_short = 'NonRESBGvbarpNC2pi'
+type = 'multisigma'
+index = 27
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvbarnCC1pi'
+name_short = 'NonRESBGvbarnCC1pi'
+type = 'multisigma'
+index = 28
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvbarnCC2pi'
+name_short = 'NonRESBGvbarnCC2pi'
+type = 'multisigma'
+index = 29
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvbarnNC1pi'
+name_short = 'NonRESBGvbarnNC1pi'
+type = 'multisigma'
+index = 30
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NonRESBGvbarnNC2pi'
+name_short = 'NonRESBGvbarnNC2pi'
+type = 'multisigma'
+index = 31
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_RDecBR1gamma'
+name_short = 'RDecBR1gamma'
+type = 'multisigma'
+index = 32
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_RDecBR1eta'
+name_short = 'RDecBR1eta'
+type = 'multisigma'
+index = 33
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_Theta_Delta2Npi'
+name_short = 'Theta_Delta2Npi'
+type = 'multisigma'
+index = 34
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_ThetaDelta2NRad'
+name_short = 'ThetaDelta2NRad'
+type = 'multisigma'
+index = 35
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NormCCCOH'
+name_short = 'NormCCCOH'
+type = 'multisigma'
+index = 36
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_NormNCCOH'
+name_short = 'NormNCCOH'
+type = 'multisigma'
+index = 37
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_AhtBY'
+name_short = 'AhtBY'
+type = 'multisigma'
+index = 38
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_BhtBY'
+name_short = 'BhtBY'
+type = 'multisigma'
+index = 39
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_CV1uBY'
+name_short = 'CV1uBY'
+type = 'multisigma'
+index = 40
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_CV2uBY'
+name_short = 'CV2uBY'
+type = 'multisigma'
+index = 41
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_MFP_pi'
+name_short = 'MFP_pi'
+type = 'multisigma'
+index = 42
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_FrCEx_pi'
+name_short = 'FrCEx_pi'
+type = 'multisigma'
+index = 43
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_FrInel_pi'
+name_short = 'FrInel_pi'
+type = 'multisigma'
+index = 44
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_FrAbs_pi'
+name_short = 'FrAbs_pi'
+type = 'multisigma'
+index = 45
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_FrPiProd_pi'
+name_short = 'FrPiProd_pi'
+type = 'multisigma'
+index = 46
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_MFP_N'
+name_short = 'MFP_N'
+type = 'multisigma'
+index = 47
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_FrCEx_N'
+name_short = 'FrCEx_N'
+type = 'multisigma'
+index = 48
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_FrInel_N'
+name_short = 'FrInel_N'
+type = 'multisigma'
+index = 49
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_FrAbs_N'
+name_short = 'FrAbs_N'
+type = 'multisigma'
+index = 50
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_FrPiProd_N'
+name_short = 'FrPiProd_N'
+type = 'multisigma'
+index = 51
+zscores = [-1, 1, -2, 2, -3, 3]
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_ZExpAVariationResponse'
+type = 'multisim'
+index = 52
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_RPA_CCQE'
+type = 'multisim'
+index = 53
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_CoulombCCQE'
+type = 'multisim'
+index = 54
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NormCCMEC'
+type = 'multisim'
+index = 55
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NormNCMEC'
+type = 'multisim'
+index = 56
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NCELVariationResponse'
+type = 'multisim'
+index = 57
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_CCRESVariationResponse'
+type = 'multisim'
+index = 58
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NCRESVariationResponse'
+type = 'multisim'
+index = 59
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvpCC1pi'
+type = 'multisim'
+index = 60
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvpCC2pi'
+type = 'multisim'
+index = 61
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvpNC1pi'
+type = 'multisim'
+index = 62
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvpNC2pi'
+type = 'multisim'
+index = 63
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvnCC1pi'
+type = 'multisim'
+index = 64
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvnCC2pi'
+type = 'multisim'
+index = 65
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvnNC1pi'
+type = 'multisim'
+index = 66
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvnNC2pi'
+type = 'multisim'
+index = 67
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvbarpCC1pi'
+type = 'multisim'
+index = 68
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvbarpCC2pi'
+type = 'multisim'
+index = 69
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvbarpNC1pi'
+type = 'multisim'
+index = 70
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvbarpNC2pi'
+type = 'multisim'
+index = 71
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvbarnCC1pi'
+type = 'multisim'
+index = 72
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvbarnCC2pi'
+type = 'multisim'
+index = 73
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvbarnNC1pi'
+type = 'multisim'
+index = 74
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_NonRESBGvbarnNC2pi'
+type = 'multisim'
+index = 75
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_RDecBR1gamma'
+type = 'multisim'
+index = 76
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_RDecBR1eta'
+type = 'multisim'
+index = 77
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_COHVariationResponse'
+type = 'multisim'
+index = 78
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_DISBYVariationResponse'
+type = 'multisim'
+index = 79
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_FSI_pi_VariationResponse'
+type = 'multisim'
+index = 80
+
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisim_FSI_N_VariationResponse'
+type = 'multisim'
+index = 81
+
+[[sys]]
+name = 'MINERvAE2p2h_SBN_v1_E2p2h_A_nu'
+type = 'multisim'
+index = 82
+
+[[sys]]
+name = 'MINERvAE2p2h_SBN_v1_E2p2h_B_nu'
+type = 'multisim'
+index = 83
+
+[[sys]]
+name = 'MINERvAE2p2h_SBN_v1_E2p2h_A_nubar'
+type = 'multisim'
+index = 84
+
+[[sys]]
+name = 'MINERvAE2p2h_SBN_v1_E2p2h_B_nubar'
+type = 'multisim'
+index = 85
+
+[[sys]]
+name = 'MINERvAg0q3Weighting_SBN_v1_Mnv202hGaussEnhancement'
+type = 'multisim'
+index = 86
+
+[[sys]]
+name = 'MiscInteractionSysts_SBN_v1_C12ToAr40_2p2hScaling_nu'
+type = 'multisim'
+index = 87
+
+[[sys]]
+name = 'MiscInteractionSysts_SBN_v1_C12ToAr40_2p2hScaling_nubar'
+type = 'multisim'
+index = 88
+
+[[sys]]
+name = 'MiscInteractionSysts_SBN_v1_nuenuebar_xsec_ratio'
+type = 'multisim'
+index = 89
+
+[[sys]]
+name = 'MiscInteractionSysts_SBN_v1_nuenumu_xsec_ratio'
+type = 'multisim'
+index = 90
+
+[[sys]]
+name = 'MiscInteractionSysts_SBN_v1_SPPLowQ2Suppression'
+type = 'multisim'
+index = 91
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nu_n_CC_2Pi'
+type = 'multisim'
+index = 92
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nu_n_CC_3Pi'
+type = 'multisim'
+index = 93
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nu_p_CC_2Pi'
+type = 'multisim'
+index = 94
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nu_p_CC_3Pi'
+type = 'multisim'
+index = 95
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nu_np_CC_1Pi'
+type = 'multisim'
+index = 96
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nu_n_NC_1Pi'
+type = 'multisim'
+index = 97
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nu_n_NC_2Pi'
+type = 'multisim'
+index = 98
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nu_n_NC_3Pi'
+type = 'multisim'
+index = 99
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nu_p_NC_1Pi'
+type = 'multisim'
+index = 100
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nu_p_NC_2Pi'
+type = 'multisim'
+index = 101
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nu_p_NC_3Pi'
+type = 'multisim'
+index = 102
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nubar_n_CC_1Pi'
+type = 'multisim'
+index = 103
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nubar_n_CC_2Pi'
+type = 'multisim'
+index = 104
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nubar_n_CC_3Pi'
+type = 'multisim'
+index = 105
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nubar_p_CC_1Pi'
+type = 'multisim'
+index = 106
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nubar_p_CC_2Pi'
+type = 'multisim'
+index = 107
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nubar_p_CC_3Pi'
+type = 'multisim'
+index = 108
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nubar_n_NC_1Pi'
+type = 'multisim'
+index = 109
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nubar_n_NC_2Pi'
+type = 'multisim'
+index = 110
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nubar_n_NC_3Pi'
+type = 'multisim'
+index = 111
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nubar_p_NC_1Pi'
+type = 'multisim'
+index = 112
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nubar_p_NC_2Pi'
+type = 'multisim'
+index = 113
+
+[[sys]]
+name = 'NOvAStyleNonResPionNorm_SBN_v1_NR_nubar_p_NC_3Pi'
+type = 'multisim'
+index = 114
+
+[[sys]]
+name = 'expskin_Flux'
+type = 'multisim'
+index = 115
+
+[[sys]]
+name = 'horncurrent_Flux'
+type = 'multisim'
+index = 116
+
+[[sys]]
+name = 'kminus_Flux'
+type = 'multisim'
+index = 117
+
+[[sys]]
+name = 'kplus_Flux'
+type = 'multisim'
+index = 118
+
+[[sys]]
+name = 'kzero_Flux'
+type = 'multisim'
+index = 119
+
+[[sys]]
+name = 'nucleoninexsec_Flux'
+type = 'multisim'
+index = 120
+
+[[sys]]
+name = 'nucleonqexsec_Flux'
+type = 'multisim'
+index = 121
+
+[[sys]]
+name = 'nucleontotxsec_Flux'
+type = 'multisim'
+index = 122
+
+[[sys]]
+name = 'piminus_Flux'
+type = 'multisim'
+index = 123
+
+[[sys]]
+name = 'pioninexsec_Flux'
+type = 'multisim'
+index = 124
+
+[[sys]]
+name = 'pionqexsec_Flux'
+type = 'multisim'
+index = 125
+
+[[sys]]
+name = 'piontotxsec_Flux'
+type = 'multisim'
+index = 126
+
+[[sys]]
+name = 'piplus_Flux'
+type = 'multisim'
+index = 127

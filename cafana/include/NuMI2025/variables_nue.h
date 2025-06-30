@@ -1,0 +1,751 @@
+
+/**
+ * @file vars_muon2024.h
+ * @brief Header file for definitions of analysis variables specific to the
+ * muon2024 analysis.
+ * @details This file contains definitions of analysis variables which can be
+ * used to extract information from interactions specific to the muon2024
+ * analysis. Each variable is implemented as a function which takes an
+ * interaction object as an argument and returns a double. These are the
+ * building blocks for producing high-level plots of the selected interactions.
+ * @author mueller@fnal.gov
+ */
+#ifndef VARS_NUE_H
+#define VARS_NUE_H
+
+#include "sbnanaobj/StandardRecord/Proxy/SRProxy.h"
+#include "sbnanaobj/StandardRecord/SRInteractionDLP.h"
+#include "sbnanaobj/StandardRecord/SRInteractionTruthDLP.h"
+#define ELECTRON_MASS 0.5109989461
+#define MUON_MASS 105.6583745
+#define PION_MASS 139.57039
+#define PROTON_MASS 938.2720813
+
+//#include "include/utilities.h"
+//#include "include/cuts.h"
+//#include "include/NuMI2025/cuts_nue.h"
+//#include "include/NuMI2025/utilities_nue.h"
+#include "include/particle_variables.h"
+
+/**
+ * @namespace vars::muon2024
+ * @brief Namespace for organizing variables specific to the muon2024 analysis.
+ * @details This namespace is intended to be used for organizing variables which
+ * act on interactions specific to the muon2024 analysis. Each variable is
+ * implemented as a function which takes an interaction object as an argument
+ * and returns a double. The function should be templated on the type of
+ * interaction object if the variable is intended to be used on both true and
+ * reconstructed interactions.
+ * @note The namespace is intended to be used in conjunction with the vars
+ * namespace, which is used for organizing generic variables which act on
+ * interactions.
+ */
+namespace vars::nue
+{
+    /**
+     * @brief Variable for enumerating interaction categories.
+     * @details This variable provides a basic categorization of interactions
+     * using only signal, neutrino background, and cosmic background as the
+     * three categories.
+     * 0: 1e1p (contained and fiducial)
+     * 1: 1e1p (not contained or not fiducial)
+     * 2: 1eNp (N > 1, contained and fiducial)
+     * 3: 1eNp (N > 1, not contained or fiducial)
+     * 4: 1eX (not 1eNp, contained and fiducial)
+     * 5: 1eX (not 1eNp, not contained or fiducial)
+     * 6: Other nu
+     * 7: cosmic
+     * @param obj The interaction to apply the variable on.
+     * @return the enumerated category of the interaction.
+    */
+    double category(const caf::SRInteractionTruthDLPProxy & interaction)
+    {
+       double cat(interaction.current_type);
+
+        if(interaction.nu_id >= 0){
+            if (interaction.current_type == 0)
+            {
+                if (interaction.pdg_code == 12) cat = 0;
+                else if (interaction.pdg_code == 14) cat = 1;
+
+            }
+            else if (interaction.current_type == 1)
+            {
+                if (interaction.pdg_code == 12) cat = 2;
+                else if (interaction.pdg_code == 14) cat = 3;
+            }
+
+        }
+        return cat;
+    }
+
+    /**
+     * @brief Variable for enumerating interaction categories.
+     * @details This variable provides a basic categorization of interactions
+     * using only signal, neutrino background, and cosmic background as the
+     * three categories.
+     * 0: 1e1p (contained and fiducial)
+     * 1: 1eNp (contained or fiducial)
+     * 2: 1e (contained and fiducial)
+     * 3: 1e1piNp 
+     * 4: 1eX (not 1eNp, contained and fiducial)
+     * 5: NC
+     * 6: Other nue
+     * 7: Numu CC
+     * 8: Unocntained
+     * 9: OOFs
+     * 10: Other
+     * 11: Cosmic
+     * @param obj The interaction to apply the variable on.
+     * @return the enumerated category of the interaction.
+    */
+    double category_topology(const caf::SRInteractionTruthDLPProxy & interaction)
+    {   
+        double cat(11);
+        if(interaction.nu_id >= 0){
+            std::vector<uint32_t> counts(utilities::count_primaries(interaction));
+            if(counts[1] == 1 && counts[2] == 0 )
+                {
+                    if(counts[0] == 0 && counts[3] == 0 && counts[4] == 1 && cuts::track_containment_cut(interaction) && interaction.is_fiducial) cat = 0; 
+                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 1 && cuts::track_containment_cut(interaction)) cat = 8;
+                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 1) cat = 9;
+                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1 && cuts::track_containment_cut(interaction) && interaction.is_fiducial) cat = 1;
+                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1 && cuts::track_containment_cut(interaction)) cat = 8;
+                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1) cat = 9;
+                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 0) cat = 2;
+                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 0) cat = 2;
+                    else if(counts[0] == 0 && counts[3] == 1 && counts[4] > 0) cat = 3;
+                    else if(interaction.current_type == 0) cat = 4;
+                    else if(interaction.current_type == 1) cat = 5;
+                    else cat =10;
+                }
+                else if(interaction.current_type == 0 && counts[2] == 1) cat = 7;
+                else if(interaction.current_type == 1) cat = 5;
+                else if(interaction.current_type == 0 && interaction.pdg_code == 12) cat = 6;
+                else if(interaction.current_type == 0 && interaction.pdg_code == 14) cat = 7;
+                else if(interaction.current_type == 1) cat = 5;
+                else cat = 10;
+
+        }
+        return cat;
+    }
+        /**
+     * @brief Variable for enumerating interaction categories.
+     * @details This variable provides a basic categorization of interactions
+     * using only signal, neutrino background, and cosmic background as the
+     * three categories.
+     * @param obj The interaction to apply the variable on.
+     * @return the enumerated category of the interaction.
+    */
+
+    double truth_topology(const caf::SRInteractionTruthDLPProxy & interaction)
+    {   
+        double topo(0);
+            std::vector<uint32_t> counts(utilities::count_primaries(interaction));
+            topo = counts[0]*1e8 + counts[1]*1e6 + counts[2]*1e4 + counts[3]*1e2 + counts[4];
+        return topo;
+    }
+    template<class T>
+    double reco_topology(const T & interaction)
+    {   
+        double topo(0);
+            std::vector<uint32_t> counts(utilities::count_primaries(interaction));
+            topo = counts[0]*1e8 + counts[1]*1e6 + counts[2]*1e4 + counts[3]*1e2 + counts[4];
+
+        return topo;
+    }
+    /**
+     * @brief Variable for the opening angle between leading muon and proton.
+     * @details The leading muon and proton are defined as the particles with the
+     * highest kinetic energy. The opening angle is defined as the arccosine of
+     * the dot product of the momentum vectors of the leading muon and proton.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @return the opening angle between the leading muon and
+     * proton.
+     */
+    template<class T>
+        double opening_angle(const T & obj)
+        {
+            auto & e(obj.particles[utilities::leading_particle_index(obj, 1)]);
+            auto & p(obj.particles[utilities::leading_particle_index(obj, 4)]);
+            if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
+                return std::acos(e.start_dir[0] * p.start_dir[0] + e.start_dir[1] * p.start_dir[1] + e.start_dir[2] * p.start_dir[2]);
+            else
+                return std::acos(e.start_dir[0] * p.start_dir[0] + e.start_dir[1] * p.start_dir[1] + e.start_dir[2] * p.start_dir[2]);
+        }
+
+    /**
+     * @brief Varianble for the angle with respect to NuMI beam line.
+     * @details The NuMI beam angle is ~23° from the BNB beam line and the particle
+     * angle is defined at the vector from the particle startpoint and 
+     * (31512.0380,3364.4912,73363.2532).
+     * @tparam T the type of interaction (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the particle angle with respect to NuMI beam.
+     */
+    template<class T>
+        double NuMI_angle(const T & p)
+        {
+            double x;
+            double y;
+            double z;
+            double r;
+            x = (31512.0380) - p.start_point[0];
+            y = (3364.4912) - p.start_point[1];
+            z = (73363.2532) - p.start_point[2];
+            r = std::sqrt(std::pow(x, 2)+std::pow(y, 2)+std::pow(z, 2));
+            x = x/r;
+            y = y/r;
+            z = z/r;
+            return std::acos(x *p.start_dir[0] + y *p.start_dir[1]+z *p.start_dir[2]);
+            
+        }
+    /**
+     * @brief Varianble for the angle with respect to NuMI beam line.
+     * @details The NuMI beam angle is ~23° from the BNB beam line and the particle
+     * angle is defined at the vector from the particle startpoint and 
+     * (31512.0380,3364.4912,73363.2532).
+     * @tparam T the type of interaction (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the particle angle with respect to NuMI beam.
+     */
+    /*
+    template<class T>
+        double azimuthal_angle(const T & p)
+        {
+            if(pa.start_dir[1] >0)
+                return std::acos(p.start_dir[0] / std::sqrt(std::pow(p.start_dir[0], 2) + std::pow(p.start_dir[1], 2)));
+            else
+                return -std::acos(p.start_dir[0] / std::sqrt(std::pow(p.start_dir[0], 2) + std::pow(p.start_dir[1], 2)));
+            
+        }
+    template<class T>
+        double polar_angle(const T & p)
+        {
+            return std::acos(p.start_dir[2]);
+        }
+    */
+    /**
+     * @brief Varianble for the angle with respect to NuMI beam line.
+     * @details The NuMI beam angle is ~23° from the BNB beam line and the particle
+     * angle is defined at the vector from the particle startpoint and 
+     * (31512.0380,3364.4912,73363.2532).
+     * @tparam T the type of interaction (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the particle angle with respect to NuMI beam.
+     */
+    template<class T>
+        double NuMI_polar_angle(const T & interaction)
+        {
+            double r;
+            std::vector<double> dir_vector(3,0);
+               
+            dir_vector[0] = (31512.0380) + interaction.vertex[0];
+            dir_vector[1] = (3364.4912) + interaction.vertex[1];
+            dir_vector[2] = (73363.2532) + interaction.vertex[2];
+            r = std::sqrt(std::pow(dir_vector[0], 2)+std::pow(dir_vector[1], 2)+std::pow(dir_vector[2], 2));
+            dir_vector[0] = dir_vector[0]/r;
+            dir_vector[1] = dir_vector[1]/r;
+            dir_vector[2] = dir_vector[2]/r;                                      
+            return std::acos(dir_vector[2]);
+        }
+    
+    /**
+     * @brief Varianble for the angle with respect to NuMI beam line.
+     * @details The NuMI beam angle is ~23° from the BNB beam line and the particle
+     * angle is defined at the vector from the particle startpoint and 
+     * (31512.0380,3364.4912,73363.2532).
+     * @tparam T the type of interaction (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the particle angle with respect to NuMI beam.
+     */
+    template<class T>
+        double NuMI_azimuthal_angle(const T & interaction)
+        {
+            double r;
+            std::vector<double> dir_vector(3,0);
+               
+            dir_vector[0] = (31512.0380) + interaction.vertex[0];
+            dir_vector[1] = (3364.4912) + interaction.vertex[1];
+            dir_vector[2] = (73363.2532) + interaction.vertex[2];
+            r = std::sqrt(std::pow(dir_vector[0], 2)+std::pow(dir_vector[1], 2)+std::pow(dir_vector[2], 2));
+            dir_vector[0] = dir_vector[0]/r;
+            dir_vector[1] = dir_vector[1]/r;
+            dir_vector[2] = dir_vector[2]/r;                                      
+            if(dir_vector[1] >0)
+                return std::acos(dir_vector[0] / std::sqrt(std::pow(dir_vector[0], 2) + std::pow(dir_vector[1], 2)));
+            else
+                return -std::acos(dir_vector[0] / std::sqrt(std::pow(dir_vector[0], 2) + std::pow(dir_vector[1], 2)));
+        }
+    /**
+     * @brief Varianble for the angle with respect to NuMI beam line.
+     * @details The NuMI beam angle is ~23° from the BNB beam line and the particle
+     * angle is defined at the vector from the particle startpoint and 
+     * (31512.0380,3364.4912,73363.2532).
+     * @tparam T the type of interaction (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the particle angle with respect to NuMI beam.
+     */
+    template<class T>
+        TVector3 NuMI_transverse_momentum(const T & interaction, int pid)
+        {
+            //TVector3 beamdir(0, 0, 1); // BNB
+        std::vector<double> dir_vector(3,0);                    
+        dir_vector[0] = (31512.0380) + interaction.vertex[0];
+        dir_vector[1] = (3364.4912) + interaction.vertex[1];
+        dir_vector[2] = (73363.2532) + interaction.vertex[2];
+        double r = std::sqrt(std::pow(dir_vector[0], 2)+std::pow(dir_vector[1], 2)+std::pow(dir_vector[2], 2));
+        dir_vector[0] = dir_vector[0]/r;
+        dir_vector[1] = dir_vector[1]/r;
+        dir_vector[2] = dir_vector[2]/r;                                                                                                                                                                                              
+        //TVector3 beamdir(dir_vector[0], dir_vector[1], dir_vector[2]); // NuMI                                                                                                                                                                                                 
+        TVector3 beamdir(0.39431672, 0.04210058, 0.91800973);
+        // Output                                                                                                                                                                                                                                                     
+        double pT0(0), pT1(0), pT2(0);
+
+        // Loop over particles       
+        if (pid == 1){
+            size_t i(utilities::leading_particle_index(interaction, pid));  
+            auto & part = interaction.particles[i];
+            TVector3 p;
+            TVector3 pL;
+            TVector3 pT;
+
+            p.SetX(part.momentum[0]);
+            p.SetY(part.momentum[1]);
+            p.SetZ(part.momentum[2]);
+
+            pL = p.Dot(beamdir) * beamdir;
+            pT = p - pL;
+            pT0 += pT[0];
+            pT1 += pT[1];
+            pT2 += pT[2];
+        }
+        else if (pid ==4){                                                                                                                                                                                                                                 
+            for(auto & part : interaction.particles)
+              {
+
+                //if(!part.is_primary or part.pid != 4 ) continue;
+                if (part.is_primary && pcuts::final_state_signal(part) &&part.pid ==4) {
+            // pT = p - pL                                                                                                                                                                                                                                            
+            //    = p-(p dot beamdir) * beamdir    
+                    size_t i(utilities::leading_particle_index(interaction, pid));  
+                    auto & part = interaction.particles[i];
+                    TVector3 p;
+                    TVector3 pL;
+                    TVector3 pT;
+
+                    p.SetX(part.momentum[0]);
+                    p.SetY(part.momentum[1]);
+                    p.SetZ(part.momentum[2]);
+
+                    pL = p.Dot(beamdir) * beamdir;
+                    pT = p - pL;
+                    pT0 += pT[0];
+                    pT1 += pT[1];
+                    pT2 += pT[2];
+                }
+
+                                                                                                                                                                                                                                              
+            }
+        }
+        TVector3 ppT(pT0,pT1,pT2);
+        return ppT;
+        }
+    /**
+     * @brief Varianble for the angle with respect to NuMI beam line.
+     * @details The NuMI beam angle is ~23° from the BNB beam line and the particle
+     * angle is defined at the vector from the particle startpoint and 
+     * (31512.0380,3364.4912,73363.2532).
+     * @tparam T the type of interaction (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the particle angle with respect to NuMI beam.
+     */
+    template<class T>
+        double delta_pT(const T & interaction)
+        {
+            TVector3 plT(NuMI_transverse_momentum(interaction,1));
+            TVector3 ppT(NuMI_transverse_momentum(interaction,4));
+            TVector3 delta_p;
+            delta_p.SetX(plT[0]+ppT[0]);
+            delta_p.SetY(plT[1]+ppT[1]);
+            delta_p.SetZ(plT[2]+ppT[2]);
+            return delta_p.Mag();
+        }
+    /**
+     * @brief Varianble for the angle with respect to NuMI beam line.
+     * @details The NuMI beam angle is ~23° from the BNB beam line and the particle
+     * angle is defined at the vector from the particle startpoint and 
+     * (31512.0380,3364.4912,73363.2532).
+     * @tparam T the type of interaction (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the particle angle with respect to NuMI beam.
+     */
+    template<class T>
+        double delta_alphaT(const T & interaction)
+        {
+            TVector3 plT(NuMI_transverse_momentum(interaction,1));
+            TVector3 ppT(NuMI_transverse_momentum(interaction,4));
+            TVector3 delta_p;
+            delta_p.SetX(plT[0]+ppT[0]);
+            delta_p.SetY(plT[1]+ppT[1]);
+            delta_p.SetZ(plT[2]+ppT[2]);
+            double delta_a = std::acos(delta_p.Dot(-plT)/(plT.Mag() * delta_p.Mag()));
+            return delta_a;
+        }
+    /**
+     * @brief Varianble for the angle with respect to NuMI beam line.
+     * @details The NuMI beam angle is ~23° from the BNB beam line and the particle
+     * angle is defined at the vector from the particle startpoint and 
+     * (31512.0380,3364.4912,73363.2532).
+     * @tparam T the type of interaction (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the particle angle with respect to NuMI beam.
+     */
+    template<class T>
+        double delta_phiT(const T & interaction)
+        {
+            TVector3 plT(NuMI_transverse_momentum(interaction,1));
+            TVector3 ppT(NuMI_transverse_momentum(interaction,4));
+            double delta_phi = std::acos(-plT.Dot(ppT)/(plT.Mag() * ppT.Mag()));
+            return delta_phi;
+        }
+    /**
+     * @brief Varianble for the angle with respect to NuMI beam line.
+     * @details The NuMI beam angle is ~23° from the BNB beam line and the particle
+     * angle is defined at the vector from the particle startpoint and 
+     * (31512.0380,3364.4912,73363.2532).
+     * @tparam T the type of interaction (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the particle angle with respect to NuMI beam.
+     */
+    template<class T>
+        double neutrino_energy(const T & interaction)
+        {
+            double nu_energy(0);
+            for(auto &p : interaction.particles)
+            {
+                if (p.is_primary == false) continue;
+                if (p.pid == 0){
+                    nu_energy+=pvars::ke(p);
+                } 
+                else if (p.pid == 1){
+                    nu_energy+=pvars::ke(p) + ELECTRON_MASS;
+                }
+                else if (p.pid == 2){
+                    nu_energy+=pvars::ke(p) + MUON_MASS;
+                }
+                else if (p.pid == 3){
+                    nu_energy+=pvars::ke(p) + PION_MASS;
+                }
+                else if (p.pid == 4){
+                    nu_energy+=pvars::ke(p) + 40;
+                }
+            }
+            return nu_energy;
+        }
+    template<class T>
+        double Qsquared(const T & interaction)
+        {
+            double nu_energy = neutrino_energy(interaction);
+            if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>){
+                std::vector<uint32_t> counts(utilities::count_primaries(interaction));
+                double nu_energy = interaction.energy_init + 40*counts[4];
+            }
+            
+            size_t i(utilities::leading_particle_index(interaction, 1));
+            double electron_energy = pvars::ke(interaction.particles[i]) + ELECTRON_MASS;
+            TVector3 p;
+            p.SetX(interaction.particles[i].momentum[0]);
+            p.SetY(interaction.particles[i].momentum[1]);
+            p.SetZ(interaction.particles[i].momentum[2]);
+            TVector3 beamdir(0.39431672, 0.04210058, 0.91800973);
+            double cos_theta = p.Dot(beamdir)/(p.Mag()*beamdir.Mag());
+            double Q = 2*nu_energy*(electron_energy - p.Mag()*cos_theta) - std::pow(ELECTRON_MASS,2);
+            return Q;
+
+        }
+    template<class T>
+        double W(const T & interaction)
+        {
+            //if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>){
+            //    proton_num = utilities::count_primaries()
+            //    nu_energy = interaction.energy_init;
+            //}
+            double MN =37147.393;
+            double nu_energy = neutrino_energy(interaction);
+            size_t i(utilities::leading_particle_index(interaction, 1));
+            double electron_energy = pvars::ke(interaction.particles[i]) + ELECTRON_MASS;
+            double Q = Qsquared(interaction);
+            double W = std::sqrt(std::pow(MN,2)+2*MN*(nu_energy-electron_energy) - Q);
+            
+            return W;
+
+        }
+    template<class T>
+        double cos_theta(const T & particle)
+        {
+
+
+            TVector3 p;
+            p.SetX(particle.momentum[0]);
+            p.SetY(particle.momentum[1]);
+            p.SetZ(particle.momentum[2]);
+            TVector3 beamdir(0.39431672, 0.04210058, 0.91800973);
+            double cos_theta = p.Dot(beamdir)/(p.Mag()*beamdir.Mag());
+            
+            return cos_theta;
+
+        }
+    /**
+     * @brief Varianble for the angle with respect to NuMI beam line.
+     * @details The NuMI beam angle is ~23° from the BNB beam line and the particle
+     * angle is defined at the vector from the particle startpoint and 
+     * (31512.0380,3364.4912,73363.2532).
+     * @tparam T the type of interaction (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the particle angle with respect to NuMI beam.
+     */
+    template<class T>
+        double leading_proton_softmax(const T & interaction)
+        {
+            size_t i(utilities::leading_particle_index(interaction, 4));
+            return interaction.particles[i].pid_scores[4];
+        }
+    template<class T>
+        double leading_proton_ke(const T & interaction)
+        {
+            size_t i(utilities::leading_particle_index(interaction, 4));
+            return pvars::ke(interaction.particles[i]);
+        }
+    template<class T>
+        double leading_proton_muon_softmax(const T & interaction)
+        {
+            size_t i(utilities::leading_particle_index(interaction, 4));
+            return interaction.particles[i].pid_scores[2];
+        }
+    template<class T>
+        double leading_proton_pion_softmax(const T & interaction)
+        {
+            size_t i(utilities::leading_particle_index(interaction, 4));
+            return interaction.particles[i].pid_scores[3];
+        }
+    template<class T>
+        double leading_proton_primary_score(const T & interaction)
+        {
+            size_t i(utilities::leading_particle_index(interaction, 4));
+            return interaction.particles[i].primary_scores[1];
+        }
+
+    template<class T>
+        double leading_electron_ke(const T & interaction)
+        {
+            size_t i(utilities::leading_particle_index(interaction, 1));
+            return pvars::ke(interaction.particles[i]);
+        }
+    template<class T>
+        double leading_electron_vertex_distance(const T & interaction)
+        {   
+            
+            if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
+            {
+               return -5; 
+            }
+            size_t i(utilities::leading_particle_index(interaction, 1));
+            return interaction.particles[i].vertex_distance;
+            
+        }
+    template<class T>
+        double leading_electron_axial_spread(const T & interaction)
+        {
+            if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
+            {
+               return -5;
+            }
+            size_t i(utilities::leading_particle_index(interaction, 1));
+            return interaction.particles[i].axial_spread;
+        }
+    template<class T>
+        double leading_electron_directional_spread(const T & interaction)
+        {
+            if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
+            {
+               return -5;
+            }
+            size_t i(utilities::leading_particle_index(interaction, 1));
+            return interaction.particles[i].directional_spread;
+        }
+    template<class T>
+        double leading_electron_start_straightness(const T & interaction)
+        {
+            if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
+            {
+               return -5;
+            }
+            size_t i(utilities::leading_particle_index(interaction, 1));
+            return interaction.particles[i].start_straightness;
+        }
+    template<class T>
+        double leading_electron_dedx(const T & interaction)
+        {  
+            if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
+            {
+               return -5;
+            }
+            size_t i(utilities::leading_particle_index(interaction, 1));
+            return interaction.particles[i].start_dedx;
+        }
+    template<class T>
+        double leading_electron_primary_score(const T & interaction)
+        {
+            size_t i(utilities::leading_particle_index(interaction, 1));
+            return interaction.particles[i].primary_scores[1];
+        }
+        /**
+     * @brief Varianble for the angle with respect to NuMI beam line.
+     * @details The NuMI beam angle is ~23° from the BNB beam line and the particle
+     * angle is defined at the vector from the particle startpoint and 
+     * (31512.0380,3364.4912,73363.2532).
+     * @tparam T the type of interaction (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the particle angle with respect to NuMI beam.
+     */
+    template<class T>
+        double leading_electron_softmax(const T & interaction)
+        {
+            size_t i(utilities::leading_particle_index(interaction, 1));
+            return interaction.particles[i].pid_scores[0];
+        }
+    template<class T>
+        double electron_transverse_momentum_mag(const T & interaction)
+        {
+            TVector3 plT(NuMI_transverse_momentum(interaction, 1));
+            
+
+            return plT.Mag();
+        }
+    template<class T>
+        double proton_transverse_momentum_mag(const T & interaction)
+        {
+            
+            TVector3 ppT(NuMI_transverse_momentum(interaction, 4));
+            
+            return ppT.Mag();
+        }
+    template<class T>
+        double leading_electron_NuMI_angle(const T & interaction)
+        {
+            size_t i(utilities::leading_particle_index(interaction, 1));
+            double angle(NuMI_angle(interaction.particles[i]));
+            return angle;
+        }
+    template<class T>
+        double leading_proton_NuMI_angle(const T & interaction)
+        {
+            size_t i(utilities::leading_particle_index(interaction, 4));
+            double angle(NuMI_angle(interaction.particles[i]));
+            return angle;
+        }
+    template<class T>
+        double leading_electron_NuMI_polar_angle(const T & interaction)
+        {
+            size_t i(utilities::leading_particle_index(interaction, 1));
+            double angle(cos_theta(interaction.particles[i]));
+            return angle;
+        }
+    template<class T>
+        double leading_proton_NuMI_polar_angle(const T & interaction)
+        {
+            size_t i(utilities::leading_particle_index(interaction, 4));
+            double angle(cos_theta(interaction.particles[i]));
+            return angle;
+        }
+    template<class T>
+        double leading_electron_NuMI_azimuthal_angle(const T & interaction)
+        {
+            size_t i(utilities::leading_particle_index(interaction, 1));
+            double angle(NuMI_azimuthal_angle(interaction.particles[i]));
+            return angle;
+        }
+    template<class T>
+        double leading_proton_NuMI_azimuthal_angle(const T & interaction)
+        {
+            size_t i(utilities::leading_particle_index(interaction, 4));
+            double angle(NuMI_azimuthal_angle(interaction.particles[i]));
+            return angle;
+        }
+    /**
+     * @brief Variable for enumerating cut type.
+     * @details This variable provides a basic categorization of cuts
+     * using only signal and sideband as the two cateogories.
+     * 1: Signal
+     * 2: Sideband
+     * @param obj the interaction to apply the variable on.
+     * @return the enumerated category of the cut. 
+     */
+    template<class T>
+        double cut_type(const T & obj)
+        {
+      // Signal
+      double cat(1);
+
+      return cat;
+        }
+
+    template<class T>
+        double is_not_data(const T & obj)
+        {
+        double cat(0);
+        return cat;
+    }
+ 
+    template<class T>
+        double is_data(const T & obj)
+    {
+            double cat(1);
+            return cat;
+    }
+    
+    //To do for Gundam
+        /**
+     * @brief GUNDAM variable for enumerating interaction categories.                                                                                          
+     * @details This variable provides a basic categorization of interactions
+     * using only signal, neutrino background, and cosmic background as the
+     * three categories.
+     * 1: Signal
+     * 2: Signal (OOPS)
+     * 3: Other nu
+     * 4: Cosmic
+     * @param obj the interaction to apply the variable on.
+     * @return the enumerated category of the interaction. 
+     */
+
+
+    /*
+    double is_signal_mc(const caf::SRInteractionTruthDLPProxy & interaction)
+    {
+      truth_inter s = utilities_nue::truth_interaction_info(interaction);
+
+      // Cosmic                                                                                                           
+      uint16_t cat(4);
+
+      // Nu                                                                                                                         
+      if(interaction.nu_id >= 0)
+        {
+      // Signal
+      if(s.num_primary_electrons_thresh == 1 && s.num_primary_protons_thresh == 1 && s.is_cc && s.is_fiducial) cat = 1;
+
+      // Signal (OOPS)
+      else if( (s.num_primary_electrons == 1 && s.num_primary_protons == 1 && s.is_cc && s.is_fiducial) && (s.num_primary_electrons_thresh != 1 ||  s.num_primary_protons_thresh != 1) ) cat = 2;
+
+      // Other nu
+      else cat = 3;
+        }
+
+      return cat;
+    }
+    */
+
+}
+#endif // VARS_NUE_H

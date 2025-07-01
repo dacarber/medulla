@@ -1,0 +1,160 @@
+[variables]
+
+[variables.reco_electron_energy]
+key = 'reco_electron_energy'
+range = [70,3070]
+nbins = 10
+xlabel = 'Reconstructed Electron Energy [MeV]'
+
+[variables.reco_visible_energy]
+key = 'reco_visible_energy'
+range = [0.0,3.9]
+nbins = 13
+xlabel = 'Reconstructed Visible Energy [GeV]'
+
+[variables.reco_electron_pT_mag]
+key = 'reco_electron_pT_mag'
+range = [0,2000]
+nbins = 25
+xlabel = 'Reconstructed Electron Transverse Momentum [MeV/c]'
+
+[variables.reco_proton_pT_mag]
+key = 'reco_proton_pT_mag'
+range = [0,2000]
+nbins = 25
+xlabel = 'Reconstructed Protons Transverse Momentum [MeV/c]'
+
+[variables.reco_electron_conv_dist]
+key = 'reco_electron_conv_dist'
+range = [0,10]
+nbins = 20
+xlabel = 'Reconstructed Electron Conversion Distance [MeV]'
+
+[variables.reco_electron_axial_spread]
+key = 'reco_electron_axial_spread'
+range = [-1,1]
+nbins = 32
+xlabel = 'Reconstructed Eelctron Axial Spread'
+
+[variables.reco_electron_dir_spread]
+key = 'reco_electron_dir_spread'
+range = [0,1]
+nbins = 40
+xlabel = 'Reconstructed Electron Directional Spread'
+
+[variables.reco_electron_softmax]
+key = 'reco_electron_softmax'
+range = [0,1]
+nbins =	50
+xlabel = 'Reconstructed Electron Softmax'
+
+[variables.reco_electron_primary_score]
+key = 'reco_electron_primary_score'
+range = [0,1]
+nbins = 50
+xlabel = 'Reconstructed Electron Primary Score]'
+
+[variables.reco_proton_softmax]
+key = 'reco_proton_softmax'
+range = [0,1]
+nbins =	25
+xlabel = 'Reconstructed Proton Softmax'
+
+[variables.reco_proton_muon_softmax]
+key = 'reco_proton_softmax'
+range = [0,1]
+nbins =	25
+xlabel = "Reconstructed Proton's Muon Softmax"
+
+[variables.reco_proton_pion_softmax]
+key = 'reco_proton_softmax'
+range = [0,1]
+nbins =	25
+xlabel = "Reconstructed Proton's Pion Softmax"
+
+[variables.reco_dpT]
+key = 'reco_dpT'
+range = [0,2100]
+nbins =	14
+xlabel = "Reconstructed \u03B4$P_{T}$ [MeV/c]"
+
+#[variables.reco_dpT_lp]
+#key = 'reco_dpT_lp'
+#range = [0,2100]
+#nbins =	14
+#xlabel = "Reconstructed \u03B4$P_{T}$_lp [MeV/c]"
+
+#[variables.true_dpT]
+#key = 'true_dpT'
+#range = [0,2100]
+#nbins =	14
+#xlabel = "True \u03B4$P_{T}$ [MeV/c]"
+
+#[variables.true_dpT_lp]
+#key = 'true_dpT_lp'
+#range = [0,2100]
+#nbins =	14
+#xlabel = "True \u03B4$P_{T}$_lp [MeV/c]"
+
+[variables.reco_dalphaT]
+key = 'reco_dalphaT'
+range = [0.0,3.2]
+nbins =	20
+xlabel = "Reconstructed \u03B4$\u03B1_{T}$ [Radian]"
+
+[variables.reco_dphiT]
+key = 'reco_dphiT'
+range = [0.0,3.2]
+nbins =	20
+xlabel = "Reconstructed \u03B4$\u03A6_{T}$ [Radian]"
+
+[variables.reco_opening_angle]
+key = 'reco_opening_angle'
+range = [0.0,3.2]
+nbins =	20
+xlabel = "Reconstructed Opening Angle [Radian]"
+
+[variables.reco_electron_NuMI_angle]
+key = 'reco_electron_NuMI_angle'
+range = [0.0,3.2]
+nbins =	20
+xlabel = "Reconstructed Electron NuMI Angle [Radian]"
+
+[variables.reco_proton_NuMI_angle]
+key = 'reco_proton_NuMI_angle'
+range = [0.0,3.2]
+nbins =	20
+xlabel = "Reconstructed Proton NuMI Angle [Radian]"
+
+[variables.reco_electron_dedx]
+key = 'reco_electron_dedx'
+range = [0,10]
+nbins =	25
+xlabel = "Reconstructed Electron Starting dE/dX [MeV/cm]"
+
+[variables.reco_NuMI_polar]
+key = 'reco_NuMI_polar'
+range = [0.0,3.2]
+nbins =	100
+xlabel = "Reconstructed Polar Angle w.r.t. NuMI"
+[variables.reco_NuMI_azi]
+key = 'reco_NuMI_azi'
+range = [0.0,3.2]
+nbins =	100
+xlabel = "Reconstructed Azimuthal Angle w.r.t. NuMI"
+
+[variables.reco_proton_energy]
+key = 'reco_proton_energy'
+range = [40,1000]
+nbins = 25
+xlabel = 'Reconstructed Proton Energy [MeV]'
+[variables.reco_electron_polar]
+key = 'reco_electron_polar'
+range = [-1.0,1.0]
+nbins =	20
+xlabel = "Reconstructed Polar Angle w.r.t. NuMI"
+#[variables.true_proton_energy]
+#key = 'true_proton_energy'
+#range = [0,3000]
+#nbins = 15
+#xlabel = 'True Proton Energy [MeV]'

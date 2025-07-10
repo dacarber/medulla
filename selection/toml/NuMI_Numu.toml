@@ -18,7 +18,7 @@ cut = [
 ]
 branch = [
     {name = "neutrino_id", type = "true"},
-    {name = "baseline", type = "mctruth"},
+    #{name = "baseline", type = "mctruth"},
     {name = "cc", type = "mctruth"},
     {name = "pdg", type = "mctruth"},
     {name = "interaction_type", type = "mctruth"},

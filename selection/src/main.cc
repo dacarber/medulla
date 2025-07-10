@@ -10,7 +10,7 @@
 #define PRIMARYFUNC pvars::lax_primary_classification
 #define PIDFUNC pvars::pid
 #define PROTON_BINDING_ENERGY 30.9 // MeV
-#define BEAM_IS_NUMI false
+#define BEAM_IS_NUMI true
 
 #include <iostream>
 #include <string>

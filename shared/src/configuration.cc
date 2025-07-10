@@ -14,7 +14,7 @@
 #include "configuration.h"
 #include "toml++/toml.h"
 
-namespace sys::cfg
+namespace cfg
 {
     // Configuration class constructor that takes a TOML configuration table
     // and stores it as a class member (for use with sub-tables of the
@@ -33,11 +33,10 @@ namespace sys::cfg
         {
             throw ConfigurationError(e.what());
         }
-        validate();
     }
 
     // Check that the requested field is present in the configuration file.
-    void ConfigurationTable::check_field(const std::string & field)
+    void ConfigurationTable::check_field(const std::string & field) const
     {
         std::optional<std::string> value(config.at_path(field).value<std::string>());
         if(!value)
@@ -45,13 +44,13 @@ namespace sys::cfg
     }
 
     // Check that the requested field is present in the configuration file.
-    bool ConfigurationTable::has_field(const std::string & field)
+    bool ConfigurationTable::has_field(const std::string & field) const
     {
         return config.contains(field);
     }
 
     // Retrieve the requested boolean field from the configuration table.
-    bool ConfigurationTable::get_bool_field(const std::string & field)
+    bool ConfigurationTable::get_bool_field(const std::string & field) const
     {
         std::optional<bool> value(config.at_path(field).value<bool>());
         if(!value)
@@ -59,8 +58,17 @@ namespace sys::cfg
         return *value;
     }
 
+    // Retrieve the requested boolean field from the configuration table.
+    bool ConfigurationTable::get_bool_field(const std::string & field, bool default_field) const
+    {
+        std::optional<bool> value(config.at_path(field).value<bool>());
+        if(!value)
+            return default_field;
+        return *value;
+    }
+
     // Retrieve the requested string field from the configuration table.
-    std::string ConfigurationTable::get_string_field(const std::string & field)
+    std::string ConfigurationTable::get_string_field(const std::string & field) const
     {
         std::optional<std::string> value(config.at_path(field).value<std::string>());
         if(!value)
@@ -69,17 +77,17 @@ namespace sys::cfg
     }
 
     // Retrieve the requested vector of strings from the configuration table.
-    std::vector<std::string> ConfigurationTable::get_string_vector(const std::string & field)
+    std::vector<std::string> ConfigurationTable::get_string_vector(const std::string & field) const
     {
         std::vector<std::string> values;
-        toml::array * elements = config.at_path(field).as_array();
+        const toml::array * elements = config.at_path(field).as_array();
         for(auto & e : *elements)
             values.push_back(*e.value<std::string>());
         return values;
     }
 
     // Retrieve the requested integer field from the configuration table.
-    int64_t ConfigurationTable::get_int_field(const std::string & field)
+    int64_t ConfigurationTable::get_int_field(const std::string & field) const
     {
         std::optional<int64_t> value(config.at_path(field).value<int64_t>());
         if(!value)
@@ -88,7 +96,7 @@ namespace sys::cfg
     }
 
     // Retrieve the requested double field from the configuration table.
-    double ConfigurationTable::get_double_field(const std::string & field)
+    double ConfigurationTable::get_double_field(const std::string & field) const
     {
         std::optional<double> value(config.at_path(field).value<double>());
         if(!value)
@@ -97,30 +105,22 @@ namespace sys::cfg
     }
 
     // Retrieve the requested vector of doubles from the configuration table.
-    std::vector<double> ConfigurationTable::get_double_vector(const std::string & field)
+    std::vector<double> ConfigurationTable::get_double_vector(const std::string & field) const
     {
         std::vector<double> values;
-        toml::array * elements = config.at_path(field).as_array();
+        const toml::array * elements = config.at_path(field).as_array();
         for(auto & e : *elements)
             values.push_back(*e.value<double>());
         return values;
     }
 
-    // Validate the configuration file by checking that all the requisite
-    // fields are present.
-    void ConfigurationTable::validate()
-    {
-        check_field("input.path");
-        check_field("output.path");
-    }
-
     // Get a list of all subtables matching the requested table name.
-    std::vector<ConfigurationTable> ConfigurationTable::get_subtables(const std::string & table)
+    std::vector<ConfigurationTable> ConfigurationTable::get_subtables(const std::string & table) const
     {
         std::vector<ConfigurationTable> tables;
         if(config.find(table) == config.end())
             throw ConfigurationError("Table " + table + " not found in the configuration file.");
-        toml::array * elements = config[table].as_array();
+        const toml::array * elements = config[table].as_array();
         for(auto & e : *elements)
             tables.push_back(ConfigurationTable(*e.as_table()));
         return tables;

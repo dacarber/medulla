@@ -16,6 +16,7 @@
 #define PROTON_MASS 938.2720813
 
 #include "include/particle_utilities.h"
+#include <cmath>
 
 /**
  * @namespace pvars
@@ -633,6 +634,22 @@ namespace pvars
         return p.end_dir[2];
     }
     REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, end_dir_z, end_dir_z);
+
+    /**
+     * @brief Variable for the particle momentum magnitude.
+     * @details The momentum is predicted upstream in the SPINE reconstruction.
+     * @tparam T the type of particle (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the particle momentum mag.
+     */
+    template<class T>
+    double p_mag(const T & p)
+    {
+        double momentum = std::sqrt(p.momentum[0]*p.momentum[0] +p.momentum[1]*p.momentum[1] +p.momentum[2]*p.momentum[2])
+        return momentum;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, p_mag, p_mag);
+    
 
     /**
      * @brief Variable for the x-component of the particle momentum.

@@ -31,9 +31,9 @@ namespace cuts::muon2024
 {
     std::vector<float> flash_times;
     static const bool initialized = [] {
-        if constexpr(!BEAM_IS_NUMI);
+        if constexpr(!BEAM_IS_NUMI)
             flash_times = {0.0,1.6};
-        else;
+        else
             flash_times = {0.0,9.6};
         return true;
     }();

@@ -11,10 +11,12 @@ name = "selected"
 sim_only = false
 mode = "reco"
 cut = [
+    {name = "data_quality_cut", type = "reco"},
     {name = "fiducial_cut", type = "reco"},
     {name = "containment_cut", type = "reco"},
     {name = "valid_flashmatch", type = "reco"},
     {name = "all_1muNp_cut", type = "reco"},
+
 ]
 branch = [
     {name = "neutrino_id", type = "true"},

@@ -29,6 +29,10 @@
  */
 namespace cuts::muon2024
 {
+    if constexpr(!BEAM_IS_NUMI)
+        std::vector<float> flash_times = {0.0,1.6};
+    else
+        std::vector<float> flash_times = {0.0,9.6};
     /**
      * @brief Apply a 1mu1p topological (final state) cut.
      * @details The interaction must have a topology matching 1mu1p as defined by
@@ -93,7 +97,7 @@ namespace cuts::muon2024
      * @note This cut is intended to be used for the muon2024 analysis.
      */
     template<class T>
-    bool all_1mu1p_cut(const T & obj) { return fiducial_cut<T>(obj) && containment_cut<T>(obj) && flash_cut<T>(obj) && topological_1mu1p_cut<T>(obj); }
+    bool all_1mu1p_cut(const T & obj) { return fiducial_cut<T>(obj) && containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1mu1p_cut<T>(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, all_1mu1p_cut, all_1mu1p_cut);
 
     /**
@@ -109,7 +113,7 @@ namespace cuts::muon2024
      * @note This cut is intended to be used for the muon2024 analysis.
      */
     template<class T>
-    bool all_1mu1p_no_containment_cut(const T & obj) { return fiducial_cut<T>(obj) && flash_cut<T>(obj) && topological_1mu1p_cut<T>(obj); }
+    bool all_1mu1p_no_containment_cut(const T & obj) { return fiducial_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1mu1p_cut<T>(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, all_1mu1p_no_containment_cut, all_1mu1p_no_containment_cut);
 
     /**
@@ -125,7 +129,7 @@ namespace cuts::muon2024
      * @note This cut is intended to be used for the muon2024 analysis.
      */
     template<class T>
-    bool all_1muNp_cut(const T & obj) { return fiducial_cut<T>(obj) && containment_cut<T>(obj) && flash_cut<T>(obj) && topological_1muNp_cut<T>(obj); }
+    bool all_1muNp_cut(const T & obj) { return fiducial_cut<T>(obj) && containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1muNp_cut<T>(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, all_1muNp_cut, all_1muNp_cut);
 
     /**
@@ -140,7 +144,7 @@ namespace cuts::muon2024
      * @note This cut is intended to be used for the muon2024 analysis.
      */
     template<class T>
-    bool all_1muNp_no_containment_cut(const T & obj) { return fiducial_cut<T>(obj) && flash_cut<T>(obj) && topological_1muNp_cut<T>(obj); }
+    bool all_1muNp_no_containment_cut(const T & obj) { return fiducial_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1muNp_cut<T>(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, all_1muNp_no_containment_cut, all_1muNp_no_containment_cut);
 
     /**
@@ -156,7 +160,7 @@ namespace cuts::muon2024
      * @note This cut is intended to be used for the muon2024 analysis.
      */
     template<class T>
-    bool all_1muX_cut(const T & obj) { return fiducial_cut<T>(obj) && containment_cut<T>(obj) && flash_cut<T>(obj) && topological_1muX_cut<T>(obj); }
+    bool all_1muX_cut(const T & obj) { return fiducial_cut<T>(obj) && containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1muX_cut<T>(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, all_1muX_cut, all_1muX_cut);
 
     /**
@@ -171,7 +175,7 @@ namespace cuts::muon2024
      * @note This cut is intended to be used for the muon2024 analysis.
      */
     template<class T>
-    bool all_1muX_no_containment_cut(const T & obj) { return fiducial_cut<T>(obj) && flash_cut<T>(obj) && topological_1muX_cut<T>(obj); }
+    bool all_1muX_no_containment_cut(const T & obj) { return fiducial_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1muX_cut<T>(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, all_1muX_no_containment_cut, all_1muX_no_containment_cut);
 
     /**

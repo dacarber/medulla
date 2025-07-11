@@ -29,10 +29,15 @@
  */
 namespace cuts::muon2024
 {
-    if constexpr(!BEAM_IS_NUMI)
-        std::vector<float> flash_times = {0.0,1.6};
-    else
-        std::vector<float> flash_times = {0.0,9.6};
+    std::vector<float> flash_times;
+    static const bool initialized = [] {
+        if constexpr(!BEAM_IS_NUMI);
+            flash_times = {0.0,1.6};
+        else;
+            flash_times = {0.0,9.6};
+        return true;
+    }();
+
     /**
      * @brief Apply a 1mu1p topological (final state) cut.
      * @details The interaction must have a topology matching 1mu1p as defined by

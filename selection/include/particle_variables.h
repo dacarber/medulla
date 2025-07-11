@@ -645,7 +645,7 @@ namespace pvars
     template<class T>
     double p_mag(const T & p)
     {
-        double momentum = std::sqrt(p.momentum[0]*p.momentum[0] +p.momentum[1]*p.momentum[1] +p.momentum[2]*p.momentum[2])
+        double momentum = std::sqrt(p.momentum[0]*p.momentum[0] +p.momentum[1]*p.momentum[1] +p.momentum[2]*p.momentum[2]);
         return momentum;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, p_mag, p_mag);

@@ -1,5 +1,5 @@
 [general]
-output = "NuMI_nu"
+output = "NuMI_numu_data"
 
 [[sample]]
 name = "data"

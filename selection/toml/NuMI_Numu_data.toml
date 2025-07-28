@@ -63,3 +63,20 @@ branch = [
     {name = "containment", type = "reco"},
     {name = "flash_time", type = "reco"},
 ]
+[[tree]]
+name = "exposure"
+sim_only = false
+mode = "event"
+cut = [
+    {name = "data_quality_cut", type = "event"},
+]
+branch = [
+    {name = "pot", type = "event"},
+    {name = "pot_from_spillinfo", type = "event", parameters = [1.0,]},
+    {name = "nbnb", type = "event"},
+    {name = "nnumi", type = "event"},
+    {name = "noffbeambnb", type = "event"},
+    {name = "noffbeamnumi", type = "event"},
+    {name = "ngenevt", type = "event"},
+    {name = "is_first_in_subrun", type = "event"},
+]

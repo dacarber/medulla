@@ -80,7 +80,7 @@ namespace ecut
     {
         if(sr.hdr.det == caf::kICARUS && !sr.hdr.ismc)
         {
-            return utilities::is_icarus_good_run(sr.hdr.run);
+            return utilities::is_icarus_good_run2_numi(sr.hdr.run);
         }
         else
         {

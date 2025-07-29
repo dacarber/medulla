@@ -86,7 +86,7 @@ namespace evar
         double pot = 0;
         for(const auto & spill : sr.hdr.numiinfo)
         {
-            pot += params.at(0)*spill.TOR875;
+            pot += params.at(0)*spill.TOR101;
         }
         return pot;
     }

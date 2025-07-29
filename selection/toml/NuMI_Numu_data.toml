@@ -68,7 +68,7 @@ name = "exposure"
 sim_only = false
 mode = "event"
 cut = [
-    {name = "data_quality_cut", type = "event"},
+    #{name = "data_quality_cut", type = "event"},
 ]
 branch = [
     {name = "pot", type = "event"},

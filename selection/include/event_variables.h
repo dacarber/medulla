@@ -84,7 +84,7 @@ namespace evar
     double pot_from_spillinfo(const T & sr, std::vector<double> params={1.0})
     {
         double pot = 0;
-        for(const auto & spill : sr.hdr.bnbinfo)
+        for(const auto & spill : sr.hdr.numiinfo)
         {
             pot += params.at(0)*spill.TOR875;
         }

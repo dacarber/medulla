@@ -79,9 +79,9 @@ namespace pcuts
             double energy(pvars::ke(p));
             double momentum(pvars::p_mag(p));
             //Original
-            //if((PIDFUNC(p) == 2 && energy > 143.425) || (PIDFUNC(p) != 2 && PIDFUNC(p) < 4 && energy > 25) || (PIDFUNC(p) == 4 && energy > 50))
+            if((PIDFUNC(p) == 2 && energy > 143.425) || (PIDFUNC(p) != 2 && PIDFUNC(p) < 4 && energy > 25) || (PIDFUNC(p) == 4 && energy > 50))
             //Bruce and Jaesung
-            if((PIDFUNC(p) == 2 &&  momentum > 226  ) || (PIDFUNC(p) != 2 && PIDFUNC(p) < 4 && energy > 0) || (PIDFUNC(p) == 4 && momentum > 400 && momentum < 1000))
+            //if((PIDFUNC(p) == 2 &&  momentum > 226  ) || (PIDFUNC(p) != 2 && PIDFUNC(p) < 4 && energy > 0) || (PIDFUNC(p) == 4 && momentum > 400 && momentum < 1000))
                 passes = true;
         }
         return passes;

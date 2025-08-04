@@ -131,6 +131,7 @@ namespace vars::nue
             }
             return nu_energy;
         }
+    '''
     REGISTER_VAR_SCOPE(RegistrationScope::Both, neutrino_energy, neutrino_energy);
     template<class T>
         double Qsquared(const T & obj)
@@ -318,6 +319,7 @@ namespace vars::nue
             double angle(NuMI_azimuthal_angle(obj.particles[i]));
             return angle;
         }
+    '''
     /**
      * @brief Variable for the opening angle between leading muon and proton.
      * @details The leading muon and proton are defined as the particles with the

@@ -168,7 +168,7 @@ namespace cuts
             }
             return passes;
         }
-    REGISTER_CUT_SCOPE(RegistrationScope::Both, containment_cut, containment_cut);
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, track_containment_cut, track_containment_cut);
 
     /**
      * @brief Apply a flash time cut on the interaction.

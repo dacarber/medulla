@@ -144,6 +144,35 @@ namespace cuts
     REGISTER_CUT_SCOPE(RegistrationScope::Both, containment_cut, containment_cut);
 
     /**
+     * @brief Apply a containment cut on the entire interaction.
+     * @details The containment cut is applied on the entire interaction. The
+     * interaction is considered contained if all particles and all spacepoints
+     * are contained within 5cm of the detector edges (configured in a SPINE 
+     * post-processor). Additionally, no spacepoints are allowed to be
+     * reconstructed in a TPC that did not create it. This is an unphysical
+     * condition that can occur when a cosmic muon is moved according to an
+     * assumed t0 that is very out-of-time.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to select on.
+     * @return true if the vertex is contained.
+     */
+    template<class T>
+    bool track_containment_cut(const T & obj) { 
+        bool track_containment_cut(const T & obj)
+        {
+        bool passes(true);
+        for(auto & p : obj.particles)
+            {
+            if(p.is_primary && p.pid > 1 && !p.is_contained)
+            {
+            passes = false;
+        }
+            }
+            return passes;
+        }
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, containment_cut, containment_cut);
+
+    /**
      * @brief Apply a flash time cut on the interaction.
      * @details The flash time cut is applied on the interaction. The flash time
      * is required to be within the beam window, which is expected to be

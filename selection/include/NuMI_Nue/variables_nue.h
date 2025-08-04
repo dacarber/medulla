@@ -141,7 +141,7 @@ namespace vars::nue
                 double nu_energy = obj.energy_init + 40*counts[4];
             }
             
-            size_t i(utilities::leading_particle_index(obj, 1));
+            size_t i(selectors::leading_particle_index(obj, 1));
             double electron_energy = pvars::ke(obj.particles[i]) + ELECTRON_MASS;
             TVector3 p;
             p.SetX(obj.particles[i].momentum[0]);

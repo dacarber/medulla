@@ -102,7 +102,7 @@ namespace cuts::eon2024
      * @note This cut is intended to be used for the eon2024 analysis.
      */
     template<class T>
-    bool all_1e1p_cut(const T & obj) { return fiducial_cut<T>(obj) && containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1e1p_cut<T>(obj); }
+    bool all_1e1p_cut(const T & obj) { return fiducial_cut<T>(obj) && track_containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1e1p_cut<T>(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, all_1e1p_cut, all_1e1p_cut);
 
     /**
@@ -134,7 +134,7 @@ namespace cuts::eon2024
      * @note This cut is intended to be used for the eon2024 analysis.
      */
     template<class T>
-    bool all_1eNp_cut(const T & obj) { return fiducial_cut<T>(obj) && containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1eNp_cut<T>(obj); }
+    bool all_1eNp_cut(const T & obj) { return fiducial_cut<T>(obj) && track_containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1eNp_cut<T>(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, all_1eNp_cut, all_1eNp_cut);
 
     /**
@@ -165,7 +165,7 @@ namespace cuts::eon2024
      * @note This cut is intended to be used for the eon2024 analysis.
      */
     template<class T>
-    bool all_1eX_cut(const T & obj) { return fiducial_cut<T>(obj) && containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1eX_cut<T>(obj); }
+    bool all_1eX_cut(const T & obj) { return fiducial_cut<T>(obj) && track_containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1eX_cut<T>(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, all_1eX_cut, all_1eX_cut);
 
     /**

@@ -58,7 +58,7 @@ namespace cuts::eon2024
 
             return obj.particles[i].axial_spread >0.02 && obj.particles[i].directional_spread < 0.25 && obj.particles[i].vertex_distance <7.5 && obj.particles[p].pid_scores[4] >0.6 && obj.particles[p].pid_scores[2] <0.04;
         }
-    REGISTER_CUT_SCOPE(RegistrationScope::Both, quality_cuts, quality_cuts);
+    REGISTER_CUT_SCOPE(RegistrationScope::Reco, quality_cuts, quality_cuts);
     /**
      * @brief Apply a 1e1p topological (final state) cut.
      * @details The interaction est have a topology matching 1e1p as defined by

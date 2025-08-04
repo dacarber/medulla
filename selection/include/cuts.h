@@ -158,8 +158,6 @@ namespace cuts
      */
     template<class T>
     bool track_containment_cut(const T & obj) { 
-        bool track_containment_cut(const T & obj)
-        {
         bool passes(true);
         for(auto & p : obj.particles)
             {

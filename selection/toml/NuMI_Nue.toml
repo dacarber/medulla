@@ -15,6 +15,7 @@ cut = [
     {name = "track_containment_cut", type = "reco"},
     {name = "valid_flashmatch", type = "reco"},
     {name = "all_1eNp_cut", type = "reco"},
+    {name = "quality_cuts", type = "reco"},
 ]
 branch = [
     {name = "neutrino_id", type = "true"},

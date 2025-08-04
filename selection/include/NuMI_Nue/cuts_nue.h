@@ -15,6 +15,7 @@
 #include <algorithm>
 
 #include "include/utilities.h"
+#include "include/selectors.h"
 
 /**
  * @namespace cuts::eon2024
@@ -51,13 +52,13 @@ namespace cuts::eon2024
      * @note This cut is intended to be used for the muon2024 analysis.
      */
     template<class T>
-        bool quality_cuts(const T & obj) { 
+    bool quality_cuts(const T & obj) { 
             size_t i(selectors::leading_particle_index(obj, 1));
             size_t p(selectors::leading_particle_index(obj, 4));
 
             return obj.particles[i].axial_spread >0.02 && obj.particles[i].directional_spread < 0.25 && obj.particles[i].vertex_distance <7.5 && obj.particles[p].pid_scores[4] >0.6 && obj.particles[p].pid_scores[2] <0.04;
         }
-    REGISTER_CUT_SCOPE(RegistrationScope::Both, quality_cut, quality_cut);
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, quality_cuts, quality_cuts);
     /**
      * @brief Apply a 1e1p topological (final state) cut.
      * @details The interaction est have a topology matching 1e1p as defined by

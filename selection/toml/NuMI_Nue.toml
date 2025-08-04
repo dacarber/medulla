@@ -45,12 +45,12 @@ cut = [
 ]
 branch = [
     {name = "neutrino_id", type = "true"},
-    {name = "baseline", type = "mctruth"},
-    {name = "cc", type = "mctruth"},
-    {name = "pdg", type = "mctruth"},
-    {name = "interaction_type", type = "mctruth"},
+    #{name = "baseline", type = "mctruth"},
+    #{name = "cc", type = "mctruth"},
+    #{name = "pdg", type = "mctruth"},
+    #{name = "interaction_type", type = "mctruth"},
     {name = "category", type = "true"},
-    {name = "neutrino_energy", type = "mctruth"},
+    #{name = "neutrino_energy", type = "mctruth"},
     {name = "visible_energy", type = "true"},
     {name = "dpT", type = "true"},
     {name = "dpT_lp", type = "both"},
@@ -70,10 +70,10 @@ cut = [
 ]
 branch = [
     {name = "neutrino_id", type = "true"},
-    {name = "baseline", type = "mctruth"},
-    {name = "cc", type = "mctruth"},
-    {name = "pdg", type = "mctruth"},
-    {name = "interaction_type", type = "mctruth"},
+    #{name = "baseline", type = "mctruth"},
+    #{name = "cc", type = "mctruth"},
+    #{name = "pdg", type = "mctruth"},
+    #{name = "interaction_type", type = "mctruth"},
     {name = "category", type = "true"},
 #    {name = "neutrino_energy", type = "mctruth"},
 #    {name = "visible_energy", type = "true"},
@@ -96,10 +96,10 @@ cut = [
 ]
 branch = [
     {name = "neutrino_id", type = "true"},
-    {name = "baseline", type = "mctruth"},
-    {name = "cc", type = "mctruth"},
-    {name = "pdg", type = "mctruth"},
-    {name = "interaction_type", type = "mctruth"},
+    #{name = "baseline", type = "mctruth"},
+    #{name = "cc", type = "mctruth"},
+    #{name = "pdg", type = "mctruth"},
+    #{name = "interaction_type", type = "mctruth"},
     {name = "category", type = "true"},
 #    {name = "neutrino_energy", type = "mctruth"},
 #    {name = "visible_energy", type = "true"},
@@ -123,10 +123,10 @@ cut = [
 ]
 branch = [
     {name = "neutrino_id", type = "true"},
-    {name = "baseline", type = "mctruth"},
-    {name = "cc", type = "mctruth"},
-    {name = "pdg", type = "mctruth"},
-    {name = "interaction_type", type = "mctruth"},
+    #{name = "baseline", type = "mctruth"},
+    #{name = "cc", type = "mctruth"},
+    #{name = "pdg", type = "mctruth"},
+    #{name = "interaction_type", type = "mctruth"},
     {name = "category", type = "true"},
 #    {name = "neutrino_energy", type = "mctruth"},
 #    {name = "visible_energy", type = "true"},
@@ -151,10 +151,10 @@ cut = [
 ]
 branch = [
     {name = "neutrino_id", type = "true"},
-    {name = "baseline", type = "mctruth"},
-    {name = "cc", type = "mctruth"},
-    {name = "pdg", type = "mctruth"},
-    {name = "interaction_type", type = "mctruth"},
+    #{name = "baseline", type = "mctruth"},
+    #{name = "cc", type = "mctruth"},
+    #{name = "pdg", type = "mctruth"},
+    #{name = "interaction_type", type = "mctruth"},
     {name = "category", type = "true"},
 #    {name = "neutrino_energy", type = "mctruth"},
 #    {name = "visible_energy", type = "true"},

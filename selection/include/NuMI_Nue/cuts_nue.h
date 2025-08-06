@@ -28,7 +28,7 @@
  * @note The namespace is intended to be used in conjunction with the cuts
  * namespace, which is used for organizing generic cuts which act on interactions.
  */
-namespace cuts::eon2024
+namespace cuts::nue2024
 {
     std::vector<double> flash_times;
     static const bool initialized = [] {

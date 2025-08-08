@@ -26,7 +26,7 @@ branch = [
     {name = "pdg", type = "mctruth"},
     {name = "parent_pdg", type = "mctruth"},
     {name = "category", type = "true"},
-    #{name = "neutrino_energy", type = "mctruth"},
+    {name = "neutrino_energy", type = "mctruth"},
     {name = "visible_energy", type = "both"},
     {name = "dpT", type = "both"},
     {name = "dpT_lp", type = "both"},

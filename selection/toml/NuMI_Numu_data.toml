@@ -14,7 +14,7 @@ cut = [
     #{name = "data_quality_cut", type = "event"},
     {name = "fiducial_cut", type = "reco"},
     {name = "containment_cut", type = "reco"},
-    {name = "valid_flashmatch", type = "reco"},
+    #{name = "valid_flashmatch", type = "reco"},
     {name = "all_1muNp_cut", type = "reco"},
 
 ]

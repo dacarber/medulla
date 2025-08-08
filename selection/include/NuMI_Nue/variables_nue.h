@@ -131,6 +131,12 @@ namespace vars::nue
             }
             return nu_energy;
         }
+    template<class T>
+        double pdg(const T & obj)
+        {
+            size_t i(selectors::leading_proton(obj));
+            return obj.pdg_code;
+        }
     /*
     REGISTER_VAR_SCOPE(RegistrationScope::Both, neutrino_energy, neutrino_energy);
     template<class T>
@@ -196,6 +202,7 @@ namespace vars::nue
             size_t i(selectors::leading_proton(obj));
             return obj.particles[i].pid_scores[4];
         }
+
     template<class T>
         double leading_proton_ke(const T & obj)
         {

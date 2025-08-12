@@ -3,7 +3,7 @@ output = "NuMI_nu"
 
 [[sample]]
 name = "simulation"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_CV_flat_cafs/*.flat.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_CV_flat_cafs_2/*.flat.root"
 ismc = true
 
 [[tree]]
@@ -13,8 +13,8 @@ mode = "reco"
 cut = [
     {name = "fiducial_cut", type = "reco"},
     {name = "containment_cut", type = "reco"},
-    #{name = "valid_flashmatch", type = "reco"},
-    #{name = "all_1muNp_cut", type = "reco"},
+    {name = "valid_flashmatch", type = "reco"},
+    {name = "all_1muNp_cut", type = "reco"},
 ]
 branch = [
     {name = "neutrino_id", type = "true"},

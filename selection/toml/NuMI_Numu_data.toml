@@ -3,7 +3,7 @@ output = "NuMI_numu_data"
 
 [[sample]]
 name = "data"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_data_flat_cafs/*.flat.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_data_flat_cafs_2/*.flat.root"
 ismc = false
 
 [[tree]]
@@ -11,10 +11,10 @@ name = "selected"
 sim_only = false
 mode = "reco"
 cut = [
-    #{name = "data_quality_cut", type = "event"},
-    #{name = "fiducial_cut", type = "reco"},
-    #{name = "containment_cut", type = "reco"},
-    #{name = "valid_flashmatch", type = "reco"},
+    {name = "data_quality_cut", type = "event"},
+    {name = "fiducial_cut", type = "reco"},
+    {name = "containment_cut", type = "reco"},
+    {name = "valid_flashmatch", type = "reco"},
     {name = "all_1muNp_cut", type = "reco"},
 
 ]

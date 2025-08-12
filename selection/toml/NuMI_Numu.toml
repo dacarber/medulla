@@ -3,7 +3,7 @@ output = "NuMI_nu_test_2"
 
 [[sample]]
 name = "simulation"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/*.flat.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/*.root"
 ismc = true
 
 [[tree]]

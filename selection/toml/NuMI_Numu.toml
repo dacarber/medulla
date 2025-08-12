@@ -147,7 +147,7 @@ branch = [
     #{name = "cc", type = "mctruth"},
     #{name = "pdg", type = "mctruth"},
     #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "both"},
+    {name = "category", type = "true"},
 #    {name = "neutrino_energy", type = "mctruth"},
 #    {name = "visible_energy", type = "true"},
     {name = "dpT", type = "true"},

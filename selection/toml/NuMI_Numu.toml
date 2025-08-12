@@ -103,3 +103,29 @@ branch = [
     {name = "containment", type = "reco"},
     {name = "flash_time", type = "reco"},
 ]
+
+[[tree]]
+name = "neutrino_cut"
+sim_only = true
+mode = "true"
+cut = [
+    {name = "signal_1eNp", type = "true"},
+]
+branch = [
+    {name = "neutrino_id", type = "true"},
+    #{name = "baseline", type = "mctruth"},
+    #{name = "cc", type = "mctruth"},
+    #{name = "pdg", type = "mctruth"},
+    #{name = "interaction_type", type = "mctruth"},
+    {name = "category", type = "true"},
+    {name = "neutrino_energy", type = "mctruth"},
+    {name = "visible_energy", type = "true"},
+    {name = "dpT", type = "both"},
+#    {name = "dpT_lp", type = "both"},
+#    {name = "dphiT", type = "both"},
+#    {name = "dalphaT", type = "both"},
+#    {name = "opening_angle", type = "both"},
+#    {name = "fiducial", type = "reco"},
+#    {name = "containment", type = "reco"},
+#    {name = "flash_time", type = "reco"},
+]

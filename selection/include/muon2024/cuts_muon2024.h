@@ -134,7 +134,7 @@ namespace cuts::muon2024
      * @note This cut is intended to be used for the muon2024 analysis.
      */
     template<class T>
-    bool all_1muNp_cut(const T & obj) { return fiducial_cut<T>(obj) && containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1muNp_cut<T>(obj); }
+    bool all_1muNp_cut(const T & obj) { return fiducial_cut<T>(obj) && containment_cut<T>(obj) && flash_cut<T>(obj) && topological_1muNp_cut<T>(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, all_1muNp_cut, all_1muNp_cut);
 
     /**

@@ -129,6 +129,7 @@ branch = [
 #    {name = "containment", type = "reco"},
 #    {name = "flash_time", type = "reco"},
 ]
+[[tree]]
 name = "all_cut"
 sim_only = true
 mode = "true"

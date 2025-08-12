@@ -109,7 +109,7 @@ name = "neutrino_cut"
 sim_only = true
 mode = "true"
 cut = [
-    {name = "signal_1eNp", type = "true"},
+    {name = "signal_1muNp", type = "true"},
 ]
 branch = [
     {name = "neutrino_id", type = "true"},

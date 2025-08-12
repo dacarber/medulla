@@ -19,12 +19,12 @@ cut = [
 ]
 branch = [
     {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
+    {name = "baseline", type = "mctruth"},
+    {name = "cc", type = "mctruth"},
+    {name = "pdg", type = "mctruth"},
+    {name = "interaction_type", type = "mctruth"},
     {name = "category", type = "true"},
-    #{name = "neutrino_energy", type = "mctruth"},
+    {name = "neutrino_energy", type = "mctruth"},
     {name = "visible_energy", type = "both"},
     {name = "dpT", type = "both"},
     {name = "dpT_lp", type = "both"},

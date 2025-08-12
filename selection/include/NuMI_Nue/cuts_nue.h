@@ -278,7 +278,7 @@ namespace cuts::nue2024
      * defining the signal.
      */
     template<class T>
-    bool signal_1eNp(const T & obj) { return neutrino(obj) && fiducial_cut(obj) && containment_cut(obj) && topological_1eNp_cut(obj); }
+    bool signal_1eNp(const T & obj) { return neutrino(obj) && fiducial_cut(obj) && track_containment_cut(obj) && topological_1eNp_cut(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::True, signal_1eNp, signal_1eNp);
 
     /**

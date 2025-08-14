@@ -82,7 +82,7 @@ cut = [
     {name = "fiducial_cut", type = "true"},
     {name = "containment_cut", type = "true"},
     {name = "neutrino", type = "true"},
-    {name = "all_1muNp_cut", type = "true"},
+    {name = "all_1eNp_cut", type = "true"},
 ]
 branch = [
     {name = "neutrino_id", type = "true"},

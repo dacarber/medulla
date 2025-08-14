@@ -155,7 +155,7 @@ namespace cuts::nue2024
      * @note This cut is intended to be used for the eon2024 analysis.
      */
     template<class T>
-    bool all_1eNp_cut(const T & obj) { return fiducial_cut<T>(obj) && containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1eNp_cut<T>(obj); }//track_
+    bool all_1eNp_cut(const T & obj) { return fiducial_cut<T>(obj) && track_containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1eNp_cut<T>(obj); }//track_
     REGISTER_CUT_SCOPE(RegistrationScope::Both, all_1eNp_cut, all_1eNp_cut);
 
     /**

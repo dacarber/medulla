@@ -3,7 +3,7 @@ output = "NuMI_nu"
 
 [[sample]]
 name = "simulation"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_CV_flat_cafs_2/*.flat.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_CV_flat_cafs_2/*.root"
 ismc = true
 
 [[tree]]

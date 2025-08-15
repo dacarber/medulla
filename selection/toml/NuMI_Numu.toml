@@ -12,7 +12,7 @@ sim_only = false
 mode = "reco"
 cut = [
     {name = "fiducial_cut", type = "reco"},
-    {name = "containment_cut", type = "reco"},
+    {name = "track_containment_cut", type = "reco"},
     {name = "valid_flashmatch", type = "reco"},
     {name = "flash_cut", type = "reco", parameters = [0,9.6]},
     {name = "all_1muNp_cut", type = "reco"},

@@ -161,7 +161,7 @@ namespace cuts
         bool passes(true);
         for(auto & p : obj.particles)
             {
-            if(p.is_primary && p.pid > 1 && !p.is_contained)
+            if(p.is_primary && p.pid > 2 && !p.is_contained)
             {
             passes = false;
         }

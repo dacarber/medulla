@@ -102,7 +102,7 @@ namespace cuts::muon2024
      * @note This cut is intended to be used for the muon2024 analysis.
      */
     template<class T>
-    bool all_1mu1p_cut(const T & obj) { return fiducial_cut<T>(obj) && containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1mu1p_cut<T>(obj); }
+    bool all_1mu1p_cut(const T & obj) { return fiducial_cut<T>(obj) && track_containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1mu1p_cut<T>(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, all_1mu1p_cut, all_1mu1p_cut);
 
     /**
@@ -165,7 +165,7 @@ namespace cuts::muon2024
      * @note This cut is intended to be used for the muon2024 analysis.
      */
     template<class T>
-    bool all_1muX_cut(const T & obj) { return fiducial_cut<T>(obj) && containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1muX_cut<T>(obj); }
+    bool all_1muX_cut(const T & obj) { return fiducial_cut<T>(obj) && track_containment_cut<T>(obj) && flash_cut<T>(obj, flash_times) && topological_1muX_cut<T>(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, all_1muX_cut, all_1muX_cut);
 
     /**
@@ -195,7 +195,7 @@ namespace cuts::muon2024
      * defining the signal.
      */
     template<class T>
-    bool signal_1mu1p(const T & obj) { return neutrino(obj) && fiducial_cut(obj) && containment_cut(obj) && topological_1mu1p_cut(obj); }
+    bool signal_1mu1p(const T & obj) { return neutrino(obj) && fiducial_cut(obj) && track_containment_cut(obj) && topological_1mu1p_cut(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::True, signal_1mu1p, signal_1mu1p);
 
     /**
@@ -226,7 +226,7 @@ namespace cuts::muon2024
      * defining a complement to the signal.
      */
     template<class T>
-    bool nonsignal_1mu1p(const T & obj) { return neutrino(obj) && !(fiducial_cut(obj) && containment_cut(obj)) && topological_1mu1p_cut(obj); }
+    bool nonsignal_1mu1p(const T & obj) { return neutrino(obj) && !(fiducial_cut(obj) && track_containment_cut(obj)) && topological_1mu1p_cut(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::True, nonsignal_1mu1p, nonsignal_1mu1p);
 
     /**
@@ -288,7 +288,7 @@ namespace cuts::muon2024
      * defining a complement to the signal.
      */
     template<class T>
-    bool nonsignal_1muNp(const T & obj) { return neutrino(obj) && !(fiducial_cut(obj) && containment_cut(obj)) && topological_1muNp_cut(obj); }
+    bool nonsignal_1muNp(const T & obj) { return neutrino(obj) && !(fiducial_cut(obj) && track_containment_cut(obj)) && topological_1muNp_cut(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::True, nonsignal_1muNp, nonsignal_1muNp);
 
     /**
@@ -320,7 +320,7 @@ namespace cuts::muon2024
      * defining the signal.
      */
     template<class T>
-    bool signal_1muX(const T & obj) { return neutrino(obj) && fiducial_cut(obj) && containment_cut(obj) && topological_1muX_cut(obj); }
+    bool signal_1muX(const T & obj) { return neutrino(obj) && fiducial_cut(obj) && track_containment_cut(obj) && topological_1muX_cut(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::True, signal_1muX, signal_1muX);
 
     /**
@@ -351,7 +351,7 @@ namespace cuts::muon2024
      * defining a complement to the signal.
      */
     template<class T>
-    bool nonsignal_1muX(const T & obj) { return neutrino(obj) && !(fiducial_cut(obj) && containment_cut(obj)) && topological_1muX_cut(obj); }
+    bool nonsignal_1muX(const T & obj) { return neutrino(obj) && !(fiducial_cut(obj) && track_containment_cut(obj)) && topological_1muX_cut(obj); }
     REGISTER_CUT_SCOPE(RegistrationScope::True, nonsignal_1muX, nonsignal_1muX);
 
     /**

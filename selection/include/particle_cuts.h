@@ -80,7 +80,7 @@ namespace pcuts
             double momentum(pvars::p_mag(p));
             //Original
             //if((PIDFUNC(p) == 1 && energy > 70) || (PIDFUNC(p) != 1 && PIDFUNC(p) < 4 && energy > 25) || (PIDFUNC(p) == 4 && energy > 40)) //Nue
-            if((PIDFUNC(p) == 2 && energy > 143.425) || (PIDFUNC(p) != 2 && PIDFUNC(p) < 4 && energy > 25) || (PIDFUNC(p) == 4 && energy > 40)) //Numu
+            if((PIDFUNC(p) == 2 && energy > 143.425) || (PIDFUNC(p) != 2 && PIDFUNC(p) < 4 && energy > 25) || (PIDFUNC(p) == 4 && energy > 50)) //Numu
             //if((PIDFUNC(p) == 1 && energy > 70) || (PIDFUNC(p) == 2 && energy > 143.425) || (PIDFUNC(p) == 0 && energy > 25) || (PIDFUNC(p) == 3 && energy > 25) || (PIDFUNC(p) == 4 && energy > 50)) //Numu
             //Bruce and Jaesung
             //if((PIDFUNC(p) == 2 &&  momentum > 226  ) || (PIDFUNC(p) != 2 && PIDFUNC(p) < 4 && energy > 0) || (PIDFUNC(p) == 4 && momentum > 400 && momentum < 1000))

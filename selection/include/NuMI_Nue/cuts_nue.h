@@ -91,7 +91,7 @@ namespace cuts::nue2024
 
             return obj.particles[i].vertex_distance <7.5;
         }
-    REGISTER_CUT_SCOPE(RegistrationScope::Reco, vertex_distance_cuts, vertex_distance_cuts;
+    REGISTER_CUT_SCOPE(RegistrationScope::Reco, vertex_distance_cuts, vertex_distance_cuts);
     template<class T>
     bool proton_pid_cuts(const T & obj) { 
             size_t p(selectors::leading_particle_index(obj, 4));

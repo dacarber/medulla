@@ -78,6 +78,7 @@ namespace cuts::nue2024
             return obj.particles[i].axial_spread >0.02;
         }
     REGISTER_CUT_SCOPE(RegistrationScope::Reco, axial_spread_cuts, axial_spread_cuts);
+
     template<class T>
     bool directional_spread_cuts(const T & obj) { 
             size_t i(selectors::leading_particle_index(obj, 1));
@@ -85,6 +86,7 @@ namespace cuts::nue2024
             return obj.particles[i].directional_spread < 0.25;
         }
     REGISTER_CUT_SCOPE(RegistrationScope::Reco, directional_spread_cuts, directional_spread_cuts);
+
     template<class T>
     bool vertex_distance_cuts(const T & obj) { 
             size_t i(selectors::leading_particle_index(obj, 1));
@@ -92,6 +94,7 @@ namespace cuts::nue2024
             return obj.particles[i].vertex_distance <7.5;
         }
     REGISTER_CUT_SCOPE(RegistrationScope::Reco, vertex_distance_cuts, vertex_distance_cuts);
+
     template<class T>
     bool proton_pid_cuts(const T & obj) { 
             size_t p(selectors::leading_particle_index(obj, 4));
@@ -99,6 +102,7 @@ namespace cuts::nue2024
             return obj.particles[p].pid_scores[4] >0.6;
         }
     REGISTER_CUT_SCOPE(RegistrationScope::Reco, proton_pid_cuts, proton_pid_cuts);
+    
     template<class T>
     bool muon_pid_cuts(const T & obj) { 
             size_t p(selectors::leading_particle_index(obj, 4));

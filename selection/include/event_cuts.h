@@ -67,7 +67,7 @@ namespace ecut
     }
     REGISTER_CUT_SCOPE(RegistrationScope::Event, global_trigger_time_cut, global_trigger_time_cut);
 
-    /**cmake --build . --target main
+    /**
      * @brief Apply a data quality cut on the event metadata.
      * @details This cut rejects events that belong to runs that are marked as
      * bad. This can happen due to various reasons, such as hardware issues,

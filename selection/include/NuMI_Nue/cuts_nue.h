@@ -30,14 +30,7 @@
  */
 namespace cuts::nue2024
 {
-    std::vector<double> flash_times;
-    static const bool initialized = [] {
-        if constexpr(!BEAM_IS_NUMI)
-            flash_times = {0.0,1.6};
-        else
-            flash_times = {0.0,9.6};
-        return true;
-    }();
+
 
     /**
      * @brief Apply a fiducial volume, containment, flash time (BNB), and 1muNp
@@ -102,7 +95,7 @@ namespace cuts::nue2024
             return obj.particles[p].pid_scores[4] >0.6;
         }
     REGISTER_CUT_SCOPE(RegistrationScope::Reco, proton_pid_cuts, proton_pid_cuts);
-    
+
     template<class T>
     bool muon_pid_cuts(const T & obj) { 
             size_t p(selectors::leading_particle_index(obj, 4));

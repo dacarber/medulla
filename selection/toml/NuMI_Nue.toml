@@ -119,12 +119,31 @@ branch = [
     { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
 ]
 [[tree]]
+name = "flash_cut"
+sim_only = true
+mode = "true"
+cut = [
+    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+    {name = "signal_1eNp", type = "true"},
+]
+branch = [
+    {name = "neutrino_id", type = "true"},
+    #{name = "baseline", type = "mctruth"},
+    #{name = "cc", type = "mctruth"},
+    #{name = "pdg", type = "mctruth"},
+    #{name = "interaction_type", type = "mctruth"},
+    {name = "category", type = "true"},
+    {name = "dpT", type = "true"},
+    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+]
+[[tree]]
 name = "fiducial_cut"
 sim_only = true
 mode = "true"
 cut = [
     {name = "fiducial_cut", type = "reco"},
     {name = "signal_1eNp", type = "true"},
+    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
 ]
 branch = [
     {name = "neutrino_id", type = "true"},
@@ -143,6 +162,7 @@ mode = "true"
 cut = [
     {name = "fiducial_cut", type = "reco"},
     {name = "track_containment_cut", type = "reco"},
+    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
     {name = "signal_1eNp", type = "true"},
 ]
 branch = [
@@ -162,6 +182,7 @@ mode = "true"
 cut = [
     {name = "fiducial_cut", type = "reco"},
     {name = "track_containment_cut", type = "reco"},
+    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
     {name = "signal_1eNp", type = "true"},
     {name = "all_1eNp_cut", type = "reco"},
 ]
@@ -183,6 +204,7 @@ mode = "true"
 cut = [
     {name = "fiducial_cut", type = "reco"},
     {name = "track_containment_cut", type = "reco"},
+    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
     {name = "signal_1eNp", type = "true"},
     {name = "all_1eNp_cut", type = "reco"},
     {name = "axial_spread_cuts", type = "reco"},
@@ -205,6 +227,7 @@ mode = "true"
 cut = [
     {name = "fiducial_cut", type = "reco"},
     {name = "track_containment_cut", type = "reco"},
+    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
     {name = "signal_1eNp", type = "true"},
     {name = "all_1eNp_cut", type = "reco"},
     {name = "axial_spread_cuts", type = "reco"},
@@ -228,6 +251,7 @@ mode = "true"
 cut = [
     {name = "fiducial_cut", type = "reco"},
     {name = "track_containment_cut", type = "reco"},
+    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
     {name = "signal_1eNp", type = "true"},
     {name = "all_1eNp_cut", type = "reco"},
     {name = "axial_spread_cuts", type = "reco"},
@@ -252,6 +276,7 @@ mode = "true"
 cut = [
     {name = "fiducial_cut", type = "reco"},
     {name = "track_containment_cut", type = "reco"},
+    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
     {name = "signal_1eNp", type = "true"},
     {name = "all_1eNp_cut", type = "reco"},
     {name = "axial_spread_cuts", type = "reco"},
@@ -277,6 +302,7 @@ mode = "true"
 cut = [
     {name = "fiducial_cut", type = "reco"},
     {name = "track_containment_cut", type = "reco"},
+    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
     {name = "signal_1eNp", type = "true"},
     {name = "all_1eNp_cut", type = "reco"},
     {name = "axial_spread_cuts", type = "reco"},

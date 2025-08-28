@@ -95,6 +95,7 @@ namespace vars::nue
      * @param obj The obj to apply the variable on.
      * @return 
     */
+    /*
     template<class T>
     double topology(const T & obj)
     {   
@@ -137,6 +138,7 @@ namespace vars::nue
             size_t i(selectors::leading_proton(obj));
             return obj.pdg_code;
         }
+    */
     /*
     REGISTER_VAR_SCOPE(RegistrationScope::Both, neutrino_energy, neutrino_energy);
     template<class T>

@@ -71,7 +71,6 @@ namespace cuts::nue2024
      * flash time, and 1muNp topological cut.
      * @note This cut is intended to be used for the muon2024 analysis.
      */
-    /*
     template<class T>
     bool axial_spread_cuts(const T & obj) { 
             size_t i(selectors::leading_particle_index(obj, 1));
@@ -103,7 +102,7 @@ namespace cuts::nue2024
             return obj.particles[p].pid_scores[4] >0.6;
         }
     REGISTER_CUT_SCOPE(RegistrationScope::Reco, proton_pid_cuts, proton_pid_cuts);
-
+    
     template<class T>
     bool muon_pid_cuts(const T & obj) { 
             size_t p(selectors::leading_particle_index(obj, 4));
@@ -111,7 +110,6 @@ namespace cuts::nue2024
             return obj.particles[p].pid_scores[2] <0.04;
         }
     REGISTER_CUT_SCOPE(RegistrationScope::Reco, muon_pid_cuts, muon_pid_cuts);
-    */
     /**
      * @brief Apply a 1e1p topological (final state) cut.
      * @details The interaction est have a topology matching 1e1p as defined by

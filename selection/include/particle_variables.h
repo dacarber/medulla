@@ -320,7 +320,6 @@ namespace pvars
         return energy;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, energy, energy);
-
     /**
      * @brief Variable for the length of the particle track.
      * @details The length of the track is calculated upstream in the SPINE

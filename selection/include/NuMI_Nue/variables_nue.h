@@ -352,5 +352,5 @@ namespace vars::nue
         }
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, opening_angle, opening_angle);
-}
+
 #endif // VARS_MUON2024_H

@@ -60,6 +60,53 @@ namespace cuts::nue2024
         }
     REGISTER_CUT_SCOPE(RegistrationScope::Reco, quality_cuts, quality_cuts);
     /**
+     * @brief Apply a fiducial volume, containment, flash time (BNB), and 1muNp
+     * topological cut (logical "and" of each).
+     * @details This function applies a fiducial volume, containment, flash time
+     * (BNB), and 1muNp topological cut on the interaction using the logical "and"
+     * of each previously defined cut.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to select on.
+     * @return true if the interaction passes the fiducial volume, containment,
+     * flash time, and 1muNp topological cut.
+     * @note This cut is intended to be used for the muon2024 analysis.
+     */
+    template<class T>
+    bool axial_spread_cuts(const T & obj) { 
+            size_t i(selectors::leading_particle_index(obj, 1));
+
+            return obj.particles[i].axial_spread >0.02;
+        }
+    REGISTER_CUT_SCOPE(RegistrationScope::Reco, axial_spread_cuts, axial_spread_cuts);
+    template<class T>
+    bool directional_spread_cuts(const T & obj) { 
+            size_t i(selectors::leading_particle_index(obj, 1));
+
+            return obj.particles[i].directional_spread < 0.25;
+        }
+    REGISTER_CUT_SCOPE(RegistrationScope::Reco, directional_spread_cuts, directional_spread_cuts);
+    template<class T>
+    bool vertex_distance_cuts(const T & obj) { 
+            size_t i(selectors::leading_particle_index(obj, 1));
+
+            return obj.particles[i].vertex_distance <7.5;
+        }
+    REGISTER_CUT_SCOPE(RegistrationScope::Reco, vertex_distance_cuts, vertex_distance_cuts;
+    template<class T>
+    bool proton_pid_cuts(const T & obj) { 
+            size_t p(selectors::leading_particle_index(obj, 4));
+
+            return obj.particles[p].pid_scores[4] >0.6;
+        }
+    REGISTER_CUT_SCOPE(RegistrationScope::Reco, proton_pid_cuts, proton_pid_cuts);
+    template<class T>
+    bool muon_pid_cuts(const T & obj) { 
+            size_t p(selectors::leading_particle_index(obj, 4));
+
+            return obj.particles[p].pid_scores[2] <0.04;
+        }
+    REGISTER_CUT_SCOPE(RegistrationScope::Reco, muon_pid_cuts, muon_pid_cuts);
+    /**
      * @brief Apply a 1e1p topological (final state) cut.
      * @details The interaction est have a topology matching 1e1p as defined by
      * the conditions in the @ref utilities::count_primaries() function.

@@ -322,3 +322,25 @@ branch = [
     { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
 
 ]
+[[tree]]
+name = "selected_base"
+sim_only = false
+mode = "reco"
+cut = [
+    {name = "fiducial_cut", type = "reco"},
+    {name = "track_containment_cut", type = "reco"},
+    {name = "valid_flashmatch", type = "reco"},
+    {name = "all_1eNp_cut", type = "reco"},
+    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+]
+branch = [
+    {name = "neutrino_id", type = "true"},
+    #{name = "baseline", type = "mctruth"},
+    #{name = "cc", type = "mctruth"},
+    #{name = "pdg", type = "mctruth"},
+    #{name = "interaction_type", type = "mctruth"},
+    {name = "category", type = "true"},
+    {name = "dpT", type = "true"},
+    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+
+]

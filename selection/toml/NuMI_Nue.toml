@@ -16,7 +16,7 @@ cut = [
     {name = "valid_flashmatch", type = "reco"},
     {name = "all_1eNp_cut", type = "reco"},
     {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-    {name = "quality_cuts", type = "reco"},
+    #{name = "quality_cuts", type = "reco"},
 ]
 branch = [
      {name = "neutrino_id", type = "true"},

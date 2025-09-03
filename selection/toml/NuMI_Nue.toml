@@ -6,6 +6,85 @@ name = "simulation"
 path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_CV_flat_cafs_2/*.root"
 ismc = true
 
+[[sample]]
+name = "nominal"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/Null_Sample/*.flat.root"
+ismc = true
+disable = false
+
+[[sample]]
+name = "cvext"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/CV_Sample/*.flat.root"
+ismc = true
+disable = false
+
+[[sample]]
+name = "var00"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/Cathode_Bend/.flat.root"
+ismc = true
+disable = false
+
+[[sample]]
+name = "var01p"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/GainHigh/*.flat.root"
+ismc = true
+disable = false
+
+[[sample]]
+name = "var01m"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/GainLow/*.flat.root"
+ismc = true
+disable = false
+
+[[sample]]
+name = "var02p"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/High_Coh/*.flat.root"
+ismc = true
+disable = false
+
+[[sample]]
+name = "var03p"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/High_Int/*.flat.root"
+ismc = true
+disable = false
+
+[[sample]]
+name = "var04p"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/High_Life/*.flat.root"
+ismc = true
+disable = false
+
+[[sample]]
+name = "var02m"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/Low_Coh/*.flat.root"
+ismc = true
+disable = false
+
+[[sample]]
+name = "var03m"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/Low_Int/*.flat.root"
+ismc = true
+disable = false
+
+[[sample]]
+name = "var04m"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/Low_Lifetime/*.flat.root"
+ismc = true
+disable = false
+
+[[sample]]
+name = "var05"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/Scint_Var/*.flat.root"
+ismc = true
+disable = false
+
+[[sample]]
+name = "var06"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/Wire_gap/*.flat.root"
+ismc = true
+disable = false
+
+
 [[tree]]
 name = "selected"
 sim_only = false

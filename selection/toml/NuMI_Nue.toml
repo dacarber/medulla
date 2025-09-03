@@ -181,453 +181,454 @@ branch = [
     {name = "containment", type = "reco"},
     {name = "flash_time", type = "reco"},
 ]
-[[tree]]
-name = "neutrino_cut"
-sim_only = true
-mode = "true"
-cut = [
-    {name = "signal_1eNp", type = "true"},
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "both"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
-]
-[[tree]]
-name = "flash_cut"
-sim_only = true
-mode = "true"
-cut = [
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-    {name = "signal_1eNp", type = "true"},
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
-]
-[[tree]]
-name = "fiducial_cut"
-sim_only = true
-mode = "true"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
-    {name = "signal_1eNp", type = "true"},
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
-]
-[[tree]]
-name = "containment_cut"
-sim_only = true
-mode = "true"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
-    {name = "track_containment_cut", type = "reco"},
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-    {name = "signal_1eNp", type = "true"},
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
-]
-[[tree]]
-name = "all_cut"
-sim_only = true
-mode = "true"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
-    {name = "track_containment_cut", type = "reco"},
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-    {name = "signal_1eNp", type = "true"},
-    {name = "all_1eNp_cut", type = "reco"},
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
 
-]
-[[tree]]
-name = "axial_spread_cut"
-sim_only = true
-mode = "true"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
-    {name = "track_containment_cut", type = "reco"},
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-    {name = "signal_1eNp", type = "true"},
-    {name = "all_1eNp_cut", type = "reco"},
-    {name = "axial_spread_cuts", type = "reco"},
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
+#[[tree]]
+#name = "neutrino_cut"
+#sim_only = true
+#mode = "true"
+#cut = [
+#    {name = "signal_1eNp", type = "true"},
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
     #{name = "baseline", type = "mctruth"},
     #{name = "cc", type = "mctruth"},
     #{name = "pdg", type = "mctruth"},
     #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
-
-]
-[[tree]]
-name = "directional_spread_cut"
-sim_only = true
-mode = "true"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
-    {name = "track_containment_cut", type = "reco"},
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-    {name = "signal_1eNp", type = "true"},
-    {name = "all_1eNp_cut", type = "reco"},
-    {name = "axial_spread_cuts", type = "reco"},
-    {name = "directional_spread_cuts", type = "reco"},
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "both"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#]
+#[[tree]]
+#name = "flash_cut"
+#sim_only = true
+#mode = "true"
+#cut = [
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#    {name = "signal_1eNp", type = "true"},
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
     #{name = "baseline", type = "mctruth"},
     #{name = "cc", type = "mctruth"},
     #{name = "pdg", type = "mctruth"},
     #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
-
-]
-[[tree]]
-name = "vertex_distance_cut"
-sim_only = true
-mode = "true"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
-    {name = "track_containment_cut", type = "reco"},
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-    {name = "signal_1eNp", type = "true"},
-    {name = "all_1eNp_cut", type = "reco"},
-    {name = "axial_spread_cuts", type = "reco"},
-    {name = "directional_spread_cuts", type = "reco"},
-    {name = "vertex_distance_cuts", type = "reco"},
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#]
+#[[tree]]
+#name = "fiducial_cut"
+#sim_only = true
+#mode = "true"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},
+#    {name = "signal_1eNp", type = "true"},
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
     #{name = "baseline", type = "mctruth"},
     #{name = "cc", type = "mctruth"},
     #{name = "pdg", type = "mctruth"},
     #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#]
+#[[tree]]
+#name = "containment_cut"
+#sim_only = true
+#mode = "true"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},
+#    {name = "track_containment_cut", type = "reco"},
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#    {name = "signal_1eNp", type = "true"},
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#]
+#[[tree]]
+#name = "all_cut"
+#sim_only = true
+#mode = "true"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},
+#    {name = "track_containment_cut", type = "reco"},
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#    {name = "signal_1eNp", type = "true"},
+#    {name = "all_1eNp_cut", type = "reco"},
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
 
-]
-[[tree]]
-name = "proton_pid_cut"
-sim_only = true
-mode = "true"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
-    {name = "track_containment_cut", type = "reco"},
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-    {name = "signal_1eNp", type = "true"},
-    {name = "all_1eNp_cut", type = "reco"},
-    {name = "axial_spread_cuts", type = "reco"},
-    {name = "directional_spread_cuts", type = "reco"},
-    {name = "vertex_distance_cuts", type = "reco"},
-    {name = "proton_pid_cuts", type = "reco"},
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#]
+#[[tree]]
+#name = "axial_spread_cut"
+#sim_only = true
+#mode = "true"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},
+#    {name = "track_containment_cut", type = "reco"},
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#    {name = "signal_1eNp", type = "true"},
+#    {name = "all_1eNp_cut", type = "reco"},
+#    {name = "axial_spread_cuts", type = "reco"},
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
 
-]
-[[tree]]
-name = "muon_pid_cut"
-sim_only = true
-mode = "true"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
-    {name = "track_containment_cut", type = "reco"},
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-    {name = "signal_1eNp", type = "true"},
-    {name = "all_1eNp_cut", type = "reco"},
-    {name = "axial_spread_cuts", type = "reco"},
-    {name = "directional_spread_cuts", type = "reco"},
-    {name = "vertex_distance_cuts", type = "reco"},
-    {name = "proton_pid_cuts", type = "reco"},
-    {name = "muon_pid_cuts", type = "reco"},
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#]
+#[[tree]]
+#name = "directional_spread_cut"
+#sim_only = true
+#mode = "true"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},
+#    {name = "track_containment_cut", type = "reco"},
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#    {name = "signal_1eNp", type = "true"},
+#    {name = "all_1eNp_cut", type = "reco"},
+#    {name = "axial_spread_cuts", type = "reco"},
+#    {name = "directional_spread_cuts", type = "reco"},
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
 
-]
-[[tree]]
-name = "selected_base"
-sim_only = false
-mode = "reco"
-cut = [
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#]
+#[[tree]]
+#name = "vertex_distance_cut"
+#sim_only = true
+#mode = "true"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},
+#    {name = "track_containment_cut", type = "reco"},
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#    {name = "signal_1eNp", type = "true"},
+#    {name = "all_1eNp_cut", type = "reco"},
+#    {name = "axial_spread_cuts", type = "reco"},
+#    {name = "directional_spread_cuts", type = "reco"},
+#    {name = "vertex_distance_cuts", type = "reco"},
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
 
-]
-[[tree]]
-name = "selected_flash"
-sim_only = false
-mode = "reco"
-cut = [
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#]
+#[[tree]]
+#name = "proton_pid_cut"
+#sim_only = true
+#mode = "true"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},
+#    {name = "track_containment_cut", type = "reco"},
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#    {name = "signal_1eNp", type = "true"},
+#    {name = "all_1eNp_cut", type = "reco"},
+#    {name = "axial_spread_cuts", type = "reco"},
+#    {name = "directional_spread_cuts", type = "reco"},
+#    {name = "vertex_distance_cuts", type = "reco"},
+#    {name = "proton_pid_cuts", type = "reco"},
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
 
-]
-[[tree]]
-name = "selected_fiducial"
-sim_only = false
-mode = "reco"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
+#]
+#[[tree]]
+#name = "muon_pid_cut"
+#sim_only = true
+#mode = "true"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},
+#    {name = "track_containment_cut", type = "reco"},
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#    {name = "signal_1eNp", type = "true"},
+#    {name = "all_1eNp_cut", type = "reco"},
+#    {name = "axial_spread_cuts", type = "reco"},
+#    {name = "directional_spread_cuts", type = "reco"},
+#    {name = "vertex_distance_cuts", type = "reco"},
+#    {name = "proton_pid_cuts", type = "reco"},
+#    {name = "muon_pid_cuts", type = "reco"},
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
 
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#]
+#[[tree]]
+#name = "selected_base"
+#sim_only = false
+#mode = "reco"
+#cut = [
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
 
-]
-[[tree]]
-name = "selected_containement"
-sim_only = false
-mode = "reco"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
-    {name = "track_containment_cut", type = "reco"},
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#]
+#[[tree]]
+#name = "selected_flash"
+#sim_only = false
+#mode = "reco"
+#cut = [
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
 
-]
-[[tree]]
-name = "selected_all"
-sim_only = false
-mode = "reco"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
-    {name = "track_containment_cut", type = "reco"},
-    {name = "valid_flashmatch", type = "reco"},
-    {name = "all_1eNp_cut", type = "reco"},
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#]
+#[[tree]]
+#name = "selected_fiducial"
+#sim_only = false
+#mode = "reco"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},#
 
-]
-[[tree]]
-name = "selected_axial"
-sim_only = false
-mode = "reco"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
-    {name = "track_containment_cut", type = "reco"},
-    {name = "valid_flashmatch", type = "reco"},
-    {name = "all_1eNp_cut", type = "reco"},
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-    {name = "axial_spread_cuts", type = "reco"},
-    
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
 
-]
-[[tree]]
-name = "selected_directional"
-sim_only = false
-mode = "reco"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
-    {name = "track_containment_cut", type = "reco"},
-    {name = "valid_flashmatch", type = "reco"},
-    {name = "all_1eNp_cut", type = "reco"},
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-    {name = "axial_spread_cuts", type = "reco"},
-    {name = "directional_spread_cuts", type = "reco"},
+#]
+#[[tree]]
+#name = "selected_containement"
+#sim_only = false
+#mode = "reco"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},
+#    {name = "track_containment_cut", type = "reco"},
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
 
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#]
+#[[tree]]
+#name = "selected_all"
+#sim_only = false
+#mode = "reco"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},
+#    {name = "track_containment_cut", type = "reco"},
+#    {name = "valid_flashmatch", type = "reco"},
+#    {name = "all_1eNp_cut", type = "reco"},
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
 
-]
-[[tree]]
-name = "selected_vertex"
-sim_only = false
-mode = "reco"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
-    {name = "track_containment_cut", type = "reco"},
-    {name = "valid_flashmatch", type = "reco"},
-    {name = "all_1eNp_cut", type = "reco"},
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-    {name = "axial_spread_cuts", type = "reco"},
-    {name = "directional_spread_cuts", type = "reco"},
-    {name = "vertex_distance_cuts", type = "reco"},
-    
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#]
+#[[tree]]
+#name = "selected_axial"
+#sim_only = false
+#mode = "reco"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},
+#    {name = "track_containment_cut", type = "reco"},
+#    {name = "valid_flashmatch", type = "reco"},
+#    {name = "all_1eNp_cut", type = "reco"},
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#    {name = "axial_spread_cuts", type = "reco"},
+#    
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
 
-]
-[[tree]]
-name = "selected_proton"
-sim_only = false
-mode = "reco"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
-    {name = "track_containment_cut", type = "reco"},
-    {name = "valid_flashmatch", type = "reco"},
-    {name = "all_1eNp_cut", type = "reco"},
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-    {name = "axial_spread_cuts", type = "reco"},
-    {name = "directional_spread_cuts", type = "reco"},
-    {name = "vertex_distance_cuts", type = "reco"},
-    {name = "proton_pid_cuts", type = "reco"},
-    
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#]
+#[[tree]]
+#name = "selected_directional"
+#sim_only = false
+#mode = "reco"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},
+#    {name = "track_containment_cut", type = "reco"},
+#    {name = "valid_flashmatch", type = "reco"},
+#    {name = "all_1eNp_cut", type = "reco"},
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#    {name = "axial_spread_cuts", type = "reco"},
+#    {name = "directional_spread_cuts", type = "reco"},#
 
-]
-[[tree]]
-name = "selected_muon"
-sim_only = false
-mode = "reco"
-cut = [
-    {name = "fiducial_cut", type = "reco"},
-    {name = "track_containment_cut", type = "reco"},
-    {name = "valid_flashmatch", type = "reco"},
-    {name = "all_1eNp_cut", type = "reco"},
-    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-    {name = "axial_spread_cuts", type = "reco"},
-    {name = "directional_spread_cuts", type = "reco"},
-    {name = "vertex_distance_cuts", type = "reco"},
-    {name = "proton_pid_cuts", type = "reco"},
-    {name = "muon_pid_cuts", type = "reco"},
-    
-]
-branch = [
-    {name = "neutrino_id", type = "true"},
-    #{name = "baseline", type = "mctruth"},
-    #{name = "cc", type = "mctruth"},
-    #{name = "pdg", type = "mctruth"},
-    #{name = "interaction_type", type = "mctruth"},
-    {name = "category", type = "true"},
-    {name = "dpT", type = "true"},
-    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
 
-]
+#]
+#[[tree]]
+#name = "selected_vertex"
+#sim_only = false
+#mode = "reco"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},
+#    {name = "track_containment_cut", type = "reco"},
+#    {name = "valid_flashmatch", type = "reco"},
+#    {name = "all_1eNp_cut", type = "reco"},
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#    {name = "axial_spread_cuts", type = "reco"},
+#    {name = "directional_spread_cuts", type = "reco"},
+#    {name = "vertex_distance_cuts", type = "reco"},
+#    
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
 
+#]
+#[[tree]]
+#name = "selected_proton"
+#sim_only = false
+#mode = "reco"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},
+#    {name = "track_containment_cut", type = "reco"},
+#    {name = "valid_flashmatch", type = "reco"},
+#    {name = "all_1eNp_cut", type = "reco"},
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#    {name = "axial_spread_cuts", type = "reco"},
+#    {name = "directional_spread_cuts", type = "reco"},
+#    {name = "vertex_distance_cuts", type = "reco"},
+#    {name = "proton_pid_cuts", type = "reco"},
+#    
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
+
+#]
+#[[tree]]
+#name = "selected_muon"
+#sim_only = false
+#mode = "reco"
+#cut = [
+#    {name = "fiducial_cut", type = "reco"},
+#    {name = "track_containment_cut", type = "reco"},
+#    {name = "valid_flashmatch", type = "reco"},
+#    {name = "all_1eNp_cut", type = "reco"},
+#    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+#    {name = "axial_spread_cuts", type = "reco"},
+#    {name = "directional_spread_cuts", type = "reco"},
+#    {name = "vertex_distance_cuts", type = "reco"},
+#    {name = "proton_pid_cuts", type = "reco"},
+#    {name = "muon_pid_cuts", type = "reco"},
+#    
+#]
+#branch = [
+#    {name = "neutrino_id", type = "true"},
+#    #{name = "baseline", type = "mctruth"},
+#    #{name = "cc", type = "mctruth"},
+#    #{name = "pdg", type = "mctruth"},
+#    #{name = "interaction_type", type = "mctruth"},
+#    {name = "category", type = "true"},
+#    {name = "dpT", type = "true"},
+#    { name = "ke",                    type = "both_particle", selector = "leading_electron"   },#
+
+#]#
+#
 

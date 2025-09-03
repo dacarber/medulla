@@ -74,7 +74,7 @@ disable = false
 
 [[sample]]
 name = "var05"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/SNuMI_Nue_det_sys_flat_cafs/cint_Var/*.flat.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/SNuMI_Nue_det_sys_flat_cafs/Scint_Var/*.flat.root"
 ismc = true
 disable = false
 

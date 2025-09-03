@@ -102,6 +102,7 @@ branch = [
     #{name = "baseline", type = "mctruth"},
     {name = "cc", type = "mctruth"},
     {name = "pdg", type = "mctruth"},
+    {name = "parent_pdg", type = "mctruth"},
     {name = "interaction_type", type = "mctruth"},
     {name = "category", type = "true"},
     {name = "neutrino_energy", type = "mctruth"},

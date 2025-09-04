@@ -11,169 +11,144 @@ histogram_destination = 'variations/'
 name = 'reco_electron_energy'
 bins = [25, 0, 2000]
 
-#[variations]
-#keys = ['mc', 'var00', 'var01', 'var02', 'var03m', 'var03p', 'var04', 'var05', 'var06', 'var07', 'var08', 'var09']
-#origin = 'events/'
-#tree = 'SelectedNu_PhaseCuts'
-#result_destination = 'detsys_results/'
-#variable = 'pi0_mass'
-#bins = [40, 0, 400]
-#nuniverses = 10000
+[variations]
+keys = ['mc', 'var00', 'var01', 'var02', 'var03m', 'var03p', 'var04', 'var05', 'var06', 'var07', 'var08', 'var09']
+origin = 'events/'
+tree = 'selected'
+result_destination = 'detsys_results/'
+variable = 'reco_electron_energy'
+bins = [25, 0, 2000]
+nuniverses = 10000
 
 [[tree]]
-origin = 'events/mc/SelectedNu_Cuts'
+origin = 'events/mc/selected'
 destination = 'events/mc/'
-name = 'SelectedNu_Cuts'
+name = 'selected'
 action = 'add_weights'
-table_types = ['multisim', 'multisigma']
+#table_types = ['multisim', 'multisigma']
+table_types = ['multisim', 'multisigma', 'variation']
+
+#[[tree]]
+#origin = 'events/mc/SelectedCos_PhaseCuts'
+#destination = 'events/mc/'
+#name = 'SelectedCos_PhaseCuts'
+#action = 'copy'
+#table_types = ['multisim', 'multisigma']
 #table_types = ['multisim', 'multisigma', 'variation']
 
-[[tree]]
-origin = 'events/mc/SelectedCos_PhaseCuts'
-destination = 'events/mc/'
-name = 'SelectedCos_PhaseCuts'
-action = 'copy'
-table_types = ['multisim', 'multisigma']
+#[[tree]]
+#origin = 'events/mc/Efficiency_PhaseCuts'
+#destination = 'events/mc/'
+#name = 'Efficiency_PhaseCuts'
+#action = 'add_weights'
+#table_types = ['multisim', 'multisigma']
 #table_types = ['multisim', 'multisigma', 'variation']
 
-[[tree]]
-origin = 'events/mc/Efficiency_PhaseCuts'
-destination = 'events/mc/'
-name = 'Efficiency_PhaseCuts'
-action = 'add_weights'
-table_types = ['multisim', 'multisigma']
-#table_types = ['multisim', 'multisigma', 'variation']
+#[[tree]]
+#origin = 'events/data/selected'
+#destination = 'events/data/'
+#name = 'selected'
+#action = 'copy'
 
-[[tree]]
-origin = 'events/onbeam/SelectedNu_PhaseCuts'
-destination = 'events/onbeam/'
-name = 'SelectedNu_PhaseCuts'
-action = 'copy'
-
-[[tree]]
-origin = 'events/offbeam/SelectedCos_PhaseCuts'
-destination = 'events/offbeam/'
-name = 'SelectedCos_PhaseCuts'
-action = 'copy'
+#[[tree]]
+#origin = 'events/offbeam/SelectedCos_PhaseCuts'
+#destination = 'events/offbeam/'
+#name = 'SelectedCos_PhaseCuts'
+#action = 'copy'
 
 
-#[[sys]]
-#name = 'var00'
-#type = 'variation'
-#index = -1
-#nsigma = [-3, -2, -1, 0, 1, 2, 3]
-#scale = [-3, -2, -1, 1, 1, 2, 3]
-#ordinate = 'mc'
-#points = ['var00', 'var00', 'var00', 'mc', 'var00', 'var00', 'var00']
-
-#[[sys]]
-#name = 'var01'
-#type = 'variation'
-#index = -1
-#nsigma = [-3, -2, -1, 0, 1, 2, 3]
-#scale = [-3, -2, -1, 1, 1, 2, 3]
-#ordinate = 'mc'
-#points = ['var01', 'var01', 'var01', 'mc', 'var01', 'var01', 'var01']
-
-#[[sys]]
-#name = 'var02'
-#type = 'variation'
-#index = -1
-#nsigma = [-3, -2, -1, 0, 1, 2, 3]
-#scale = [-3, -2, -1, 1, 1, 2, 3]
-#ordinate = 'mc'
-#points = ['var02', 'var02', 'var02', 'mc', 'var02', 'var02', 'var02']
-
-#[[sys]]
-#name = 'var03'
-#type = 'variation'
-#index = -1
-#nsigma = [-3, -2, -1, 0, 1, 2, 3]
-#scale = [3, 2, 1, 1, 1, 2, 3]
-#ordinate = 'mc'
-#points = ['var03m', 'var03m', 'var03m', 'mc', 'var03p', 'var03p', 'var03p']
-
-#[[sys]]
-#name = 'var04'
-#type = 'variation'
-#index = -1
-#nsigma = [-3, -2, -1, 0, 1, 2, 3]
-#scale = [-3, -2, -1, 1, 1, 2, 3]
-#ordinate = 'mc'
-#points = ['var04', 'var04', 'var04', 'mc', 'var04', 'var04', 'var04']
-
-#[[sys]]
-#name = 'var05'
-#type = 'variation'
-#index = -1
-#nsigma = [-3, -2, -1, 0, 1, 2, 3]
-#scale = [-3, -2, -1, 1, 1, 2, 3]
-#ordinate = 'var00'
-#points = ['var05', 'var05', 'var05', 'var00', 'var05', 'var05', 'var05']
-
-#[[sys]]
-#name = 'var06'
-#type = 'variation'
-#index = -1
-#nsigma = [-3, -2, -1, 0, 1, 2, 3]
-#scale = [-3, -2, -1, 1, 1, 2, 3]
-#ordinate = 'mc'
-#points = ['var06', 'var06', 'var06', 'mc', 'var06', 'var06', 'var06']
-
-#[[sys]]
-#name = 'var07'
-#type = 'variation'
-#index = -1
-#nsigma = [-3, -2, -1, 0, 1, 2, 3]
-#scale = [-3, -2, -1, 1, 1, 2, 3]
-#ordinate = 'var00'
-#points = ['var07', 'var07', 'var07', 'var00', 'var07', 'var07', 'var07']
-
-#[[sys]]
-#name = 'var08'
-#type = 'variation'
-#index = -1
-#nsigma = [-3, -2, -1, 0, 1, 2, 3]
-#scale = [-3, -2, -1, 1, 1, 2, 3]
-#ordinate = 'mc'
-#points = ['var08', 'var08', 'var08', 'mc', 'var08', 'var08', 'var08']
-
-#[[sys]]
-#name = 'var09'
-#type = 'variation'
-#index = -1
-#nsigma = [-3, -2, -1, 0, 1, 2, 3]
-#scale = [-3, -2, -1, 1, 1, 2, 3]
-#ordinate = 'mc'
-#points = ['var09', 'var09', 'var09', 'mc', 'var09', 'var09', 'var09']
 
 [[sys]]
-name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA1CCQE'
-name_short = 'ZExpA1CCQE'
-type = 'multisigma'
-index = 0
-zscores = [-1, 1, -2, 2, -3, 3]
+name = 'var00'
+type = 'variation'
+index = -1
+nsigma = [-3, -2, -1, 0, 1, 2, 3]
+scale = [-3, -2, -1, 1, 1, 2, 3]
+ordinate = 'nominal'
+points = ['var00', 'var00', 'var00', 'nominal', 'var00', 'var00', 'var00']
 
 [[sys]]
-name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA2CCQE'
-name_short = 'ZExpA2CCQE'
-type = 'multisigma'
-index = 1
-zscores = [-1, 1, -2, 2, -3, 3]
+name = 'var01'
+type = 'variation'
+index = -1
+nsigma = [-3, -2, -1, 0, 1, 2, 3]
+scale = [-3, -2, -1, 1, 1, 2, 3]
+ordinate = 'nominal'
+points = ['var01m', 'var01m', 'var01m', 'nominal', 'var01p', 'var01p', 'var01p']
 
 [[sys]]
-name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA3CCQE'
-name_short = 'ZExpA3CCQE'
-type = 'multisigma'
-index = 2
-zscores = [-1, 1, -2, 2, -3, 3]
+name = 'var02'
+type = 'variation'
+index = -1
+nsigma = [-3, -2, -1, 0, 1, 2, 3]
+scale = [-3, -2, -1, 1, 1, 2, 3]
+ordinate = 'nominal'
+points = ['var02m', 'var02m', 'var02m', 'nominal', 'var02p', 'var02p', 'var02p']
 
 [[sys]]
-name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA4CCQE'
-name_short = 'ZExpA4CCQE'
-type = 'multisigma'
-index = 3
-zscores = [-1, 1, -2, 2, -3, 3]
+name = 'var03'
+type = 'variation'
+index = -1
+nsigma = [-3, -2, -1, 0, 1, 2, 3]
+scale = [3, 2, 1, 1, 1, 2, 3]
+ordinate = 'nominal'
+points = ['var03m', 'var03m', 'var03m', 'nominal', 'var03p', 'var03p', 'var03p']
+
+[[sys]]
+name = 'var04'
+type = 'variation'
+index = -1
+nsigma = [-3, -2, -1, 0, 1, 2, 3]
+scale = [-3, -2, -1, 1, 1, 2, 3]
+ordinate = 'nominal'
+points = ['var04m', 'var04m', 'var04m', 'nominal', 'var04p', 'var04p', 'var04p']
+
+[[sys]]
+name = 'var05'
+type = 'variation'
+index = -1
+nsigma = [-3, -2, -1, 0, 1, 2, 3]
+scale = [-3, -2, -1, 1, 1, 2, 3]
+ordinate = 'nominal'
+points = ['var05', 'var05', 'var05', 'nominal', 'var05', 'var05', 'var05']
+
+[[sys]]
+name = 'var06'
+type = 'variation'
+index = -1
+nsigma = [-3, -2, -1, 0, 1, 2, 3]
+scale = [-3, -2, -1, 1, 1, 2, 3]
+ordinate = 'nominal'
+points = ['var06', 'var06', 'var06', 'nominal', 'var06', 'var06', 'var06']
+
+
+#[[sys]]
+#name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA1CCQE'
+#name_short = 'ZExpA1CCQE'
+#type = 'multisigma'
+#index = 0
+#zscores = [-1, 1, -2, 2, -3, 3]
+
+#[[sys]]
+#name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA2CCQE'
+#name_short = 'ZExpA2CCQE'
+#type = 'multisigma'
+#index = 1
+#zscores = [-1, 1, -2, 2, -3, 3]
+
+#[[sys]]
+#name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA3CCQE'
+#name_short = 'ZExpA3CCQE'
+#type = 'multisigma'
+#index = 2
+#zscores = [-1, 1, -2, 2, -3, 3]
+
+#[[sys]]
+#name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA4CCQE'
+#name_short = 'ZExpA4CCQE'
+#type = 'multisigma'
+#index = 3
+#zscores = [-1, 1, -2, 2, -3, 3]
 
 [[sys]]
 name = 'GENIEReWeight_SBN_v1_multisigma_VecFFCCQEshape'

@@ -354,5 +354,15 @@ namespace vars::nue
         }
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, opening_angle, opening_angle);
+    template<class T>
+    double topology(const T & obj)
+    {   
+        double topo(0);
+            std::vector<uint32_t> counts(utilities::count_primaries(obj));
+            topo = counts[0]*1e8 + counts[1]*1e6 + counts[2]*1e4 + counts[3]*1e2 + counts[4];
+
+        return topo;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, topology, topology);
 }
 #endif // VARS_MUON2024_H

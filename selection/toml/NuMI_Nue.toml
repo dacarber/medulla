@@ -112,6 +112,7 @@ branch = [
     {name = "dphiT", type = "both"},
     {name = "dalphaT", type = "both"},
     {name = "opening_angle", type = "both"},
+    {name = "topology", type = "both"},
     {name = "flash_time", type = "reco"},
     # Leading MUON interaction-level
     { name = "end_x",                 type = "both_particle", selector = "leading_electron"   },

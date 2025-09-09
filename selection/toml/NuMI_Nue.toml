@@ -11,8 +11,8 @@ ismc = true
 [[sample]]
 name = "cvext"
 path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_Nue_det_sys_flat_cafs/CV_Sample/*.flat.root"
-#ismc = true
-#disable = false
+ismc = true
+disable = false
 [[sample]]
 name = "var00"
 path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_Nue_det_sys_flat_cafs/Null_Sample/*.flat.root"

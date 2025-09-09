@@ -225,6 +225,7 @@ TH1D * sys::detsys::DetsysCalculator::operator[](std::string key)
 // of the binning variable, and z-score.
 double sys::detsys::DetsysCalculator::get_weight(std::string name, double value, double zscore)
 {
+    std::cout<<"XMin:"<<hdummies[name]->GetXaxis()->GetXmin()<<"Xmax:"<<hdummies[name]->GetXaxis()->GetXmax()<<"Value:"<<value<<std::endl;
     if(value < hdummies[name]->GetXaxis()->GetXmin() || value > hdummies[name]->GetXaxis()->GetXmax())
         return 1;
     else

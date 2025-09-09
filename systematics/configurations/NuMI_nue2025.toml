@@ -1,7 +1,7 @@
 
 [input]
 path = '/exp/icarus/app/users/dcarber/spine_analysis/medulla/build/NuMI_nue_mc_data_detsys.root'
-weights = '/pnfs/icarus/persistent/users/dcarber/spine/NuMI_CV_flat_cafs_2/*.flat.root'
+weights = '/pnfs/icarus/persistent/users/dcarber/spine/combined/NuMI_CV_flat_cafs_2/*.flat.root'
 #weights = '/pnfs/icarus/persistent/users/mueller/production/simulation/cvext/input*.flat.root'
 use_additional_hash = true
 
@@ -21,6 +21,7 @@ result_destination = 'detsys_results/'
 variable = 'reco_leading_electron_ke'
 bins = [25, 0, 3000]
 nuniverses = 1000
+variable_length = false
 
 [[tree]]
 origin = 'events/simulation/selected'
@@ -114,43 +115,43 @@ scale = [-3, -2, -1, 1, 1, 2, 3]
 ordinate = 'cvext'
 points = ['var05', 'var05', 'var05', 'cvext', 'var05', 'var05', 'var05']
 
-#[[sys]]
-#name = 'var06'
-#type = 'variation'
-#index = -1
-#nsigma = [-3, -2, -1, 0, 1, 2, 3]
-#scale = [-3, -2, -1, 1, 1, 2, 3]
-#ordinate = 'cvext'
-#points = ['var06', 'var06', 'var06', 'cvext', 'var06', 'var06', 'var06']
+[[sys]]
+name = 'var06'
+type = 'variation'
+index = -1
+nsigma = [-3, -2, -1, 0, 1, 2, 3]
+scale = [-3, -2, -1, 1, 1, 2, 3]
+ordinate = 'cvext'
+points = ['var06', 'var06', 'var06', 'cvext', 'var06', 'var06', 'var06']
 
 
-#[[sys]]
-#name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA1CCQE'
-#name_short = 'ZExpA1CCQE'
-#type = 'multisigma'
-#index = 0
-#zscores = [-1, 1, -2, 2, -3, 3]
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA1CCQE'
+name_short = 'ZExpA1CCQE'
+type = 'multisigma'
+index = 0
+zscores = [-1, 1, -2, 2, -3, 3]
 
-#[[sys]]
-#name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA2CCQE'
-#name_short = 'ZExpA2CCQE'
-#type = 'multisigma'
-#index = 1
-#zscores = [-1, 1, -2, 2, -3, 3]
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA2CCQE'
+name_short = 'ZExpA2CCQE'
+type = 'multisigma'
+index = 1
+zscores = [-1, 1, -2, 2, -3, 3]
 
-#[[sys]]
-#name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA3CCQE'
-#name_short = 'ZExpA3CCQE'
-#type = 'multisigma'
-#index = 2
-#zscores = [-1, 1, -2, 2, -3, 3]
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA3CCQE'
+name_short = 'ZExpA3CCQE'
+type = 'multisigma'
+index = 2
+zscores = [-1, 1, -2, 2, -3, 3]
 
-#[[sys]]
-#name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA4CCQE'
-#name_short = 'ZExpA4CCQE'
-#type = 'multisigma'
-#index = 3
-#zscores = [-1, 1, -2, 2, -3, 3]
+[[sys]]
+name = 'GENIEReWeight_SBN_v1_multisigma_ZExpA4CCQE'
+name_short = 'ZExpA4CCQE'
+type = 'multisigma'
+index = 3
+zscores = [-1, 1, -2, 2, -3, 3]
 
 [[sys]]
 name = 'GENIEReWeight_SBN_v1_multisigma_VecFFCCQEshape'

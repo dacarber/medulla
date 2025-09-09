@@ -114,6 +114,9 @@ branch = [
     {name = "opening_angle", type = "both"},
     {name = "topology", type = "both"},
     {name = "flash_time", type = "reco"},
+    { name = "vertex_x",                 type = "both"  },
+    { name = "vertex_y",                 type = "both"  },
+    { name = "vertex_z",                 type = "both"   },
     # Leading MUON interaction-level
     { name = "end_x",                 type = "both_particle", selector = "leading_electron"   },
     { name = "end_y",                 type = "both_particle", selector = "leading_electron"   },
@@ -163,6 +166,7 @@ cut = [
     {name = "track_containment_cut", type = "true"},
     {name = "neutrino", type = "true"},
     {name = "all_1eNp_cut", type = "true"},
+    
 ]
 branch = [
     {name = "neutrino_id", type = "true"},
@@ -181,6 +185,9 @@ branch = [
     {name = "fiducial", type = "reco"},
     {name = "containment", type = "reco"},
     {name = "flash_time", type = "reco"},
+    { name = "vertex_x",                 type = "both"  },
+    { name = "vertex_y",                 type = "both"  },
+    { name = "vertex_z",                 type = "both"   },
 ]
 
 #[[tree]]

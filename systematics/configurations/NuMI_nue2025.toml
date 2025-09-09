@@ -1,28 +1,30 @@
 
 [input]
-path = '/exp/icarus/app/users/dcarber/spine_analysis/spine/cafana/build/icarus_numi_nue_mc_onbeam_offbeam_gundam.root'
-caflist = '/exp/icarus/app/users/dcarber/spine_analysis/full_path_mc_caf_list.txt'
+path = '/exp/icarus/app/users/dcarber/spine_analysis/medulla/build/NuMI_nue_mc_data_detsys.root'
+weights = '/pnfs/icarus/persistent/users/dcarber/spine/NuMI_CV_flat_cafs_2/*.flat.root'
+#weights = '/pnfs/icarus/persistent/users/mueller/production/simulation/cvext/input*.flat.root'
+use_additional_hash = true
 
 [output]
 path = 'icarus_numi_nue_mc_onbeam_offbeam_syst_gundam.root'
 histogram_destination = 'variations/'
 
 [[sysvar]]
-name = 'reco_electron_energy'
-bins = [25, 0, 2000]
+name = 'reco_leading_electron_ke'
+bins = [25, 0, 3000]
 
 [variations]
-keys = ['mc', 'var00', 'var01', 'var02', 'var03m', 'var03p', 'var04', 'var05', 'var06', 'var07', 'var08', 'var09']
+keys = ['cvext', 'var00', 'var01p','var01m', 'var02m','var02p', 'var03m', 'var03p', 'var04m','var04p', 'var05']
 origin = 'events/'
 tree = 'selected'
 result_destination = 'detsys_results/'
-variable = 'reco_electron_energy'
-bins = [25, 0, 2000]
-nuniverses = 10000
+variable = 'reco_leading_electron_ke'
+bins = [25, 0, 3000]
+nuniverses = 1000
 
 [[tree]]
-origin = 'events/mc/selected'
-destination = 'events/mc/'
+origin = 'events/simulation/selected'
+destination = 'events/full/'
 name = 'selected'
 action = 'add_weights'
 #table_types = ['multisim', 'multisigma']
@@ -44,11 +46,11 @@ table_types = ['multisim', 'multisigma', 'variation']
 #table_types = ['multisim', 'multisigma']
 #table_types = ['multisim', 'multisigma', 'variation']
 
-#[[tree]]
-#origin = 'events/data/selected'
-#destination = 'events/data/'
-#name = 'selected'
-#action = 'copy'
+[[tree]]
+origin = 'events/data/selected'
+destination = 'events/data/'
+name = 'selected'
+action = 'copy'
 
 #[[tree]]
 #origin = 'events/offbeam/SelectedCos_PhaseCuts'
@@ -64,8 +66,8 @@ type = 'variation'
 index = -1
 nsigma = [-3, -2, -1, 0, 1, 2, 3]
 scale = [-3, -2, -1, 1, 1, 2, 3]
-ordinate = 'nominal'
-points = ['var00', 'var00', 'var00', 'nominal', 'var00', 'var00', 'var00']
+ordinate = 'cvext'
+points = ['var00', 'var00', 'var00', 'cvext', 'var00', 'var00', 'var00']
 
 [[sys]]
 name = 'var01'
@@ -73,8 +75,8 @@ type = 'variation'
 index = -1
 nsigma = [-3, -2, -1, 0, 1, 2, 3]
 scale = [-3, -2, -1, 1, 1, 2, 3]
-ordinate = 'nominal'
-points = ['var01m', 'var01m', 'var01m', 'nominal', 'var01p', 'var01p', 'var01p']
+ordinate = 'cvext'
+points = ['var01m', 'var01m', 'var01m', 'cvext', 'var01p', 'var01p', 'var01p']
 
 [[sys]]
 name = 'var02'
@@ -82,8 +84,8 @@ type = 'variation'
 index = -1
 nsigma = [-3, -2, -1, 0, 1, 2, 3]
 scale = [-3, -2, -1, 1, 1, 2, 3]
-ordinate = 'nominal'
-points = ['var02m', 'var02m', 'var02m', 'nominal', 'var02p', 'var02p', 'var02p']
+ordinate = 'cvext'
+points = ['var02m', 'var02m', 'var02m', 'cvext', 'var02p', 'var02p', 'var02p']
 
 [[sys]]
 name = 'var03'
@@ -91,8 +93,8 @@ type = 'variation'
 index = -1
 nsigma = [-3, -2, -1, 0, 1, 2, 3]
 scale = [3, 2, 1, 1, 1, 2, 3]
-ordinate = 'nominal'
-points = ['var03m', 'var03m', 'var03m', 'nominal', 'var03p', 'var03p', 'var03p']
+ordinate = 'cvext'
+points = ['var03m', 'var03m', 'var03m', 'cvext', 'var03p', 'var03p', 'var03p']
 
 [[sys]]
 name = 'var04'
@@ -100,8 +102,8 @@ type = 'variation'
 index = -1
 nsigma = [-3, -2, -1, 0, 1, 2, 3]
 scale = [-3, -2, -1, 1, 1, 2, 3]
-ordinate = 'nominal'
-points = ['var04m', 'var04m', 'var04m', 'nominal', 'var04p', 'var04p', 'var04p']
+ordinate = 'cvext'
+points = ['var04m', 'var04m', 'var04m', 'cvext', 'var04p', 'var04p', 'var04p']
 
 [[sys]]
 name = 'var05'
@@ -109,17 +111,17 @@ type = 'variation'
 index = -1
 nsigma = [-3, -2, -1, 0, 1, 2, 3]
 scale = [-3, -2, -1, 1, 1, 2, 3]
-ordinate = 'nominal'
-points = ['var05', 'var05', 'var05', 'nominal', 'var05', 'var05', 'var05']
+ordinate = 'cvext'
+points = ['var05', 'var05', 'var05', 'cvext', 'var05', 'var05', 'var05']
 
-[[sys]]
-name = 'var06'
-type = 'variation'
-index = -1
-nsigma = [-3, -2, -1, 0, 1, 2, 3]
-scale = [-3, -2, -1, 1, 1, 2, 3]
-ordinate = 'nominal'
-points = ['var06', 'var06', 'var06', 'nominal', 'var06', 'var06', 'var06']
+#[[sys]]
+#name = 'var06'
+#type = 'variation'
+#index = -1
+#nsigma = [-3, -2, -1, 0, 1, 2, 3]
+#scale = [-3, -2, -1, 1, 1, 2, 3]
+#ordinate = 'cvext'
+#points = ['var06', 'var06', 'var06', 'cvext', 'var06', 'var06', 'var06']
 
 
 #[[sys]]

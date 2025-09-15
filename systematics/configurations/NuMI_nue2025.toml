@@ -52,6 +52,11 @@ origin = 'events/data/selected'
 destination = 'events/data/'
 name = 'selected'
 action = 'copy'
+[[tree]]
+origin = 'events/simulation/neutrino'
+destination = 'events/full/'
+name = 'neutrino'
+action = 'copy'
 
 #[[tree]]
 #origin = 'events/offbeam/SelectedCos_PhaseCuts'

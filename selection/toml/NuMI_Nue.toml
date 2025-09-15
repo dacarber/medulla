@@ -189,7 +189,36 @@ branch = [
     { name = "vertex_y",                 type = "both"  },
     { name = "vertex_z",                 type = "both"   },
 ]
+[[tree]]
+name = "neutrino"
+sim_only = true
+mode = "true"
+cut = [
+    #{name = "fiducial_cut", type = "true"},
+    #{name = "track_containment_cut", type = "true"},
+    {name = "neutrino", type = "true"},
+    #{name = "all_1eNp_cut", type = "true"},
 
+]
+branch = [
+    {name = "pdg", type = "mctruth"},
+    {name = "parent_pdg", type = "mctruth"},
+    {name = "interaction_type", type = "mctruth"},
+    {name = "category", type = "true"},
+    {name = "neutrino_energy", type = "mctruth"},
+    {name = "visible_energy", type = "true"},
+    {name = "dpT", type = "true"},
+    {name = "dpT_lp", type = "both"},
+    {name = "dphiT", type = "both"},
+    {name = "dalphaT", type = "both"},
+    {name = "opening_angle", type = "both"},
+    {name = "fiducial", type = "reco"},
+    {name = "containment", type = "reco"},
+    {name = "flash_time", type = "reco"},
+    { name = "vertex_x",                 type = "both"  },
+    { name = "vertex_y",                 type = "both"  },
+    { name = "vertex_z",                 type = "both"   },
+]
 #[[tree]]
 #name = "neutrino_cut"
 #sim_only = true

@@ -54,8 +54,8 @@ name = 'selected'
 action = 'copy'
 [[tree]]
 origin = 'events/simulation/neutrino'
-destination = 'events/full/'
-name = 'neutrino'
+destination = 'events/neutrino/'
+name = 'selected'
 action = 'copy'
 
 #[[tree]]

@@ -114,9 +114,11 @@ sys::detsys::DetsysCalculator::DetsysCalculator(cfg::ConfigurationTable & table,
         zscores.insert(std::make_pair(name, t.get_double_vector("nsigma")));
         TH1D * base = histograms[points[0]];
         int nbins = base->GetXaxis()->GetNbins();
+        const double * xedges = base->GetXaxis()->GetXbins()->GetArray();
         double xmin = base->GetXaxis()->GetXmin();
         double xmax = base->GetXaxis()->GetXmax();
         hdummies.insert(std::make_pair(name, new TH1D("hdummy", "hdummy", nbins, xmin,xmax)));
+
         // This block creates a TH2D that will be used to store the input for
         // the spline construction. The TH2D is filled with the ratio of the
         // variations to the nominal sample (across the range of the variable)

@@ -1,5 +1,5 @@
 [general]
-output = "NuMI_nu_test_2"
+output = "NuMI_numu"
 
 [[sample]]
 name = "simulation"
@@ -22,6 +22,7 @@ branch = [
     {name = "baseline", type = "mctruth"},
     {name = "cc", type = "mctruth"},
     {name = "pdg", type = "mctruth"},
+    {name = "parent_pdg", type = "mctruth"},
     {name = "interaction_type", type = "mctruth"},
     {name = "category", type = "true"},
     {name = "neutrino_energy", type = "mctruth"},
@@ -131,6 +132,88 @@ branch = [
 #    {name = "flash_time", type = "reco"},
 ]
 [[tree]]
+name = "fiducial_cut"
+sim_only = true
+mode = "true"
+cut = [
+    {name = "signal_1muNp", type = "true"},
+    {name = "fiducial_cut", type = "reco"},
+]
+branch = [
+    {name = "neutrino_id", type = "true"},
+    #{name = "baseline", type = "mctruth"},
+    #{name = "cc", type = "mctruth"},
+    #{name = "pdg", type = "mctruth"},
+    #{name = "interaction_type", type = "mctruth"},
+    {name = "category", type = "true"},
+    {name = "neutrino_energy", type = "mctruth"},
+    {name = "visible_energy", type = "true"},
+    {name = "dpT", type = "true"},
+#    {name = "dpT_lp", type = "both"},
+#    {name = "dphiT", type = "both"},
+#    {name = "dalphaT", type = "both"},
+#    {name = "opening_angle", type = "both"},
+#    {name = "fiducial", type = "reco"},
+#    {name = "containment", type = "reco"},
+#    {name = "flash_time", type = "reco"},
+]
+[[tree]]
+name = "containment_cut"
+sim_only = true
+mode = "true"
+cut = [
+    {name = "signal_1muNp", type = "true"},
+    {name = "fiducial_cut", type = "reco"},
+    {name = "track_containment_cut", type = "reco"},
+]
+branch = [
+    {name = "neutrino_id", type = "true"},
+    #{name = "baseline", type = "mctruth"},
+    #{name = "cc", type = "mctruth"},
+    #{name = "pdg", type = "mctruth"},
+    #{name = "interaction_type", type = "mctruth"},
+    {name = "category", type = "true"},
+    {name = "neutrino_energy", type = "mctruth"},
+    {name = "visible_energy", type = "true"},
+    {name = "dpT", type = "true"},
+#    {name = "dpT_lp", type = "both"},
+#    {name = "dphiT", type = "both"},
+#    {name = "dalphaT", type = "both"},
+#    {name = "opening_angle", type = "both"},
+#    {name = "fiducial", type = "reco"},
+#    {name = "containment", type = "reco"},
+#    {name = "flash_time", type = "reco"},
+]
+[[tree]]
+name = "flash_cut"
+sim_only = true
+mode = "true"
+cut = [
+    {name = "signal_1muNp", type = "true"},
+    {name = "fiducial_cut", type = "reco"},
+    {name = "track_containment_cut", type = "reco"},
+    {name = "valid_flashmatch", type = "reco"},
+    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+]
+branch = [
+    {name = "neutrino_id", type = "true"},
+    #{name = "baseline", type = "mctruth"},
+    #{name = "cc", type = "mctruth"},
+    #{name = "pdg", type = "mctruth"},
+    #{name = "interaction_type", type = "mctruth"},
+    {name = "category", type = "true"},
+    {name = "neutrino_energy", type = "mctruth"},
+    {name = "visible_energy", type = "true"},
+    {name = "dpT", type = "true"},
+#    {name = "dpT_lp", type = "both"},
+#    {name = "dphiT", type = "both"},
+#    {name = "dalphaT", type = "both"},
+#    {name = "opening_angle", type = "both"},
+#    {name = "fiducial", type = "reco"},
+#    {name = "containment", type = "reco"},
+#    {name = "flash_time", type = "reco"},
+]
+[[tree]]
 name = "all_cut"
 sim_only = true
 mode = "true"
@@ -149,8 +232,110 @@ branch = [
     #{name = "pdg", type = "mctruth"},
     #{name = "interaction_type", type = "mctruth"},
     {name = "category", type = "true"},
-#    {name = "neutrino_energy", type = "mctruth"},
-#    {name = "visible_energy", type = "true"},
+    {name = "neutrino_energy", type = "mctruth"},
+    {name = "visible_energy", type = "true"},
+    {name = "dpT", type = "true"},
+#    {name = "dpT_lp", type = "both"},
+#    {name = "dphiT", type = "both"},
+#    {name = "dalphaT", type = "both"},
+#    {name = "opening_angle", type = "both"},
+#    {name = "fiducial", type = "reco"},
+#    {name = "containment", type = "reco"},
+#    {name = "flash_time", type = "reco"},
+]
+[[tree]]
+name = "selected_base"
+sim_only = false
+mode = "reco"
+cut = [
+]
+branch = [
+    {name = "neutrino_id", type = "true"},
+    #{name = "baseline", type = "mctruth"},
+    #{name = "cc", type = "mctruth"},
+    #{name = "pdg", type = "mctruth"},
+    #{name = "interaction_type", type = "mctruth"},
+    {name = "category", type = "true"},
+    {name = "neutrino_energy", type = "mctruth"},
+    {name = "visible_energy", type = "true"},
+    {name = "dpT", type = "true"},
+#    {name = "dpT_lp", type = "both"},
+#    {name = "dphiT", type = "both"},
+#    {name = "dalphaT", type = "both"},
+#    {name = "opening_angle", type = "both"},
+#    {name = "fiducial", type = "reco"},
+#    {name = "containment", type = "reco"},
+#    {name = "flash_time", type = "reco"},
+]
+name = "selected_fiducial"
+sim_only = false
+mode = "reco"
+cut = [
+    {name = "fiducial_cut", type = "reco"},
+    
+]
+branch = [
+    {name = "neutrino_id", type = "true"},
+    #{name = "baseline", type = "mctruth"},
+    #{name = "cc", type = "mctruth"},
+    #{name = "pdg", type = "mctruth"},
+    #{name = "interaction_type", type = "mctruth"},
+    {name = "category", type = "true"},
+    {name = "neutrino_energy", type = "mctruth"},
+    {name = "visible_energy", type = "true"},
+    {name = "dpT", type = "true"},
+#    {name = "dpT_lp", type = "both"},
+#    {name = "dphiT", type = "both"},
+#    {name = "dalphaT", type = "both"},
+#    {name = "opening_angle", type = "both"},
+#    {name = "fiducial", type = "reco"},
+#    {name = "containment", type = "reco"},
+#    {name = "flash_time", type = "reco"},
+]
+name = "selected_contain"
+sim_only = false
+mode = "reco"
+cut = [
+    {name = "fiducial_cut", type = "reco"},
+    {name = "track_containment_cut", type = "reco"},
+
+]
+branch = [
+    {name = "neutrino_id", type = "true"},
+    #{name = "baseline", type = "mctruth"},
+    #{name = "cc", type = "mctruth"},
+    #{name = "pdg", type = "mctruth"},
+    #{name = "interaction_type", type = "mctruth"},
+    {name = "category", type = "true"},
+    {name = "neutrino_energy", type = "mctruth"},
+    {name = "visible_energy", type = "true"},
+    {name = "dpT", type = "true"},
+#    {name = "dpT_lp", type = "both"},
+#    {name = "dphiT", type = "both"},
+#    {name = "dalphaT", type = "both"},
+#    {name = "opening_angle", type = "both"},
+#    {name = "fiducial", type = "reco"},
+#    {name = "containment", type = "reco"},
+#    {name = "flash_time", type = "reco"},
+]
+name = "selected_flash"
+sim_only = false
+mode = "reco"
+cut = [
+    {name = "fiducial_cut", type = "reco"},
+    {name = "track_containment_cut", type = "reco"},
+    {name = "valid_flashmatch", type = "reco"},
+    {name = "flash_cut", type = "reco", parameters = [0,9.6]},
+]
+branch = [
+    {name = "neutrino_id", type = "true"},
+    #{name = "baseline", type = "mctruth"},
+    #{name = "cc", type = "mctruth"},
+    #{name = "pdg", type = "mctruth"},
+    #{name = "interaction_type", type = "mctruth"},
+    {name = "category", type = "true"},
+    {name = "neutrino_energy", type = "mctruth"},
+    {name = "visible_energy", type = "true"},
     {name = "dpT", type = "true"},
 #    {name = "dpT_lp", type = "both"},
 #    {name = "dphiT", type = "both"},

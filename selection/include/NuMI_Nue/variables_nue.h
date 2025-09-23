@@ -41,15 +41,18 @@ namespace vars::nue
      * @details This variable provides a basic categorization of objs
      * using only signal, neutrino background, and cosmic background as the
      * three categories.
-     * 0: 1mu1p (contained and fiducial)
-     * 1: 1mu1p (not contained or not fiducial)
-     * 2: 1muNp (N > 1, contained and fiducial)
-     * 3: 1muNp (N > 1, not contained or fiducial)
-     * 4: 1muX (not 1muNp, contained and fiducial)
-     * 5: 1muX (not 1muNp, not contained or fiducial)
+     * 0: 1e1p (contained and fiducial)
+     * 1: 1eNp (N > 1, contained and fiducial)
+     * 2: 1e 
+     * 3: 1e1piNp (N >=1) 
+     * 4: 1eX (not 1muNp,1e,or 1e1piNp (N>0))
+     * 5: NC with 1e 
      * 6: Other CC nu
-     * 7: Other NC nu
-     * 8: Cosmic
+     * 7: Numu CC
+     * 8: Non-fiducialized 1eNp (N > 0)
+     * 9: Uncontained 1eNp (N>0)
+     * 10: Other
+     * 11: Cosmics
      * @tparam T the type of obj (true or reco).
      * @param obj The obj to apply the variable on.
      * @return the enumerated category of the obj.
@@ -68,7 +71,6 @@ namespace vars::nue
                     else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1 && cuts::track_containment_cut(obj) && obj.is_fiducial) cat = 1;
                     else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1 && cuts::track_containment_cut(obj)) cat = 8;
                     else if(counts[0] == 0 && counts[3] == 0 && counts[4] > 1) cat = 9;
-                    else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 0) cat = 2;
                     else if(counts[0] == 0 && counts[3] == 0 && counts[4] == 0) cat = 2;
                     else if(counts[0] == 0 && counts[3] == 1 && counts[4] > 0) cat = 3;
                     else if(obj.current_type == 0) cat = 4;

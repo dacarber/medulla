@@ -95,6 +95,7 @@ sys::detsys::DetsysCalculator::DetsysCalculator(cfg::ConfigurationTable & table,
     // consist of multiple variations spanning the range of the parameter.
     for(cfg::ConfigurationTable & t : table.get_subtables("sys"))
     {
+        cout<<"1"<<endl;
         // Skip non-variation detector systematics.
         if(t.get_string_field("type") != "variation")
             continue;

@@ -14,7 +14,7 @@ name = 'reco_leading_electron_ke'
 bins = [25, 0, 3000]
 
 [variations]
-keys = ['cvext', 'var00', 'var01p','var01m', 'var02m','var02p', 'var03m', 'var03p', 'var04m','var04p', 'var05']
+keys = ['cvext', 'var00', 'var01p','var01m', 'var02m','var02p', 'var03m', 'var03p', 'var04m','var04p', 'var05','var06']
 origin = 'events/'
 tree = 'selected'
 result_destination = 'detsys_results/'
@@ -52,11 +52,11 @@ origin = 'events/data/selected'
 destination = 'events/data/'
 name = 'selected'
 action = 'copy'
-[[tree]]
-origin = 'events/simulation/neutrino'
-destination = 'events/neutrino/'
-name = 'selected'
-action = 'copy'
+#[[tree]]
+#origin = 'events/simulation/neutrino'
+#destination = 'events/neutrino/'
+#name = 'selected'
+#action = 'copy'
 
 #[[tree]]
 #origin = 'events/offbeam/SelectedCos_PhaseCuts'

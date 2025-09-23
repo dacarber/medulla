@@ -10,7 +10,7 @@ ismc = true
 
 [[sample]]
 name = "cvext"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_Nue_det_sys_flat_cafs/CV_Sample/*.flat.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_Nue_det_sys_flat_cafs/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_CV.root"
 ismc = true
 disable = false
 [[sample]]
@@ -26,19 +26,19 @@ disable = false
 
 [[sample]]
 name = "var01p"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_Nue_det_sys_flat_cafs/GainHigh/*.flat.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_GainHigh.root"
 ismc = true
 disable = false
 
 [[sample]]
 name = "var01m"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_Nue_det_sys_flat_cafs/GainLow/*.flat.root"
+path = "//pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_GainLow.root"
 ismc = true
 disable = false
 
 [[sample]]
 name = "var02p"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_Nue_det_sys_flat_cafs/High_Coh/*.flat.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_High_Coh.root"
 ismc = true
 disable = false
 
@@ -201,6 +201,9 @@ cut = [
 
 ]
 branch = [
+    {name = "neutrino_id", type = "true"},
+    #{name = "baseline", type = "mctruth"},
+    {name = "cc", type = "mctruth"},
     {name = "pdg", type = "mctruth"},
     {name = "parent_pdg", type = "mctruth"},
     {name = "interaction_type", type = "mctruth"},

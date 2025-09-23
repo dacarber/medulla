@@ -267,6 +267,7 @@ branch = [
 #    {name = "containment", type = "reco"},
 #    {name = "flash_time", type = "reco"},
 ]
+[[tree]]
 name = "selected_fiducial"
 sim_only = false
 mode = "reco"
@@ -292,6 +293,7 @@ branch = [
 #    {name = "containment", type = "reco"},
 #    {name = "flash_time", type = "reco"},
 ]
+[[tree]]
 name = "selected_contain"
 sim_only = false
 mode = "reco"
@@ -318,6 +320,7 @@ branch = [
 #    {name = "containment", type = "reco"},
 #    {name = "flash_time", type = "reco"},
 ]
+[[tree]]
 name = "selected_flash"
 sim_only = false
 mode = "reco"

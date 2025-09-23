@@ -32,7 +32,7 @@ disable = false
 
 [[sample]]
 name = "var01m"
-path = "//pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_GainLow.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_GainLow.root"
 ismc = true
 disable = false
 
@@ -44,19 +44,19 @@ disable = false
 
 [[sample]]
 name = "var03p"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_Nue_det_sys_flat_cafs/High_Int/*.flat.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_High_Int.root"
 ismc = true
 disable = false
 
 [[sample]]
 name = "var04p"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_Nue_det_sys_flat_cafs/High_Life/*.flat.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_High_Life.root"
 ismc = true
 disable = false
 
 [[sample]]
 name = "var02m"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_Nue_det_sys_flat_cafs/Low_Coh/*.flat.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Low_Coh.root"
 ismc = true
 disable = false
 

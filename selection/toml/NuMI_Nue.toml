@@ -10,7 +10,7 @@ ismc = true
 
 [[sample]]
 name = "cvext"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_Nue_det_sys_flat_cafs/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_CV.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_CV.root"
 ismc = true
 disable = false
 [[sample]]

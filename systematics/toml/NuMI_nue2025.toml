@@ -14,7 +14,7 @@ name = 'reco_leading_electron_ke'
 bins = [25, 0, 3000]
 
 [variations]
-keys = ['cvext', 'var00', 'var01p','var01m', 'var02m','var02p', 'var03m', 'var03p', 'var04m','var04p', 'var05','var06']
+keys = ['cvext', 'var00', 'var01p','var01m', 'var02m','var02p', 'var03m', 'var03p', 'var04m','var04p', 'var05','var06','var07']
 origin = 'events/'
 tree = 'selected'
 result_destination = 'detsys_results/'
@@ -128,6 +128,15 @@ nsigma = [-3, -2, -1, 0, 1 ,2, 3]
 scale = [-3, -2, -1, 1, 1, 2, 3]
 ordinate = 'cvext'
 points = ['var06', 'var06', 'var06', 'cvext', 'var06', 'var06', 'var06']
+
+[[sys]]
+name = 'var07'
+type = 'variation'
+index = -1
+nsigma = [-3, -2, -1, 0, 1 ,2, 3]
+scale = [-3, -2, -1, 1, 1, 2, 3]
+ordinate = 'simulation'
+points = ['var07', 'var07', 'var07', 'simulation', 'var07', 'var07', 'var07']
 
 
 [[sys]]

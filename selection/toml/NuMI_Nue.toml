@@ -15,7 +15,7 @@ ismc = true
 disable = false
 [[sample]]
 name = "var00"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Null_Sample.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Null_sample.root"
 ismc = true
 disable = false
 #[[sample]]

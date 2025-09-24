@@ -15,7 +15,7 @@ ismc = true
 disable = false
 [[sample]]
 name = "var00"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_Nue_det_sys_flat_cafs/Null_Sample/*.flat.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Null_Sample.root"
 ismc = true
 disable = false
 #[[sample]]
@@ -83,7 +83,11 @@ name = "var06"
 path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Wire_gap.root"
 ismc = true
 disable = false
-
+[[sample]]
+name = "var07"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_nu_det_YZ_unif*.root"
+ismc = true
+disable = false
 
 [[tree]]
 name = "selected"

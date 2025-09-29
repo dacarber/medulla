@@ -891,5 +891,69 @@ namespace pvars
         return p.primary_scores[0];
     }
     REGISTER_VAR_SCOPE(RegistrationScope::RecoParticle, secondary_softmax, secondary_softmax);
+    /**
+     * @brief Variable for the secondary softmax score of the particle.
+     * @details The secondary softmax score represents the confidence that the
+     * network has in the particle being a secondary particle. The score is between
+     * 0 and 1, with 1 being the most confident that the particle is a secondary
+     * particle.
+     * @tparam T the type of particle (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the secondary softmax score of the particle.
+     */
+    template<class T>
+    double start_dedx(const caf::SRParticleDLPProxy & p)
+    {
+        return p.start_dedx;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::RecoParticle, start_dedx, start_dedx);
+    /**
+     * @brief Variable for the secondary softmax score of the particle.
+     * @details The secondary softmax score represents the confidence that the
+     * network has in the particle being a secondary particle. The score is between
+     * 0 and 1, with 1 being the most confident that the particle is a secondary
+     * particle.
+     * @tparam T the type of particle (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the secondary softmax score of the particle.
+     */
+    template<class T>
+    double start_straightness(const caf::SRParticleDLPProxy & p)
+    {
+        return p.start_straightness;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::RecoParticle, start_straightness, start_straightness);
+    /**
+     * @brief Variable for the secondary softmax score of the particle.
+     * @details The secondary softmax score represents the confidence that the
+     * network has in the particle being a secondary particle. The score is between
+     * 0 and 1, with 1 being the most confident that the particle is a secondary
+     * particle.
+     * @tparam T the type of particle (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the secondary softmax score of the particle.
+     */
+    template<class T>
+    double directional_spread(const caf::SRParticleDLPProxy & p)
+    {
+        return p.directional_spread;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::RecoParticle, directional_spread, directional_spread);
+
+    /**
+     * @brief Variable for the axial spread of the particle.
+     * @details The axial spread represents the spread of particles along the 
+     * particle direction. Allowing the ability to distiguish tracks and showers
+     * @tparam T the type of particle (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the axial spread of the particle.
+     */
+    template<class T>
+    double axial_spread(const caf::SRParticleDLPProxy & p)
+    {
+        return p.axial_spread;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::RecoParticle, axial_spread, axial_spread);
+
 }
 #endif // PARTICLE_VARIABLES_H

@@ -8,86 +8,81 @@ ismc = true
 
 
 
-[[sample]]
-name = "cvext"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_CV.root"
-ismc = true
-disable = false
-[[sample]]
-name = "var00"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Null_Sample.root"
-ismc = true
-disable = false
+#[[sample]]
+#name = "cvext"
+#path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_CV.root"
+#ismc = true
+#disable = false
 #[[sample]]
 #name = "var00"
-#path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_Nue_det_sys_flat_cafs/Cathode_Bend/*.flat.root"
+#path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Null_Sample.root"
 #ismc = true
 #disable = false
 
-[[sample]]
-name = "var01p"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_GainHigh.root"
-ismc = true
-disable = false
+#[[sample]]
+#name = "var01p"
+#path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_GainHigh.root"
+#ismc = true
+#disable = false
 
-[[sample]]
-name = "var01m"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_GainLow.root"
-ismc = true
-disable = false
+#[[sample]]
+#name = "var01m"
+#path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_GainLow.root"
+#ismc = true
+#disable = false
 
-[[sample]]
-name = "var02p"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_High_Coh.root"
-ismc = true
-disable = false
+#[[sample]]
+#name = "var02p"
+#path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_High_Coh.root"
+#ismc = true
+#disable = false
 
-[[sample]]
-name = "var03p"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_High_Int.root"
-ismc = true
-disable = false
+#[[sample]]
+#name = "var03p"
+#path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_High_Int.root"
+#ismc = true
+#disable = false
 
-[[sample]]
-name = "var04p"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_High_Life.root"
-ismc = true
-disable = false
+#[[sample]]
+#name = "var04p"
+#path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_High_Life.root"
+#ismc = true
+#disable = false
 
-[[sample]]
-name = "var02m"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Low_Coh.root"
-ismc = true
-disable = false
+#[[sample]]
+#name = "var02m"
+#path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Low_Coh.root"
+#ismc = true
+#disable = false
 
-[[sample]]
-name = "var03m"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Low_Int.root"
-ismc = true
-disable = false
+#[[sample]]
+#name = "var03m"
+#path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Low_Int.root"
+#ismc = true
+#disable = false
 
-[[sample]]
-name = "var04m"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Low_Life.root"
-ismc = true
-disable = false
+#[[sample]]
+#name = "var04m"
+#path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Low_Life.root"
+#ismc = true
+#disable = false
 
-[[sample]]
-name = "var05"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Scint_Var.root"
-ismc = true
-disable = false
+#[[sample]]
+#name = "var05"
+#path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Scint_Var.root"
+#ismc = true
+#disable = false
 
-[[sample]]
-name = "var06"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Wire_gap.root"
-ismc = true
-disable = false
-[[sample]]
-name = "var07"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_nu_det_YZ_unif*.root"
-ismc = true
-disable = false
+#[[sample]]
+#name = "var06"
+#path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_Nue_det_sys_flat_cafs/NuMI_nue_det_Wire_gap.root"
+#ismc = true
+#disable = false
+#[[sample]]
+#name = "var07"
+#path = "/pnfs/icarus/persistent/users/dcarber/spine/combined_files/NuMI_nu_det_YZ_unif*.root"
+#ismc = true
+#disable = false
 
 [[tree]]
 name = "selected"
@@ -99,7 +94,7 @@ cut = [
     {name = "valid_flashmatch", type = "reco"},
     {name = "all_1eNp_cut", type = "reco"},
     {name = "flash_cut", type = "reco", parameters = [0,9.6]},
-    {name = "quality_cuts", type = "reco"},
+    #{name = "quality_cuts", type = "reco"},
 ]
 branch = [
      {name = "neutrino_id", type = "true"},
@@ -121,7 +116,7 @@ branch = [
     { name = "vertex_x",                 type = "both"  },
     { name = "vertex_y",                 type = "both"  },
     { name = "vertex_z",                 type = "both"   },
-    # Leading MUON interaction-level
+    # Leading Electron interaction-level
     { name = "end_x",                 type = "both_particle", selector = "leading_electron"   },
     { name = "end_y",                 type = "both_particle", selector = "leading_electron"   },
     { name = "end_z",                 type = "both_particle", selector = "leading_electron"   },
@@ -136,6 +131,10 @@ branch = [
     { name = "photon_softmax",        type = "reco_particle", selector = "leading_electron"   },
     { name = "mip_softmax",           type = "reco_particle", selector = "leading_electron"   },
     { name = "hadron_softmax",        type = "reco_particle", selector = "leading_electron"   },
+    { name = "start_dedx",            type = "reco_particle", selector = "leading_electron"   },
+    { name = "start_straightness",    type = "reco_particle", selector = "leading_electron"   },
+    { name = "axial_spread",          type = "reco_particle", selector = "leading_electron"   },
+    { name = "directional_spread",    type = "reco_particle", selector = "leading_electron"   },
 
     # Leading PROTON interaction-level
     { name = "end_x",             type = "both_particle", selector = "leading_proton" },
@@ -192,6 +191,10 @@ branch = [
     { name = "vertex_x",                 type = "both"  },
     { name = "vertex_y",                 type = "both"  },
     { name = "vertex_z",                 type = "both"   },
+    { name = "start_dedx",            type = "reco_particle", selector = "leading_electron"   },
+    { name = "start_straightness",    type = "reco_particle", selector = "leading_electron"   },
+    { name = "axial_spread",          type = "reco_particle", selector = "leading_electron"   },
+    { name = "directional_spread",    type = "reco_particle", selector = "leading_electron"   },
 ]
 [[tree]]
 name = "neutrino"

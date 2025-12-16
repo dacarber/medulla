@@ -61,9 +61,9 @@ setup cmake v3_27_4
 ups active
 
 # Build medulla
-git clone https://github.com/justinjmueller/medulla.git
+git clone https://github.com/dacarber/medulla.git
 cd medulla
-git checkout develop
+git checkout feature/dcarber_NuMI_nue_analysis
 mkdir build && cd build
 export CC=$(which gcc)
 export CXX=$(which g++)

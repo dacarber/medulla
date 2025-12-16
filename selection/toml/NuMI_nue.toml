@@ -170,7 +170,7 @@ disable = false
 name = "selected"
 sim_only = false
 mode = "reco"
-add_systematics = false
+add_systematics = true
 cut = [
     { name = "fiducial_cut",     type = "reco" },
     #{ name = "flash_cut", type = "reco", parameters = [0,9.6]},

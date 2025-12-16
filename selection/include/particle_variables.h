@@ -941,5 +941,23 @@ namespace pvars
         return p.primary_scores[0];
     }
     REGISTER_VAR_SCOPE(RegistrationScope::RecoParticle, secondary_softmax, secondary_softmax);
+    template<class T>
+    double ke_bias(const T & p)
+    {
+        double true_energy(0);
+        double reco_energy(0);
+        true_energy = p.energy_init - mass(p);
+        if(pvars::pid(p) < 2) [[likely]]
+                reco_energy += calo_ke(p);
+        else
+        {
+                if(p.is_contained) reco_energy += csda_ke(p);
+                else reco_energy += mcs_ke(p);
+        }
+
+        return (true_energy-reco_energy)/true_energy;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::TrueParticle, ke_bias, ke_bias);
+
 }
 #endif // PARTICLE_VARIABLES_H

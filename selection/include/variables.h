@@ -27,7 +27,7 @@
 #include "include/particle_utilities.h"
 #include "include/selectors.h"
 #include "framework.h"
-
+#include "TVector3.h"
 /**
  * @namespace vars
  * @brief Namespace for organizing generic variables which act on interactions.
@@ -138,98 +138,6 @@ namespace vars
         return energy/1000.0;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, visible_energy, visible_energy);
-
-    /**
-     * @brief Variable for energy reconstruction assuming CCQE kinematics using
-     * the lepton.
-     * @details This function calculates the neutrino energy assuming CCQE
-     * kinematics using the leading lepton in the interaction. The leading
-     * lepton is defined as the highest kinetic energy electron or muon in the
-     * interaction. If no electron or muon is found, the function returns
-     * PLACEHOLDERVALUE. This does not check that the interaction is actually
-     * QE-like.
-     * @tparam T the type of interaction (true or reco).
-     * @param obj interaction to apply the variable on.
-     * @return the reconstructed neutrino energy assuming CCQE kinematics.
-     */
-    template<class T>
-    double energy_qel(const T & obj)
-    {
-        size_t ei = selectors::leading_electron(obj);
-        size_t mi = selectors::leading_muon(obj);
-        size_t li = kNoMatch;
-
-        if(ei != kNoMatch && mi != kNoMatch)
-            li = (pvars::ke(obj.particles[ei]) > pvars::ke(obj.particles[mi])) ? ei : mi;
-        else if(ei != kNoMatch)
-            li = ei;
-        else if(mi != kNoMatch)
-            li = mi;
-        else
-            return PLACEHOLDERVALUE;
-
-        double Mn = 939.565;
-        double Mp = 938.272;
-        double Ml = (li == ei) ? ELECTRON_MASS : MUON_MASS;
-        double EB = PROTON_BINDING_ENERGY;
-
-        double El = pvars::energy(obj.particles[li]);
-        double pz = pvars::pz(obj.particles[li]);
-
-        double numerator   = 2*(Mn - EB)*El - ((Mn - EB)*(Mn - EB) + Ml*Ml - Mp*Mp);
-        double denominator = 2*((Mn - EB) - El + pz);
-
-        return (numerator / denominator) / 1000.0;
-    }
-    REGISTER_VAR_SCOPE(RegistrationScope::Both, energy_qel, energy_qel);
-
-    /**
-     * @brief Variable for energy reconstruction assuming CCQE kinematics using
-     * the proton.
-     * @details This function calculates the neutrino energy assuming CCQE
-     * kinematics using the leading proton in the interaction. The leading
-     * proton is defined as the highest kinetic energy proton in the
-     * interaction. If no proton is found, the function returns 
-     * PLACEHOLDERVALUE. This does not check that the interaction is actually
-     * QE-like.
-     * @tparam T the type of interaction (true or reco).
-     * @param obj interaction to apply the variable on.
-     * @return the reconstructed neutrino energy assuming CCQE kinematics.
-     */
-    template<class T>
-    double energy_qep(const T & obj)
-    {
-        size_t ei = selectors::leading_electron(obj);
-        size_t mi = selectors::leading_muon(obj);
-        size_t pi = selectors::leading_proton(obj);
-        size_t li = kNoMatch;
-
-        if(ei != kNoMatch && mi != kNoMatch)
-            li = (pvars::ke(obj.particles[ei]) > pvars::ke(obj.particles[mi])) ? ei : mi;
-        else if(ei != kNoMatch)
-            li = ei;
-        else if(mi != kNoMatch)
-            li = mi;
-        else
-            return PLACEHOLDERVALUE;
-
-        if(pi == kNoMatch)
-            return PLACEHOLDERVALUE;
-
-        double Mn = 939.565;
-        double Mp = 938.272;
-        double Ml = (li == ei) ? ELECTRON_MASS : MUON_MASS;
-        double EB = PROTON_BINDING_ENERGY;
-
-        double Ep = pvars::energy(obj.particles[pi]);
-        double pz = pvars::pz(obj.particles[pi]);
-
-        double numerator   = 2*(Mn - EB)*Ep - ((Mn - EB)*(Mn - EB) + Mp*Mp - Ml*Ml);
-        double denominator = 2*((Mn - EB) - Ep + pz);
-
-        return (numerator / denominator) / 1000.0;
-    }
-    REGISTER_VAR_SCOPE(RegistrationScope::Both, energy_qep, energy_qep);
 
     /**
      * @brief Variable for total visible energy of interaction, including
@@ -652,7 +560,7 @@ namespace vars
     template<class T>
     double opening_angle(const T & obj)
     {
-        size_t mi = selectors::leading_muon(obj);
+        size_t mi = selectors::leading_electron(obj);
         size_t pi = selectors::leading_proton(obj);
         if(mi == kNoMatch || pi == kNoMatch)
             return kNoMatchValue; // No leading muon or proton found.
@@ -834,5 +742,67 @@ namespace vars
         return utilities::magnitude(utilities::subtract(muon_start, vtx));
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, leading_muon_vertex_gap, leading_muon_vertex_gap);
+
+   /**
+   ** @brief Variable for the distance between the interaction vertex and the
+   ** leading muon start point.
+   ** @details This function calculates the distance from the leading muon
+   ** start point to the interaction vertex. The leading muon is defined as
+   ** the particle with the highest kinetic energy that is identified as a
+   ** muon. If no leading muon is found, the function returns the usual 
+   ** PLACEHOLDERVALUE.
+   ** @tparam T the type of interaction (true or reco).
+   ** @param obj the interaction to apply the variable on.
+   ** @return the distance from the leading muon start point to the
+   ** interaction vertex.
+   **/
+    template<class T>
+    double Qsquared(const T & obj)
+    {   
+        double Q(0);
+        double nu_energy = visible_energy(obj);
+            
+            size_t i = selectors::leading_electron(obj);
+	    if(i == kNoMatch)
+            	return kNoMatchValue;
+            double electron_energy = pvars::energy(obj.particles[i]);
+            TVector3 p;
+            p.SetX(obj.particles[i].momentum[0]);
+            p.SetY(obj.particles[i].momentum[1]);
+            p.SetZ(obj.particles[i].momentum[2]);
+            TVector3 beamdir(0.39431672, 0.04210058, 0.91800973);
+            double cos_theta = p.Dot(beamdir)/(p.Mag()*beamdir.Mag());
+            Q = 2*nu_energy*(electron_energy - p.Mag()*cos_theta) - std::pow(ELECTRON_MASS,2);
+            return Q;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, Qsquared, Qsquared);
+     /**
+     ** @brief Variable for the distance between the interaction vertex and the
+     ** leading muon start point.
+     ** @details This function calculates the distance from the leading muon
+     ** start point to the interaction vertex. The leading muon is defined as
+     ** the particle with the highest kinetic energy that is identified as a
+     ** muon. If no leading muon is found, the function returns the usual 
+     ** PLACEHOLDERVALUE.
+     ** @tparam T the type of interaction (true or reco).
+     ** @param obj the interaction to apply the variable on.
+     ** @return the distance from the leading muon start point to the
+     ** interaction vertex.
+     **/
+    template<class T>
+    double W(const T & obj)
+    {
+        double MN =37147.393;
+        double nu_energy = visible_energy(obj);
+        size_t i = selectors::leading_electron(obj);
+        if(i == kNoMatch)
+            return kNoMatchValue;
+        double electron_energy = pvars::energy(obj.particles[i]);
+        double Q = Qsquared(obj);
+        double W = std::sqrt(std::pow(MN,2)+2*MN*(nu_energy-electron_energy) - Q);
+
+        return W;
+     }
+     REGISTER_VAR_SCOPE(RegistrationScope::Both, W, W);
 }
 #endif // VARIABLES_H

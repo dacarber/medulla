@@ -548,5 +548,18 @@ namespace cuts
         return count == 1;
     }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, single_michel, single_michel);
+    template<class T>
+    bool track_containment_cut(const T & obj) {
+        bool passes(true);
+        for(auto & p : obj.particles)
+            {
+            if(p.is_primary && p.pid > 2 && !p.is_contained)
+            {
+            passes = false;
+        }
+            }
+            return passes;
+        }
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, track_containment_cut, track_containment_cut);
 }
 #endif

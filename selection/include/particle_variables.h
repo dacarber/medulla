@@ -946,7 +946,7 @@ namespace pvars
     {
         double true_energy(0);
         double reco_energy(0);
-        true_energy = p.energy_init*1000 - mass(p);
+        true_energy = p.energy_init - mass(p);
         if(pvars::pid(p) < 2) [[likely]]
                 reco_energy += calo_ke(p);
         else

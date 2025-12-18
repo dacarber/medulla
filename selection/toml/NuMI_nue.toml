@@ -294,6 +294,9 @@ branch = [
     {name = "flash_time", type = "reco"},
     {name = "W", type = "both"},
     {name = "Qsquared", type = "both"},
+    {name = "vertex_x", type = "both"},
+    {name = "vertex_y", type = "both"},
+    {name = "vertex_z", type = "both"},
     # Leading ELECTRON interaction-level
     { name = "end_x",                 type = "both_particle", selector = "leading_electron"   },
     { name = "end_y",                 type = "both_particle", selector = "leading_electron"   },

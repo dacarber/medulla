@@ -50,6 +50,18 @@ cuts = [
     { name = "!no_protons", parameters = [ "@null_threshold"   ]},
 ]
 
+[[category]] # 3 : Neutrino, Other CC Nue, Mpi (M >0)
+cuts = [
+    { name = "neutrino" },
+    { name = "iscc"    },
+    { name = "single_electron", parameters = [ "@electron_threshold"   ]},
+    { name = "!no_charged_pions", parameters = [ "@pion_threshold"   ]},
+]
+[[category]] # 4 : Neutrino, Other CC Nue, pi0
+cuts = [
+    { name = "neutrino" },
+    { name = "at_least_one_pi0", parameters = ["@photon_threshold"]}
+]
 [[category]] # 3 : Neutrino, Other CC Nue
 cuts = [
     { name = "neutrino" },

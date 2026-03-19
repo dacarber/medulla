@@ -58,6 +58,37 @@ namespace selectors
         return index;
     }
 
+
+    /**
+     * @brief Finds the index corresponding to the leading secondary particle of the
+     * specified particle type.
+     * @details The leading secondary particle is defined as the secondary particle with the
+     * highest kinetic energy. The method of calculating kinetic energy is
+     * inherited by the @ref pvars::ke function.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to operate on.
+     * @param pid of the particle type.
+     * @return the index of the leading secondary particle (highest KE). 
+     */
+    template <class T>
+    size_t leading_secondary_particle_index(const T & obj, uint16_t pid)
+    {
+        double leading_ke(0);
+        size_t index(kNoMatch);
+        for(size_t i(0); i < obj.particles.size(); ++i)
+        {
+            const auto & p = obj.particles[i];
+            double energy(pvars::ke(p));
+            if(pvars::pid(p) == pid && energy > leading_ke && pvars::primary_classification(p) == 0)
+            {
+                leading_ke = energy;
+                index = i;
+            }
+        }
+        return index;
+    }
+
+
     /**
      * @brief Finds the index corresponding to the longest track.
      * @details The longest track is defined as the track with the longest
@@ -230,5 +261,82 @@ namespace selectors
         return leading_particle_index(obj, pvars::kProton);
     }
     REGISTER_SELECTOR(leading_proton, leading_proton);
+
+    /**
+     * @brief Finds the index corresponding to the leading photon.
+     * @details The leading photon is defined as the photon with the highest
+     * kinetic energy.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to operate on.
+     * @return the index of the leading photon (highest KE).
+     */
+    template<class T>
+    size_t leading_secondary_photon(const T & obj)
+    {   
+        return leading_secondary_particle_index(obj, pvars::kPhoton);
+    }
+    REGISTER_SELECTOR(leading_secondary_photon, leading_secondary_photon);
+
+    /**
+     * @brief Finds the index corresponding to the leading electron.
+     * @details The leading electron is defined as the electron with the highest
+     * kinetic energy. If the interaction is a true interaction, the initial
+     * kinetic energy is used instead of the CSDA kinetic energy.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to operate on.
+     * @return the index of the leading electron (highest KE).
+     */
+    template<class T>
+    size_t leading_secondary_electron(const T & obj)
+    {
+        return leading_secondary_particle_index(obj, pvars::kElectron);
+    }
+    REGISTER_SELECTOR(leading_secondary_electron, leading_secondary_electron);
+
+    /**
+     * @brief Finds the index corresponding to the leading muon.
+     * @details The leading muon is defined as the muon with the highest
+     * kinetic energy.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to operate on.
+     * @return the index of the leading muon (highest KE).
+     */
+    template<class T>
+    size_t leading_secondary_muon(const T & obj)
+    {
+        return leading_secondary_particle_index(obj, pvars::kMuon);
+    }
+    REGISTER_SELECTOR(leading_secondary_muon, leading_secondary_muon);
+
+/**
+     * @brief Finds the index corresponding to the leading pion.
+     * @details The leading pion is defined as the pion with the highest
+     * kinetic energy.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to operate on.
+     * @return the index of the leading pion (highest KE).
+     */
+    template<class T>
+    size_t leading_secondary_pion(const T & obj)
+    {   
+        return leading_secondary_particle_index(obj, pvars::kPion);
+    }
+    REGISTER_SELECTOR(leading_secondary_pion, leading_secondary_pion);
+
+    /**
+     * @brief Finds the index corresponding to the leading proton.
+     * @details The leading proton is defined as the proton with the highest
+     * kinetic energy.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to operate on.
+     * @return the index of the leading proton (highest KE).
+     */
+    template<class T>
+    size_t leading_secondary_proton(const T & obj)
+    {
+        return leading_secondary_particle_index(obj, pvars::kProton);
+    }
+    REGISTER_SELECTOR(leading_secondary_proton, leading_secondary_proton);
+
 }
 #endif // SELECTORS_H

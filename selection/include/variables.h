@@ -601,6 +601,34 @@ namespace vars
         return count;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, photon_multiplicity, photon_multiplicity);
+    /**
+     * @brief Variable for the (primary) photon multiplicity of the
+     * interaction.
+     * @details This function calculates the multiplicity of primary
+     * photons in the interaction by counting the number of primary particles
+     * that are identified as photons and have a kinetic energy above a
+     * threshold. The threshold is set by the `params` vector, which defaults
+     * to 25 MeV. The function returns the number of primary photons in the
+     * interaction.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @param params the parameters for the cut. In this case, this sets the
+     * kinetic energy threshold for a photon to count towards the
+     * multiplicity. Defaults to 25 MeV.
+     * @return the multiplicity of primary photons in the interaction.
+     */
+    template<class T>
+    double secondary_photon_multiplicity(const T & obj, std::vector<double> params={25.0,})
+    {
+        size_t count(0);
+        for(const auto & p : obj.particles)
+        {
+            if(pvars::pid(p) == pvars::kPhoton && pvars::primary_classification(p) == 0 && pvars::ke(p) >= params[0])
+                ++count;
+        }
+        return count;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, secondary_photon_multiplicity, secondary_photon_multiplicity);
 
     /**
      * @brief Variable for the (primary) electron multiplicity of the
@@ -631,6 +659,34 @@ namespace vars
     REGISTER_VAR_SCOPE(RegistrationScope::Both, electron_multiplicity, electron_multiplicity);
 
     /**
+     * @brief Variable for the (primary) electron multiplicity of the
+     * interaction.
+     * @details This function calculates the multiplicity of primary electrons
+     * in the interaction by counting the number of primary particles that are
+     * identified as electrons and have a kinetic energy above a threshold. The
+     * threshold is set by the `params` vector, which defaults to 25 MeV. The
+     * function returns the number of primary electrons in the interaction.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @param params the parameters for the cut. In this case, this sets the
+     * kinetic energy threshold for an electron to count towards the
+     * multiplicity. Defaults to 25 MeV.
+     * @return the multiplicity of primary electrons in the interaction.
+     */
+    template<class T>
+    double secondary_electron_multiplicity(const T & obj, std::vector<double> params={25.0,})
+    {
+        size_t count(0);
+        for(const auto & p : obj.particles)
+        {
+            if(pvars::pid(p) == pvars::kElectron && pvars::primary_classification(p) == 0 && pvars::ke(p) >= params[0])
+                ++count;
+        }
+        return count;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, secondary_electron_multiplicity, secondary_electron_multiplicity);
+
+    /**
      * @brief Variable for the (primary) muon multiplicity of the
      * interaction.
      * @details This function calculates the multiplicity of primary muons in
@@ -657,6 +713,34 @@ namespace vars
         return count;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, muon_multiplicity, muon_multiplicity);
+
+    /**
+     * @brief Variable for the (primary) muon multiplicity of the
+     * interaction.
+     * @details This function calculates the multiplicity of primary muons in
+     * the interaction by counting the number of primary particles that are
+     * identified as muons and have a kinetic energy above a threshold. The
+     * threshold is set by the `params` vector, which defaults to 25 MeV. The
+     * function returns the number of primary muons in the interaction.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @param params the parameters for the cut. In this case, this sets the
+     * kinetic energy threshold for a muon to count towards the
+     * multiplicity. Defaults to 25 MeV.
+     * @return the multiplicity of primary muons in the interaction.
+     */
+    template<class T>
+    double secondary_muon_multiplicity(const T & obj, std::vector<double> params={25.0,})
+    {
+        size_t count(0);
+        for(const auto & p : obj.particles)
+        {
+            if(pvars::pid(p) == pvars::kMuon && pvars::primary_classification(p) == 0 && pvars::ke(p) >= params[0])
+                ++count;
+        }
+        return count;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, secondary_muon_multiplicity, secondary_muon_multiplicity);
 
     /**
      * @brief Variable for the (primary) pion multiplicity of the
@@ -687,6 +771,34 @@ namespace vars
     REGISTER_VAR_SCOPE(RegistrationScope::Both, pion_multiplicity, pion_multiplicity);
 
     /**
+     * @brief Variable for the (primary) pion multiplicity of the
+     * interaction.
+     * @details This function calculates the multiplicity of primary pions in
+     * the interaction by counting the number of primary particles that are
+     * identified as pions and have a kinetic energy above a threshold. The
+     * threshold is set by the `params` vector, which defaults to 25 MeV. The
+     * function returns the number of primary pions in the interaction.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @param params the parameters for the cut. In this case, this sets the
+     * kinetic energy threshold for a pion to count towards the
+     * multiplicity. Defaults to 25 MeV.
+     * @return the multiplicity of primary pions in the interaction.
+     */
+    template<class T>
+    double secondary_pion_multiplicity(const T & obj, std::vector<double> params={25.0,})
+    {
+        size_t count(0);
+        for(const auto & p : obj.particles)
+        {
+            if(pvars::pid(p) == pvars::kPion && pvars::primary_classification(p) == 0 && pvars::ke(p) >= params[0])
+                ++count;
+        }
+        return count;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, secondary_pion_multiplicity, secondary_pion_multiplicity);
+
+    /**
      * @brief Variable for the (primary) proton multiplicity of the
      * interaction.
      * @details This function calculates the multiplicity of primary protons in
@@ -715,6 +827,62 @@ namespace vars
     REGISTER_VAR_SCOPE(RegistrationScope::Both, proton_multiplicity, proton_multiplicity);
 
     /**
+     * @brief Variable for the (primary) proton multiplicity of the
+     * interaction.
+     * @details This function calculates the multiplicity of primary protons in
+     * the interaction by counting the number of primary particles that are
+     * identified as protons and have a kinetic energy above a threshold. The
+     * threshold is set by the `params` vector, which defaults to 25 MeV. The
+     * function returns the number of primary protons in the interaction.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @param params the parameters for the cut. In this case, this sets the
+     * kinetic energy threshold for a proton to count towards the
+     * multiplicity. Defaults to 25 MeV.
+     * @return the multiplicity of primary protons in the interaction.
+     */
+    template<class T>
+    double secondary_proton_multiplicity(const T & obj, std::vector<double> params={25.0,})
+    {
+        size_t count(0);
+        for(const auto & p : obj.particles)
+        {
+            if(pvars::pid(p) == pvars::kProton && pvars::primary_classification(p) == 0 && pvars::ke(p) >= params[0])
+                ++count;
+        }
+        return count;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, secondary_proton_multiplicity, secondary_proton_multiplicity);
+
+   /**
+     * @brief Variable for the (primary) proton multiplicity of the
+     * interaction.
+     * @details This function calculates the multiplicity of primary protons in
+     * the interaction by counting the number of primary particles that are
+     * identified as protons and have a kinetic energy above a threshold. The
+     * threshold is set by the `params` vector, which defaults to 25 MeV. The
+     * function returns the number of primary protons in the interaction.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @param params the parameters for the cut. In this case, this sets the
+     * kinetic energy threshold for a proton to count towards the
+     * multiplicity. Defaults to 25 MeV.
+     * @return the multiplicity of primary protons in the interaction.
+     */
+    template<class T>
+    double secondary_multiplicity(const T & obj, std::vector<double> params={25.0,})
+    {
+        size_t count(0);
+        for(const auto & p : obj.particles)
+        {
+            if(pvars::primary_classification(p) == 0 && pvars::ke(p) >= params[0])
+                ++count;
+        }
+        return count;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, secondary_multiplicity, secondary_multiplicity); 
+
+   /**
      * @brief Variable for the distance between the interaction vertex and the
      * leading muon start point.
      * @details This function calculates the distance from the leading muon

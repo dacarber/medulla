@@ -959,5 +959,23 @@ namespace pvars
     }
     REGISTER_VAR_SCOPE(RegistrationScope::TrueParticle, ke_bias, ke_bias);
 
+
+	template<class T>
+        double NuMI_polar_angle(const T & p)
+        {
+            double r;
+            std::vector<double> dir_vector(3,0);
+               
+            dir_vector[0] = (31512.0380) + interaction.vertex[0];
+            dir_vector[1] = (3364.4912) + interaction.vertex[1];
+            dir_vector[2] = (73363.2532) + interaction.vertex[2];
+            r = std::sqrt(std::pow(dir_vector[0], 2)+std::pow(dir_vector[1], 2)+std::pow(dir_vector[2], 2));
+            dir_vector[0] = dir_vector[0]/r;
+            dir_vector[1] = dir_vector[1]/r;
+            dir_vector[2] = dir_vector[2]/r;                                      
+            return std::acos(dir_vector[2]);
+        }
+        REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, NuMI_polar_angle, NuMI_polar_angle);
 }
+
 #endif // PARTICLE_VARIABLES_H

@@ -963,17 +963,14 @@ namespace pvars
 	template<class T>
         double NuMI_polar_angle(const T & p)
         {
-            double r;
-            std::vector<double> dir_vector(3,0);
-               
-            dir_vector[0] = (31512.0380) + p.start_point[0];
-            dir_vector[1] = (3364.4912) + p.start_point[1];
-            dir_vector[2] = (73363.2532) + p.start_point[2];
-            r = std::sqrt(std::pow(dir_vector[0], 2)+std::pow(dir_vector[1], 2)+std::pow(dir_vector[2], 2));
-            dir_vector[0] = dir_vector[0]/r;
-            dir_vector[1] = dir_vector[1]/r;
-            dir_vector[2] = dir_vector[2]/r;                                      
-            return std::acos(dir_vector[2]);
+		double dx = 31512.0380 + p.start_point[0];
+    		double dy = 3364.4912  + p.start_point[1];
+    		double dz = 73363.2532 + p.start_point[2];
+
+    		double r = std::sqrt(dx*dx + dy*dy + dz*dz);
+    
+    		// You only need to normalize the Z component to get the angle
+   		 return std::acos(dz / r);
         }
         REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, NuMI_polar_angle, NuMI_polar_angle);
 }

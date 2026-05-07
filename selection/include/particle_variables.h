@@ -963,14 +963,33 @@ namespace pvars
 	template<class T>
         double NuMI_polar_angle(const T & p)
         {
-		double dx = 31512.0380 + p.start_point[0];
-    		double dy = 3364.4912  + p.start_point[1];
-    		double dz = 73363.2532 + p.start_point[2];
-
-    		double r = std::sqrt(dx*dx + dy*dy + dz*dz);
+		// 1. NuMI Beam Vector (From the NuMI target to the interaction vertex)
+    		double bx = 31512.0380 + p.start_point[0];
+    		double by = 3364.4912  + p.start_point[1];
+    		double bz = 73363.2532 + p.start_point[2];
     
-    		// You only need to normalize the Z component to get the angle
-   		 return std::acos(dz / r);
+    		double b_mag = std::sqrt(bx*bx + by*by + bz*bz);
+
+    		// 2. Particle Direction Vector
+    		// NOTE: Adjust "p.dir" to match your specific struct (e.g., p.momentum)
+    		double px = p.dir[0]; 
+    		double py = p.dir[1];
+    		double pz = p.dir[2];
+    
+    		double p_mag = std::sqrt(px*px + py*py + pz*pz);
+
+    		// Safety check to prevent division by zero if a particle has no momentum
+    		if (b_mag == 0.0 || p_mag == 0.0) return -999.0;
+
+    		// 3. Calculate the Dot Product and normalize it
+    		double dot_product = (bx*px + by*py + bz*pz) / (b_mag * p_mag);
+
+    		// 4. Clamp the value to strictly [-1.0, 1.0] 
+    		// This prevents std::acos from returning NaN due to floating-point rounding errors
+    		dot_product = std::max(-1.0, std::min(1.0, dot_product));
+
+    		// Return the angle in radians
+    		return std::acos(dot_product);
         }
         REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, NuMI_polar_angle, NuMI_polar_angle);
 }

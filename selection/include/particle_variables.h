@@ -972,9 +972,9 @@ namespace pvars
 
     		// 2. Particle Direction Vector
     		// NOTE: Adjust "p.dir" to match your specific struct (e.g., p.momentum)
-    		double px = p.dir[0]; 
-    		double py = p.dir[1];
-    		double pz = p.dir[2];
+    		double px = p.start_dir[0]; 
+    		double py = p.start_dir[1];
+    		double pz = p.start_dir[2];
     
     		double p_mag = std::sqrt(px*px + py*py + pz*pz);
 

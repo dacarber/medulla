@@ -162,5 +162,35 @@ namespace pcuts
         return pvars::semantic_type(p) == static_cast<int>(params[0]);
     }
     REGISTER_CUT_SCOPE(RegistrationScope::BothParticle, is_semantic_type, is_semantic_type);
+    
+    template<class T>
+    bool pid_score_cut(const T & p, std::vector<double> params={0.0})
+    {
+	return p.pid_scores[pvars::pid(p)] > params[0];
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::RecoParticle, pid_score_cut, pid_score_cut);
+    
+    template<class T>
+    bool primary_score_cut(const T & p, std::vector<double> params={0.0})
+    {   
+        return p.primary_scores[1] > params[0];
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::RecoParticle, primary_score_cut, primary_score_cut);
+    
+    template<class T>
+    bool directional_spread_cut(const T & p, std::vector<double> params={0.0})
+    {
+        return p.directional_spread > params[0];
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::RecoParticle, directional_spread_cut, directional_spread_cut);
+    
+    template<class T>
+    bool mip_score_cut(const T & p, std::vector<double> params={0.0})
+    {
+        return (p.pid_scores[pvars::kMuon] + p.pid_scores[pvars::kPion]) > params[0];
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::RecoParticle,mip_score_cut, mip_score_cut);
+    
+   
 }
 #endif // PARTICLE_CUTS_H

@@ -561,12 +561,31 @@ namespace cuts
             return passes;
         }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, track_containment_cut, track_containment_cut);
+
+    //template<class T>
+    //    bool at_least_one_pi0(const caf::SRInteractionTruthDLPProxy & obj, std::vector<double> params = {0.0,})
+    //    {
+    //        double num_primary_pi0s = utilities_pi0ana::true_primary_pi0_multiplicity(obj, params);
+    //        return num_primary_pi0s >= 1;
+    //    }
+    //REGISTER_CUT_SCOPE(RegistrationScope::True, at_least_one_pi0, at_least_one_pi0);
+    
+    
+    template<class T>
+        bool pion_secondary_cut(const T & obj, std::vector<double> params = {0.0,0.0})
+        {
+		size_t count(0);
+        	for(const auto & p : obj.particles)
+        	{
+            		if(pvars::pid(p) == pvars::kPion && pvars::primary_classification(p) == 0 && pvars::ke(p) >= params[0])
+                	++count;
+        	}
+		return count < static_cast<size_t>(params[1]);           
+
+
+        }
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, pion_secondary_cut, pion_secondary_cut);
+
+    
 }
-template<class T>
-    bool at_least_one_pi0(const caf::SRInteractionTruthDLPProxy & obj, std::vector<double> params = {0.0,})
-    {
-        double num_primary_pi0s = utilities_pi0ana::true_primary_pi0_multiplicity(obj, params);
-	return num_primary_pi0s >= 1;
-    }
-    REGISTER_CUT_SCOPE(RegistrationScope::True, at_least_one_pi0, at_least_one_pi0);
 #endif

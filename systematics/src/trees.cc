@@ -266,6 +266,7 @@ void sys::trees::copy_with_weight_systematics(cfg::ConfigurationTable & config, 
      * sequential order.
      */
     std::vector<std::string> table_types = table.get_string_vector("table_types");
+    std::string _true_neutrino_energy = "true_neutrino_energy";
     for(const std::string & s : table_types)
     {
         std::string tname = table.get_string_field("name") + '_' + s;
@@ -276,6 +277,7 @@ void sys::trees::copy_with_weight_systematics(cfg::ConfigurationTable & config, 
         systrees[tname]->Branch("Run", &run);
         systrees[tname]->Branch("Subrun", &subrun);
         systrees[tname]->Branch("Evt", &event);
+        systrees[tname]->Branch("true_neutrino_energy", &brs[_true_neutrino_energy]);
         systrees[tname]->SetDirectory(directory);
         systrees[tname]->SetAutoFlush(1000);
     }

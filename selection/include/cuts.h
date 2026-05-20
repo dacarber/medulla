@@ -278,7 +278,7 @@ namespace cuts
     {
         if(!valid_flashmatch(obj))
             return false;
-        else if(params.size() == 2 && obj.flash_times[0] >= params[0] && obj.flash_times[0] <= params[1])
+        if(params.size() == 2 && obj.flash_times[0] >= params[0] && obj.flash_times[0] <= params[1])
             return true;
         else if(params.size() !=2)
             return true;
@@ -562,13 +562,13 @@ namespace cuts
         }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, track_containment_cut, track_containment_cut);
 
-    //template<class T>
-    //    bool at_least_one_pi0(const caf::SRInteractionTruthDLPProxy & obj, std::vector<double> params = {0.0,})
-    //    {
-    //        double num_primary_pi0s = utilities_pi0ana::true_primary_pi0_multiplicity(obj, params);
-    //        return num_primary_pi0s >= 1;
-    //    }
-    //REGISTER_CUT_SCOPE(RegistrationScope::True, at_least_one_pi0, at_least_one_pi0);
+    template<class T>
+        bool at_least_one_pi0(const caf::SRInteractionTruthDLPProxy & obj, std::vector<double> params = {0.0,})
+        {
+            double num_primary_pi0s = utilities_pi0ana::true_primary_pi0_multiplicity(obj, params);
+            return num_primary_pi0s >= 1;
+        }
+    REGISTER_CUT_SCOPE(RegistrationScope::True, at_least_one_pi0, at_least_one_pi0);
     
     
     template<class T>

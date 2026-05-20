@@ -180,14 +180,14 @@ namespace pcuts
     template<class T>
     bool directional_spread_cut(const T & p, std::vector<double> params={0.0})
     {
-        return p.directional_spread > params[0];
+        return p.directional_spread < params[0];
     }
     REGISTER_CUT_SCOPE(RegistrationScope::RecoParticle, directional_spread_cut, directional_spread_cut);
     
     template<class T>
     bool mip_score_cut(const T & p, std::vector<double> params={0.0})
     {
-        return (p.pid_scores[pvars::kMuon] + p.pid_scores[pvars::kPion]) > params[0];
+        return (p.pid_scores[pvars::kMuon] + p.pid_scores[pvars::kPion]) < params[0];
     }
     REGISTER_CUT_SCOPE(RegistrationScope::RecoParticle,mip_score_cut, mip_score_cut);
     

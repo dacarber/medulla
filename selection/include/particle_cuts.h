@@ -161,6 +161,7 @@ namespace pcuts
             throw std::invalid_argument("is_semantic_type requires exactly one parameter: the semantic type to check against.");
         return pvars::semantic_type(p) == static_cast<int>(params[0]);
     }
+    /*
     REGISTER_CUT_SCOPE(RegistrationScope::BothParticle, is_semantic_type, is_semantic_type);
     
     template<class T>
@@ -190,7 +191,7 @@ namespace pcuts
         return (p.pid_scores[pvars::kMuon] + p.pid_scores[pvars::kPion]) < static_cast<size_t>(params[0]);
     }
     REGISTER_CUT_SCOPE(RegistrationScope::RecoParticle,mip_score_cut, mip_score_cut);
-    
+    */
    
 }
 #endif // PARTICLE_CUTS_H

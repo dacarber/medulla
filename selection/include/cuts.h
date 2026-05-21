@@ -17,6 +17,7 @@
 #include "utilities.h"
 #include "framework.h"
 #include "utilities_pi0ana.h"
+#include "include/selectors.h"
 /**
  * @namespace cuts
  * @brief Namespace for organizing generic cuts which act on interactions.
@@ -585,7 +586,41 @@ namespace cuts
 
         }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, pion_secondary_cut, pion_secondary_cut);
+    template<class T>
+    bool pid_score_cut(const T & obj, std::vector<double> params={0.0})
+    {
+        size_t ei = selectors::leading_electron(obj);
+        auto & p(obj.particles[ei]);
+	return p.pid_scores[pvars::pid(p)] > static_cast<double>(params[0]);
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Reco, pid_score_cut, pid_score_cut);
 
+    template<class T>
+    bool primary_score_cut(const T & obj, std::vector<double> params={0.0})
+    {
+        size_t ei = selectors::leading_electron(obj);
+        auto & p(obj.particles[ei]);
+        return p.primary_scores[1] > static_cast<double>(params[0]);
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Reco, primary_score_cut, primary_score_cut);
+
+    template<class T>
+    bool directional_spread_cut(const T & obj, std::vector<double> params={0.0})
+    {
+        size_t ei = selectors::leading_electron(obj);
+        auto & p(obj.particles[ei]);
+        return p.directional_spread < static_cast<double>(params[0]);
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Reco, directional_spread_cut, directional_spread_cut);
+
+    template<class T>
+    bool mip_score_cut(const T & obj, std::vector<double> params={0.0})
+    {
+        size_t pi = selectors::leading_proton(obj);
+        auto & p(obj.particles[pi]);
+        return (p.pid_scores[pvars::kMuon] + p.pid_scores[pvars::kPion]) < static_cast<double>(params[0]);
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Reco,mip_score_cut, mip_score_cut);
     
 }
 #endif

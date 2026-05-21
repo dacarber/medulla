@@ -299,7 +299,7 @@ namespace vars
                 pt = utilities::add(pt, this_pt);
             }
         }
-        return utilities::magnitude(pt);
+        return utilities::magnitude(pt)/1000;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, dpT, dpT);
 

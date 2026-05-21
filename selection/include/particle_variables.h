@@ -248,7 +248,7 @@ namespace pvars
                 else energy += mcs_ke(p);
             }
         }
-        return energy;
+        return energy/1000;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, ke, ke);
 
@@ -611,7 +611,7 @@ namespace pvars
     template<class T>
     double p(const T & p)
     {
-        return p.p;
+        return p.p/1000;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, p, p);
 
@@ -989,7 +989,7 @@ namespace pvars
     		dot_product = std::max(-1.0, std::min(1.0, dot_product));
 
     		// Return the angle in radians
-    		return std::acos(dot_product);
+    		return dot_product;
         }
         REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, NuMI_polar_angle, NuMI_polar_angle);
 }

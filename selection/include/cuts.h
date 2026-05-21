@@ -577,7 +577,7 @@ namespace cuts
 		size_t count(0);
         	for(const auto & p : obj.particles)
         	{
-            		if(pvars::pid(p) == pvars::kPion && pvars::primary_classification(p) == 0 && pvars::ke(p) >= params[0])
+            		if(pvars::pid(p) == pvars::kPion && pvars::primary_classification(p) == 0 && pvars::ke(p) >= static_cast<size_t>(params[0]))
                 	++count;
         	}
 		return count < static_cast<size_t>(params[1]);           

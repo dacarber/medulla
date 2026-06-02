@@ -266,7 +266,7 @@ namespace mctruth
      * @return the fiducial status of the neutrino.
      */
     template<typename T>
-      double fiducial(const T & obj)
+      double fiducial_mc_cut(const T & obj)
       {
 	  bool is_fiducial(true);
 	  float vtx_x = obj.position.x;
@@ -300,7 +300,7 @@ namespace mctruth
 
 	  return is_fiducial;
       }
-    REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, fiducial, fiducial);
+    REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, fiducial_mc_cut, fiducial_mc_cut);
 
 } // namespace mctruth
 #endif

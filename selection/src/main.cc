@@ -23,6 +23,7 @@
 #include "cuts.h"
 #include "variables.h"
 #include "mctruth.h"
+#include "mctruth_cuts.h"
 #include "event_cuts.h"
 #include "event_variables.h"
 #include "spill_cuts.h"

@@ -135,7 +135,7 @@ namespace vars
                 if(pvars::pid(p) == pvars::kProton) energy -= pvars::mass(p) - PROTON_BINDING_ENERGY;
             }
         }
-        return energy/1000.0;
+        return energy;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, visible_energy, visible_energy);
 

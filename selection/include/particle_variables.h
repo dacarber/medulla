@@ -164,7 +164,7 @@ namespace pvars
                     break;
             }
         }
-        return mass;
+        return mass/1000.0;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, mass, mass);
 

@@ -10,10 +10,10 @@
 */
 #ifndef PARTICLE_VARIABLES_H
 #define PARTICLE_VARIABLES_H
-#define ELECTRON_MASS .0005109989461
-#define MUON_MASS .1056583745
-#define PION_MASS .13957039
-#define PROTON_MASS .9382720813
+#define ELECTRON_MASS 0.5109989461
+#define MUON_MASS 105.6583745
+#define PION_MASS 139.57039
+#define PROTON_MASS 938.2720813
 
 #include "include/particle_utilities.h"
 #include "scorers.h"
@@ -248,7 +248,7 @@ namespace pvars
                 else energy += mcs_ke(p);
             }
         }
-        return energy/1000;
+        return energy;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, ke, ke);
 

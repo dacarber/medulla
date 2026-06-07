@@ -10,10 +10,10 @@
 */
 #ifndef VARIABLES_H
 #define VARIABLES_H
-#define ELECTRON_MASS .0005109989461
-#define MUON_MASS .1056583745
-#define PION_MASS .13957039
-#define PROTON_MASS .9382720813
+#define ELECTRON_MASS 0.5109989461
+#define MUON_MASS 105.6583745
+#define PION_MASS 139.57039
+#define PROTON_MASS 938.2720813
 
 #include "sbnanaobj/StandardRecord/Proxy/SRProxy.h"
 #include "sbnanaobj/StandardRecord/SRInteractionDLP.h"
@@ -135,7 +135,7 @@ namespace vars
                 if(pvars::pid(p) == pvars::kProton) energy -= pvars::mass(p) - PROTON_BINDING_ENERGY;
             }
         }
-        return energy;
+        return energy/1000.0;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, visible_energy, visible_energy);
 

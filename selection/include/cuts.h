@@ -17,6 +17,7 @@
 #include "utilities.h"
 #include "framework.h"
 #include "selectors.h"
+#include "include/utilities_pi0ana.h"
 
 /**
  * @namespace cuts
@@ -912,6 +913,171 @@ namespace cuts
         return false;
     }
     REGISTER_CUT_SCOPE(RegistrationScope::True, neutrino_pdg, neutrino_pdg);
+
+    /**
+     * @brief Apply a containment cut restricted to track-like particles.
+     * @details Requires that every particle classified as a track
+     * (semantic_type == 1) is contained within the active volume. Shower-like
+     * particles (electrons, photons) are allowed to exit, consistent with
+     * calorimetric energy reconstruction that does not require containment.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to select on.
+     * @return true if all track-like particles are contained.
+     */
+    template<class T>
+    bool track_containment_cut(const T & obj)
+    {
+        for(const auto & p : obj.particles)
+        {
+            if(pvars::semantic_type(p) == 1 && !pcuts::containment_cut(p))
+                return false;
+        }
+        return true;
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, track_containment_cut, track_containment_cut);
+
+    /**
+     * @brief Apply a range cut on the number of secondary (non-primary) charged
+     * pions in the interaction.
+     * @details Counts all particles identified as charged pions (PID == kPion)
+     * that are classified as secondary (non-primary) by the network. Returns
+     * true if the count falls within [params[0], params[1]].
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to select on.
+     * @param params [0] minimum allowed count, [1] maximum allowed count.
+     * @return true if the secondary pion count is within the specified range.
+     */
+    template<class T>
+    bool pion_secondary_cut(const T & obj, std::vector<double> params={0.0, 2.0})
+    {
+        size_t count(0);
+        for(const auto & p : obj.particles)
+        {
+            if(pvars::pid(p) == pvars::kPion && !pvars::primary_classification(p))
+                ++count;
+        }
+        return (double)count >= params[0] && (double)count <= params[1];
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, pion_secondary_cut, pion_secondary_cut);
+
+    /**
+     * @brief Apply a cut on the electron PID softmax score of the leading electron.
+     * @details Selects interactions where the leading electron has a PID softmax
+     * score for the electron hypothesis above a specified threshold. This
+     * improves rejection of photon and muon backgrounds.
+     * @tparam T the type of interaction (reco only — score is not available for
+     * true particles).
+     * @param obj the interaction to select on.
+     * @param params [0] minimum electron PID softmax score (default 0.0).
+     * @return true if the leading electron has a PID score >= threshold.
+     */
+    template<class T>
+    bool pid_score_cut(const T & obj, std::vector<double> params={0.0})
+    {
+        size_t ei = selectors::leading_electron(obj);
+        if(ei == kNoMatch) return false;
+        return (double)obj.particles[ei].pid_scores[pvars::kElectron] >= params[0];
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Reco, pid_score_cut, pid_score_cut);
+
+    /**
+     * @brief Apply a cut on the primary softmax score of the leading electron.
+     * @details Selects interactions where the leading electron has a primary
+     * softmax score (primary_scores[1]) above a specified threshold. This
+     * reduces the contribution of secondary shower fragments and delta rays.
+     * @tparam T the type of interaction (reco only).
+     * @param obj the interaction to select on.
+     * @param params [0] minimum primary softmax score (default 0.0).
+     * @return true if the leading electron primary score >= threshold.
+     */
+    template<class T>
+    bool primary_score_cut(const T & obj, std::vector<double> params={0.0})
+    {
+        size_t ei = selectors::leading_electron(obj);
+        if(ei == kNoMatch) return false;
+        return (double)obj.particles[ei].primary_scores[1] >= params[0];
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Reco, primary_score_cut, primary_score_cut);
+
+    /**
+     * @brief Apply an upper-bound cut on the directional spread of the leading
+     * electron.
+     * @details The directional spread measures how collimated a shower is. A
+     * genuine electron shower is narrow (small directional spread), while
+     * hadronic activity or merged showers tend to have larger values.
+     * @tparam T the type of interaction (reco only).
+     * @param obj the interaction to select on.
+     * @param params [0] maximum allowed directional spread (default 1.0).
+     * @return true if the leading electron directional spread <= threshold.
+     */
+    template<class T>
+    bool directional_spread_cut(const T & obj, std::vector<double> params={1.0})
+    {
+        size_t ei = selectors::leading_electron(obj);
+        if(ei == kNoMatch) return false;
+        double spread = obj.particles[ei].directional_spread;
+        return !std::isinf(spread) && !std::isnan(spread) && spread <= params[0];
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Reco, directional_spread_cut, directional_spread_cut);
+
+    /**
+     * @brief Apply an upper-bound cut on the MIP softmax score of the leading
+     * proton.
+     * @details The MIP softmax score is the sum of the muon and pion softmax
+     * scores. A genuine proton candidate should have a low MIP score. This
+     * cut rejects muons or pions that were misclassified as the leading proton.
+     * @tparam T the type of interaction (reco only).
+     * @param obj the interaction to select on.
+     * @param params [0] maximum allowed MIP softmax score (default 1.0).
+     * @return true if the leading proton MIP score <= threshold.
+     */
+    template<class T>
+    bool mip_score_cut(const T & obj, std::vector<double> params={1.0})
+    {
+        size_t pi = selectors::leading_proton(obj);
+        if(pi == kNoMatch) return false;
+        double score = (double)obj.particles[pi].pid_scores[pvars::kMuon]
+                     + (double)obj.particles[pi].pid_scores[pvars::kPion];
+        return score <= params[0];
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Reco, mip_score_cut, mip_score_cut);
+
+    /**
+     * @brief Apply a cut requiring at least one primary neutral pion.
+     * @details For true interactions, this cut uses
+     * @ref utilities_pi0ana::true_primary_pi0_multiplicity, which groups pi0
+     * daughters by their parent track ID and requires at least two daughters
+     * per pi0 with the reconstructed pi0 KE above params[0]. For reco
+     * interactions, the cut falls back to counting pairs of primary photons
+     * above the KE threshold (>= 2 photons ≅ ≥ 1 pi0 candidate).
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to select on.
+     * @param params [0] kinetic energy threshold: pi0 KE threshold (true) or
+     * minimum photon KE threshold (reco), in MeV (default 0.0).
+     * @return true if at least one pi0 candidate is found.
+     */
+    template<class T>
+    bool at_least_one_pi0(const T & obj, std::vector<double> params={0.0})
+    {
+        if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
+        {
+            return utilities_pi0ana::true_primary_pi0_multiplicity(obj, params) >= 1;
+        }
+        else
+        {
+            // Reco fallback: require at least 2 primary photons above threshold.
+            size_t count(0);
+            for(const auto & p : obj.particles)
+            {
+                if(pvars::pid(p) == pvars::kPhoton
+                   && pvars::primary_classification(p)
+                   && pvars::ke(p) >= params[0])
+                    ++count;
+            }
+            return count >= 2;
+        }
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, at_least_one_pi0, at_least_one_pi0);
 
 }
 #endif

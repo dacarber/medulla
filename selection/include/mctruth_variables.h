@@ -153,5 +153,20 @@ namespace mctruth
     }
     REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, off_axis_angle, off_axis_angle);
 
+    /**
+     * @brief Variable for the true neutrino initial energy (alias for
+     * neutrino_energy).
+     * @details This variable provides the same information as @ref
+     * neutrino_energy but under the name "energy_init" to match the branch
+     * naming convention used in trees that also record particle-level
+     * "energy_init" values. Use @c type = "mctruth" in the TOML branch list.
+     * @tparam T the type of the object to apply the variable on.
+     * @param obj the SRTrueInteraction to apply the variable on.
+     * @return the true neutrino energy (GeV in CAF units; MeV in SPINE units).
+     */
+    template<typename T>
+    double energy_init(const T & obj) { return obj.E; }
+    REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, energy_init, energy_init);
+
 } // namespace mctruth
 #endif

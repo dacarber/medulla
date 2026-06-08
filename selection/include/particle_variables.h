@@ -10,10 +10,10 @@
 */
 #ifndef PARTICLE_VARIABLES_H
 #define PARTICLE_VARIABLES_H
-#define ELECTRON_MASS 0.5109989461
-#define MUON_MASS 105.6583745
-#define PION_MASS 139.57039
-#define PROTON_MASS 938.2720813
+#define ELECTRON_MASS 0.0005109989461
+#define MUON_MASS 0.1056583745
+#define PION_MASS 0.13957039
+#define PROTON_MASS 0.9382720813
 
 #include "include/particle_utilities.h"
 #include "scorers.h"
@@ -1072,5 +1072,65 @@ namespace pvars
         return p.primary_scores[0];
     }
     REGISTER_VAR_SCOPE(RegistrationScope::RecoParticle, secondary_softmax, secondary_softmax);
+
+    /**
+     * @brief Variable for the polar angle of the particle w.r.t. the NuMI
+     * beam direction.
+     * @details The NuMI beam direction is defined as the unit vector pointing
+     * from the NuMI target to the particle start position (vertex-dependent).
+     * The NuMI target coordinates in ICARUS detector space are taken as
+     * (31512.0380, 3364.4912, 73363.2532) cm, consistent with the convention
+     * used in @ref utilities::transverse_momentum. The polar angle is then the
+     * angle between the particle start direction and this unit vector.
+     * @tparam T the type of particle (true or reco).
+     * @param p the particle to apply the variable on.
+     * @return the polar angle in radians (0 = along beam direction).
+     */
+    template<class T>
+    double NuMI_polar_angle(const T & p)
+    {
+        // NuMI beam vector: from target to particle start position.
+        double bx = 31512.0380 + p.start_point[0];
+        double by =  3364.4912 + p.start_point[1];
+        double bz = 73363.2532 + p.start_point[2];
+        double bmag = std::sqrt(bx*bx + by*by + bz*bz);
+        double cos_theta = (p.start_dir[0]*bx + p.start_dir[1]*by + p.start_dir[2]*bz) / bmag;
+        // Clamp to [-1, 1] to guard against floating-point rounding.
+        cos_theta = std::max(-1.0, std::min(1.0, cos_theta));
+        return std::acos(cos_theta);
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, NuMI_polar_angle, NuMI_polar_angle);
+
+    /**
+     * @brief Variable for the fractional kinetic energy bias of the particle.
+     * @details Computes (KE_reco - KE_true) / KE_true using the best-matched
+     * reconstructed particle. The true KE is taken from the initial energy
+     * stored in the SPINE truth record (energy_init - rest mass). The reco KE
+     * is taken from the first entry in match_ids using @ref pvars::ke.
+     * Returns PLACEHOLDERVALUE if there is no matched reco particle, if the
+     * true KE is non-positive, or if the global reco interaction pointer is
+     * unavailable.
+     * @note This variable is only meaningful for true (sim) particles.
+     * @param p the true particle to apply the variable on.
+     * @return (KE_reco - KE_true) / KE_true.
+     */
+    template<class T>
+    double ke_bias(const caf::SRParticleTruthDLPProxy & p)
+    {
+        double true_ke = p.energy_init - pvars::mass(p);
+        if(true_ke <= 0.0) return PLACEHOLDERVALUE;
+
+        // Require a matched reco interaction and at least one match.
+        if(!context::current_reco) return PLACEHOLDERVALUE;
+        if(p.match_ids.empty()) return PLACEHOLDERVALUE;
+
+        size_t reco_idx = p.match_ids[0];
+        if(reco_idx >= context::current_reco->particles.size())
+            return PLACEHOLDERVALUE;
+
+        double reco_ke = pvars::ke(context::current_reco->particles[reco_idx]);
+        return (reco_ke - true_ke) / true_ke;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::TrueParticle, ke_bias, ke_bias);
 }
 #endif // PARTICLE_VARIABLES_H

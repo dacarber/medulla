@@ -230,6 +230,71 @@ namespace selectors
         return leading_particle_index(obj, pvars::kProton);
     }
     REGISTER_SELECTOR(leading_proton, leading_proton);
+
+    /**
+     * @brief Finds the index of the highest-KE non-primary particle of a given
+     * PID.
+     * @details This is the generic helper for the "leading secondary" selectors.
+     * A particle is considered non-primary when @ref pvars::primary_classification
+     * returns false. Among all such particles of the requested species the one
+     * with the largest kinetic energy is returned.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to operate on.
+     * @param pid the SPINE PID of the particle species.
+     * @return the index of the highest-KE non-primary particle of that species,
+     * or kNoMatch if none are found.
+     */
+    template<class T>
+    size_t leading_secondary_particle_index(const T & obj, uint16_t pid)
+    {
+        double leading_ke(0);
+        size_t index(kNoMatch);
+        for(size_t i(0); i < obj.particles.size(); ++i)
+        {
+            const auto & p = obj.particles[i];
+            if(pvars::pid(p) != pid) continue;
+            if(pvars::primary_classification(p)) continue; // skip primary particles
+            double energy(pvars::ke(p));
+            if(energy > leading_ke)
+            {
+                leading_ke = energy;
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    /**
+     * @brief Finds the index of the highest-KE non-primary electron.
+     * @details Selects the leading electron among those classified as
+     * non-primary by the network. Useful for characterising secondary
+     * electrons from photon conversions or delta rays.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to operate on.
+     * @return the index of the leading non-primary electron, or kNoMatch.
+     */
+    template<class T>
+    size_t leading_secondary_electron(const T & obj)
+    {
+        return leading_secondary_particle_index(obj, pvars::kElectron);
+    }
+    REGISTER_SELECTOR(leading_secondary_electron, leading_secondary_electron);
+
+    /**
+     * @brief Finds the index of the highest-KE non-primary proton.
+     * @details Selects the leading proton among those classified as
+     * non-primary by the network. Useful for 1eNp selections where
+     * properties of secondary recoiling protons are needed.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to operate on.
+     * @return the index of the leading non-primary proton, or kNoMatch.
+     */
+    template<class T>
+    size_t leading_secondary_proton(const T & obj)
+    {
+        return leading_secondary_particle_index(obj, pvars::kProton);
+    }
+    REGISTER_SELECTOR(leading_secondary_proton, leading_secondary_proton);
     
     /**
      * @brief Finds the index corresponding to the target Michel.

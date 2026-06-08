@@ -8,7 +8,7 @@
  * @author rvizarr@fnal.gov
  */
 #define PLACEHOLDERVALUE std::numeric_limits<double>::quiet_NaN()
-#define PROTON_BINDING_ENERGY 30.9 // MeV
+#define PROTON_BINDING_ENERGY 0.0309 // GeV
 #define BEAM_IS_NUMI false
 
 #include <iostream>

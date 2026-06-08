@@ -10,10 +10,10 @@
 */
 #ifndef VARIABLES_H
 #define VARIABLES_H
-#define ELECTRON_MASS 0.5109989461
-#define MUON_MASS 105.6583745
-#define PION_MASS 139.57039
-#define PROTON_MASS 938.2720813
+#define ELECTRON_MASS 0.0005109989461
+#define MUON_MASS 0.1056583745
+#define PION_MASS 0.13957039
+#define PROTON_MASS 0.9382720813
 
 #include "sbnanaobj/StandardRecord/Proxy/SRProxy.h"
 #include "sbnanaobj/StandardRecord/SRInteractionDLP.h"
@@ -150,7 +150,7 @@ namespace vars
                 if(pvars::pid(p) == pvars::kProton) energy -= pvars::mass(p) - PROTON_BINDING_ENERGY;
             }
         }
-        return energy/1000.0;
+        return energy;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, visible_energy, visible_energy);
 
@@ -161,7 +161,7 @@ namespace vars
      * as counting towards the final state of the interaction.
      * @tparam T the type of interaction (true or reco).
      * @param obj interaction to apply the variable on.
-     * @return the total hardronic visible energy of the interaction in MeV.
+     * @return the total hardronic visible energy of the interaction in GeV.
      */
     template<class T>
     double hadronic_visible_energy(const T & obj)
@@ -208,8 +208,8 @@ namespace vars
         else
             return PLACEHOLDERVALUE;
 
-        double Mn = 939.565;
-        double Mp = 938.272;
+        double Mn = 0.939565;
+        double Mp = 0.938272;
         double Ml = (li == ei) ? ELECTRON_MASS : MUON_MASS;
         double EB = PROTON_BINDING_ENERGY;
 
@@ -219,7 +219,7 @@ namespace vars
         double numerator   = 2*(Mn - EB)*El - ((Mn - EB)*(Mn - EB) + Ml*Ml - Mp*Mp);
         double denominator = 2*((Mn - EB) - El + pz);
 
-        return (numerator / denominator) / 1000.0;
+        return numerator / denominator;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, energy_qel, energy_qel);
 
@@ -256,8 +256,8 @@ namespace vars
         if(pi == kNoMatch)
             return PLACEHOLDERVALUE;
 
-        double Mn = 939.565;
-        double Mp = 938.272;
+        double Mn = 0.939565;
+        double Mp = 0.938272;
         double Ml = (li == ei) ? ELECTRON_MASS : MUON_MASS;
         double EB = PROTON_BINDING_ENERGY;
 
@@ -267,7 +267,7 @@ namespace vars
         double numerator   = 2*(Mn - EB)*Ep - ((Mn - EB)*(Mn - EB) + Mp*Mp - Ml*Ml);
         double denominator = 2*((Mn - EB) - Ep + pz);
 
-        return (numerator / denominator) / 1000.0;
+        return numerator / denominator;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, energy_qep, energy_qep);
 
@@ -296,7 +296,7 @@ namespace vars
             else if(pcuts::is_primary(p))
                 energy += p.calo_ke;
         }
-        return energy/1000.0;
+        return energy;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, visible_energy_calosub, visible_energy_calosub);
 
@@ -642,7 +642,7 @@ namespace vars
                     hadronic_pl = utilities::add(hadronic_pl, this_pl);
             }
         }
-        return utilities::magnitude(utilities::add(hadronic_pl, lepton_pl)) - 1000*vars::visible_energy(obj);
+        return utilities::magnitude(utilities::add(hadronic_pl, lepton_pl)) - vars::visible_energy(obj);
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, dpL, dpL);
 
@@ -690,7 +690,7 @@ namespace vars
         if(l_ke == 0 || p_ke == 0)
             return PLACEHOLDERVALUE;
         else
-            return utilities::magnitude(utilities::add(l_pl, p_pl)) - 1000*vars::visible_energy(obj);
+            return utilities::magnitude(utilities::add(l_pl, p_pl)) - vars::visible_energy(obj);
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, dpL_lp, dpL_lp);
 
@@ -758,17 +758,17 @@ namespace vars
      * photons in the interaction by counting the number of primary particles
      * that are identified as photons and have a kinetic energy above a
      * threshold. The threshold is set by the `params` vector, which defaults
-     * to 25 MeV. The function returns the number of primary photons in the
+     * to 0.025 GeV. The function returns the number of primary photons in the
      * interaction.
      * @tparam T the type of interaction (true or reco).
      * @param obj the interaction to apply the variable on.
      * @param params the parameters for the cut. In this case, this sets the
      * kinetic energy threshold for a photon to count towards the
-     * multiplicity. Defaults to 25 MeV.
+     * multiplicity. Defaults to 0.025 GeV.
      * @return the multiplicity of primary photons in the interaction.
      */
     template<class T>
-    double photon_multiplicity(const T & obj, std::vector<double> params={25.0,})
+    double photon_multiplicity(const T & obj, std::vector<double> params={0.025,})
     {
         size_t count(0);
         for(const auto & p : obj.particles)
@@ -786,17 +786,17 @@ namespace vars
      * @details This function calculates the multiplicity of primary electrons
      * in the interaction by counting the number of primary particles that are
      * identified as electrons and have a kinetic energy above a threshold. The
-     * threshold is set by the `params` vector, which defaults to 25 MeV. The
+     * threshold is set by the `params` vector, which defaults to 0.025 GeV. The
      * function returns the number of primary electrons in the interaction.
      * @tparam T the type of interaction (true or reco).
      * @param obj the interaction to apply the variable on.
      * @param params the parameters for the cut. In this case, this sets the
      * kinetic energy threshold for an electron to count towards the
-     * multiplicity. Defaults to 25 MeV.
+     * multiplicity. Defaults to 0.025 GeV.
      * @return the multiplicity of primary electrons in the interaction.
      */
     template<class T>
-    double electron_multiplicity(const T & obj, std::vector<double> params={25.0,})
+    double electron_multiplicity(const T & obj, std::vector<double> params={0.025,})
     {
         size_t count(0);
         for(const auto & p : obj.particles)
@@ -815,17 +815,17 @@ namespace vars
      * showers in the interaction by counting the number of non-primary particles
      * that are identified as photons or electrons and have a kinetic energy above a
      * threshold. The threshold is set by the `params` vector, which defaults
-     * to 25 MeV. The function returns the number of non-primary showers in the
+     * to 0.025 GeV. The function returns the number of non-primary showers in the
      * interaction.
      * @tparam T the type of interaction (true or reco).
      * @param obj the interaction to apply the variable on.
      * @param params the parameters for the cut. In this case, this sets the
      * kinetic energy threshold for a shower to count towards the
-     * multiplicity. Defaults to 25 MeV.
+     * multiplicity. Defaults to 0.025 GeV.
      * @return the multiplicity of non-primary showers in the interaction.
      */
     template<class T>
-    double nonprimary_shower_multiplicity(const T & obj, std::vector<double> params={25.0,})
+    double nonprimary_shower_multiplicity(const T & obj, std::vector<double> params={0.025,})
     {
         size_t count(0);
         for(const auto & p : obj.particles)
@@ -843,17 +843,17 @@ namespace vars
      * @details This function calculates the multiplicity of primary muons in
      * the interaction by counting the number of primary particles that are
      * identified as muons and have a kinetic energy above a threshold. The
-     * threshold is set by the `params` vector, which defaults to 25 MeV. The
+     * threshold is set by the `params` vector, which defaults to 0.025 GeV. The
      * function returns the number of primary muons in the interaction.
      * @tparam T the type of interaction (true or reco).
      * @param obj the interaction to apply the variable on.
      * @param params the parameters for the cut. In this case, this sets the
      * kinetic energy threshold for a muon to count towards the
-     * multiplicity. Defaults to 25 MeV.
+     * multiplicity. Defaults to 0.025 GeV.
      * @return the multiplicity of primary muons in the interaction.
      */
     template<class T>
-    double muon_multiplicity(const T & obj, std::vector<double> params={25.0,})
+    double muon_multiplicity(const T & obj, std::vector<double> params={0.025,})
     {
         size_t count(0);
         for(const auto & p : obj.particles)
@@ -871,17 +871,17 @@ namespace vars
      * @details This function calculates the multiplicity of primary pions in
      * the interaction by counting the number of primary particles that are
      * identified as pions and have a kinetic energy above a threshold. The
-     * threshold is set by the `params` vector, which defaults to 25 MeV. The
+     * threshold is set by the `params` vector, which defaults to 0.025 GeV. The
      * function returns the number of primary pions in the interaction.
      * @tparam T the type of interaction (true or reco).
      * @param obj the interaction to apply the variable on.
      * @param params the parameters for the cut. In this case, this sets the
      * kinetic energy threshold for a pion to count towards the
-     * multiplicity. Defaults to 25 MeV.
+     * multiplicity. Defaults to 0.025 GeV.
      * @return the multiplicity of primary pions in the interaction.
      */
     template<class T>
-    double pion_multiplicity(const T & obj, std::vector<double> params={25.0,})
+    double pion_multiplicity(const T & obj, std::vector<double> params={0.025,})
     {
         size_t count(0);
         for(const auto & p : obj.particles)
@@ -899,17 +899,17 @@ namespace vars
      * @details This function calculates the multiplicity of primary protons in
      * the interaction by counting the number of primary particles that are
      * identified as protons and have a kinetic energy above a threshold. The
-     * threshold is set by the `params` vector, which defaults to 25 MeV. The
+     * threshold is set by the `params` vector, which defaults to 0.025 GeV. The
      * function returns the number of primary protons in the interaction.
      * @tparam T the type of interaction (true or reco).
      * @param obj the interaction to apply the variable on.
      * @param params the parameters for the cut. In this case, this sets the
      * kinetic energy threshold for a proton to count towards the
-     * multiplicity. Defaults to 25 MeV.
+     * multiplicity. Defaults to 0.025 GeV.
      * @return the multiplicity of primary protons in the interaction.
      */
     template<class T>
-    double proton_multiplicity(const T & obj, std::vector<double> params={25.0,})
+    double proton_multiplicity(const T & obj, std::vector<double> params={0.025,})
     {
         size_t count(0);
         for(const auto & p : obj.particles)
@@ -949,5 +949,276 @@ namespace vars
         return utilities::magnitude(utilities::subtract(muon_start, vtx));
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, leading_muon_vertex_gap, leading_muon_vertex_gap);
+
+    // -------------------------------------------------------------------------
+    // GUNDAM / fitter classification stubs
+    // -------------------------------------------------------------------------
+
+    /**
+     * @brief Dummy GUNDAM variable for interaction classification (neutrino or
+     * not).
+     * @details "is_nu" specifies whether or not an interaction originates from a
+     * neutrino. The value is set externally by the fitter or post-processing
+     * script (e.g. GUNDAM). The placeholder value -5 is used to flag entries
+     * that have not yet been classified.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @return placeholder value -5 (set externally).
+     */
+    template<class T>
+    double is_nu(const T & obj)
+    {
+        return -5.0;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, is_nu, is_nu);
+
+    /**
+     * @brief Dummy GUNDAM variable for sample classification (data or not).
+     * @details "is_data" specifies whether or not the sample comes from real
+     * data. The value is set externally by the fitter or post-processing
+     * script. The placeholder value -5 is used to flag entries that have not
+     * yet been classified.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @return placeholder value -5 (set externally).
+     */
+    template<class T>
+    double is_data(const T & obj)
+    {
+        return -5.0;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, is_data, is_data);
+
+    /**
+     * @brief Dummy GUNDAM variable for the tree/selection tag.
+     * @details "cut_type" is a per-tree integer tag identifying which selection
+     * the event belongs to (e.g. 1 = signal, 2 = gamma sideband, 3 = pion
+     * sideband). Because the same interaction object cannot know which tree it
+     * is currently being written into, this value is set externally by the
+     * fitter or post-processing script. The placeholder value -5 is used to
+     * flag entries that have not yet been tagged.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @return placeholder value -5 (set externally).
+     */
+    template<class T>
+    double cut_type(const T & obj)
+    {
+        return -5.0;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, cut_type, cut_type);
+
+    // -------------------------------------------------------------------------
+    // Kinematic variables: Q^2 and W
+    // -------------------------------------------------------------------------
+
+    /**
+     * @brief Variable for the four-momentum transfer squared Q^2.
+     * @details Q^2 is computed from the visible energy (used as a proxy for the
+     * neutrino energy) and the leading electron four-momentum using the formula
+     *   Q^2 = 2 * E_nu * (E_e - |p_e| cos theta) - m_e^2
+     * where theta is the angle between the electron momentum and the NuMI beam
+     * direction (fixed unit vector). Returns kNoMatchValue if no leading
+     * electron is found.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @return Q^2 in GeV^2.
+     */
+    template<class T>
+    double Qsquared(const T & obj)
+    {
+        double nu_energy = visible_energy(obj);
+        size_t i = selectors::leading_electron(obj);
+        if(i == kNoMatch) return kNoMatchValue;
+
+        double electron_energy = pvars::energy(obj.particles[i]);
+        double px = obj.particles[i].momentum[0];
+        double py = obj.particles[i].momentum[1];
+        double pz = obj.particles[i].momentum[2];
+        double pmag = std::sqrt(px*px + py*py + pz*pz);
+
+        // Fixed NuMI beam direction unit vector at ICARUS detector centre.
+        constexpr double bx = 0.39431672, by = 0.04210058, bz = 0.91800973;
+        double cos_theta = (px*bx + py*by + pz*bz) / pmag;
+
+        return 2.0*nu_energy*(electron_energy - pmag*cos_theta)
+               - std::pow(ELECTRON_MASS, 2);
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, Qsquared, Qsquared);
+
+    /**
+     * @brief Variable for the hadronic invariant mass W.
+     * @details W is calculated using the standard CC formula
+     *   W = sqrt(M_N^2 + 2*M_N*(E_nu - E_e) - Q^2)
+     * where M_N is the nuclear target mass (Argon-40, ~37.147 GeV/c^2),
+     * E_nu is approximated by the visible energy, E_e is the leading electron
+     * energy, and Q^2 is from @ref Qsquared. Returns kNoMatchValue if no
+     * leading electron is found or if the argument to sqrt is negative.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @return W in GeV/c^2.
+     */
+    template<class T>
+    double W(const T & obj)
+    {
+        constexpr double MN = 37.147393; // Argon-40 nuclear mass (GeV/c^2)
+        size_t i = selectors::leading_electron(obj);
+        if(i == kNoMatch) return kNoMatchValue;
+
+        double nu_energy      = visible_energy(obj);
+        double electron_energy = pvars::energy(obj.particles[i]);
+        double Q              = Qsquared(obj);
+        double W2             = std::pow(MN, 2) + 2.0*MN*(nu_energy - electron_energy) - Q;
+        return (W2 >= 0.0) ? std::sqrt(W2) : kNoMatchValue;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, W, W);
+
+    // -------------------------------------------------------------------------
+    // Secondary particle multiplicities
+    // -------------------------------------------------------------------------
+
+    /**
+     * @brief Variable for the non-primary photon multiplicity.
+     * @details Counts all photons classified as secondary (non-primary) by the
+     * network with kinetic energy above the threshold in params[0].
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @param params [0] KE threshold in GeV (default 0 GeV).
+     * @return count of secondary photons above threshold.
+     */
+    template<class T>
+    double secondary_photon_multiplicity(const T & obj, std::vector<double> params={0.0})
+    {
+        size_t count(0);
+        for(const auto & p : obj.particles)
+        {
+            if(pvars::pid(p) == pvars::kPhoton
+               && !pvars::primary_classification(p)
+               && pvars::ke(p) >= params[0])
+                ++count;
+        }
+        return (double)count;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, secondary_photon_multiplicity, secondary_photon_multiplicity);
+
+    /**
+     * @brief Variable for the non-primary electron multiplicity.
+     * @details Counts all electrons classified as secondary (non-primary) by
+     * the network with kinetic energy above the threshold in params[0].
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @param params [0] KE threshold in GeV (default 0 GeV).
+     * @return count of secondary electrons above threshold.
+     */
+    template<class T>
+    double secondary_electron_multiplicity(const T & obj, std::vector<double> params={0.0})
+    {
+        size_t count(0);
+        for(const auto & p : obj.particles)
+        {
+            if(pvars::pid(p) == pvars::kElectron
+               && !pvars::primary_classification(p)
+               && pvars::ke(p) >= params[0])
+                ++count;
+        }
+        return (double)count;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, secondary_electron_multiplicity, secondary_electron_multiplicity);
+
+    /**
+     * @brief Variable for the non-primary muon multiplicity.
+     * @details Counts all muons classified as secondary (non-primary) by the
+     * network with kinetic energy above the threshold in params[0].
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @param params [0] KE threshold in GeV (default 0 GeV).
+     * @return count of secondary muons above threshold.
+     */
+    template<class T>
+    double secondary_muon_multiplicity(const T & obj, std::vector<double> params={0.0})
+    {
+        size_t count(0);
+        for(const auto & p : obj.particles)
+        {
+            if(pvars::pid(p) == pvars::kMuon
+               && !pvars::primary_classification(p)
+               && pvars::ke(p) >= params[0])
+                ++count;
+        }
+        return (double)count;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, secondary_muon_multiplicity, secondary_muon_multiplicity);
+
+    /**
+     * @brief Variable for the non-primary charged pion multiplicity.
+     * @details Counts all charged pions classified as secondary (non-primary)
+     * by the network with kinetic energy above the threshold in params[0].
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @param params [0] KE threshold in GeV (default 0 GeV).
+     * @return count of secondary charged pions above threshold.
+     */
+    template<class T>
+    double secondary_pion_multiplicity(const T & obj, std::vector<double> params={0.0})
+    {
+        size_t count(0);
+        for(const auto & p : obj.particles)
+        {
+            if(pvars::pid(p) == pvars::kPion
+               && !pvars::primary_classification(p)
+               && pvars::ke(p) >= params[0])
+                ++count;
+        }
+        return (double)count;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, secondary_pion_multiplicity, secondary_pion_multiplicity);
+
+    /**
+     * @brief Variable for the non-primary proton multiplicity.
+     * @details Counts all protons classified as secondary (non-primary) by the
+     * network with kinetic energy above the threshold in params[0].
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @param params [0] KE threshold in GeV (default 0 GeV).
+     * @return count of secondary protons above threshold.
+     */
+    template<class T>
+    double secondary_proton_multiplicity(const T & obj, std::vector<double> params={0.0})
+    {
+        size_t count(0);
+        for(const auto & p : obj.particles)
+        {
+            if(pvars::pid(p) == pvars::kProton
+               && !pvars::primary_classification(p)
+               && pvars::ke(p) >= params[0])
+                ++count;
+        }
+        return (double)count;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, secondary_proton_multiplicity, secondary_proton_multiplicity);
+
+    /**
+     * @brief Variable for the total non-primary particle multiplicity.
+     * @details Counts all particles of any species classified as secondary
+     * (non-primary) by the network with kinetic energy above the threshold in
+     * params[0]. This is useful for characterising secondary activity from
+     * nuclear rescattering.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to apply the variable on.
+     * @param params [0] KE threshold in GeV (default 0 GeV).
+     * @return total count of secondary particles above threshold.
+     */
+    template<class T>
+    double secondary_multiplicity(const T & obj, std::vector<double> params={0.0})
+    {
+        size_t count(0);
+        for(const auto & p : obj.particles)
+        {
+            if(!pvars::primary_classification(p) && pvars::ke(p) >= params[0])
+                ++count;
+        }
+        return (double)count;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, secondary_multiplicity, secondary_multiplicity);
 }
 #endif // VARIABLES_H

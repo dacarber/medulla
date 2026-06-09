@@ -9,6 +9,9 @@
  * @author mueller@fnal.gov
  */
 #include <iostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
 #include "trees.h"
 #include "detsys.h"
@@ -208,7 +211,7 @@ void sys::trees::copy_with_weight_systematics(cfg::ConfigurationTable & config, 
      * run, subrun, event, nu_id, and nu_energy branches as the key. The
      * value is the index of the entry in the input TTree.
      */
-    std::map<index_t, size_t> candidates;
+    std::unordered_map<index_t, size_t, index_hash> candidates;
     bool use_additional_hash = config.get_bool_field("input.use_additional_hash", false);
     for(int i(0); i < input_tree->GetEntries(); ++i)
     {
@@ -239,7 +242,7 @@ void sys::trees::copy_with_weight_systematics(cfg::ConfigurationTable & config, 
      * configuration information, and a pointer to the output TTree,
      * weights vector, and zscores vector.
      */
-    std::map<std::string, Systematic *> systematics;
+    std::vector<std::pair<std::string, Systematic *>> systematics;
     std::map<std::string, TTree *> systrees;
 
     /**
@@ -261,8 +264,8 @@ void sys::trees::copy_with_weight_systematics(cfg::ConfigurationTable & config, 
      * variable or calculate a covariance matrix.
      */
     std::vector<SysVariable> sysvariables;
-    std::map<syst_t, TH2D *> results2d;
-    std::map<syst_t, TH1D *> results1d;
+    std::unordered_map<syst_t, TH2D *, syst_hash> results2d;
+    std::unordered_map<syst_t, TH1D *, syst_hash> results1d;
     for(cfg::ConfigurationTable & t : config.get_subtables("sysvar"))
     {
         sysvariables.push_back(SysVariable(t));
@@ -295,18 +298,19 @@ void sys::trees::copy_with_weight_systematics(cfg::ConfigurationTable & config, 
 
     for(cfg::ConfigurationTable & t : config.get_subtables("sys"))
     {
+        std::string sname = t.get_string_field("name");
         std::string tname = table.get_string_field("name") + '_' + t.get_string_field("type");
-        systematics.insert(std::make_pair<std::string, Systematic *>(t.get_string_field("name"), new Systematic(t, systrees[tname])));
-        Systematic * tmp = systematics[t.get_string_field("name")];
-        tmp->get_tree()->Branch(t.get_string_field("name").c_str(), &systematics[t.get_string_field("name")]->get_weights());
+        Systematic * tmp = new Systematic(t, systrees[tname]);
+        systematics.emplace_back(sname, tmp);
+        tmp->get_tree()->Branch(sname.c_str(), &tmp->get_weights());
         if(tmp->get_nsigma()->size() > 0)
         {
-            tmp->get_tree()->Branch((t.get_string_field("name") + "_sigma").c_str(), &systematics[t.get_string_field("name")]->get_nsigma());
+            tmp->get_tree()->Branch((sname + "_sigma").c_str(), &tmp->get_nsigma());
         }
     }
 
     sys::WeightReader reader(config.get_string_field("input.weights"));
-    std::vector<index_t> saved_indices;
+    std::unordered_set<index_t, index_hash> saved_indices;
     double nominal_count(0);
     while(reader.next())
     {
@@ -350,31 +354,44 @@ void sys::trees::copy_with_weight_systematics(cfg::ConfigurationTable & config, 
                  */
                 for(auto & [key, value] : systematics)
                 {
-                    value->get_weights()->clear();
+                    std::vector<double> * wv = value->get_weights();
+                    wv->clear();
                     if(value->get_type() == Type::kMULTISIM || value->get_type() == Type::kMULTISIGMA)
                     {
+                        // Resolve the weight-group index and the flat/structured
+                        // layout once per systematic (not per universe).
+                        reader.set(value->get_index());
+                        size_t nuniv(0);
+                        const float * wblock = reader.get_weight_block(idn, nuniv);
                         for(SysVariable & sv : sysvariables)
                         {
                             syst_t syskey = std::make_pair(sv.name, value->get_index());
-                            reader.set(value->get_index());
                             if(results1d.find(syskey) == results1d.end())
                             {
-                                results1d[syskey] = new TH1D((sv.name + "_" + key + "_1d").c_str(), (sv.name + "_" + key + "_1d").c_str(), 1000, -0.25, 0.25);
-                                results1d[syskey]->SetDirectory(nullptr);
-                                results2d[syskey] = new TH2D((sv.name + "_" + key + "_2d").c_str(), (sv.name + "_" + key + "_2d").c_str(), sv.nbins, sv.min, sv.max, reader.get_nuniv(idn), 0, reader.get_nuniv(idn));
-                                results2d[syskey]->SetDirectory(nullptr);
+                                TH1D * h1 = new TH1D((sv.name + "_" + key + "_1d").c_str(), (sv.name + "_" + key + "_1d").c_str(), 1000, -0.25, 0.25);
+                                h1->SetDirectory(nullptr);
+                                TH2D * h2c = new TH2D((sv.name + "_" + key + "_2d").c_str(), (sv.name + "_" + key + "_2d").c_str(), sv.nbins, sv.min, sv.max, nuniv, 0, nuniv);
+                                h2c->SetDirectory(nullptr);
+                                results1d[syskey] = h1;
+                                results2d[syskey] = h2c;
                             }
-                            for(size_t u(0); u < reader.get_nuniv(idn); ++u)
+                            // Hoist the per-universe-invariant lookups out of the
+                            // innermost loop.
+                            TH2D * h2 = results2d[syskey];
+                            const double svval = brs[sv.name];
+                            wv->reserve(wv->size() + nuniv);
+                            for(size_t u(0); u < nuniv; ++u)
                             {
-                                value->get_weights()->push_back(reader.get_weight(idn, u));
-                                results2d[syskey]->Fill(brs[sv.name], u, reader.get_weight(idn, u));
+                                const double w = wblock[u];
+                                wv->push_back(w);
+                                h2->Fill(svval, u, w);
                             }
                         }
                     }
                     else
                     {
                         for(double & z : calc.get_zscores(key))
-                            value->get_weights()->push_back(calc.get_weight(key, brs[calc.get_variable()], z));
+                            wv->push_back(calc.get_weight(key, brs[calc.get_variable()], z));
                         for(SysVariable & sv : sysvariables)
                             calc.add_value(sv.name, brs[sv.name], key, brs[calc.get_variable()]);
                     }
@@ -391,7 +408,7 @@ void sys::trees::copy_with_weight_systematics(cfg::ConfigurationTable & config, 
                     value->Fill();
 
                 // Save the index of the matched signal candidate.
-                saved_indices.push_back(index);
+                saved_indices.insert(index);
             } // End of block for matched signal candidates.
         }
     }
@@ -408,7 +425,7 @@ void sys::trees::copy_with_weight_systematics(cfg::ConfigurationTable & config, 
         // amiss.
         for(auto & [key, value] : candidates)
         {
-            if(std::find(saved_indices.begin(), saved_indices.end(), key) != saved_indices.end())
+            if(saved_indices.count(key) != 0)
                 continue;
             input_tree->GetEntry(value);
             run = std::get<0>(key);

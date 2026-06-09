@@ -140,6 +140,22 @@ namespace sys
         float get_weight(size_t idn, size_t idu) const;
 
         /**
+         * @brief Accessor for a contiguous block of universe weights.
+         * @details Returns a pointer to the start of the universe-weight array
+         * for the specified neutrino and the currently-set weight group, along
+         * with the number of universes via @p count. This lets a caller iterate
+         * the universes with a single resolve of the flat/structured layout
+         * (one branch + one offset computation) instead of paying that cost on
+         * every individual universe via @ref get_weight. The pointer is valid
+         * until the next call to @ref next.
+         * @param idn The index of the neutrino.
+         * @param count Output parameter set to the number of universes.
+         * @return Pointer to the first universe weight for (idn, current group).
+         * @note Assumes the weight group index has been set via @ref set.
+         */
+        const float * get_weight_block(size_t idn, size_t & count) const;
+
+        /**
          * @brief Accessor method for the neutrino energy.
          * @details This method returns the neutrino energy for the
          * specified neutrino. It handles both structured and flat CAF files.

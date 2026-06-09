@@ -12,6 +12,11 @@
 #ifndef TREES_H
 #define TREES_H
 #include <iostream>
+#include <cstdint>
+#include <functional>
+#include <string>
+#include <tuple>
+#include <utility>
 
 #include "detsys.h"
 #include "configuration.h"
@@ -36,6 +41,45 @@ namespace sys::trees
      */
     typedef std::pair<std::string, int64_t> syst_t;
     typedef std::tuple<uint64_t, uint64_t, uint64_t, uint64_t, double> index_t;
+
+    /**
+     * @brief Hash functor for the index_t tuple key.
+     * @details Combines the run, subrun, event, neutrino-id, and energy fields
+     * using a 64-bit boost-style mixing constant. Used so that the selected
+     * signal candidate lookup can be performed in O(1) via an unordered_map /
+     * unordered_set instead of an O(log N) red-black tree.
+     */
+    struct index_hash
+    {
+        std::size_t operator()(const index_t & k) const noexcept
+        {
+            auto mix = [](std::size_t h, std::size_t v) noexcept
+            {
+                return h ^ (v + 0x9e3779b97f4a7c15ULL + (h << 6) + (h >> 2));
+            };
+            std::size_t h = std::hash<uint64_t>{}(std::get<0>(k));
+            h = mix(h, std::hash<uint64_t>{}(std::get<1>(k)));
+            h = mix(h, std::hash<uint64_t>{}(std::get<2>(k)));
+            h = mix(h, std::hash<uint64_t>{}(std::get<3>(k)));
+            h = mix(h, std::hash<double>{}(std::get<4>(k)));
+            return h;
+        }
+    };
+
+    /**
+     * @brief Hash functor for the syst_t pair key (variable name, index).
+     * @details Used so that the per-systematic result histogram lookup can be
+     * performed in O(1) instead of paying an O(log N) string comparison on
+     * every universe.
+     */
+    struct syst_hash
+    {
+        std::size_t operator()(const syst_t & k) const noexcept
+        {
+            std::size_t h = std::hash<std::string>{}(k.first);
+            return h ^ (std::hash<int64_t>{}(k.second) + 0x9e3779b97f4a7c15ULL + (h << 6) + (h >> 2));
+        }
+    };
 
     /**
      * @brief Copy the input TTree to the output TTree.

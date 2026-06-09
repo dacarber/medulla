@@ -138,6 +138,23 @@ float sys::WeightReader::get_weight(size_t idn, size_t idu) const
         return (*mc)[idn].wgt[idx].univ[idu];
 }
 
+// Accessor for a contiguous block of universe weights.
+const float * sys::WeightReader::get_weight_block(size_t idn, size_t & count) const
+{
+    if(isflat)
+    {
+        size_t n = iwgt[idn] + idx;
+        count = nuniv[n];
+        return wgts + iuniv[n];
+    }
+    else
+    {
+        const auto & univ = (*mc)[idn].wgt[idx].univ;
+        count = univ.size();
+        return univ.data();
+    }
+}
+
 // Accessor method for the neutrino energy.
 float sys::WeightReader::get_energy(size_t idn) const
 {

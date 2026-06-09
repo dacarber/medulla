@@ -1,0 +1,82 @@
+
+[input]
+path = '/exp/icarus/app/users/dcarber/medulla_grid/NuMI_nue_full_test.root'
+weights = '/pnfs/icarus/persistent/users/spine/NuMI/Nu_det_sys/CV/*flat_merged_geant4.root'
+#weights = '/pnfs/icarus/persistent/users/dcarber/spine/NuMI_CV_ext/v09_89_01_02p02_2/combined_files/*.flat.root'
+
+use_additional_hash = true
+
+[output]
+path = 'icarus_numi_nue_mc_signal_syst_Geant4.root'
+histogram_destination = 'variations/'
+
+[[sysvar]]
+name = 'reco_leading_electron_ke'
+bins = [25, 0, 3000]
+
+[variations]
+keys = [ 'nominal', 'var01p','var01m', 'var02m','var02p', 'var03m', 'var03p','var05','var06','var07','var08']
+origin = 'events/'
+tree = 'selected'
+result_destination = 'detsys_results/'
+variable = 'reco_leading_electron_ke'
+bins = [25, 0, 3000]
+nuniverses = 1000
+variable_length = false
+
+[[tree]]
+origin = 'events/nominal/selected'
+destination = 'events/full/'
+name = 'selected'
+action = 'add_weights'
+#table_types = ['variation']
+table_types = ['multisim']
+
+[[tree]]
+origin = 'events/nominal/signal'
+destination = 'events/full/'
+name = 'signal'
+action = 'add_weights'
+#table_types = ['multisim', 'multisigma']
+table_types = ['multisim']
+
+
+#[[sys]]
+#name = 'var00'
+#type = 'variation'
+#index = -1
+#nsigma = [-3, -2, -1, 0, 1 ,2, 3]
+#scale = [-3, -2, -1, 1, 1, 2, 3]
+#ordinate = 'nominal'
+#points = ['var00', 'var00', 'var00', 'nominal', 'var00', 'var00', 'var00']
+
+
+[[sys]]
+name = "reinteractions_kminus_Geant4"
+type = "multisim"
+index = 1
+
+[[sys]]
+name = "reinteractions_kplus_Geant4"
+type = "multisim"
+index = 2
+
+[[sys]]
+name = "reinteractions_neutron_Geant4"
+type = "multisim"
+index = 3
+
+[[sys]]
+name = "reinteractions_piminus_Geant4"
+type = "multisim"
+index = 4
+
+[[sys]]
+name = "reinteractions_piplus_Geant4"
+type = "multisim"
+index = 5
+
+[[sys]]
+name = "reinteractions_proton_Geant4"
+type = "multisim"
+index = 6

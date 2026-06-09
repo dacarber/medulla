@@ -755,7 +755,7 @@ namespace cuts
         {
             params.resize(3);
             params[0] = 10.0;    // Minimum number of depositions for the Michel electron
-            params[1] = 143.425; // Muon KE threshold (corresponds to 50 cm track length)
+            params[1] = 0.143425; // Muon KE threshold in GeV (corresponds to 50 cm track length)
             params[2] = 10.0;    // Distance threshold between Michel and muon start/end points
         }
 

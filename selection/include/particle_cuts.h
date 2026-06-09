@@ -30,7 +30,7 @@ namespace pcuts
     /**
      * @brief The per-particle thresholds for final state signal particles.
      */
-    static std::vector<double> final_state_signal_thresholds = {25.0, 25.0, 143.425, 25.0, 50.0};
+    static std::vector<double> final_state_signal_thresholds = {0.025, 0.025, 0.143425, 0.025, 0.050};
 
     /**
      * @brief Check if the particle is a primary particle.

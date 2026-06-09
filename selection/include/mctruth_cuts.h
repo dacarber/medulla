@@ -11,6 +11,7 @@
  */
 #ifndef MCTRUTH_CUTS_H
 #define MCTRUTH_CUTS_H
+#include <cmath>
 #include "sbnanaobj/StandardRecord/Proxy/SRProxy.h"
 #include "sbnanaobj/StandardRecord/SRTrueInteraction.h"
 
@@ -204,6 +205,178 @@ namespace mctruth
       return obj.q0_lab<params[0];
     }
     REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, is_below_max_e_transfer, is_below_max_e_transfer);
+
+    /**
+     * @brief Cut to select neutrino interactions at the GENIE level.
+     * @details At the MCTruth scope the framework only invokes this cut when
+     * the SPINE truth interaction has a valid GENIE match (nu_id >= 0), so
+     * all objects reaching this cut are already neutrinos.  Returns true
+     * unconditionally; exists to mirror the "true"-scope neutrino cut so
+     * category definitions can use the same names in both scopes.
+     * @tparam T the type of the object to apply the cut on.
+     * @param obj the SRTrueInteraction to apply the cut on.
+     * @return always true.
+     */
+    template<typename T>
+    bool neutrino(const T & obj) { return true; }
+    REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, neutrino, neutrino);
+
+    /**
+     * @brief Fiducial volume cut at the GENIE generator level.
+     * @details Checks whether the neutrino interaction vertex (obj.position)
+     * lies within the ICARUS fiducial volume.  The bounds mirror those used
+     * by the SPINE truth-DLP fiducial cut, adapted for the SRTrueInteraction
+     * position coordinate system:
+     *   |x| in (10, 190) cm  — 10 cm from cathode, 190 cm from wire planes
+     *   z in (10, 450) cm    — 10 cm from upstream/downstream ends
+     *   y in (-190, 120) cm  — vertical extent of the active volume
+     * An additional veto removes the cathode-corner region that is excluded
+     * from the SPINE is_fiducial definition.
+     * @tparam T the type of the object to apply the cut on.
+     * @param obj the SRTrueInteraction to apply the cut on.
+     * @return true if the vertex is in the fiducial volume.
+     */
+    template<typename T>
+    bool fiducial_cut(const T & obj)
+    {
+        const double x = obj.position.x;
+        const double y = obj.position.y;
+        const double z = obj.position.z;
+        bool in_fv = (std::abs(x) > 10.0 && std::abs(x) < 190.0) &&
+                     (y > -190.0 && y < 120.0) &&
+                     (z > 10.0 && z < 450.0);
+        bool cathode_corner = (x > 210.215 && y > 60.0 && z > 290.0 && z < 390.0);
+        return in_fv && !cathode_corner;
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, fiducial_cut, fiducial_cut);
+
+    /**
+     * @brief Cut for exactly one true final state electron above threshold.
+     * @details Applied at the GENIE generator level using obj.prim. The
+     * kinetic energy is computed from the GENIE genE field.
+     * @tparam T the type of the object to apply the cut on.
+     * @param obj the SRTrueInteraction to apply the cut on.
+     * @param params KE threshold in MeV, defaults to 25 MeV.
+     * @return true if exactly one electron above threshold.
+     */
+    template<typename T>
+    bool single_electron(const T & obj, std::vector<double> params={25.0,})
+    {
+        int count(0);
+        for(const auto & p : obj.prim)
+        {
+            if(std::abs(p.pdg) == 11)
+            {
+                double ke = 1000. * (p.genE - (ELECTRON_MASS/1000.));
+                if(ke >= params[0])
+                    count++;
+            }
+        }
+        return count == 1;
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, single_electron, single_electron);
+
+    /**
+     * @brief Cut for zero true final state muons above threshold.
+     * @details Applied at the GENIE generator level using obj.prim. The
+     * kinetic energy is computed from the GENIE genE field.
+     * @tparam T the type of the object to apply the cut on.
+     * @param obj the SRTrueInteraction to apply the cut on.
+     * @param params KE threshold in MeV, defaults to 143.425 MeV.
+     * @return true if no muons above threshold.
+     */
+    template<typename T>
+    bool no_muons(const T & obj, std::vector<double> params={143.425,})
+    {
+        for(const auto & p : obj.prim)
+        {
+            if(std::abs(p.pdg) == 13)
+            {
+                double ke = 1000. * (p.genE - (MUON_MASS/1000.));
+                if(ke >= params[0])
+                    return false;
+            }
+        }
+        return true;
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, no_muons, no_muons);
+
+    /**
+     * @brief Cut for zero true final state protons above threshold.
+     * @details Applied at the GENIE generator level using obj.prim. The
+     * kinetic energy is computed from the GENIE genE field.
+     * @tparam T the type of the object to apply the cut on.
+     * @param obj the SRTrueInteraction to apply the cut on.
+     * @param params KE threshold in MeV, defaults to 50 MeV.
+     * @return true if no protons above threshold.
+     */
+    template<typename T>
+    bool no_protons(const T & obj, std::vector<double> params={50.0,})
+    {
+        for(const auto & p : obj.prim)
+        {
+            if(p.pdg == 2212)
+            {
+                double ke = 1000. * (p.genE - (PROTON_MASS/1000.));
+                if(ke >= params[0])
+                    return false;
+            }
+        }
+        return true;
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, no_protons, no_protons);
+
+    /**
+     * @brief Cut to select interactions with more than one proton above threshold.
+     * @details Applied at the GENIE generator level using obj.prim. The
+     * kinetic energy is computed from the GENIE genE field.
+     * @tparam T the type of the object to apply the cut on.
+     * @param obj the SRTrueInteraction to apply the cut on.
+     * @param params KE threshold in MeV, defaults to 50 MeV.
+     * @return true if more than one proton above threshold.
+     */
+    template<typename T>
+    bool multiproton(const T & obj, std::vector<double> params={50.0,})
+    {
+        int count(0);
+        for(const auto & p : obj.prim)
+        {
+            if(p.pdg == 2212)
+            {
+                double ke = 1000. * (p.genE - (PROTON_MASS/1000.));
+                if(ke >= params[0])
+                    count++;
+            }
+        }
+        return count > 1;
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, multiproton, multiproton);
+
+    /**
+     * @brief Cut to select interactions with at least one neutral pion.
+     * @details Applied at the GENIE generator level using obj.prim. Only
+     * primary particles (start_process == 0) are considered.
+     * @tparam T the type of the object to apply the cut on.
+     * @param obj the SRTrueInteraction to apply the cut on.
+     * @param params energy threshold in MeV, defaults to 0 MeV (no threshold).
+     * @return true if at least one pi0 is present.
+     */
+    template<typename T>
+    bool at_least_one_pi0(const T & obj, std::vector<double> params={0.0,})
+    {
+        for(const auto & p : obj.prim)
+        {
+            if(p.start_process != 0) continue;
+            if(p.pdg == 111)
+            {
+                double energy = 1000. * p.genE;
+                if(energy >= params[0])
+                    return true;
+            }
+        }
+        return false;
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, at_least_one_pi0, at_least_one_pi0);
 
 } // namespace mctruth
 #endif

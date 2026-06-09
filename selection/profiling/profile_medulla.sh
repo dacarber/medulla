@@ -89,7 +89,24 @@ if [[ ! -f "$TOML" ]]; then
     exit 1
 fi
 
+# Resolve to absolute paths. Timed runs execute inside a temporary scratch CWD
+# (so medulla's <analysis>.root outputs don't collide), which means every path
+# handed to them - binary, toml, log file - must be absolute, not relative to
+# the directory the harness was launched from.
+abspath() {
+    local p="$1"
+    if [[ -d "$p" ]]; then
+        ( cd "$p" && pwd )
+    else
+        ( cd "$(dirname "$p")" && printf '%s/%s\n' "$(pwd)" "$(basename "$p")" )
+    fi
+}
+BIN="$(abspath "$BIN")"
+TOML="$(abspath "$TOML")"
+[[ -n "$TOML_MIN" && -f "$TOML_MIN" ]] && TOML_MIN="$(abspath "$TOML_MIN")"
+
 mkdir -p "$OUTDIR"
+OUTDIR="$(abspath "$OUTDIR")"
 STAMP="$(date +%Y%m%d_%H%M%S)"
 LOG="$OUTDIR/profile_${STAMP}.log"
 VERDICT="$OUTDIR/verdict.txt"

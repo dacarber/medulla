@@ -138,7 +138,7 @@ namespace pvars
         double mass(0);
         if constexpr (std::is_same_v<T, caf::SRParticleTruthDLPProxy>)
         {
-            mass = p.mass;
+            mass = p.mass / 1000.0;
         }
         else
         {
@@ -185,7 +185,7 @@ namespace pvars
         double pidx(pvars::pid(p));
         if(pidx < 0 || std::isinf(p.csda_ke_per_pid[pidx]))
             return PLACEHOLDERVALUE;
-        return p.csda_ke_per_pid[pidx];
+        return p.csda_ke_per_pid[pidx] / 1000.0;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, csda_ke, csda_ke);
 
@@ -202,7 +202,7 @@ namespace pvars
     double mcs_ke(const T & p)
     {
         size_t pidx(pvars::pid(p));
-        return std::isinf(p.mcs_ke_per_pid[pidx]) ? PLACEHOLDERVALUE : (double)p.mcs_ke_per_pid[pidx];
+        return std::isinf(p.mcs_ke_per_pid[pidx]) ? PLACEHOLDERVALUE : (double)p.mcs_ke_per_pid[pidx] / 1000.0;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, mcs_ke, mcs_ke);
 
@@ -218,7 +218,7 @@ namespace pvars
     template<class T>
     double calo_ke(const T & p)
     {
-        return p.calo_ke;
+        return p.calo_ke / 1000.0;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, calo_ke, calo_ke);
 
@@ -236,7 +236,7 @@ namespace pvars
         double energy(0);
         if constexpr (std::is_same_v<T, caf::SRParticleTruthDLPProxy>)
         {
-            energy = p.energy_init - mass(p);
+            energy = p.energy_init / 1000.0 - mass(p);
         }
         else
         {
@@ -757,7 +757,7 @@ namespace pvars
     template<class T>
     double px(const T & p)
     {
-        return p.momentum[0];
+        return p.momentum[0] / 1000.0;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, px, px);
     
@@ -772,7 +772,7 @@ namespace pvars
     template<class T>
     double py(const T & p)
     {
-        return p.momentum[1];
+        return p.momentum[1] / 1000.0;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, py, py);
 
@@ -787,7 +787,7 @@ namespace pvars
     template<class T>
     double pz(const T & p)
     {
-        return p.momentum[2];
+        return p.momentum[2] / 1000.0;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::BothParticle, pz, pz);
     
@@ -1117,7 +1117,7 @@ namespace pvars
     template<class T>
     double ke_bias(const caf::SRParticleTruthDLPProxy & p)
     {
-        double true_ke = p.energy_init - pvars::mass(p);
+        double true_ke = p.energy_init / 1000.0 - pvars::mass(p);
         if(true_ke <= 0.0) return PLACEHOLDERVALUE;
 
         // Require a matched reco interaction and at least one match.

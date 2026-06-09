@@ -1032,9 +1032,9 @@ namespace vars
         if(i == kNoMatch) return kNoMatchValue;
 
         double electron_energy = pvars::energy(obj.particles[i]);
-        double px = obj.particles[i].momentum[0];
-        double py = obj.particles[i].momentum[1];
-        double pz = obj.particles[i].momentum[2];
+        double px = pvars::px(obj.particles[i]);
+        double py = pvars::py(obj.particles[i]);
+        double pz = pvars::pz(obj.particles[i]);
         double pmag = std::sqrt(px*px + py*py + pz*pz);
 
         // Fixed NuMI beam direction unit vector at ICARUS detector centre.

@@ -97,7 +97,7 @@ namespace utilities_pi0ana
 	  for(auto & _pidx : _pi0.second)
 	    {
 	      const auto & _p = obj.particles[_pidx];
-	      TVector3 _p_momentum(_p.momentum[0], _p.momentum[1], _p.momentum[2]);
+	      TVector3 _p_momentum(_p.momentum[0] / 1000.0, _p.momentum[1] / 1000.0, _p.momentum[2] / 1000.0);
 	      pi0_momentum += _p_momentum;
 	      num_pi0_daughters++;
 	    }
@@ -195,7 +195,7 @@ namespace utilities_pi0ana
 			       for(auto & _pidx : _pi0.second)
 			       {
 				   const auto & _p = obj.particles[_pidx];
-				   TVector3 _p_momentum(_p.momentum[0], _p.momentum[1], _p.momentum[2]);
+				   TVector3 _p_momentum(_p.momentum[0] / 1000.0, _p.momentum[1] / 1000.0, _p.momentum[2] / 1000.0);
 				   momentum += _p_momentum;
 				   pi0_daughter_indices.push_back(_pidx);
 				   num_pi0_daughters++;
@@ -235,7 +235,7 @@ namespace utilities_pi0ana
 				*/
 			       const auto & leading_shower = obj.particles[_leading_shower_index];
 			       leading_shower_index = _leading_shower_index;
-			       leading_shower_ke = leading_shower.ke;
+			       leading_shower_ke = leading_shower.ke / 1000.0;
 			       TVector3 leading_shower_start_point(leading_shower.start_point[0], leading_shower.start_point[1], leading_shower.start_point[2]);
 			       TVector3 leading_shower_dir(leading_shower.momentum[0], leading_shower.momentum[1], leading_shower.momentum[2]);
 			       leading_shower_dir = leading_shower_dir.Unit();
@@ -247,7 +247,7 @@ namespace utilities_pi0ana
 				*/
 			       const auto & subleading_shower = obj.particles[_subleading_shower_index];
                                subleading_shower_index = _subleading_shower_index;
-                               subleading_shower_ke = subleading_shower.ke;
+                               subleading_shower_ke = subleading_shower.ke / 1000.0;
                                TVector3 subleading_shower_start_point(subleading_shower.start_point[0], subleading_shower.start_point[1], subleading_shower.start_point[2]);
                                TVector3 subleading_shower_dir(subleading_shower.momentum[0], subleading_shower.momentum[1], subleading_shower.momentum[2]);
                                subleading_shower_dir = subleading_shower_dir.Unit();

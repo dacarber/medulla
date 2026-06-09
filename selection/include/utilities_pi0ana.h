@@ -101,7 +101,7 @@ namespace utilities_pi0ana
 	      pi0_momentum += _p_momentum;
 	      num_pi0_daughters++;
 	    }
-	    pi0_ke = std::sqrt(std::pow(PI0_MASS, 2) + std::pow(pi0_momentum.Mag(), 2)) - PI0_MASS;
+	    { const double pmag = pi0_momentum.Mag(); pi0_ke = std::sqrt(PI0_MASS*PI0_MASS + pmag*pmag) - PI0_MASS; }
             if(num_pi0_daughters < 2 || pi0_ke < params[0]) bad_pi0_ids.push_back(_pi0.first);
 	}
 	for(size_t i=0; i<bad_pi0_ids.size(); i++)

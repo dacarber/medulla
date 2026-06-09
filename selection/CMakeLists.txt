@@ -5,8 +5,16 @@ project(selection LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Default to Release so we get -O3 without an explicit -DCMAKE_BUILD_TYPE.
+# Use x86-64-v2 instead of native so builds are portable to grid worker nodes.
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+    set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type (default: Release)" FORCE)
+    message(STATUS "No build type specified — defaulting to Release (-O3).")
+endif()
+message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+
 # Set optimization flags
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -march=native -DNDEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -march=x86-64-v2 -DNDEBUG")
 
 # Find ROOT
 find_package(ROOT REQUIRED COMPONENTS Core RIO Hist Tree)

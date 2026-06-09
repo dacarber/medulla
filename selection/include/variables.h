@@ -146,8 +146,9 @@ namespace vars
         {
             if(pcuts::final_state_signal(p))
             {
+                const int pid_val = (int)pvars::pid(p); // cache: avoid second std::function dispatch
                 energy += pvars::energy(p);
-                if(pvars::pid(p) == pvars::kProton) energy -= pvars::mass(p) - PROTON_BINDING_ENERGY;
+                if(pid_val == pvars::kProton) energy -= pvars::mass(p) - PROTON_BINDING_ENERGY;
             }
         }
         return energy;
@@ -171,8 +172,9 @@ namespace vars
         {
             if(pcuts::final_state_signal(p))
             {
-                if(pvars::pid(p) == pvars::kProton) energy += pvars::energy(p) - pvars::mass(p) - PROTON_BINDING_ENERGY;
-                if(pvars::pid(p) == pvars::kPion)   energy += pvars::energy(p);
+                const int pid_val = (int)pvars::pid(p); // cache: one dispatch covers both pid checks
+                if(pid_val == pvars::kProton) energy += pvars::energy(p) - pvars::mass(p) - PROTON_BINDING_ENERGY;
+                if(pid_val == pvars::kPion)   energy += pvars::energy(p);
             }
         }
         return energy;
@@ -290,8 +292,9 @@ namespace vars
         {
             if(pcuts::final_state_signal(p))
             {
+                const int pid_val = (int)pvars::pid(p); // cache: avoid second dispatch
                 energy += pvars::energy(p);
-                if(pvars::pid(p) == pvars::kProton) energy -= PROTON_MASS - PROTON_BINDING_ENERGY;
+                if(pid_val == pvars::kProton) energy -= PROTON_MASS - PROTON_BINDING_ENERGY;
             }
             else if(pcuts::is_primary(p))
                 energy += p.calo_ke;
@@ -415,10 +418,8 @@ namespace vars
     template<class T>
     double off_axis_angle_sbnd(const T & obj)
     {
-        return 180./3.141592653589793 * std::atan(std::sqrt(
-            std::pow(vertex_x(obj) + 74, 2) +
-            std::pow(vertex_y(obj), 2)
-        ) / 11000);
+        const double ox = vertex_x(obj) + 74, oy = vertex_y(obj);
+        return 180./3.141592653589793 * std::atan(std::sqrt(ox*ox + oy*oy) / 11000);
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, off_axis_angle_sbnd, off_axis_angle_sbnd);
 
@@ -439,10 +440,8 @@ namespace vars
     template<class T>
     double off_axis_angle_icarus(const T & obj)
     {
-        return 180./3.141592653589793 * std::atan(std::sqrt(
-            std::pow(vertex_x(obj), 2) +
-            std::pow(vertex_y(obj), 2)
-        ) / (vertex_z(obj) + 59105));
+        const double ix = vertex_x(obj), iy = vertex_y(obj);
+        return 180./3.141592653589793 * std::atan(std::sqrt(ix*ix + iy*iy) / (vertex_z(obj) + 59105));
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, off_axis_angle_icarus, off_axis_angle_icarus);
 
@@ -507,17 +506,21 @@ namespace vars
         {
             if(pcuts::final_state_signal(p))
             {
+                // Cache pid and ke to avoid repeated std::function dispatches.
+                const int    pid_val = (int)pvars::pid(p);
+                const double ke_val  = pvars::ke(p);
+
                 // Find the leading charged lepton and proton
-                if((pvars::pid(p) == pvars::kElectron || pvars::pid(p) == pvars::kMuon) && pvars::ke(p) > l_ke)
+                if((pid_val == pvars::kElectron || pid_val == pvars::kMuon) && ke_val > l_ke)
                 {
-                    l_ke = pvars::ke(p);
+                    l_ke = ke_val;
                     utilities::three_vector momentum = {pvars::px(p), pvars::py(p), pvars::pz(p)};
                     utilities::three_vector vtx = {pvars::start_x(p), pvars::start_y(p), pvars::start_z(p)};
                     l_pt = utilities::transverse_momentum(momentum, vtx);
                 }
-                else if(pvars::pid(p) == pvars::kProton && pvars::ke(p) > p_ke)
+                else if(pid_val == pvars::kProton && ke_val > p_ke)
                 {
-                    p_ke = pvars::ke(p);
+                    p_ke = ke_val;
                     utilities::three_vector momentum = {pvars::px(p), pvars::py(p), pvars::pz(p)};
                     utilities::three_vector vtx = {pvars::start_x(p), pvars::start_y(p), pvars::start_z(p)};
                     p_pt = utilities::transverse_momentum(momentum, vtx);
@@ -557,13 +560,14 @@ namespace vars
             {
                 // There should only be one lepton, so replace the lepton
                 // transverse momentum if the particle is a lepton.
+                const int pid_val = (int)pvars::pid(p); // cache to avoid repeated dispatch
                 utilities::three_vector momentum = {pvars::px(p), pvars::py(p), pvars::pz(p)};
                 utilities::three_vector vtx = {pvars::start_x(p), pvars::start_y(p), pvars::start_z(p)};
                 utilities::three_vector this_pt = utilities::transverse_momentum(momentum, vtx);
-                if(pvars::pid(p) == pvars::kElectron || pvars::pid(p) == pvars::kMuon)
+                if(pid_val == pvars::kElectron || pid_val == pvars::kMuon)
                     lepton_pt = this_pt;
                 // The total hadronic system is treated as a single object.
-                else if(pvars::pid(p) > 2)
+                else if(pid_val > 2)
                     hadronic_pt = utilities::add(hadronic_pt, this_pt);
             }
         }
@@ -596,10 +600,11 @@ namespace vars
             {
                 // There should only be one lepton, so replace the lepton
                 // transverse momentum if the particle is a lepton.
+                const int pid_val = (int)pvars::pid(p); // cache to avoid repeated dispatch
                 utilities::three_vector momentum = {pvars::px(p), pvars::py(p), pvars::pz(p)};
                 utilities::three_vector vtx = {pvars::start_x(p), pvars::start_y(p), pvars::start_z(p)};
                 utilities::three_vector this_pt = utilities::transverse_momentum(momentum, vtx);
-                if(pvars::pid(p) == pvars::kElectron || pvars::pid(p) == pvars::kMuon)
+                if(pid_val == pvars::kElectron || pid_val == pvars::kMuon)
                     lepton_pt = this_pt;
                 total_pt = utilities::add(total_pt, this_pt);
             }
@@ -632,13 +637,14 @@ namespace vars
             {
                 // There should only be one lepton, so replace the lepton
                 // transverse momentum if the particle is a lepton.
+                const int pid_val = (int)pvars::pid(p); // cache to avoid repeated dispatch
                 utilities::three_vector momentum = {pvars::px(p), pvars::py(p), pvars::pz(p)};
                 utilities::three_vector vtx = {pvars::start_x(p), pvars::start_y(p), pvars::start_z(p)};
                 utilities::three_vector this_pl = utilities::longitudinal_momentum(momentum, vtx);
-                if(pvars::pid(p) == pvars::kElectron || pvars::pid(p) == pvars::kMuon)
+                if(pid_val == pvars::kElectron || pid_val == pvars::kMuon)
                     lepton_pl = this_pl;
                 // The total hadronic system is treated as a single object.
-                else if(pvars::pid(p) > 2)
+                else if(pid_val > 2)
                     hadronic_pl = utilities::add(hadronic_pl, this_pl);
             }
         }
@@ -670,17 +676,21 @@ namespace vars
         {
             if(pcuts::final_state_signal(p))
             {
+                // Cache pid and ke to avoid repeated std::function dispatches.
+                const int    pid_val = (int)pvars::pid(p);
+                const double ke_val  = pvars::ke(p);
+
                 // Find the leading charged lepton and proton
-                if((pvars::pid(p) == pvars::kElectron || pvars::pid(p) == pvars::kMuon) && pvars::ke(p) > l_ke)
+                if((pid_val == pvars::kElectron || pid_val == pvars::kMuon) && ke_val > l_ke)
                 {
-                    l_ke = pvars::ke(p);
+                    l_ke = ke_val;
                     utilities::three_vector momentum = {pvars::px(p), pvars::py(p), pvars::pz(p)};
                     utilities::three_vector vtx = {pvars::start_x(p), pvars::start_y(p), pvars::start_z(p)};
                     l_pl = utilities::longitudinal_momentum(momentum, vtx);
                 }
-                else if(pvars::pid(p) == pvars::kProton && pvars::ke(p) > p_ke)
+                else if(pid_val == pvars::kProton && ke_val > p_ke)
                 {
-                    p_ke = pvars::ke(p);
+                    p_ke = ke_val;
                     utilities::three_vector momentum = {pvars::px(p), pvars::py(p), pvars::pz(p)};
                     utilities::three_vector vtx = {pvars::start_x(p), pvars::start_y(p), pvars::start_z(p)};
                     p_pl = utilities::longitudinal_momentum(momentum, vtx);
@@ -706,7 +716,7 @@ namespace vars
      * applied by the definition of a preprocessor macro (BEAM_IS_NUMI).
      */
     template<class T>
-    double pn(const T & obj) { return std::sqrt(std::pow(vars::dpT(obj), 2) + std::pow(vars::dpL(obj), 2)); }
+    double pn(const T & obj) { const double t = vars::dpT(obj), l = vars::dpL(obj); return std::sqrt(t*t + l*l); }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, pn, pn);
 
     /**
@@ -722,7 +732,7 @@ namespace vars
      * applied by the definition of a preprocessor macro (BEAM_IS_NUMI).
      */
     template<class T>
-    double pn_lp(const T & obj) { return std::sqrt(std::pow(vars::dpT_lp(obj), 2) + std::pow(vars::dpL_lp(obj), 2)); }
+    double pn_lp(const T & obj) { const double t = vars::dpT_lp(obj), l = vars::dpL_lp(obj); return std::sqrt(t*t + l*l); }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, pn_lp, pn_lp);
 
     /**
@@ -751,173 +761,163 @@ namespace vars
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, opening_angle, opening_angle);
 
+    // -------------------------------------------------------------------------
+    // Multiplicity helpers (#11 single-pass optimisation)
+    // -------------------------------------------------------------------------
+
+    /**
+     * @brief Indices into the array returned by detail::count_multiplicities.
+     */
+    namespace detail
+    {
+        enum MultIdx { kPhotonMult = 0, kElectronMult, kNonprimaryShowerMult,
+                       kMuonMult, kPionMult, kProtonMult, kNMultTypes };
+
+        /**
+         * @brief Single-pass helper that counts all particle multiplicities in
+         * one loop.  Within each iteration pid, primary flag, and ke are each
+         * fetched exactly once, eliminating the repeated std::function
+         * dispatches that arise when the six per-species functions each walk
+         * the particle list independently.
+         *
+         * @tparam T the interaction type (true or reco).
+         * @param obj the interaction to count particles in.
+         * @param threshold kinetic-energy threshold applied to every species
+         *        (GeV).  Individual wrappers may pass per-species thresholds by
+         *        calling this helper multiple times or by using the per-species
+         *        overloads below.
+         * @return std::array<size_t, kNMultTypes> with one count per species.
+         */
+        template<class T>
+        std::array<size_t, kNMultTypes> count_multiplicities(
+            const T & obj, double threshold)
+        {
+            std::array<size_t, kNMultTypes> n = {};
+            for(const auto & p : obj.particles)
+            {
+                const int    pid_val    = (int)pvars::pid(p);
+                const bool   is_primary = pvars::primary_classification(p);
+                const double ke_val     = pvars::ke(p);
+                if(ke_val < threshold) continue;
+                if(is_primary)
+                {
+                    switch(pid_val)
+                    {
+                        case pvars::kPhoton:   ++n[kPhotonMult];   break;
+                        case pvars::kElectron: ++n[kElectronMult]; break;
+                        case pvars::kMuon:     ++n[kMuonMult];     break;
+                        case pvars::kPion:     ++n[kPionMult];     break;
+                        case pvars::kProton:   ++n[kProtonMult];   break;
+                        default: break;
+                    }
+                }
+                else if(pid_val == pvars::kPhoton || pid_val == pvars::kElectron)
+                    ++n[kNonprimaryShowerMult];
+            }
+            return n;
+        }
+    } // namespace detail
+
     /**
      * @brief Variable for the (primary) photon multiplicity of the
      * interaction.
-     * @details This function calculates the multiplicity of primary
-     * photons in the interaction by counting the number of primary particles
-     * that are identified as photons and have a kinetic energy above a
-     * threshold. The threshold is set by the `params` vector, which defaults
-     * to 0.025 GeV. The function returns the number of primary photons in the
-     * interaction.
+     * @details Counts primary photons with ke above threshold (default 0.025
+     * GeV).  Uses the single-pass detail::count_multiplicities helper.
      * @tparam T the type of interaction (true or reco).
      * @param obj the interaction to apply the variable on.
-     * @param params the parameters for the cut. In this case, this sets the
-     * kinetic energy threshold for a photon to count towards the
-     * multiplicity. Defaults to 0.025 GeV.
+     * @param params params[0] sets the ke threshold (GeV); defaults to 0.025.
      * @return the multiplicity of primary photons in the interaction.
      */
     template<class T>
     double photon_multiplicity(const T & obj, std::vector<double> params={0.025,})
     {
-        size_t count(0);
-        for(const auto & p : obj.particles)
-        {
-            if(pvars::pid(p) == pvars::kPhoton && pvars::primary_classification(p) && pvars::ke(p) >= params[0])
-                ++count;
-        }
-        return count;
+        return detail::count_multiplicities(obj, params[0])[detail::kPhotonMult];
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, photon_multiplicity, photon_multiplicity);
 
     /**
      * @brief Variable for the (primary) electron multiplicity of the
      * interaction.
-     * @details This function calculates the multiplicity of primary electrons
-     * in the interaction by counting the number of primary particles that are
-     * identified as electrons and have a kinetic energy above a threshold. The
-     * threshold is set by the `params` vector, which defaults to 0.025 GeV. The
-     * function returns the number of primary electrons in the interaction.
+     * @details Counts primary electrons with ke above threshold (default 0.025
+     * GeV).  Uses the single-pass detail::count_multiplicities helper.
      * @tparam T the type of interaction (true or reco).
      * @param obj the interaction to apply the variable on.
-     * @param params the parameters for the cut. In this case, this sets the
-     * kinetic energy threshold for an electron to count towards the
-     * multiplicity. Defaults to 0.025 GeV.
+     * @param params params[0] sets the ke threshold (GeV); defaults to 0.025.
      * @return the multiplicity of primary electrons in the interaction.
      */
     template<class T>
     double electron_multiplicity(const T & obj, std::vector<double> params={0.025,})
     {
-        size_t count(0);
-        for(const auto & p : obj.particles)
-        {
-            if(pvars::pid(p) == pvars::kElectron && pvars::primary_classification(p) && pvars::ke(p) >= params[0])
-                ++count;
-        }
-        return count;
+        return detail::count_multiplicities(obj, params[0])[detail::kElectronMult];
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, electron_multiplicity, electron_multiplicity);
 
     /**
      * @brief Variable for the non-primary shower multiplicity of the
      * interaction.
-     * @details This function calculates the multiplicity of non-primary
-     * showers in the interaction by counting the number of non-primary particles
-     * that are identified as photons or electrons and have a kinetic energy above a
-     * threshold. The threshold is set by the `params` vector, which defaults
-     * to 0.025 GeV. The function returns the number of non-primary showers in the
-     * interaction.
+     * @details Counts non-primary photons/electrons with ke above threshold
+     * (default 0.025 GeV).  Uses the single-pass detail::count_multiplicities
+     * helper.
      * @tparam T the type of interaction (true or reco).
      * @param obj the interaction to apply the variable on.
-     * @param params the parameters for the cut. In this case, this sets the
-     * kinetic energy threshold for a shower to count towards the
-     * multiplicity. Defaults to 0.025 GeV.
+     * @param params params[0] sets the ke threshold (GeV); defaults to 0.025.
      * @return the multiplicity of non-primary showers in the interaction.
      */
     template<class T>
     double nonprimary_shower_multiplicity(const T & obj, std::vector<double> params={0.025,})
     {
-        size_t count(0);
-        for(const auto & p : obj.particles)
-        {
-            if(pvars::pid(p) <= 1 && !pvars::primary_classification(p) && pvars::ke(p) >= params[0])
-                ++count;
-        }
-        return count;
+        return detail::count_multiplicities(obj, params[0])[detail::kNonprimaryShowerMult];
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, nonprimary_shower_multiplicity, nonprimary_shower_multiplicity);
 
     /**
      * @brief Variable for the (primary) muon multiplicity of the
      * interaction.
-     * @details This function calculates the multiplicity of primary muons in
-     * the interaction by counting the number of primary particles that are
-     * identified as muons and have a kinetic energy above a threshold. The
-     * threshold is set by the `params` vector, which defaults to 0.025 GeV. The
-     * function returns the number of primary muons in the interaction.
+     * @details Counts primary muons with ke above threshold (default 0.025
+     * GeV).  Uses the single-pass detail::count_multiplicities helper.
      * @tparam T the type of interaction (true or reco).
      * @param obj the interaction to apply the variable on.
-     * @param params the parameters for the cut. In this case, this sets the
-     * kinetic energy threshold for a muon to count towards the
-     * multiplicity. Defaults to 0.025 GeV.
+     * @param params params[0] sets the ke threshold (GeV); defaults to 0.025.
      * @return the multiplicity of primary muons in the interaction.
      */
     template<class T>
     double muon_multiplicity(const T & obj, std::vector<double> params={0.025,})
     {
-        size_t count(0);
-        for(const auto & p : obj.particles)
-        {
-            if(pvars::pid(p) == pvars::kMuon && pvars::primary_classification(p) && pvars::ke(p) >= params[0])
-                ++count;
-        }
-        return count;
+        return detail::count_multiplicities(obj, params[0])[detail::kMuonMult];
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, muon_multiplicity, muon_multiplicity);
 
     /**
      * @brief Variable for the (primary) pion multiplicity of the
      * interaction.
-     * @details This function calculates the multiplicity of primary pions in
-     * the interaction by counting the number of primary particles that are
-     * identified as pions and have a kinetic energy above a threshold. The
-     * threshold is set by the `params` vector, which defaults to 0.025 GeV. The
-     * function returns the number of primary pions in the interaction.
+     * @details Counts primary pions with ke above threshold (default 0.025
+     * GeV).  Uses the single-pass detail::count_multiplicities helper.
      * @tparam T the type of interaction (true or reco).
      * @param obj the interaction to apply the variable on.
-     * @param params the parameters for the cut. In this case, this sets the
-     * kinetic energy threshold for a pion to count towards the
-     * multiplicity. Defaults to 0.025 GeV.
+     * @param params params[0] sets the ke threshold (GeV); defaults to 0.025.
      * @return the multiplicity of primary pions in the interaction.
      */
     template<class T>
     double pion_multiplicity(const T & obj, std::vector<double> params={0.025,})
     {
-        size_t count(0);
-        for(const auto & p : obj.particles)
-        {
-            if(pvars::pid(p) == pvars::kPion && pvars::primary_classification(p) && pvars::ke(p) >= params[0])
-                ++count;
-        }
-        return count;
+        return detail::count_multiplicities(obj, params[0])[detail::kPionMult];
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, pion_multiplicity, pion_multiplicity);
 
     /**
      * @brief Variable for the (primary) proton multiplicity of the
      * interaction.
-     * @details This function calculates the multiplicity of primary protons in
-     * the interaction by counting the number of primary particles that are
-     * identified as protons and have a kinetic energy above a threshold. The
-     * threshold is set by the `params` vector, which defaults to 0.025 GeV. The
-     * function returns the number of primary protons in the interaction.
+     * @details Counts primary protons with ke above threshold (default 0.025
+     * GeV).  Uses the single-pass detail::count_multiplicities helper.
      * @tparam T the type of interaction (true or reco).
      * @param obj the interaction to apply the variable on.
-     * @param params the parameters for the cut. In this case, this sets the
-     * kinetic energy threshold for a proton to count towards the
-     * multiplicity. Defaults to 0.025 GeV.
+     * @param params params[0] sets the ke threshold (GeV); defaults to 0.025.
      * @return the multiplicity of primary protons in the interaction.
      */
     template<class T>
     double proton_multiplicity(const T & obj, std::vector<double> params={0.025,})
     {
-        size_t count(0);
-        for(const auto & p : obj.particles)
-        {
-            if(pvars::pid(p) == pvars::kProton && pvars::primary_classification(p) && pvars::ke(p) >= params[0])
-                ++count;
-        }
-        return count;
+        return detail::count_multiplicities(obj, params[0])[detail::kProtonMult];
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, proton_multiplicity, proton_multiplicity);
 
@@ -1042,7 +1042,7 @@ namespace vars
         double cos_theta = (px*bx + py*by + pz*bz) / pmag;
 
         return 2.0*nu_energy*(electron_energy - pmag*cos_theta)
-               - std::pow(ELECTRON_MASS, 2);
+               - ELECTRON_MASS*ELECTRON_MASS;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, Qsquared, Qsquared);
 
@@ -1068,7 +1068,7 @@ namespace vars
         double nu_energy      = visible_energy(obj);
         double electron_energy = pvars::energy(obj.particles[i]);
         double Q              = Qsquared(obj);
-        double W2             = std::pow(MN, 2) + 2.0*MN*(nu_energy - electron_energy) - Q;
+        double W2             = MN*MN + 2.0*MN*(nu_energy - electron_energy) - Q;
         return (W2 >= 0.0) ? std::sqrt(W2) : kNoMatchValue;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, W, W);

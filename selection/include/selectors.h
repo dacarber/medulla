@@ -78,17 +78,16 @@ namespace selectors
             const auto & p = obj.particles[i];
 
             // Distance between interaction vertex and particle start.
-            double vertex_distance = std::sqrt(
-                std::pow(pvars::start_x(p) - obj.vertex[0], 2) +
-                std::pow(pvars::start_y(p) - obj.vertex[1], 2) +
-                std::pow(pvars::start_z(p) - obj.vertex[2], 2)
-            );
+            const double dx1 = pvars::start_x(p) - obj.vertex[0];
+            const double dy1 = pvars::start_y(p) - obj.vertex[1];
+            const double dz1 = pvars::start_z(p) - obj.vertex[2];
+            double vertex_distance = std::sqrt(dx1*dx1 + dy1*dy1 + dz1*dz1);
 
             // Skip particles that are not tracks or are too far from the
             // interaction vertex.
             if(pvars::semantic_type(p) != 1 || vertex_distance >= 6)
                 continue;
-            
+
             // Update the longest length and index if the current particle
             // is longer than the longest found so far.
             if(pvars::length(p) > longest_length)
@@ -122,11 +121,10 @@ namespace selectors
             const auto & p = obj.particles[i];
 
             // Distance between interaction vertex and particle start.
-            double vertex_distance = std::sqrt(
-                std::pow(pvars::start_x(p) - obj.vertex[0], 2) +
-                std::pow(pvars::start_y(p) - obj.vertex[1], 2) +
-                std::pow(pvars::start_z(p) - obj.vertex[2], 2)
-            );
+            const double dx2 = pvars::start_x(p) - obj.vertex[0];
+            const double dy2 = pvars::start_y(p) - obj.vertex[1];
+            const double dz2 = pvars::start_z(p) - obj.vertex[2];
+            double vertex_distance = std::sqrt(dx2*dx2 + dy2*dy2 + dz2*dz2);
 
             // Skip particles that are not tracks or are too far from the
             // interaction vertex.

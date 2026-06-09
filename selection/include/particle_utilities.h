@@ -79,7 +79,8 @@ namespace utilities
      */
     double magnitude(const three_vector & a)
     {
-        return std::sqrt(std::pow(std::get<0>(a), 2) + std::pow(std::get<1>(a), 2) + std::pow(std::get<2>(a), 2));
+        const double ax = std::get<0>(a), ay = std::get<1>(a), az = std::get<2>(a);
+        return std::sqrt(ax*ax + ay*ay + az*az);
     }
 
     /**

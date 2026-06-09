@@ -86,7 +86,7 @@ setup cmake v3_27_4
 ups active
 
 # Build medulla
-git clone https://github.com/justinjmueller/medulla.git
+git clone https://github.com/dacarber/medulla.git
 cd medulla
 git checkout ${TAG}
 mkdir build && cd build

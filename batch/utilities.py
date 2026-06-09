@@ -431,12 +431,23 @@ def launch_jobsub(
     if confirm:
         print(f"{_INFO} -- Found {len(pending_jobs)} pending jobs.")
 
+    # Resolve disk request before building the command so it can be
+    # inserted with the other jobsub_submit flags (before the '--'
+    # separator) rather than after it where submit.sh would receive it.
+    if disk is not None:
+        disk_arg = f'--disk={disk}GB'
+    elif exp == 'sbnd':
+        disk_arg = '--disk=10GB'
+    else:
+        disk_arg = '--disk=25GB'
+
     # Form the jobsub command to launch the jobs.
     cmd = [
         'jobsub_submit',
         '-G', exp,
         '-N', str(njobs),
         f'--memory={memory}MB',
+        disk_arg,
         f'--expected-lifetime={lifetime}',
         '--resource-provides=usage_model=DEDICATED,OPPORTUNISTIC,OFFSITE',
         "--append_condor_requirements='(TARGET.HAS_Singularity==true)'",
@@ -446,13 +457,6 @@ def launch_jobsub(
         f'--project={project_dir.resolve()}',
         f'--tag={tag}',
     ]
-
-    if disk is not None:
-        cmd.append(f'--disk={disk}GB')
-    elif exp == 'sbnd':
-        cmd.append(f'--disk=10GB')
-    else:
-        cmd.append(f'--disk=25GB')
 
     # Query the user to confirm that they want to launch the jobs.
     if confirm:
@@ -490,7 +494,7 @@ def launch_jobsub(
 
 def check_git_branch(
     branch : str,
-    repo_url : str = 'https://github.com/justinjmueller/medulla',
+    repo_url : str = 'https://github.com/dacarber/medulla',
 ):
     """
     Check if the specified branch or tag exists in the given Git 

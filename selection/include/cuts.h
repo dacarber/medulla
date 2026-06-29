@@ -1079,5 +1079,32 @@ namespace cuts
     }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, at_least_one_pi0, at_least_one_pi0);
 
+    /**
+     * @brief Apply a cut requiring at least one primary pion, charged or
+     * neutral (pi0).
+     * @details Returns true if the interaction has at least one primary
+     * charged pion above params[0] OR at least one primary neutral pion (pi0)
+     * above params[1]. The two contributions are taken from the existing
+     * @ref no_charged_pions (charged pions) and @ref at_least_one_pi0 (pi0,
+     * which for reco interactions falls back to >= 2 primary photons). Its
+     * negation, "!at_least_one_pion", selects the zero-pion topology (no
+     * charged pions AND no pi0).
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to select on.
+     * @param params [0] charged-pion KE threshold, [1] pi0/photon KE
+     * threshold, both in the same units as the other multiplicity cuts.
+     * @return true if at least one charged pion or one pi0 is present.
+     */
+    template<class T>
+    bool at_least_one_pion(const T & obj, std::vector<double> params={25.0, 0.0})
+    {
+        double charged_thresh = params.size() > 0 ? params[0] : 25.0;
+        double pi0_thresh     = params.size() > 1 ? params[1] : 0.0;
+        bool has_charged = !no_charged_pions(obj, {charged_thresh});
+        bool has_pi0     =  at_least_one_pi0(obj, {pi0_thresh});
+        return has_charged || has_pi0;
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, at_least_one_pion, at_least_one_pion);
+
 }
 #endif

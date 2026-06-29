@@ -1,0 +1,308 @@
+[general]
+output = "1eXpNpi"
+primfn = "default_primary_classification"
+pidfn = "default_pid"
+fsthresh = [
+    "@photon_threshold",
+    "@electron_threshold",
+    "@muon_threshold",
+    "@pion_threshold",
+    "@proton_threshold",
+    "@null_threshold"
+]
+
+[parameters]
+photon_threshold = 0.025
+electron_threshold = 0.025
+muon_threshold = 0.025
+pion_threshold = 0.025
+proton_threshold = 0.025
+null_threshold = 0.0
+
+
+[[category]] # 0 : Signal, 1eXp0pi (X protons >= 0, 0 pions incl. pi0)
+cuts = [
+    { name = "neutrino" },
+    { name = "fiducial_cut" },
+    { name = "single_electron", parameters = [ "@electron_threshold" ] },
+    { name = "no_muons", parameters = [ "@muon_threshold" ] },
+    { name = "!at_least_one_pion", parameters = [ "@pion_threshold", "@photon_threshold" ] },
+]
+[[category]] # 1 : Signal, 1eXpNpi (X protons >= 0, N pions >= 1 incl. pi0)
+cuts = [
+    { name = "neutrino" },
+    { name = "fiducial_cut" },
+    { name = "single_electron", parameters = [ "@electron_threshold" ] },
+    { name = "no_muons", parameters = [ "@muon_threshold" ] },
+    { name = "at_least_one_pion", parameters = [ "@pion_threshold", "@photon_threshold" ] },
+]
+[[category]] # 2 : Neutrino, Out of Fiducial Volume (OOFV) - signal topology, out of fiducial
+cuts = [
+    { name = "neutrino" },
+    { name = "!fiducial_cut" },
+    { name = "single_electron", parameters = [ "@electron_threshold" ] },
+    { name = "no_muons", parameters = [ "@muon_threshold" ] },
+]
+[[category]] # 3 : Neutrino, Out of Phase Space (OOPS) - signal topology, lepton below threshold
+cuts = [
+    { name = "neutrino" },
+    { name = "fiducial_cut" },
+    { name = "single_electron", parameters = [ "@null_threshold" ] },
+    { name = "no_muons", parameters = [ "@muon_threshold" ] },
+]
+[[category]] # 4 : Neutrino, Other CC Nue
+cuts = [
+    { name = "neutrino" },
+    { name = "iscc" },
+    { name = "single_electron", parameters = [ "@electron_threshold" ] },
+]
+[[category]] # 5 : Neutrino, Other CC Numu
+cuts = [
+    { name = "neutrino" },
+    { name = "iscc" },
+    { name = "single_muon", parameters = [ "@muon_threshold" ] },
+]
+[[category]] # 6 : Neutrino, Other NC nu
+cuts = [
+    { name = "neutrino" },
+    { name = "!iscc" },
+]
+[[category]] # 7 : Cosmic
+cuts = [
+    { name = "!neutrino" },
+]
+
+[[sample]]
+name = "cvext"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_CV_ext/v09_89_01_02p02_redo/*.root"
+ismc = true
+disable = false
+
+[[tree]]
+name = "selected"
+sim_only = false
+mode = "reco"
+add_systematics = false
+cut = [
+    { name = "track_containment_cut", type = "reco" },
+    { name = "flash_cut",             type = "reco", parameters = [0.0, 9.6] },
+    { name = "single_electron", type = "reco", parameters = [ "@electron_threshold" ] },
+    { name = "no_muons", type = "reco", parameters = [ "@muon_threshold" ] },
+    { name = "at_least_one_pion", type = "reco", parameters = [ "@pion_threshold", "@photon_threshold" ] },
+]
+branch = [
+    {name = "is_nu",            type = "both"},
+    {name = "is_data",            type = "both"},
+    {name = "cut_type",            type = "both"},
+    {name = "neutrino_id",            type = "true"},
+    {name = "cc",                    type = "mctruth"},
+    {name = "pdg",                   type = "mctruth"}, #Needed for NuMI Flux calculation
+    {name = "parent_pdg",            type = "mctruth"}, #Needed for NuMI Flux calculation
+    {name = "interaction_type",      type = "mctruth"},
+    {name = "neutrino_energy",       type = "mctruth"}, #Needed for NuMI Flux calculation
+    {name = "category",              type = "true"},
+    {name = "visible_energy",        type = "both"},
+    {name = "fiducial",              type = "reco"},
+    {name = "track_containment_cut",           type = "reco"},
+    {name = "containment_cut",           type = "reco"},
+    {name = "flash_time",            type = "reco"},
+    {name = "energy_init",      type = "mctruth"},
+    {name = "dpT", type = "both"},
+    {name = "dpT_lp", type = "both"},
+    {name = "dphiT", type = "both"},
+    {name = "dalphaT", type = "both"},
+    {name = "opening_angle", type = "both"},
+    {name = "vertex_x", type = "both"},
+    {name = "vertex_y", type = "both"},
+    {name = "vertex_z", type = "both"},
+    {name = "W", type = "both"},
+    {name = "Qsquared", type = "both"},
+    # Leading ELECTRON interaction-level
+    { name = "end_x",                 type = "both_particle", selector = "leading_electron"   },
+    { name = "end_y",                 type = "both_particle", selector = "leading_electron"   },
+    { name = "end_z",                 type = "both_particle", selector = "leading_electron"   },
+    { name = "start_x",                 type = "both_particle", selector = "leading_electron"   },
+    { name = "start_y",                 type = "both_particle", selector = "leading_electron"   },
+    { name = "start_z",                 type = "both_particle", selector = "leading_electron"   },
+    { name = "dpT",                   type = "both_particle", selector = "leading_electron"   },
+    { name = "polar_angle",           type = "both_particle", selector = "leading_electron"   },
+    { name = "azimuthal_angle",       type = "both_particle", selector = "leading_electron"   },
+    { name = "primary_softmax",       type = "reco_particle", selector = "leading_electron"   },
+    { name = "secondary_softmax",     type = "reco_particle", selector = "leading_electron"   },
+    { name = "electron_softmax",      type = "reco_particle", selector = "leading_electron"   },
+    { name = "photon_softmax",        type = "reco_particle", selector = "leading_electron"   },
+    { name = "mip_softmax",           type = "reco_particle", selector = "leading_electron"   },
+    { name = "hadron_softmax",        type = "reco_particle", selector = "leading_electron"   },
+    { name = "NuMI_polar_angle",           type = "both_particle", selector = "leading_electron"   },
+    {name = "photon_multiplicity",   type = "both", parameters = [ "@photon_threshold"   ]},
+    {name = "electron_multiplicity", type = "both", parameters = [ "@electron_threshold" ]},
+    {name = "muon_multiplicity",     type = "both", parameters = [ "@muon_threshold"     ]},
+    {name = "pion_multiplicity",     type = "both", parameters = [ "@pion_threshold"     ]},
+    {name = "proton_multiplicity",   type = "both", parameters = [ "@proton_threshold"   ]},
+    {name = "secondary_photon_multiplicity",   type = "both", parameters = [ "@null_threshold"   ]},
+    {name = "secondary_electron_multiplicity", type = "both", parameters = [ "@null_threshold" ]},
+    {name = "secondary_muon_multiplicity",     type = "both", parameters = [ "@null_threshold"     ]},
+    {name = "secondary_pion_multiplicity",     type = "both", parameters = [ "@null_threshold"     ]},
+    {name = "secondary_proton_multiplicity",   type = "both", parameters = [ "@null_threshold"   ]},
+    {name = "secondary_multiplicity",   type = "both", parameters = [ "@null_threshold"   ]},
+    {name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+    {name = "start_dedx",            type = "reco_particle", selector = "leading_electron"   },
+    {name = "start_straightness",    type = "reco_particle", selector = "leading_electron"   },
+    {name = "axial_spread",          type = "reco_particle", selector = "leading_electron"   },
+    {name = "directional_spread",    type = "reco_particle", selector = "leading_electron"   },
+    {name = "vertex_distance",       type = "reco_particle", selector = "leading_electron"   },
+    {name = "muon_softmax",          type = "reco_particle", selector = "leading_proton" },
+    {name = "pion_softmax",          type = "reco_particle", selector = "leading_proton" },
+    {name = "proton_softmax",        type = "reco_particle", selector = "leading_proton" },
+    { name = "length",               type = "both_particle", selector = "leading_proton" },
+    { name = "dpT",                  type = "both_particle", selector = "leading_proton" },
+    { name = "polar_angle",          type = "both_particle", selector = "leading_proton" },
+    { name = "azimuthal_angle",      type = "both_particle", selector = "leading_proton" },
+    { name = "primary_softmax",      type = "reco_particle", selector = "leading_proton" },
+    { name = "secondary_softmax",    type = "reco_particle", selector = "leading_proton" },
+    { name = "mip_softmax",          type = "reco_particle", selector = "leading_proton" },
+    { name = "hadron_softmax",       type = "reco_particle", selector = "leading_proton" },
+    {name = "calo_ke",               type = "both_particle", selector = "leading_proton" },
+    {name = "ke",                    type = "both_particle", selector = "leading_proton" },
+    {name = "ke_bias",               type = "true_particle", selector = "leading_electron"   },
+    {name = "ke_bias",               type = "true_particle", selector = "leading_proton" }, 
+    { name = "NuMI_polar_angle",           type = "both_particle", selector = "leading_proton"   },
+    { name = "azimuthal_angle",       type = "both_particle", selector = "leading_secondary_electron"   },
+    { name = "primary_softmax",       type = "reco_particle", selector = "leading_secondary_electron"   },
+    { name = "secondary_softmax",     type = "reco_particle", selector = "leading_secondary_electron"   },
+    { name = "electron_softmax",      type = "reco_particle", selector = "leading_secondary_electron"   },
+    { name = "photon_softmax",        type = "reco_particle", selector = "leading_secondary_electron"   },
+    { name = "mip_softmax",           type = "reco_particle", selector = "leading_secondary_electron"   },
+    { name = "hadron_softmax",        type = "reco_particle", selector = "leading_secondary_electron"   },
+    {name = "ke",                    type = "both_particle", selector = "leading_secondary_electron"   },
+    {name = "start_dedx",            type = "reco_particle", selector = "leading_secondary_electron"   },
+    {name = "start_straightness",    type = "reco_particle", selector = "leading_secondary_electron"   },
+    {name = "axial_spread",          type = "reco_particle", selector = "leading_secondary_electron"   },
+    {name = "directional_spread",    type = "reco_particle", selector = "leading_secondary_electron"   },
+    {name = "vertex_distance",       type = "reco_particle", selector = "leading_secondary_electron"   },
+    { name = "primary_softmax",      type = "reco_particle", selector = "leading_secondary_proton" },
+    { name = "secondary_softmax",    type = "reco_particle", selector = "leading_secondary_proton" },
+    { name = "mip_softmax",          type = "reco_particle", selector = "leading_secondary_proton" },
+    { name = "hadron_softmax",       type = "reco_particle", selector = "leading_secondary_proton" },
+    {name = "calo_ke",               type = "both_particle", selector = "leading_secondary_proton" },
+    {name = "ke",                    type = "both_particle", selector = "leading_secondary_proton" },
+    {name = "muon_softmax",          type = "reco_particle", selector = "leading_secondary_proton" },
+    {name = "pion_softmax",          type = "reco_particle", selector = "leading_secondary_proton" },
+    {name = "proton_softmax",        type = "reco_particle", selector = "leading_secondary_proton" },
+    {name = "p",                    type = "both_particle", selector = "leading_electron"   },
+    {name = "p",                    type = "both_particle", selector = "leading_proton"   },
+]
+
+[[tree]] #This tree is needed if you want to calculate the efficiency
+name = "signal"
+sim_only = true
+mode = "true"
+add_systematics = false
+cut = [
+    { name = "single_electron", type = "true", parameters = [ "@electron_threshold" ] },
+    { name = "no_muons", type = "true", parameters = [ "@muon_threshold" ] },
+    { name = "at_least_one_pion", type = "true", parameters = [ "@pion_threshold", "@photon_threshold" ] },
+]
+branch = [
+    { name = "fiducial_cut",     type = "both" },
+    { name = "track_containment_cut",  type = "both" },
+    { name = "no_photons",       type = "both", parameters = [ "@photon_threshold"   ] },
+    { name = "single_electron",     type = "both", parameters = [ "@electron_threshold" ] },
+    { name = "no_charged_pions", type = "both", parameters = [ "@pion_threshold"     ] },
+    { name = "no_muons",      type = "both", parameters = [ "@muon_threshold"     ] },
+    {name = "neutrino_id",            type = "true"},
+    {name = "energy_init",      type = "mctruth"},
+    {name = "cc",                    type = "mctruth"},
+    {name = "pdg",                   type = "mctruth"}, #Needed for NuMI Flux calculation
+    {name = "parent_pdg",            type = "mctruth"}, #Needed for NuMI Flux calculation
+    {name = "interaction_type",      type = "mctruth"},
+    {name = "neutrino_energy",       type = "mctruth"}, #Needed for NuMI Flux calculation
+    {name = "category",              type = "true"},
+    {name = "visible_energy",        type = "both"},
+    {name = "fiducial",              type = "reco"},
+    {name = "containment",           type = "reco"},
+    {name = "flash_time",            type = "reco"},
+    {name = "dpT", type = "both"},
+    {name = "dpT_lp", type = "both"},
+    {name = "dphiT", type = "both"},
+    {name = "dalphaT", type = "both"},
+    {name = "opening_angle", type = "both"},
+    {name = "flash_time", type = "reco"},
+    {name = "W", type = "both"},
+    {name = "Qsquared", type = "both"},
+    {name = "vertex_x", type = "both"},
+    {name = "vertex_y", type = "both"},
+    {name = "vertex_z", type = "both"},
+    # Leading ELECTRON interaction-level
+    { name = "end_x",                 type = "both_particle", selector = "leading_electron"   },
+    { name = "end_y",                 type = "both_particle", selector = "leading_electron"   },
+    { name = "end_z",                 type = "both_particle", selector = "leading_electron"   },
+    { name = "dpT",                   type = "both_particle", selector = "leading_electron"   },
+    { name = "polar_angle",           type = "both_particle", selector = "leading_electron"   },
+    { name = "azimuthal_angle",       type = "both_particle", selector = "leading_electron"   },
+    { name = "primary_softmax",       type = "reco_particle", selector = "leading_electron"   },
+    { name = "secondary_softmax",     type = "reco_particle", selector = "leading_electron"   },
+    { name = "electron_softmax",      type = "reco_particle", selector = "leading_electron"   },
+    { name = "photon_softmax",        type = "reco_particle", selector = "leading_electron"   },
+    { name = "mip_softmax",           type = "reco_particle", selector = "leading_electron"   },
+    { name = "hadron_softmax",        type = "reco_particle", selector = "leading_electron"   },
+    { name = "NuMI_polar_angle",           type = "both_particle", selector = "leading_electron"   },
+    {name = "photon_multiplicity",   type = "both", parameters = [ "@photon_threshold"   ]},
+    {name = "electron_multiplicity", type = "both", parameters = [ "@electron_threshold" ]},
+    {name = "muon_multiplicity",     type = "both", parameters = [ "@muon_threshold"     ]},
+    {name = "pion_multiplicity",     type = "both", parameters = [ "@pion_threshold"     ]},
+    {name = "proton_multiplicity",   type = "both", parameters = [ "@proton_threshold"   ]},
+    {name = "secondary_photon_multiplicity",   type = "both", parameters = [ "@null_threshold"   ]},
+    {name = "secondary_electron_multiplicity", type = "both", parameters = [ "@null_threshold" ]},
+    {name = "secondary_muon_multiplicity",     type = "both", parameters = [ "@null_threshold"     ]},
+    {name = "secondary_pion_multiplicity",     type = "both", parameters = [ "@null_threshold"     ]},
+    {name = "secondary_proton_multiplicity",   type = "both", parameters = [ "@null_threshold"   ]},
+    {name = "secondary_multiplicity",   type = "both", parameters = [ "@null_threshold"   ]},
+    {name = "ke",                    type = "both_particle", selector = "leading_electron"   },
+    {name = "start_dedx",            type = "reco_particle", selector = "leading_electron"   },
+    {name = "start_straightness",    type = "reco_particle", selector = "leading_electron"   },
+    {name = "axial_spread",          type = "reco_particle", selector = "leading_electron"   },
+    {name = "directional_spread",    type = "reco_particle", selector = "leading_electron"   },
+    {name = "vertex_distance",       type = "reco_particle", selector = "leading_electron"   },
+    {name = "muon_softmax",          type = "reco_particle", selector = "leading_proton" },
+    {name = "pion_softmax",          type = "reco_particle", selector = "leading_proton" },
+    {name = "proton_softmax",        type = "reco_particle", selector = "leading_proton" },
+    { name = "length",            type = "both_particle", selector = "leading_proton" },
+    { name = "dpT",               type = "both_particle", selector = "leading_proton" },
+    { name = "polar_angle",       type = "both_particle", selector = "leading_proton" },
+    { name = "azimuthal_angle",   type = "both_particle", selector = "leading_proton" },
+    { name = "primary_softmax",   type = "reco_particle", selector = "leading_proton" },
+    { name = "secondary_softmax", type = "reco_particle", selector = "leading_proton" },
+    { name = "pion_softmax",      type = "reco_particle", selector = "leading_proton" },
+    { name = "mip_softmax",       type = "reco_particle", selector = "leading_proton" },
+    { name = "hadron_softmax",    type = "reco_particle", selector = "leading_proton" },
+    {name = "ke",                    type = "both_particle", selector = "leading_proton"   },
+    {name = "ke_bias",                    type = "true_particle", selector = "leading_electron"   },
+    {name = "calo_ke",                    type = "both_particle", selector = "leading_proton"   },
+    {name = "ke_bias",                    type = "true_particle", selector = "leading_proton"   },
+        { name = "azimuthal_angle",       type = "both_particle", selector = "leading_secondary_electron"   },
+    { name = "primary_softmax",       type = "reco_particle", selector = "leading_secondary_electron"   },
+    { name = "secondary_softmax",     type = "reco_particle", selector = "leading_secondary_electron"   },
+    { name = "electron_softmax",      type = "reco_particle", selector = "leading_secondary_electron"   },
+    { name = "photon_softmax",        type = "reco_particle", selector = "leading_secondary_electron"   },
+    { name = "mip_softmax",           type = "reco_particle", selector = "leading_secondary_electron"   },
+    { name = "hadron_softmax",        type = "reco_particle", selector = "leading_secondary_electron"   },
+    {name = "ke",                    type = "both_particle", selector = "leading_secondary_electron"   },
+    {name = "start_dedx",            type = "reco_particle", selector = "leading_secondary_electron"   },
+    {name = "start_straightness",    type = "reco_particle", selector = "leading_secondary_electron"   },
+    {name = "axial_spread",          type = "reco_particle", selector = "leading_secondary_electron"   },
+    {name = "directional_spread",    type = "reco_particle", selector = "leading_secondary_electron"   },
+    {name = "vertex_distance",       type = "reco_particle", selector = "leading_secondary_electron"   },
+    { name = "primary_softmax",      type = "reco_particle", selector = "leading_secondary_proton" },
+    { name = "secondary_softmax",    type = "reco_particle", selector = "leading_secondary_proton" },
+    { name = "mip_softmax",          type = "reco_particle", selector = "leading_secondary_proton" },
+    { name = "hadron_softmax",       type = "reco_particle", selector = "leading_secondary_proton" },
+    {name = "calo_ke",               type = "both_particle", selector = "leading_secondary_proton" },
+    {name = "ke",                    type = "both_particle", selector = "leading_secondary_proton" },
+    {name = "muon_softmax",          type = "reco_particle", selector = "leading_secondary_proton" },
+    {name = "pion_softmax",          type = "reco_particle", selector = "leading_secondary_proton" },
+    {name = "proton_softmax",        type = "reco_particle", selector = "leading_secondary_proton" },
+    { name = "NuMI_polar_angle",           type = "both_particle", selector = "leading_proton"   },
+    {name = "p",                    type = "both_particle", selector = "leading_electron"   },
+    {name = "p",                    type = "both_particle", selector = "leading_proton"   },
+]

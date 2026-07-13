@@ -354,7 +354,7 @@ cut = [
 
     { name = "fiducial_cut",     type = "reco" },
     { name = "flash_cut", type = "reco", parameters = [0.0,9.6]},
-    { name = "no_photons",       type = "reco", parameters = [ "@photon_threshold"   ] },
+    { name = "!no_photons",       type = "reco", parameters = [ "@photon_threshold"   ] },
     { name = "single_electron",     type = "reco", parameters = [ "@electron_threshold" ] },
     { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold"     ] },
     { name = "no_muons",      type = "reco", parameters = [ "@muon_threshold"     ] },
@@ -483,7 +483,7 @@ cut = [
     { name = "flash_cut", type = "reco", parameters = [0.0,9.6]},
     { name = "no_photons",       type = "reco", parameters = [ "@photon_threshold"   ] },
     { name = "single_electron",     type = "reco", parameters = [ "@electron_threshold" ] },
-    { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold"     ] },
+    { name = "!no_charged_pions", type = "reco", parameters = [ "@pion_threshold"     ] },
     { name = "no_muons",      type = "reco", parameters = [ "@muon_threshold"     ] },
     { name = "!no_protons",    type = "reco", parameters = [ "@proton_threshold"   ] },
     { name = "pion_secondary_cut", type = "reco", parameters = [ 0.0, 2.0]},

@@ -240,6 +240,7 @@ cut = [
     { name = "mip_score_cut", type = "reco", parameters = [0.4]},
     { name = "track_containment_cut", type = 'reco'},
 
+    { name = "vertex_z_veto_cut", type = "reco", parameters = [-100.0, 100.0] },
 ]
 branch = [
     {name = "is_nu",            type = "both"},
@@ -365,6 +366,7 @@ cut = [
     { name = "mip_score_cut", type = "reco", parameters = [0.4]},
     { name = "track_containment_cut", type = 'reco'},
 
+    { name = "vertex_z_veto_cut", type = "reco", parameters = [-100.0, 100.0] },
 ]
 
 branch = [
@@ -491,6 +493,7 @@ cut = [
     { name = "mip_score_cut", type = "reco", parameters = [0.4]},
     { name = "track_containment_cut", type = 'reco'},
 
+    { name = "vertex_z_veto_cut", type = "reco", parameters = [-100.0, 100.0] },
 ]
 
 branch = [
@@ -611,6 +614,7 @@ cut = [
     { name = "no_charged_pions", type = "mctruth", parameters = [ "@pion_threshold"     ] },
     { name = "no_muons",      type = "mctruth", parameters = [ "@muon_threshold"     ] },
     { name = "!no_protons",    type = "mctruth", parameters = [ "@proton_threshold"   ] },
+    { name = "vertex_z_veto_cut", type = "reco", parameters = [-100.0, 100.0] },
 ]
 
 branch = [

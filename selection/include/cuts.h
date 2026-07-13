@@ -463,6 +463,29 @@ namespace cuts
     REGISTER_CUT_SCOPE(RegistrationScope::Both, flash_cut, flash_cut);
 
     /**
+     * @brief Veto interactions whose vertex lies within a z-range.
+     * @details This cut is intended to reject interactions whose
+     * reconstructed (or true) vertex falls within a specified range along
+     * the z-axis. It is used, e.g., to remove interactions with a vertex
+     * near the center of the detector in z (such as the [-100, 100] cm
+     * region for NuMI).
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to select on.
+     * @param params the [low, high] bounds of the z-range to veto.
+     * @return false if the vertex z is within [params[0], params[1]], true
+     * otherwise.
+     */
+    template<class T>
+    bool vertex_z_veto_cut(const T & obj, std::vector<double> params={})
+    {
+        if(params.size() == 2 && obj.vertex[2] >= params[0] && obj.vertex[2] <= params[1])
+            return false;
+        else
+            return true;
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, vertex_z_veto_cut, vertex_z_veto_cut);
+
+    /**
      * @brief Base particle multiplicity for a specific multiplicity.
      * @details This function calculates the multiplicity of a specific
      * particle species in an interaction. The particle species is specified by

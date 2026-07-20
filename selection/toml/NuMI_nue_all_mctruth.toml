@@ -232,7 +232,7 @@ cut = [
     { name = "single_electron",     type = "reco", parameters = [ "@electron_threshold" ] },
     { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold"     ] },
     { name = "no_muons",      type = "reco", parameters = [ "@muon_threshold"     ] },
-    { name = "!no_protons",    type = "reco", parameters = [ "@proton_threshold"   ] },
+    { name = "!no_protons",    type = "reco", parameters = [ "@proton_threshold"   , 600.0] },
     { name = "pion_secondary_cut", type = "reco", parameters = [ 0.0, 2.0]},
     { name = "pid_score_cut", type = "reco", parameters = [0.7]},
     { name = "primary_score_cut", type = "reco", parameters = [0.95]},
@@ -358,7 +358,7 @@ cut = [
     { name = "single_electron",     type = "reco", parameters = [ "@electron_threshold" ] },
     { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold"     ] },
     { name = "no_muons",      type = "reco", parameters = [ "@muon_threshold"     ] },
-    { name = "!no_protons",    type = "reco", parameters = [ "@proton_threshold"   ] },
+    { name = "!no_protons",    type = "reco", parameters = [ "@proton_threshold"   , 600.0] },
     { name = "pion_secondary_cut", type = "reco", parameters = [ 0.0, 2.0]},
     { name = "pid_score_cut", type = "reco", parameters = [0.7]},
     { name = "primary_score_cut", type = "reco", parameters = [0.95]},
@@ -485,7 +485,7 @@ cut = [
     { name = "single_electron",     type = "reco", parameters = [ "@electron_threshold" ] },
     { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold"     ] },
     { name = "no_muons",      type = "reco", parameters = [ "@muon_threshold"     ] },
-    { name = "!no_protons",    type = "reco", parameters = [ "@proton_threshold"   ] },
+    { name = "!no_protons",    type = "reco", parameters = [ "@proton_threshold"   , 600.0] },
     { name = "pion_secondary_cut", type = "reco", parameters = [ 0.0, 2.0]},
     { name = "pid_score_cut", type = "reco", parameters = [0.7]},
     { name = "primary_score_cut", type = "reco", parameters = [0.95]},
@@ -613,8 +613,8 @@ cut = [
     { name = "single_electron",     type = "mctruth", parameters = [ "@electron_threshold" ] },
     { name = "no_charged_pions", type = "mctruth", parameters = [ "@pion_threshold"     ] },
     { name = "no_muons",      type = "mctruth", parameters = [ "@muon_threshold"     ] },
-    { name = "!no_protons",    type = "mctruth", parameters = [ "@proton_threshold"   ] },
-    { name = "vertex_z_veto_cut", type = "reco", parameters = [-100.0, 100.0] },
+    { name = "!no_protons",    type = "mctruth", parameters = [ "@proton_threshold"   , 600.0] },
+    { name = "vertex_z_veto_cut", type = "mctruth", parameters = [-100.0, 100.0] },
 ]
 
 branch = [

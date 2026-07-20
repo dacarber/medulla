@@ -13,6 +13,7 @@
 #include <numeric>
 #include <cmath>
 #include <algorithm>
+#include <limits>
 
 #include "utilities.h"
 #include "framework.h"
@@ -494,9 +495,10 @@ namespace cuts
      * @tparam obj the interaction to select on.
      * @param mult the desired multiplicity for the specified particle species.
      * @param particle_species the index of the particle species to count.
-     * @param params the parameters for the cut. In this case, this sets the
-     * kinetic energy threshold for the particle to count towards the
-     * multiplicity. The first element of the vector is used for this purpose.
+     * @param params the parameters for the cut. The first element sets the
+     * lower kinetic energy threshold for the particle to count towards the
+     * multiplicity. An optional second element sets an upper kinetic energy
+     * threshold; if omitted, no upper bound is applied.
      * @return the multiplicity of the specified particle species terminated at
      * some maximum value (the desired multiplicity + 1).
      */
@@ -508,10 +510,12 @@ namespace cuts
         if(params.empty())
             params.push_back(0.0);
 
+        double upper = params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
+
         size_t count(0);
         for(const auto & p : obj.particles)
         {
-            if(pvars::pid(p) == particle_species && pvars::primary_classification(p) && pvars::ke(p) >= params[0])
+            if(pvars::pid(p) == particle_species && pvars::primary_classification(p) && pvars::ke(p) >= params[0] && pvars::ke(p) <= upper)
                 ++count;
             if(count > mult)
                 break; // No need to count further.
@@ -701,9 +705,10 @@ namespace cuts
      * @ref utilities::count_primaries function. The negation of this
      * function is used to select interactions with no primary protons.
      * @param obj the interaction to select on.
-     * @param params the parameters for the cut. In this case, this sets the
-     * kinetic energy threshold for a proton to count towards the
-     * multiplicity. Defaults to 50 MeV.
+     * @param params the parameters for the cut. The first element sets the
+     * lower kinetic energy threshold for a proton to count towards the
+     * multiplicity (defaults to 50 MeV). An optional second element sets an
+     * upper kinetic energy threshold; if omitted, no upper bound is applied.
      * @return true if the interaction has a nonzero primary proton.
      */
     template<class T>

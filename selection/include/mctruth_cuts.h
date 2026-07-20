@@ -251,6 +251,27 @@ namespace mctruth
     REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, fiducial_cut, fiducial_cut);
 
     /**
+     * @brief Veto true interactions whose vertex lies within a z-range.
+     * @details Mirrors the reco/true-level vertex_z_veto_cut, but operates on
+     * the SRTrueInteraction position coordinate (obj.position.z) rather than
+     * obj.vertex[2].
+     * @tparam T the type of the object to apply the cut on.
+     * @param obj the SRTrueInteraction to apply the cut on.
+     * @param params the [low, high] bounds of the z-range to veto.
+     * @return false if the vertex z is within [params[0], params[1]], true
+     * otherwise.
+     */
+    template<typename T>
+    bool vertex_z_veto_cut(const T & obj, std::vector<double> params={})
+    {
+        if(params.size() == 2 && obj.position.z >= params[0] && obj.position.z <= params[1])
+            return false;
+        else
+            return true;
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, vertex_z_veto_cut, vertex_z_veto_cut);
+
+    /**
      * @brief Cut for exactly one true final state electron above threshold.
      * @details Applied at the GENIE generator level using obj.prim. The
      * kinetic energy is computed from the GENIE genE field.

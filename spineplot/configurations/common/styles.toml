@@ -9,13 +9,31 @@ mark_preliminary = '$\bf{ICARUS}$ Work-in-Progress'
 plot_kwargs = {'histtype' = 'barstacked', 'stacked' = true}
 
 [[style]]
-name = 'selected_icarus'
-style_sheet = "styles/muon2024.mplstyle"
+name = 'selected_icarus_nue'
+style_sheet = "../styles/muon2024.mplstyle"
 markers = ['o', '^', 's', 'P', 'D']
-default_figsize = [6.4,4.8]
-title = '$\bf{ICARUS}$ $1\mu Np$ CC0$\pi$'
+default_figsize = [10.0,5.0]
+#default_figsize = [12,10]
+#default_figsize = [12,8]
+title = ""
+#title = '$\bf{ICARUS}$ NuMI $1eNp$0$\pi$'
+#title = '$\bf{ICARUS}$ BNB $1eNp$0$\pi$'
 mark_pot = true
-mark_preliminary = '$\bf{ICARUS}$ Work-in-Progress'
+mark_preliminary = '$\bf{ICARUS}$ Analysis in Progress'
+plot_kwargs = {'histtype' = 'barstacked', 'stacked' = true}
+
+[[style]]
+name = 'selected_icarus_nue_no_pot'
+style_sheet = "../styles/muon2024.mplstyle"
+markers = ['o', '^', 's', 'P', 'D']
+default_figsize = [8.0,5.0]
+#default_figsize = [12,10]
+#default_figsize = [12,8]
+title = ""
+#title = '$\bf{ICARUS}$ NuMI $1eNp$0$\pi$'
+#title = '$\bf{ICARUS}$ BNB $1eNp$0$\pi$'
+mark_pot = false
+mark_preliminary = '$\bf{ICARUS}$ Analysis in Progress'
 plot_kwargs = {'histtype' = 'barstacked', 'stacked' = true}
 
 [[style]]

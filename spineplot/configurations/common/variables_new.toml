@@ -1,0 +1,187 @@
+[variables]
+
+[variables.reco_visible_energy]
+key = 'reco_visible_energy'
+range = [0.0, 3.0]
+nbins = 15
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed Visible Energy [GeV/c$^{2}$]'
+
+[variables.reco_leading_electron_ke]
+key = 'reco_leading_electron_ke'
+range = [0.0, 3.0]          # still required by the constructor, even though...
+nbins = 10                   # ...both get overwritten from custom_bins internally
+binning_scheme = 'custom_bins'
+custom_bins = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.5, 2.1, 3.0]
+xlabel = 'Reconstructed Leading Electron KE [GeV]'
+[variables.true_leading_electron_ke]
+key = 'true_leading_electron_ke'
+range = [0.0, 3.0]
+nbins = 50
+binning_scheme = 'equal_width'
+xlabel = 'True Electron Kinetic Energy [GeV]'
+[variables.reco_leading_proton_ke]
+key = 'reco_leading_proton_ke'
+range = [0, 1]
+nbins = 20
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed Proton Kinetic Energy [GeV]'
+[variables.true_leading_proton_ke]
+key = 'true_leading_proton_ke'
+range = [0, 1]
+nbins = 20
+binning_scheme = 'equal_width'
+xlabel = 'True Proton Kinetic Energy [GeV]'
+[variables.reco_leading_electron_polar_angle]
+key = 'reco_leading_electron_polar_angle'
+range = [0.0, 3.2]
+nbins = 15
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed Electron Polar Angle [rad]'
+
+[variables.reco_leading_electron_azimuthal_angle]
+key = 'reco_leading_electron_azimuthal_angle'
+range = [-3.2, 3.2]
+nbins = 20
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed Electron Azimuthal Angle [rad]'
+
+[variables.reco_leading_electron_primary_softmax]
+key = 'reco_leading_electron_primary_softmax'
+range = [0.96, 1.0]
+nbins = 50
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed Electron Primary Softmax Score'
+
+[variables.reco_leading_electron_electron_softmax]
+key = 'reco_leading_electron_electron_softmax'
+range = [0.5, 1.0]
+nbins = 50
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed Electron PID Softmax Score'
+
+[variables.reco_leading_proton_primary_softmax]
+key = 'reco_leading_proton_primary_softmax'
+range = [0, 1]
+nbins = 20
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed Proton Primary Softmax Score'
+
+[variables.reco_leading_proton_proton_softmax]
+key = 'reco_leading_proton_proton_softmax'
+range = [0.5, 1.0]
+nbins = 50
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed Proton PID Softmax Score'
+
+[variables.reco_opening_angle]
+key = 'reco_opening_angle'
+range = [0.0, 3.2]
+nbins = 20
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed Opening Angle [rad]'
+
+[variables.reco_dphiT]
+key = 'reco_dphiT'
+range = [0.0, 3.2]
+nbins = 10
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed $d\phi_T$ [rad]'
+
+[variables.reco_dpT]
+key = 'reco_dpT'
+range = [0.0, 1.1]
+nbins = 11
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed $\delta p_T$ [GeV/c]'
+
+
+[variables.reco_dalphaT]
+key = 'reco_dalphaT'
+range = [0.0, 3.2]
+nbins = 10
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed $d\alpha_T$ [rad]'
+
+[variables.reco_leading_electron_dpT]
+key = 'reco_leading_electron_dpT'
+range = [0, 1100]
+nbins = 20
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed Electron Transverse Momentum [GeV/c]'
+
+[variables.reco_leading_proton_dpT]
+key = 'reco_leading_proton_dpT'
+range = [0, 1200]
+nbins = 20
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed Proton Transverse Momentum [GeV/c]'
+
+[variables.reco_vertex_x]
+key = "reco_vertex_x"
+range = [-400, 400]
+nbins = 20
+xlabel = 'Reconstructed Vertex Position X [cm]'
+
+[variables.reco_vertex_y]
+key = "reco_vertex_y"
+range = [-200, 200]
+nbins = 20
+xlabel = 'Reconstructed Vertex Position Y [cm]'
+
+[variables.reco_vertex_z]
+key = "reco_vertex_z"
+range = [-1000, 1000]
+nbins = 20
+xlabel = 'Reconstructed Vertex Position Z [cm]'
+
+
+[variables.reco_leading_electron_start_dedx]
+key = 'reco_leading_electron_start_dedx'
+range = [0, 10]
+nbins = 20
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed Electron Start dE/dx [MeV/cm]'
+
+[variables.reco_leading_proton_polar_angle]
+key = "reco_leading_proton_polar_angle"
+range = [0.0, 3.2]
+nbins = 15
+xlabel = 'Reconstructed Proton Polar Angle [rad]'
+
+[variables.reco_leading_proton_azimuthal_angle]
+key = "reco_leading_proton_azimuthal_angle"
+range = [-3.2, 3.2]
+nbins = 15
+xlabel = 'Reconstructed Proton Azimuthal Angle [rad]'
+
+[variables.reco_leading_electron_vertex_distance]
+key = 'reco_leading_electron_vertex_distance'
+range = [0.0, 10.0]
+nbins = 50#10
+binning_scheme = 'equal_width'
+xlabel = 'Reconstructed Electron-Vertex Distance [cm]'
+
+[variables.reco_W]
+key = "reco_W"
+range = [30, 38]
+nbins = 20#0
+xlabel = 'Reconstructed Hadronic Invariant Mass [$Mev/C^2$]'
+
+[variables.reco_Qsquared]
+key = "reco_Qsquared"
+range = [0, 1]
+nbins = 20#10
+xlabel = 'Reconstructed $Q^2$ [$(Mev/C)^2$]'
+
+[variables.reco_leading_electron_NuMI_polar_angle]
+key = "reco_leading_electron_NuMI_polar_angle"
+range = [0.0, 1.0]
+nbins = 10#10
+xlabel = 'Reconstructed Electron Polar Angle w.r.t NuMI [rad]'
+
+[variables.reco_leading_proton_NuMI_polar_angle]
+key = "reco_leading_proton_NuMI_polar_angle"
+range = [0.0, 1.0]
+nbins = 10#10
+xlabel = 'Reconstructed Proton Polar Angle w.r.t NuMI [rad]'

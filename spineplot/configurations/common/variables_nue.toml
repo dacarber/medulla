@@ -1,0 +1,331 @@
+[variables]
+
+[variables.reco_leading_electron_NuMI_polar_angle]
+key = "reco_leading_electron_NuMI_polar_angle"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "Reconstructed Electron Polar Angle w.r.t. NuMI [rad]"
+
+[variables.reco_leading_electron_axial_spread]
+key = "reco_leading_electron_axial_spread"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "Reconstructed Electron Axial Spread"
+
+[variables.reco_leading_electron_azimuthal_angle]
+key = "reco_leading_electron_azimuthal_angle"
+range = [-3.2, 3.2]
+nbins = 20
+xlabel = "Reconstructed Electron Azimuthal Angle [rad]"
+
+[variables.reco_leading_electron_directional_spread]
+key = "reco_leading_electron_directional_spread"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "Reconstructed Electron Directional Spread"
+
+[variables.reco_leading_electron_dpT]
+key = "reco_leading_electron_dpT"
+range = [0.0, 1.2]
+nbins = 25
+xlabel = 'Reconstructed Electron $\delta p_T$ [GeV/c]'
+
+[variables.reco_leading_electron_electron_softmax]
+key = "reco_leading_electron_electron_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Electron Electron Softmax Score"
+
+[variables.reco_leading_electron_end_x]
+key = "reco_leading_electron_end_x"
+range = [-400.0, 400.0]
+nbins = 20
+xlabel = "Reconstructed Electron End Point X [cm]"
+
+[variables.reco_leading_electron_end_y]
+key = "reco_leading_electron_end_y"
+range = [-200.0, 200.0]
+nbins = 20
+xlabel = "Reconstructed Electron End Point Y [cm]"
+
+[variables.reco_leading_electron_end_z]
+key = "reco_leading_electron_end_z"
+range = [-1000.0, 1000.0]
+nbins = 20
+xlabel = "Reconstructed Electron End Point Z [cm]"
+
+[variables.reco_leading_electron_hadron_softmax]
+key = "reco_leading_electron_hadron_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Electron Hadron Softmax Score"
+
+[variables.reco_leading_electron_ke]
+key = "reco_leading_electron_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "Reconstructed Electron Kinetic Energy [GeV]"
+
+[variables.reco_leading_electron_mip_softmax]
+key = "reco_leading_electron_mip_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Electron Mip Softmax Score"
+
+[variables.reco_leading_electron_p]
+key = "reco_leading_electron_p"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "Reconstructed Electron Momentum [GeV/c]"
+
+[variables.reco_leading_electron_photon_softmax]
+key = "reco_leading_electron_photon_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Electron Photon Softmax Score"
+
+[variables.reco_leading_electron_polar_angle]
+key = "reco_leading_electron_polar_angle"
+range = [0.0, 3.2]
+nbins = 20
+xlabel = "Reconstructed Electron Polar Angle [rad]"
+
+[variables.reco_leading_electron_primary_softmax]
+key = "reco_leading_electron_primary_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Electron Primary Softmax Score"
+
+[variables.reco_leading_electron_secondary_softmax]
+key = "reco_leading_electron_secondary_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Electron Secondary Softmax Score"
+
+[variables.reco_leading_electron_start_dedx]
+key = "reco_leading_electron_start_dedx"
+range = [0.0, 10.0]
+nbins = 20
+xlabel = "Reconstructed Electron Start dE/dx [MeV/cm]"
+
+[variables.reco_leading_electron_start_straightness]
+key = "reco_leading_electron_start_straightness"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "Reconstructed Electron Start Straightness"
+
+[variables.reco_leading_electron_start_x]
+key = "reco_leading_electron_start_x"
+range = [-400.0, 400.0]
+nbins = 20
+xlabel = "Reconstructed Electron Start Point X [cm]"
+
+[variables.reco_leading_electron_start_y]
+key = "reco_leading_electron_start_y"
+range = [-200.0, 200.0]
+nbins = 20
+xlabel = "Reconstructed Electron Start Point Y [cm]"
+
+[variables.reco_leading_electron_start_z]
+key = "reco_leading_electron_start_z"
+range = [-1000.0, 1000.0]
+nbins = 20
+xlabel = "Reconstructed Electron Start Point Z [cm]"
+
+[variables.reco_leading_electron_vertex_distance]
+key = "reco_leading_electron_vertex_distance"
+range = [0.0, 10.0]
+nbins = 50
+xlabel = "Reconstructed Electron-Vertex Distance [cm]"
+
+[variables.reco_leading_secondary_electron_axial_spread]
+key = "reco_leading_secondary_electron_axial_spread"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "Reconstructed Secondary Electron Axial Spread"
+
+[variables.reco_leading_secondary_electron_azimuthal_angle]
+key = "reco_leading_secondary_electron_azimuthal_angle"
+range = [-3.2, 3.2]
+nbins = 20
+xlabel = "Reconstructed Secondary Electron Azimuthal Angle [rad]"
+
+[variables.reco_leading_secondary_electron_directional_spread]
+key = "reco_leading_secondary_electron_directional_spread"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "Reconstructed Secondary Electron Directional Spread"
+
+[variables.reco_leading_secondary_electron_electron_softmax]
+key = "reco_leading_secondary_electron_electron_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Electron Electron Softmax Score"
+
+[variables.reco_leading_secondary_electron_hadron_softmax]
+key = "reco_leading_secondary_electron_hadron_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Electron Hadron Softmax Score"
+
+[variables.reco_leading_secondary_electron_ke]
+key = "reco_leading_secondary_electron_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "Reconstructed Secondary Electron Kinetic Energy [GeV]"
+
+[variables.reco_leading_secondary_electron_mip_softmax]
+key = "reco_leading_secondary_electron_mip_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Electron Mip Softmax Score"
+
+[variables.reco_leading_secondary_electron_photon_softmax]
+key = "reco_leading_secondary_electron_photon_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Electron Photon Softmax Score"
+
+[variables.reco_leading_secondary_electron_primary_softmax]
+key = "reco_leading_secondary_electron_primary_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Electron Primary Softmax Score"
+
+[variables.reco_leading_secondary_electron_secondary_softmax]
+key = "reco_leading_secondary_electron_secondary_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Electron Secondary Softmax Score"
+
+[variables.reco_leading_secondary_electron_start_dedx]
+key = "reco_leading_secondary_electron_start_dedx"
+range = [0.0, 10.0]
+nbins = 20
+xlabel = "Reconstructed Secondary Electron Start dE/dx [MeV/cm]"
+
+[variables.reco_leading_secondary_electron_start_straightness]
+key = "reco_leading_secondary_electron_start_straightness"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "Reconstructed Secondary Electron Start Straightness"
+
+[variables.reco_leading_secondary_electron_vertex_distance]
+key = "reco_leading_secondary_electron_vertex_distance"
+range = [0.0, 10.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Electron-Vertex Distance [cm]"
+
+[variables.reco_no_muons]
+key = "reco_no_muons"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "Reconstructed No Muons Flag"
+
+[variables.reco_single_electron]
+key = "reco_single_electron"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "Reconstructed Single Electron Flag"
+
+[variables.true_leading_electron_NuMI_polar_angle]
+key = "true_leading_electron_NuMI_polar_angle"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "True Electron Polar Angle w.r.t. NuMI [rad]"
+
+[variables.true_leading_electron_azimuthal_angle]
+key = "true_leading_electron_azimuthal_angle"
+range = [-3.2, 3.2]
+nbins = 20
+xlabel = "True Electron Azimuthal Angle [rad]"
+
+[variables.true_leading_electron_dpT]
+key = "true_leading_electron_dpT"
+range = [0.0, 1.2]
+nbins = 25
+xlabel = 'True Electron $\delta p_T$ [GeV/c]'
+
+[variables.true_leading_electron_end_x]
+key = "true_leading_electron_end_x"
+range = [-400.0, 400.0]
+nbins = 20
+xlabel = "True Electron End Point X [cm]"
+
+[variables.true_leading_electron_end_y]
+key = "true_leading_electron_end_y"
+range = [-200.0, 200.0]
+nbins = 20
+xlabel = "True Electron End Point Y [cm]"
+
+[variables.true_leading_electron_end_z]
+key = "true_leading_electron_end_z"
+range = [-1000.0, 1000.0]
+nbins = 20
+xlabel = "True Electron End Point Z [cm]"
+
+[variables.true_leading_electron_ke]
+key = "true_leading_electron_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "True Electron Kinetic Energy [GeV]"
+
+[variables.true_leading_electron_ke_bias]
+key = "true_leading_electron_ke_bias"
+range = [-1.0, 1.0]
+nbins = 50
+xlabel = "True Electron Kinetic Energy Bias"
+
+[variables.true_leading_electron_p]
+key = "true_leading_electron_p"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "True Electron Momentum [GeV/c]"
+
+[variables.true_leading_electron_polar_angle]
+key = "true_leading_electron_polar_angle"
+range = [0.0, 3.2]
+nbins = 20
+xlabel = "True Electron Polar Angle [rad]"
+
+[variables.true_leading_electron_start_x]
+key = "true_leading_electron_start_x"
+range = [-400.0, 400.0]
+nbins = 20
+xlabel = "True Electron Start Point X [cm]"
+
+[variables.true_leading_electron_start_y]
+key = "true_leading_electron_start_y"
+range = [-200.0, 200.0]
+nbins = 20
+xlabel = "True Electron Start Point Y [cm]"
+
+[variables.true_leading_electron_start_z]
+key = "true_leading_electron_start_z"
+range = [-1000.0, 1000.0]
+nbins = 20
+xlabel = "True Electron Start Point Z [cm]"
+
+[variables.true_leading_secondary_electron_azimuthal_angle]
+key = "true_leading_secondary_electron_azimuthal_angle"
+range = [-3.2, 3.2]
+nbins = 20
+xlabel = "True Secondary Electron Azimuthal Angle [rad]"
+
+[variables.true_leading_secondary_electron_ke]
+key = "true_leading_secondary_electron_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "True Secondary Electron Kinetic Energy [GeV]"
+
+[variables.true_no_muons]
+key = "true_no_muons"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "True No Muons Flag"
+
+[variables.true_single_electron]
+key = "true_single_electron"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "True Single Electron Flag"

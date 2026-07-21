@@ -1,0 +1,331 @@
+[variables]
+
+[variables.reco_leading_muon_NuMI_polar_angle]
+key = "reco_leading_muon_NuMI_polar_angle"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "Reconstructed Muon Polar Angle w.r.t. NuMI [rad]"
+
+[variables.reco_leading_muon_axial_spread]
+key = "reco_leading_muon_axial_spread"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "Reconstructed Muon Axial Spread"
+
+[variables.reco_leading_muon_azimuthal_angle]
+key = "reco_leading_muon_azimuthal_angle"
+range = [-3.2, 3.2]
+nbins = 20
+xlabel = "Reconstructed Muon Azimuthal Angle [rad]"
+
+[variables.reco_leading_muon_directional_spread]
+key = "reco_leading_muon_directional_spread"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "Reconstructed Muon Directional Spread"
+
+[variables.reco_leading_muon_dpT]
+key = "reco_leading_muon_dpT"
+range = [0.0, 1.2]
+nbins = 25
+xlabel = 'Reconstructed Muon $\delta p_T$ [GeV/c]'
+
+[variables.reco_leading_muon_end_x]
+key = "reco_leading_muon_end_x"
+range = [-400.0, 400.0]
+nbins = 20
+xlabel = "Reconstructed Muon End Point X [cm]"
+
+[variables.reco_leading_muon_end_y]
+key = "reco_leading_muon_end_y"
+range = [-200.0, 200.0]
+nbins = 20
+xlabel = "Reconstructed Muon End Point Y [cm]"
+
+[variables.reco_leading_muon_end_z]
+key = "reco_leading_muon_end_z"
+range = [-1000.0, 1000.0]
+nbins = 20
+xlabel = "Reconstructed Muon End Point Z [cm]"
+
+[variables.reco_leading_muon_hadron_softmax]
+key = "reco_leading_muon_hadron_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Muon Hadron Softmax Score"
+
+[variables.reco_leading_muon_ke]
+key = "reco_leading_muon_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "Reconstructed Muon Kinetic Energy [GeV]"
+
+[variables.reco_leading_muon_mip_softmax]
+key = "reco_leading_muon_mip_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Muon Mip Softmax Score"
+
+[variables.reco_leading_muon_muon_softmax]
+key = "reco_leading_muon_muon_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Muon Muon Softmax Score"
+
+[variables.reco_leading_muon_p]
+key = "reco_leading_muon_p"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "Reconstructed Muon Momentum [GeV/c]"
+
+[variables.reco_leading_muon_photon_softmax]
+key = "reco_leading_muon_photon_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Muon Photon Softmax Score"
+
+[variables.reco_leading_muon_polar_angle]
+key = "reco_leading_muon_polar_angle"
+range = [0.0, 3.2]
+nbins = 20
+xlabel = "Reconstructed Muon Polar Angle [rad]"
+
+[variables.reco_leading_muon_primary_softmax]
+key = "reco_leading_muon_primary_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Muon Primary Softmax Score"
+
+[variables.reco_leading_muon_secondary_softmax]
+key = "reco_leading_muon_secondary_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Muon Secondary Softmax Score"
+
+[variables.reco_leading_muon_start_dedx]
+key = "reco_leading_muon_start_dedx"
+range = [0.0, 10.0]
+nbins = 20
+xlabel = "Reconstructed Muon Start dE/dx [MeV/cm]"
+
+[variables.reco_leading_muon_start_straightness]
+key = "reco_leading_muon_start_straightness"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "Reconstructed Muon Start Straightness"
+
+[variables.reco_leading_muon_start_x]
+key = "reco_leading_muon_start_x"
+range = [-400.0, 400.0]
+nbins = 20
+xlabel = "Reconstructed Muon Start Point X [cm]"
+
+[variables.reco_leading_muon_start_y]
+key = "reco_leading_muon_start_y"
+range = [-200.0, 200.0]
+nbins = 20
+xlabel = "Reconstructed Muon Start Point Y [cm]"
+
+[variables.reco_leading_muon_start_z]
+key = "reco_leading_muon_start_z"
+range = [-1000.0, 1000.0]
+nbins = 20
+xlabel = "Reconstructed Muon Start Point Z [cm]"
+
+[variables.reco_leading_muon_vertex_distance]
+key = "reco_leading_muon_vertex_distance"
+range = [0.0, 10.0]
+nbins = 50
+xlabel = "Reconstructed Muon-Vertex Distance [cm]"
+
+[variables.reco_leading_secondary_muon_axial_spread]
+key = "reco_leading_secondary_muon_axial_spread"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "Reconstructed Secondary Muon Axial Spread"
+
+[variables.reco_leading_secondary_muon_azimuthal_angle]
+key = "reco_leading_secondary_muon_azimuthal_angle"
+range = [-3.2, 3.2]
+nbins = 20
+xlabel = "Reconstructed Secondary Muon Azimuthal Angle [rad]"
+
+[variables.reco_leading_secondary_muon_directional_spread]
+key = "reco_leading_secondary_muon_directional_spread"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "Reconstructed Secondary Muon Directional Spread"
+
+[variables.reco_leading_secondary_muon_hadron_softmax]
+key = "reco_leading_secondary_muon_hadron_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Muon Hadron Softmax Score"
+
+[variables.reco_leading_secondary_muon_ke]
+key = "reco_leading_secondary_muon_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "Reconstructed Secondary Muon Kinetic Energy [GeV]"
+
+[variables.reco_leading_secondary_muon_mip_softmax]
+key = "reco_leading_secondary_muon_mip_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Muon Mip Softmax Score"
+
+[variables.reco_leading_secondary_muon_muon_softmax]
+key = "reco_leading_secondary_muon_muon_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Muon Muon Softmax Score"
+
+[variables.reco_leading_secondary_muon_photon_softmax]
+key = "reco_leading_secondary_muon_photon_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Muon Photon Softmax Score"
+
+[variables.reco_leading_secondary_muon_primary_softmax]
+key = "reco_leading_secondary_muon_primary_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Muon Primary Softmax Score"
+
+[variables.reco_leading_secondary_muon_secondary_softmax]
+key = "reco_leading_secondary_muon_secondary_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Muon Secondary Softmax Score"
+
+[variables.reco_leading_secondary_muon_start_dedx]
+key = "reco_leading_secondary_muon_start_dedx"
+range = [0.0, 10.0]
+nbins = 20
+xlabel = "Reconstructed Secondary Muon Start dE/dx [MeV/cm]"
+
+[variables.reco_leading_secondary_muon_start_straightness]
+key = "reco_leading_secondary_muon_start_straightness"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "Reconstructed Secondary Muon Start Straightness"
+
+[variables.reco_leading_secondary_muon_vertex_distance]
+key = "reco_leading_secondary_muon_vertex_distance"
+range = [0.0, 10.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Muon-Vertex Distance [cm]"
+
+[variables.reco_no_electrons]
+key = "reco_no_electrons"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "Reconstructed No Electrons Flag"
+
+[variables.reco_single_muon]
+key = "reco_single_muon"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "Reconstructed Single Muon Flag"
+
+[variables.true_leading_muon_NuMI_polar_angle]
+key = "true_leading_muon_NuMI_polar_angle"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "True Muon Polar Angle w.r.t. NuMI [rad]"
+
+[variables.true_leading_muon_azimuthal_angle]
+key = "true_leading_muon_azimuthal_angle"
+range = [-3.2, 3.2]
+nbins = 20
+xlabel = "True Muon Azimuthal Angle [rad]"
+
+[variables.true_leading_muon_dpT]
+key = "true_leading_muon_dpT"
+range = [0.0, 1.2]
+nbins = 25
+xlabel = 'True Muon $\delta p_T$ [GeV/c]'
+
+[variables.true_leading_muon_end_x]
+key = "true_leading_muon_end_x"
+range = [-400.0, 400.0]
+nbins = 20
+xlabel = "True Muon End Point X [cm]"
+
+[variables.true_leading_muon_end_y]
+key = "true_leading_muon_end_y"
+range = [-200.0, 200.0]
+nbins = 20
+xlabel = "True Muon End Point Y [cm]"
+
+[variables.true_leading_muon_end_z]
+key = "true_leading_muon_end_z"
+range = [-1000.0, 1000.0]
+nbins = 20
+xlabel = "True Muon End Point Z [cm]"
+
+[variables.true_leading_muon_ke]
+key = "true_leading_muon_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "True Muon Kinetic Energy [GeV]"
+
+[variables.true_leading_muon_ke_bias]
+key = "true_leading_muon_ke_bias"
+range = [-1.0, 1.0]
+nbins = 50
+xlabel = "True Muon Kinetic Energy Bias"
+
+[variables.true_leading_muon_p]
+key = "true_leading_muon_p"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "True Muon Momentum [GeV/c]"
+
+[variables.true_leading_muon_polar_angle]
+key = "true_leading_muon_polar_angle"
+range = [0.0, 3.2]
+nbins = 20
+xlabel = "True Muon Polar Angle [rad]"
+
+[variables.true_leading_muon_start_x]
+key = "true_leading_muon_start_x"
+range = [-400.0, 400.0]
+nbins = 20
+xlabel = "True Muon Start Point X [cm]"
+
+[variables.true_leading_muon_start_y]
+key = "true_leading_muon_start_y"
+range = [-200.0, 200.0]
+nbins = 20
+xlabel = "True Muon Start Point Y [cm]"
+
+[variables.true_leading_muon_start_z]
+key = "true_leading_muon_start_z"
+range = [-1000.0, 1000.0]
+nbins = 20
+xlabel = "True Muon Start Point Z [cm]"
+
+[variables.true_leading_secondary_muon_azimuthal_angle]
+key = "true_leading_secondary_muon_azimuthal_angle"
+range = [-3.2, 3.2]
+nbins = 20
+xlabel = "True Secondary Muon Azimuthal Angle [rad]"
+
+[variables.true_leading_secondary_muon_ke]
+key = "true_leading_secondary_muon_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "True Secondary Muon Kinetic Energy [GeV]"
+
+[variables.true_no_electrons]
+key = "true_no_electrons"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "True No Electrons Flag"
+
+[variables.true_single_muon]
+key = "true_single_muon"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "True Single Muon Flag"

@@ -1,124 +1,16 @@
 [variables]
 
-[variables.true_visible_energy]
-key = "true_edep"
-range = [0, 3]
-nbins = 25
-xlabel = "True Visible Energy [GeV]"
-
-[variables.reco_tmuon]
-key = "reco_tmuon"
-range = [0, 1200]
-nbins = 25
-xlabel = "Reconstructed Muon Kinetic Energy [MeV]"
-
-[variables.reco_visible_energy]
-key = "reco_edep"
-range = [0, 3]
-nbins = 25
-xlabel = "Reconstructed Visible Energy [GeV]"
-
-[variables.true_dpT]
-key = "true_dpT"
-range = [0,1200]
-nbins = 25
-xlabel = 'True $\delta p_T$ [MeV/c]'
-
-[variables.reco_dpT]
-key = "reco_dpT"
-range = [0,1200]
-nbins = 25
-xlabel = 'Reconstructed $\delta p_T$ [MeV/c]'
-
-[variables.true_dpT_lp]
-key = "true_dpT_lp"
-range = [0,1200]
-nbins = 25
-xlabel = 'True $\delta p_T^{lp}$ [MeV/c]'
-
-[variables.reco_dpT_lp]
-key = "reco_dpT_lp"
-range = [0,1200]
-nbins = 25
-xlabel = 'Reconstructed $\delta p_T^{lp}$ [MeV/c]'
-
-[variables.true_dpL]
-key = "true_dpL"
-range = [0,800]
-nbins = 25
-xlabel = 'True $\delta p_L$ [MeV/c]'
-
-[variables.reco_dpL]
-key = "reco_dpL"
-range = [0,800]
-nbins = 25
-xlabel = 'Reconstructed $\delta p_L$ [MeV/c]'
-
-[variables.true_dpL_lp]
-key = "true_dpL_lp"
-range = [0,800]
-nbins = 25
-xlabel = 'True $\delta p_L^{lp}$ [MeV/c]'
-
-[variables.reco_dpL_lp]
-key = "reco_dpL_lp"
-range = [0,800]
-nbins = 25
-xlabel = 'Reconstructed $\delta p_L^{lp}$ [MeV/c]'
-
-[variables.true_pn]
-key = "true_pn"
-range = [0,1200]
-nbins = 25
-xlabel = 'True $p_n$ [MeV/c]'
-
-[variables.reco_pn]
-key = "reco_pn"
-range = [0,1200]
-nbins = 25
-xlabel = 'Reconstructed $p_n$ [MeV/c]'
-
-[variables.true_pn_lp]
-key = "true_pn_lp"
-range = [0,1200]
-nbins = 25
-xlabel = 'True $p_n^{lp}$ [MeV/c]'
-
-[variables.reco_pn_lp]
-key = "reco_pn_lp"
-range = [0,1200]
-nbins = 25
-xlabel = 'Reconstructed $p_n^{lp}$ [MeV/c]'
-
-[variables.true_dphiT]
-key = "true_dphiT"
-range = [0.0, 3.1415]
-nbins = 25
-xlabel = 'True $d\phi_T$ [Rad.]'
-
-[variables.reco_dphiT]
-key = "reco_dphiT"
-range = [0.0, 3.1415]
-nbins = 25
-xlabel = 'Reconstructed $d\phi_T$ [Rad.]'
-
-[variables.true_dalphaT]
-key = "true_dalphaT"
-range = [0.0, 3.1415]
-nbins = 25
-xlabel = 'True $d\alpha_T$ [Rad.]'
-
-[variables.reco_dalphaT]
-key = "reco_dalphaT"
-range = [0.0, 3.1415]
-nbins = 25
-xlabel = 'Reconstructed $d\alpha_T$ [Rad.]'
-
-[variables.muon_primary_softmax]
-key = "muon_primary_softmax"
+[variables.muon_hadron_softmax]
+key = "muon_hadron_softmax"
 range = [0, 1]
 nbins = 50
-xlabel = "Primary Softmax Score"
+xlabel = "'Hadron' Softmax Score"
+
+[variables.muon_mip_softmax]
+key = "muon_mip_softmax"
+range = [0, 1]
+nbins = 50
+xlabel = "'MIP' Softmax Score"
 
 [variables.muon_muon_softmax]
 key = "muon_muon_softmax"
@@ -132,23 +24,23 @@ range = [0, 1]
 nbins = 50
 xlabel = "Pion Softmax Score"
 
+[variables.muon_primary_softmax]
+key = "muon_primary_softmax"
+range = [0, 1]
+nbins = 50
+xlabel = "Primary Softmax Score"
+
 [variables.muon_proton_softmax]
 key = "muon_proton_softmax"
 range = [0, 1]
 nbins = 50
 xlabel = "Proton Softmax Score"
 
-[variables.muon_mip_softmax]
-key = "muon_mip_softmax"
+[variables.proton_mip_softmax]
+key = "proton_mip_softmax"
 range = [0, 1]
 nbins = 50
 xlabel = "'MIP' Softmax Score"
-
-[variables.muon_hadron_softmax]
-key = "muon_hadron_softmax"
-range = [0, 1]
-nbins = 50
-xlabel = "'Hadron' Softmax Score"
 
 [variables.proton_primary_softmax]
 key = "proton_primary_softmax"
@@ -162,14 +54,692 @@ range = [0, 1]
 nbins = 50
 xlabel = "Proton Softmax Score"
 
-[variables.proton_mip_softmax]
-key = "proton_mip_softmax"
-range = [0, 1]
+[variables.reco_Qsquared]
+key = "reco_Qsquared"
+range = [0.0, 3.0]
+nbins = 20
+xlabel = "Reconstructed $Q^2$ [(GeV/c)$^2$]"
+
+[variables.reco_W]
+key = "reco_W"
+range = [0.8, 3.0]
+nbins = 20
+xlabel = "Reconstructed Hadronic Invariant Mass W [GeV/c$^2$]"
+
+[variables.reco_containment]
+key = "reco_containment"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "Reconstructed Containment Flag"
+
+[variables.reco_containment_cut]
+key = "reco_containment_cut"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "Reconstructed Containment Cut Flag"
+
+[variables.reco_cut_type]
+key = "reco_cut_type"
+range = [0.0, 20.0]
+nbins = 20
+xlabel = "Reconstructed Cut Type"
+
+[variables.reco_dalphaT]
+key = "reco_dalphaT"
+range = [0.0, 3.1415]
+nbins = 25
+xlabel = 'Reconstructed $d\alpha_T$ [Rad.]'
+
+[variables.reco_dpL]
+key = "reco_dpL"
+range = [0,800]
+nbins = 25
+xlabel = 'Reconstructed $\delta p_L$ [MeV/c]'
+
+[variables.reco_dpL_lp]
+key = "reco_dpL_lp"
+range = [0,800]
+nbins = 25
+xlabel = 'Reconstructed $\delta p_L^{lp}$ [MeV/c]'
+
+[variables.reco_dpT]
+key = "reco_dpT"
+range = [0,1200]
+nbins = 25
+xlabel = 'Reconstructed $\delta p_T$ [MeV/c]'
+
+[variables.reco_dpT_lp]
+key = "reco_dpT_lp"
+range = [0,1200]
+nbins = 25
+xlabel = 'Reconstructed $\delta p_T^{lp}$ [MeV/c]'
+
+[variables.reco_dphiT]
+key = "reco_dphiT"
+range = [0.0, 3.1415]
+nbins = 25
+xlabel = 'Reconstructed $d\phi_T$ [Rad.]'
+
+[variables.reco_electron_multiplicity]
+key = "reco_electron_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "Reconstructed Electron Multiplicity"
+
+[variables.reco_fiducial]
+key = "reco_fiducial"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "Reconstructed Fiducial Flag"
+
+[variables.reco_fiducial_cut]
+key = "reco_fiducial_cut"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "Reconstructed Fiducial Cut Flag"
+
+[variables.reco_flash_time]
+key = "reco_flash_time"
+range = [0.0, 10.0]
+nbins = 20
+xlabel = "Reconstructed Flash Time [mus]"
+
+[variables.reco_is_data]
+key = "reco_is_data"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "Reconstructed Is Data Flag"
+
+[variables.reco_is_nu]
+key = "reco_is_nu"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "Reconstructed Is Nu Flag"
+
+[variables.reco_leading_proton_NuMI_polar_angle]
+key = "reco_leading_proton_NuMI_polar_angle"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "Reconstructed Proton Polar Angle w.r.t. NuMI [rad]"
+
+[variables.reco_leading_proton_azimuthal_angle]
+key = "reco_leading_proton_azimuthal_angle"
+range = [-3.2, 3.2]
+nbins = 20
+xlabel = "Reconstructed Proton Azimuthal Angle [rad]"
+
+[variables.reco_leading_proton_calo_ke]
+key = "reco_leading_proton_calo_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "Reconstructed Proton Calorimetric Kinetic Energy [GeV]"
+
+[variables.reco_leading_proton_dpT]
+key = "reco_leading_proton_dpT"
+range = [0.0, 1.2]
+nbins = 25
+xlabel = 'Reconstructed Proton $\delta p_T$ [GeV/c]'
+
+[variables.reco_leading_proton_hadron_softmax]
+key = "reco_leading_proton_hadron_softmax"
+range = [0.0, 1.0]
 nbins = 50
-xlabel = "'MIP' Softmax Score"
+xlabel = "Reconstructed Proton Hadron Softmax Score"
+
+[variables.reco_leading_proton_ke]
+key = "reco_leading_proton_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "Reconstructed Proton Kinetic Energy [GeV]"
+
+[variables.reco_leading_proton_length]
+key = "reco_leading_proton_length"
+range = [0.0, 500.0]
+nbins = 25
+xlabel = "Reconstructed Proton Track Length [cm]"
+
+[variables.reco_leading_proton_mip_softmax]
+key = "reco_leading_proton_mip_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Proton Mip Softmax Score"
+
+[variables.reco_leading_proton_muon_softmax]
+key = "reco_leading_proton_muon_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Proton Muon Softmax Score"
+
+[variables.reco_leading_proton_p]
+key = "reco_leading_proton_p"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "Reconstructed Proton Momentum [GeV/c]"
+
+[variables.reco_leading_proton_pion_softmax]
+key = "reco_leading_proton_pion_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Proton Pion Softmax Score"
+
+[variables.reco_leading_proton_polar_angle]
+key = "reco_leading_proton_polar_angle"
+range = [0.0, 3.2]
+nbins = 20
+xlabel = "Reconstructed Proton Polar Angle [rad]"
+
+[variables.reco_leading_proton_primary_softmax]
+key = "reco_leading_proton_primary_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Proton Primary Softmax Score"
+
+[variables.reco_leading_proton_proton_softmax]
+key = "reco_leading_proton_proton_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Proton Proton Softmax Score"
+
+[variables.reco_leading_proton_secondary_softmax]
+key = "reco_leading_proton_secondary_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Proton Secondary Softmax Score"
+
+[variables.reco_leading_secondary_proton_calo_ke]
+key = "reco_leading_secondary_proton_calo_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "Reconstructed Secondary Proton Calorimetric Kinetic Energy [GeV]"
+
+[variables.reco_leading_secondary_proton_hadron_softmax]
+key = "reco_leading_secondary_proton_hadron_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Proton Hadron Softmax Score"
+
+[variables.reco_leading_secondary_proton_ke]
+key = "reco_leading_secondary_proton_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "Reconstructed Secondary Proton Kinetic Energy [GeV]"
+
+[variables.reco_leading_secondary_proton_mip_softmax]
+key = "reco_leading_secondary_proton_mip_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Proton Mip Softmax Score"
+
+[variables.reco_leading_secondary_proton_muon_softmax]
+key = "reco_leading_secondary_proton_muon_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Proton Muon Softmax Score"
+
+[variables.reco_leading_secondary_proton_pion_softmax]
+key = "reco_leading_secondary_proton_pion_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Proton Pion Softmax Score"
+
+[variables.reco_leading_secondary_proton_primary_softmax]
+key = "reco_leading_secondary_proton_primary_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Proton Primary Softmax Score"
+
+[variables.reco_leading_secondary_proton_proton_softmax]
+key = "reco_leading_secondary_proton_proton_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Proton Proton Softmax Score"
+
+[variables.reco_leading_secondary_proton_secondary_softmax]
+key = "reco_leading_secondary_proton_secondary_softmax"
+range = [0.0, 1.0]
+nbins = 50
+xlabel = "Reconstructed Secondary Proton Secondary Softmax Score"
+
+[variables.reco_muon_multiplicity]
+key = "reco_muon_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "Reconstructed Muon Multiplicity"
 
 [variables.reco_muon_z]
 key = "reco_muon_z"
 range = [-100, 100]
 nbins = 100
 xlabel = "Reconstructed Muon End Point Z [cm]"
+
+[variables.reco_no_charged_pions]
+key = "reco_no_charged_pions"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "Reconstructed No Charged Pions Flag"
+
+[variables.reco_no_photons]
+key = "reco_no_photons"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "Reconstructed No Photons Flag"
+
+[variables.reco_opening_angle]
+key = "reco_opening_angle"
+range = [0.0, 3.2]
+nbins = 20
+xlabel = "Reconstructed Opening Angle [rad]"
+
+[variables.reco_photon_multiplicity]
+key = "reco_photon_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "Reconstructed Photon Multiplicity"
+
+[variables.reco_pion_multiplicity]
+key = "reco_pion_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "Reconstructed Pion Multiplicity"
+
+[variables.reco_pn]
+key = "reco_pn"
+range = [0,1200]
+nbins = 25
+xlabel = 'Reconstructed $p_n$ [MeV/c]'
+
+[variables.reco_pn_lp]
+key = "reco_pn_lp"
+range = [0,1200]
+nbins = 25
+xlabel = 'Reconstructed $p_n^{lp}$ [MeV/c]'
+
+[variables.reco_proton_multiplicity]
+key = "reco_proton_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "Reconstructed Proton Multiplicity"
+
+[variables.reco_secondary_electron_multiplicity]
+key = "reco_secondary_electron_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "Reconstructed Secondary Electron Multiplicity"
+
+[variables.reco_secondary_multiplicity]
+key = "reco_secondary_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "Reconstructed Secondary Multiplicity"
+
+[variables.reco_secondary_muon_multiplicity]
+key = "reco_secondary_muon_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "Reconstructed Secondary Muon Multiplicity"
+
+[variables.reco_secondary_photon_multiplicity]
+key = "reco_secondary_photon_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "Reconstructed Secondary Photon Multiplicity"
+
+[variables.reco_secondary_pion_multiplicity]
+key = "reco_secondary_pion_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "Reconstructed Secondary Pion Multiplicity"
+
+[variables.reco_secondary_proton_multiplicity]
+key = "reco_secondary_proton_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "Reconstructed Secondary Proton Multiplicity"
+
+[variables.reco_tmuon]
+key = "reco_tmuon"
+range = [0, 1200]
+nbins = 25
+xlabel = "Reconstructed Muon Kinetic Energy [MeV]"
+
+[variables.reco_track_containment_cut]
+key = "reco_track_containment_cut"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "Reconstructed Track Containment Cut Flag"
+
+[variables.reco_vertex_x]
+key = "reco_vertex_x"
+range = [-400.0, 400.0]
+nbins = 20
+xlabel = "Reconstructed Vertex Point X [cm]"
+
+[variables.reco_vertex_y]
+key = "reco_vertex_y"
+range = [-200.0, 200.0]
+nbins = 20
+xlabel = "Reconstructed Vertex Point Y [cm]"
+
+[variables.reco_vertex_z]
+key = "reco_vertex_z"
+range = [-1000.0, 1000.0]
+nbins = 20
+xlabel = "Reconstructed Vertex Point Z [cm]"
+
+[variables.reco_visible_energy]
+key = "reco_edep"
+range = [0, 3]
+nbins = 25
+xlabel = "Reconstructed Visible Energy [GeV]"
+
+[variables.true_Qsquared]
+key = "true_Qsquared"
+range = [0.0, 3.0]
+nbins = 20
+xlabel = "True $Q^2$ [(GeV/c)$^2$]"
+
+[variables.true_W]
+key = "true_W"
+range = [0.8, 3.0]
+nbins = 20
+xlabel = "True Hadronic Invariant Mass W [GeV/c$^2$]"
+
+[variables.true_category]
+key = "true_category"
+range = [0.0, 20.0]
+nbins = 20
+xlabel = "True Category"
+
+[variables.true_cc]
+key = "true_cc"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "True Cc Flag"
+
+[variables.true_cut_type]
+key = "true_cut_type"
+range = [0.0, 20.0]
+nbins = 20
+xlabel = "True Cut Type"
+
+[variables.true_dalphaT]
+key = "true_dalphaT"
+range = [0.0, 3.1415]
+nbins = 25
+xlabel = 'True $d\alpha_T$ [Rad.]'
+
+[variables.true_dpL]
+key = "true_dpL"
+range = [0,800]
+nbins = 25
+xlabel = 'True $\delta p_L$ [MeV/c]'
+
+[variables.true_dpL_lp]
+key = "true_dpL_lp"
+range = [0,800]
+nbins = 25
+xlabel = 'True $\delta p_L^{lp}$ [MeV/c]'
+
+[variables.true_dpT]
+key = "true_dpT"
+range = [0,1200]
+nbins = 25
+xlabel = 'True $\delta p_T$ [MeV/c]'
+
+[variables.true_dpT_lp]
+key = "true_dpT_lp"
+range = [0,1200]
+nbins = 25
+xlabel = 'True $\delta p_T^{lp}$ [MeV/c]'
+
+[variables.true_dphiT]
+key = "true_dphiT"
+range = [0.0, 3.1415]
+nbins = 25
+xlabel = 'True $d\phi_T$ [Rad.]'
+
+[variables.true_electron_multiplicity]
+key = "true_electron_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "True Electron Multiplicity"
+
+[variables.true_energy_init]
+key = "true_energy_init"
+range = [0.0, 3.0]
+nbins = 25
+xlabel = "True Initial Energy [GeV]"
+
+[variables.true_fiducial_cut]
+key = "true_fiducial_cut"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "True Fiducial Cut Flag"
+
+[variables.true_interaction_type]
+key = "true_interaction_type"
+range = [0.0, 20.0]
+nbins = 20
+xlabel = "True Interaction Type"
+
+[variables.true_is_data]
+key = "true_is_data"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "True Is Data Flag"
+
+[variables.true_is_nu]
+key = "true_is_nu"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "True Is Nu Flag"
+
+[variables.true_leading_proton_NuMI_polar_angle]
+key = "true_leading_proton_NuMI_polar_angle"
+range = [0.0, 1.0]
+nbins = 20
+xlabel = "True Proton Polar Angle w.r.t. NuMI [rad]"
+
+[variables.true_leading_proton_azimuthal_angle]
+key = "true_leading_proton_azimuthal_angle"
+range = [-3.2, 3.2]
+nbins = 20
+xlabel = "True Proton Azimuthal Angle [rad]"
+
+[variables.true_leading_proton_calo_ke]
+key = "true_leading_proton_calo_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "True Proton Calorimetric Kinetic Energy [GeV]"
+
+[variables.true_leading_proton_dpT]
+key = "true_leading_proton_dpT"
+range = [0.0, 1.2]
+nbins = 25
+xlabel = 'True Proton $\delta p_T$ [GeV/c]'
+
+[variables.true_leading_proton_ke]
+key = "true_leading_proton_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "True Proton Kinetic Energy [GeV]"
+
+[variables.true_leading_proton_ke_bias]
+key = "true_leading_proton_ke_bias"
+range = [-1.0, 1.0]
+nbins = 50
+xlabel = "True Proton Kinetic Energy Bias"
+
+[variables.true_leading_proton_length]
+key = "true_leading_proton_length"
+range = [0.0, 500.0]
+nbins = 25
+xlabel = "True Proton Track Length [cm]"
+
+[variables.true_leading_proton_p]
+key = "true_leading_proton_p"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "True Proton Momentum [GeV/c]"
+
+[variables.true_leading_proton_polar_angle]
+key = "true_leading_proton_polar_angle"
+range = [0.0, 3.2]
+nbins = 20
+xlabel = "True Proton Polar Angle [rad]"
+
+[variables.true_leading_secondary_proton_calo_ke]
+key = "true_leading_secondary_proton_calo_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "True Secondary Proton Calorimetric Kinetic Energy [GeV]"
+
+[variables.true_leading_secondary_proton_ke]
+key = "true_leading_secondary_proton_ke"
+range = [0.0, 3.0]
+nbins = 30
+xlabel = "True Secondary Proton Kinetic Energy [GeV]"
+
+[variables.true_muon_multiplicity]
+key = "true_muon_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "True Muon Multiplicity"
+
+[variables.true_neutrino_energy]
+key = "true_neutrino_energy"
+range = [0.0, 3.0]
+nbins = 25
+xlabel = "True Neutrino Energy [GeV]"
+
+[variables.true_neutrino_id]
+key = "true_neutrino_id"
+range = [0.0, 20.0]
+nbins = 20
+xlabel = "True Neutrino Id"
+
+[variables.true_no_charged_pions]
+key = "true_no_charged_pions"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "True No Charged Pions Flag"
+
+[variables.true_no_photons]
+key = "true_no_photons"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "True No Photons Flag"
+
+[variables.true_opening_angle]
+key = "true_opening_angle"
+range = [0.0, 3.2]
+nbins = 20
+xlabel = "True Opening Angle [rad]"
+
+[variables.true_parent_pdg]
+key = "true_parent_pdg"
+range = [-2000.0, 2000.0]
+nbins = 50
+xlabel = "True Parent PDG Code"
+
+[variables.true_pdg]
+key = "true_pdg"
+range = [-2000.0, 2000.0]
+nbins = 50
+xlabel = "True PDG Code"
+
+[variables.true_photon_multiplicity]
+key = "true_photon_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "True Photon Multiplicity"
+
+[variables.true_pion_multiplicity]
+key = "true_pion_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "True Pion Multiplicity"
+
+[variables.true_pn]
+key = "true_pn"
+range = [0,1200]
+nbins = 25
+xlabel = 'True $p_n$ [MeV/c]'
+
+[variables.true_pn_lp]
+key = "true_pn_lp"
+range = [0,1200]
+nbins = 25
+xlabel = 'True $p_n^{lp}$ [MeV/c]'
+
+[variables.true_proton_multiplicity]
+key = "true_proton_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "True Proton Multiplicity"
+
+[variables.true_secondary_electron_multiplicity]
+key = "true_secondary_electron_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "True Secondary Electron Multiplicity"
+
+[variables.true_secondary_multiplicity]
+key = "true_secondary_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "True Secondary Multiplicity"
+
+[variables.true_secondary_muon_multiplicity]
+key = "true_secondary_muon_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "True Secondary Muon Multiplicity"
+
+[variables.true_secondary_photon_multiplicity]
+key = "true_secondary_photon_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "True Secondary Photon Multiplicity"
+
+[variables.true_secondary_pion_multiplicity]
+key = "true_secondary_pion_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "True Secondary Pion Multiplicity"
+
+[variables.true_secondary_proton_multiplicity]
+key = "true_secondary_proton_multiplicity"
+range = [0.0, 10.0]
+nbins = 10
+xlabel = "True Secondary Proton Multiplicity"
+
+[variables.true_track_containment_cut]
+key = "true_track_containment_cut"
+range = [0.0, 2.0]
+nbins = 2
+xlabel = "True Track Containment Cut Flag"
+
+[variables.true_vertex_x]
+key = "true_vertex_x"
+range = [-400.0, 400.0]
+nbins = 20
+xlabel = "True Vertex Point X [cm]"
+
+[variables.true_vertex_y]
+key = "true_vertex_y"
+range = [-200.0, 200.0]
+nbins = 20
+xlabel = "True Vertex Point Y [cm]"
+
+[variables.true_vertex_z]
+key = "true_vertex_z"
+range = [-1000.0, 1000.0]
+nbins = 20
+xlabel = "True Vertex Point Z [cm]"
+
+[variables.true_visible_energy]
+key = "true_edep"
+range = [0, 3]
+nbins = 25
+xlabel = "True Visible Energy [GeV]"

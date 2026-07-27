@@ -50,14 +50,14 @@ table_types = ['multisigma','multisim']
 #ordinate = 'nominal'
 #points = ['var00', 'var00', 'var00', 'nominal', 'var00', 'var00', 'var00']
 
-[[sys]]
-name = 'var00'
-type = 'variation'
-index = -1
-nsigma = [-3, -2, -1, 0, 1 ,2, 3]
-scale = [-3, -2, -1, 1, 1, 2, 3]
-ordinate = 'nominal'
-points = ['var00', 'var00', 'var00', 'nominal', 'var00', 'var00', 'var00']
+#[[sys]]
+#name = 'var00'
+#type = 'variation'
+#index = -1
+#nsigma = [-3, -2, -1, 0, 1 ,2, 3]
+#scale = [-3, -2, -1, 1, 1, 2, 3]
+#ordinate = 'nominal'
+#points = ['var00', 'var00', 'var00', 'nominal', 'var00', 'var00', 'var00']
 
 [[sys]]
 name = 'var01'

@@ -38,7 +38,7 @@ destination = 'events/full/'
 name = 'signal'
 action = 'add_weights'
 #table_types = ['multisim', 'multisigma']
-table_types = ['multisigma','multisim']
+table_types = ['multisigma','multisim','variation']
 
 
 #[[sys]]

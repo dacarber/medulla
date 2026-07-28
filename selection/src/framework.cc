@@ -935,6 +935,7 @@ NamedSpillMultiVar construct_category(
 
     const bool has_true_cuts = !true_cut_functions.empty();
     const bool has_reco_cuts = !reco_cut_functions.empty();
+    const bool has_mctruth_cuts = !mctruth_cut_functions.empty();
 
     auto true_cut = [true_cut_functions](const TType & e) -> bool {
         return std::all_of(true_cut_functions.begin(), true_cut_functions.end(), [&e](auto & f){ return f(e); });
@@ -950,7 +951,7 @@ NamedSpillMultiVar construct_category(
     };
 
     return std::make_pair("true_category", ana::SpillMultiVar(
-        [true_cut, reco_cut, mctruth_cut, event_cut, categories, mode, ismc, has_true_cuts, has_reco_cuts]
+        [true_cut, reco_cut, mctruth_cut, event_cut, categories, mode, ismc, has_true_cuts, has_reco_cuts, has_mctruth_cuts]
         (const caf::Proxy<caf::StandardRecord> * sr) -> std::vector<double>
         {
             std::vector<double> values;
@@ -983,8 +984,19 @@ NamedSpillMultiVar construct_category(
                         if(match_id == kNoMatch) continue;
                         if(!reco_cut(sr->dlp[match_id])) continue;
                     }
-                    // nu_id < 0: cosmic; >= size(): guard against unpopulated mc.nu on data.
-                    if(i.nu_id >= 0 && (size_t)i.nu_id < sr->mc.nu.size() && !mctruth_cut(sr->mc.nu[i.nu_id])) continue;
+                    // Mirror the gating in spill_multivar_helper: when MCTruth
+                    // cuts are configured, an interaction with no GENIE match
+                    // (nu_id < 0, i.e. cosmic) cannot satisfy them and is
+                    // dropped. Skipping this makes the category branch emit one
+                    // extra value per cosmic relative to every other branch in
+                    // the tree, which trips the ana::Tree::UpdateEntries
+                    // assertion on equal branch lengths.
+                    // nu_id >= size(): guard against unpopulated mc.nu on data.
+                    if(has_mctruth_cuts)
+                    {
+                        if(i.nu_id < 0 || (size_t)i.nu_id >= sr->mc.nu.size()) continue;
+                        if(!mctruth_cut(sr->mc.nu[i.nu_id])) continue;
+                    }
                     assign_category(i, i.nu_id);
                 }
             }
@@ -994,15 +1006,25 @@ NamedSpillMultiVar construct_category(
                 {
                     if(!reco_cut(i)) continue;
                     size_t match_id = i.match_ids.size() > 0 ? (size_t)i.match_ids[0] : kNoMatch;
-                    if(has_true_cuts)
+                    // Mirror spill_multivar_helper: on MC the complementary
+                    // true-level cuts require a match, so an unmatched reco
+                    // interaction is dropped rather than filled with NaN. On
+                    // data the cuts are bypassed entirely (dlp_true is empty,
+                    // so every interaction falls through to kNoMatchValue).
+                    if(has_true_cuts && ismc)
                     {
-                        if(match_id == kNoMatch) { values.push_back(kNoMatchValue); continue; }
-                        if(ismc && !true_cut(sr->dlp_true[match_id])) continue;
+                        if(match_id == kNoMatch) continue;
+                        if(!true_cut(sr->dlp_true[match_id])) continue;
                     }
-                    if(match_id != kNoMatch)
+                    // As in "true" mode: a match whose true interaction has no
+                    // GENIE neutrino (nu_id < 0) cannot satisfy MCTruth-level
+                    // cuts and is dropped, keeping this branch the same length
+                    // as every other branch in the tree.
+                    if(has_mctruth_cuts && match_id != kNoMatch)
                     {
-                        int64_t nu_id = sr->dlp_true[match_id].nu_id;
-                        if(nu_id >= 0 && !mctruth_cut(sr->mc.nu[nu_id])) continue;
+                        const int64_t nu_id = sr->dlp_true[match_id].nu_id;
+                        if(nu_id < 0 || (size_t)nu_id >= sr->mc.nu.size()) continue;
+                        if(!mctruth_cut(sr->mc.nu[nu_id])) continue;
                     }
                     if(match_id != kNoMatch && match_id < sr->dlp_true.size())
                         assign_category(sr->dlp_true[match_id], sr->dlp_true[match_id].nu_id);

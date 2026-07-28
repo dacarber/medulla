@@ -299,6 +299,10 @@ namespace                                                                       
             CutFactoryRegistry<SpillType>::instance().register_fn(                         \
                 "spill_" #name, bind<+fn<SpillType>, SpillType, bool>                      \
             );                                                                             \
+        if constexpr((scope)==RegistrationScope::MCTruth)                                  \
+            CutFactoryRegistry<MCTruth>::instance().register_fn(                           \
+                "mctruth_" #name, bind<+fn<MCTruth>, MCTruth, bool>                        \
+            );                                                                             \
         return true;                                                                       \
     }();                                                                                   \
 }                                                                                          \
@@ -332,10 +336,6 @@ namespace                                                                       
         if constexpr((scope)==RegistrationScope::Event)                                    \
             VarFactoryRegistry<EventType>::instance().register_fn(                         \
                 "event_" #name, bind<fn<EventType>, EventType, double>                     \
-            );                                                                             \
-        if constexpr((scope)==RegistrationScope::MCTruth)                                  \
-            CutFactoryRegistry<MCTruth>::instance().register_fn(                           \
-                "mctruth_" #name, bind<+fn<MCTruth>, MCTruth, bool>                        \
             );                                                                             \
         return true;                                                                       \
     }();                                                                                   \

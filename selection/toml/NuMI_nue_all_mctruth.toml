@@ -247,7 +247,7 @@ branch = [
     {name = "is_nu",            type = "both"},
     {name = "is_data",            type = "both"},
     {name = "cut_type",            type = "both"},
-    {name = "neutrino_id",            type = "mctruth"},
+    {name = "neutrino_id",            type = "true"},
     {name = "cc",                    type = "mctruth"},
     {name = "pdg",                   type = "mctruth"}, #Needed for NuMI Flux calculation
     {name = "parent_pdg",            type = "mctruth"}, #Needed for NuMI Flux calculation
@@ -374,7 +374,7 @@ branch = [
     {name = "is_nu",            type = "both"},
     {name = "is_data",            type = "both"},
     {name = "cut_type",            type = "both"},
-    {name = "neutrino_id",            type = "mctruth"},
+    {name = "neutrino_id",            type = "true"},
     {name = "cc",                    type = "mctruth"},
     {name = "pdg",                   type = "mctruth"}, #Needed for NuMI Flux calculation
     {name = "parent_pdg",            type = "mctruth"}, #Needed for NuMI Flux calculation
@@ -501,7 +501,7 @@ branch = [
     {name = "is_nu",            type = "both"},
     {name = "is_data",            type = "both"},
     {name = "cut_type",            type = "both"},
-    {name = "neutrino_id",            type = "mctruth"},
+    {name = "neutrino_id",            type = "true"},
     {name = "cc",                    type = "mctruth"},
     {name = "pdg",                   type = "mctruth"}, #Needed for NuMI Flux calculation
     {name = "parent_pdg",            type = "mctruth"}, #Needed for NuMI Flux calculation
@@ -625,7 +625,7 @@ branch = [
     { name = "single_electron",     type = "both", parameters = [ "@electron_threshold" ] },
     { name = "no_charged_pions", type = "both", parameters = [ "@pion_threshold"     ] },
     { name = "no_muons",      type = "both", parameters = [ "@muon_threshold"     ] },
-    {name = "neutrino_id",            type = "mctruth"},
+    {name = "neutrino_id",            type = "true"},
     {name = "energy_init",      type = "mctruth"},
     {name = "cc",                    type = "mctruth"},
     {name = "pdg",                   type = "mctruth"}, #Needed for NuMI Flux calculation

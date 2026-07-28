@@ -28,7 +28,7 @@ cuts = [
     { name = "single_electron", parameters = [ "@electron_threshold"   ], type = "mctruth"},
     { name = "no_charged_pions", parameters = [ "@pion_threshold"   ], type = "mctruth"},
     { name = "no_muons", parameters = [ "@muon_threshold"   ], type = "mctruth"},
-    { name = "!no_protons", parameters = [ "@proton_threshold" ,"@proton_threshold"  ], type = "mctruth"},
+    { name = "!no_protons", parameters = [ "@proton_threshold" ,"@proton_upper_threshold"  ], type = "mctruth"},
     { name = "vertex_z_veto_cut", type = "mctruth", parameters = [-100.0, 100.0]}
 ]
 [[category]] # 1 : Neutrino, Uncontained and Out of Fiducial Volume (OOFV)
@@ -247,13 +247,13 @@ branch = [
     {name = "is_nu",            type = "both"},
     {name = "is_data",            type = "both"},
     {name = "cut_type",            type = "both"},
-    {name = "neutrino_id",            type = "true"},
+    {name = "neutrino_id",            type = "mctruth"},
     {name = "cc",                    type = "mctruth"},
     {name = "pdg",                   type = "mctruth"}, #Needed for NuMI Flux calculation
     {name = "parent_pdg",            type = "mctruth"}, #Needed for NuMI Flux calculation
     {name = "interaction_type",      type = "mctruth"},
     {name = "neutrino_energy",       type = "mctruth"}, #Needed for NuMI Flux calculation
-    {name = "category",              type = "true"},
+    {name = "category",              type = "mctruth"},
     {name = "visible_energy",        type = "both"},
     {name = "fiducial",              type = "reco"},
     {name = "track_containment_cut",           type = "reco"},
@@ -374,13 +374,13 @@ branch = [
     {name = "is_nu",            type = "both"},
     {name = "is_data",            type = "both"},
     {name = "cut_type",            type = "both"},
-    {name = "neutrino_id",            type = "true"},
+    {name = "neutrino_id",            type = "mctruth"},
     {name = "cc",                    type = "mctruth"},
     {name = "pdg",                   type = "mctruth"}, #Needed for NuMI Flux calculation
     {name = "parent_pdg",            type = "mctruth"}, #Needed for NuMI Flux calculation
     {name = "interaction_type",      type = "mctruth"},
     {name = "neutrino_energy",       type = "mctruth"}, #Needed for NuMI Flux calculation
-    {name = "category",              type = "true"},
+    {name = "category",              type = "mctruth"},
     {name = "visible_energy",        type = "both"},
     {name = "fiducial",              type = "reco"},
     {name = "track_containment_cut",           type = "reco"},
@@ -501,13 +501,13 @@ branch = [
     {name = "is_nu",            type = "both"},
     {name = "is_data",            type = "both"},
     {name = "cut_type",            type = "both"},
-    {name = "neutrino_id",            type = "true"},
+    {name = "neutrino_id",            type = "mctruth"},
     {name = "cc",                    type = "mctruth"},
     {name = "pdg",                   type = "mctruth"}, #Needed for NuMI Flux calculation
     {name = "parent_pdg",            type = "mctruth"}, #Needed for NuMI Flux calculation
     {name = "interaction_type",      type = "mctruth"},
     {name = "neutrino_energy",       type = "mctruth"}, #Needed for NuMI Flux calculation
-    {name = "category",              type = "true"},
+    {name = "category",              type = "mctruth"},
     {name = "visible_energy",        type = "both"},
     {name = "fiducial",              type = "reco"},
     {name = "track_containment_cut",           type = "reco"},
@@ -625,14 +625,14 @@ branch = [
     { name = "single_electron",     type = "both", parameters = [ "@electron_threshold" ] },
     { name = "no_charged_pions", type = "both", parameters = [ "@pion_threshold"     ] },
     { name = "no_muons",      type = "both", parameters = [ "@muon_threshold"     ] },
-    {name = "neutrino_id",            type = "true"},
+    {name = "neutrino_id",            type = "mctruth"},
     {name = "energy_init",      type = "mctruth"},
     {name = "cc",                    type = "mctruth"},
     {name = "pdg",                   type = "mctruth"}, #Needed for NuMI Flux calculation
     {name = "parent_pdg",            type = "mctruth"}, #Needed for NuMI Flux calculation
     {name = "interaction_type",      type = "mctruth"},
     {name = "neutrino_energy",       type = "mctruth"}, #Needed for NuMI Flux calculation
-    {name = "category",              type = "true"},
+    {name = "category",              type = "mctruth"},
     {name = "visible_energy",        type = "both"},
     {name = "fiducial",              type = "reco"},
     {name = "containment",           type = "reco"},
@@ -647,7 +647,7 @@ branch = [
     {name = "Qsquared", type = "both"},
     {name = "vertex_x", type = "both"},
     {name = "vertex_y", type = "both"},
-    {name = "vertex_z", type = "both"},
+    {name = "vertex_z", type = "both"}, 
     # Leading ELECTRON interaction-level
     { name = "end_x",                 type = "both_particle", selector = "leading_electron"   },
     { name = "end_y",                 type = "both_particle", selector = "leading_electron"   },

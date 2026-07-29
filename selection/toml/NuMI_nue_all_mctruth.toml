@@ -253,7 +253,7 @@ branch = [
     {name = "parent_pdg",            type = "mctruth"}, #Needed for NuMI Flux calculation
     {name = "interaction_type",      type = "mctruth"},
     {name = "neutrino_energy",       type = "mctruth"}, #Needed for NuMI Flux calculation
-    {name = "category",              type = "mctruth"},
+    {name = "category",              type = "true"},
     {name = "visible_energy",        type = "both"},
     {name = "fiducial",              type = "reco"},
     {name = "track_containment_cut",           type = "reco"},
@@ -380,7 +380,7 @@ branch = [
     {name = "parent_pdg",            type = "mctruth"}, #Needed for NuMI Flux calculation
     {name = "interaction_type",      type = "mctruth"},
     {name = "neutrino_energy",       type = "mctruth"}, #Needed for NuMI Flux calculation
-    {name = "category",              type = "mctruth"},
+    {name = "category",              type = "true"},
     {name = "visible_energy",        type = "both"},
     {name = "fiducial",              type = "reco"},
     {name = "track_containment_cut",           type = "reco"},
@@ -507,7 +507,7 @@ branch = [
     {name = "parent_pdg",            type = "mctruth"}, #Needed for NuMI Flux calculation
     {name = "interaction_type",      type = "mctruth"},
     {name = "neutrino_energy",       type = "mctruth"}, #Needed for NuMI Flux calculation
-    {name = "category",              type = "mctruth"},
+    {name = "category",              type = "true"},
     {name = "visible_energy",        type = "both"},
     {name = "fiducial",              type = "reco"},
     {name = "track_containment_cut",           type = "reco"},
@@ -632,7 +632,7 @@ branch = [
     {name = "parent_pdg",            type = "mctruth"}, #Needed for NuMI Flux calculation
     {name = "interaction_type",      type = "mctruth"},
     {name = "neutrino_energy",       type = "mctruth"}, #Needed for NuMI Flux calculation
-    {name = "category",              type = "mctruth"},
+    {name = "category",              type = "true"},
     {name = "visible_energy",        type = "both"},
     {name = "fiducial",              type = "reco"},
     {name = "containment",           type = "reco"},

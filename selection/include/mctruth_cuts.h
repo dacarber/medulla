@@ -12,6 +12,7 @@
 #ifndef MCTRUTH_CUTS_H
 #define MCTRUTH_CUTS_H
 #include <cmath>
+#include <limits>
 #include "sbnanaobj/StandardRecord/Proxy/SRProxy.h"
 #include "sbnanaobj/StandardRecord/SRTrueInteraction.h"
 
@@ -51,13 +52,15 @@ namespace mctruth
     template<typename T>
     bool single_muon(const T & obj, std::vector<double> params={143.425,})
     {
+        if(params.empty()) params.push_back(143.425);
+        double upper = params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
         int num_muons(0);
         for(const auto & p : obj.prim)
         {
             if(abs(p.pdg) == 13)
             {
                 double ke = 1000. * (p.genE - (MUON_MASS/1000.));
-                if(ke >= params[0])
+                if(ke >= params[0] && ke <= upper)
                     num_muons++;
             }
         }
@@ -77,12 +80,14 @@ namespace mctruth
     template<typename T>
     bool no_charged_pions(const T & obj, std::vector<double> params={25.0,})
     {
+        if(params.empty()) params.push_back(25.0);
+        double upper = params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
         for(const auto & p : obj.prim)
         {
             if(abs(p.pdg) == 211)
             {
                 double ke = 1000. * (p.genE - (PION_MASS/1000.));
-                if(ke >= params[0])
+                if(ke >= params[0] && ke <= upper)
                     return false;
             }
         }
@@ -123,12 +128,14 @@ namespace mctruth
     template<typename T>
     bool no_photons(const T & obj, std::vector<double> params={25.0,})
     {
+        if(params.empty()) params.push_back(25.0);
+        double upper = params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
         for(const auto & p : obj.prim)
         {
             if(p.pdg == 22)
             {
                 double energy = 1000. * p.genE;
-                if(energy >= params[0])
+                if(energy >= params[0] && energy <= upper)
                     return false;
             }
         }
@@ -148,12 +155,14 @@ namespace mctruth
     template<typename T>
     bool no_electrons(const T & obj, std::vector<double> params={25.0,})
     {
+        if(params.empty()) params.push_back(25.0);
+        double upper = params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
         for(const auto & p : obj.prim)
         {
             if(abs(p.pdg) == 11)
             {
                 double ke = 1000. * (p.genE - (ELECTRON_MASS/1000.));
-                if(ke >= params[0])
+                if(ke >= params[0] && ke <= upper)
                     return false;
             }
         }
@@ -173,13 +182,15 @@ namespace mctruth
     template<typename T>
     bool single_proton(const T & obj, std::vector<double> params={50.0,})
     {
+        if(params.empty()) params.push_back(50.0);
+        double upper = params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
         int count(0);
         for(const auto & p : obj.prim)
         {
             if(p.pdg == 2212)
             {
                 double ke = 1000. * (p.genE - (PROTON_MASS/1000.));
-                if(ke >= params[0])
+                if(ke >= params[0] && ke <= upper)
                     count++;
             }
         }
@@ -283,13 +294,15 @@ namespace mctruth
     template<typename T>
     bool single_electron(const T & obj, std::vector<double> params={25.0,})
     {
+        if(params.empty()) params.push_back(25.0);
+        double upper = params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
         int count(0);
         for(const auto & p : obj.prim)
         {
             if(std::abs(p.pdg) == 11)
             {
                 double ke = 1000. * (p.genE - (ELECTRON_MASS/1000.));
-                if(ke >= params[0])
+                if(ke >= params[0] && ke <= upper)
                     count++;
             }
         }
@@ -309,12 +322,14 @@ namespace mctruth
     template<typename T>
     bool no_muons(const T & obj, std::vector<double> params={143.425,})
     {
+        if(params.empty()) params.push_back(143.425);
+        double upper = params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
         for(const auto & p : obj.prim)
         {
             if(std::abs(p.pdg) == 13)
             {
                 double ke = 1000. * (p.genE - (MUON_MASS/1000.));
-                if(ke >= params[0])
+                if(ke >= params[0] && ke <= upper)
                     return false;
             }
         }
@@ -323,23 +338,26 @@ namespace mctruth
     REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, no_muons, no_muons);
 
     /**
-     * @brief Cut for zero true final state protons above threshold.
+     * @brief Cut for zero true final state protons within kinetic energy range.
      * @details Applied at the GENIE generator level using obj.prim. The
      * kinetic energy is computed from the GENIE genE field.
      * @tparam T the type of the object to apply the cut on.
      * @param obj the SRTrueInteraction to apply the cut on.
-     * @param params KE threshold in MeV, defaults to 50 MeV.
-     * @return true if no protons above threshold.
+     * @param params KE lower threshold in MeV (defaults to 50 MeV), and optional upper threshold in MeV.
+     * @return true if no protons within kinetic energy range.
      */
     template<typename T>
     bool no_protons(const T & obj, std::vector<double> params={50.0,})
     {
+        if(params.empty())
+            params.push_back(50.0);
+        double upper = params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
         for(const auto & p : obj.prim)
         {
             if(p.pdg == 2212)
             {
                 double ke = 1000. * (p.genE - (PROTON_MASS/1000.));
-                if(ke >= params[0])
+                if(ke >= params[0] && ke <= upper)
                     return false;
             }
         }
@@ -348,24 +366,27 @@ namespace mctruth
     REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, no_protons, no_protons);
 
     /**
-     * @brief Cut to select interactions with more than one proton above threshold.
+     * @brief Cut to select interactions with more than one proton within kinetic energy range.
      * @details Applied at the GENIE generator level using obj.prim. The
      * kinetic energy is computed from the GENIE genE field.
      * @tparam T the type of the object to apply the cut on.
      * @param obj the SRTrueInteraction to apply the cut on.
-     * @param params KE threshold in MeV, defaults to 50 MeV.
-     * @return true if more than one proton above threshold.
+     * @param params KE lower threshold in MeV (defaults to 50 MeV), and optional upper threshold in MeV.
+     * @return true if more than one proton within kinetic energy range.
      */
     template<typename T>
     bool multiproton(const T & obj, std::vector<double> params={50.0,})
     {
+        if(params.empty())
+            params.push_back(50.0);
+        double upper = params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
         int count(0);
         for(const auto & p : obj.prim)
         {
             if(p.pdg == 2212)
             {
                 double ke = 1000. * (p.genE - (PROTON_MASS/1000.));
-                if(ke >= params[0])
+                if(ke >= params[0] && ke <= upper)
                     count++;
             }
         }

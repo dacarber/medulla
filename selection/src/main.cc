@@ -25,6 +25,7 @@
 #include "variables.h"
 #include "mctruth_variables.h"
 #include "mctruth_cuts.h"
+#include "mctruth_particle_variables.h"
 #include "bivariables.h"
 #include "event_cuts.h"
 #include "event_variables.h"
@@ -258,11 +259,33 @@ int main(int argc, char * argv[])
                         vars_map.try_emplace(thisvar_true.first, thisvar_true.second);
                         vars_map.try_emplace(thisvar_reco.first, thisvar_reco.second);
                     }
+                    // If the variable type is "both_mctruth", we need to construct
+                    // two variables: one for "mctruth" (GENIE generator truth) and
+                    // one for "reco".
+                    else if(var_type == "both_mctruth")
+                    {
+                        NamedSpillMultiVar thisvar_mctruth = construct(cuts, var, mode, "mctruth", ismc);
+                        NamedSpillMultiVar thisvar_reco = construct(cuts, var, mode, "reco", ismc);
+                        vars_map.try_emplace(thisvar_mctruth.first, thisvar_mctruth.second);
+                        vars_map.try_emplace(thisvar_reco.first, thisvar_reco.second);
+                    }
+                    // If the variable type is "both_mctruth_particle", we need to
+                    // construct two variables: one for "mctruth_particle" (a
+                    // selected GENIE final-state primary) and one for
+                    // "reco_particle".
+                    else if(var_type == "both_mctruth_particle")
+                    {
+                        NamedSpillMultiVar thisvar_mctruth = construct(cuts, var, mode, "mctruth_particle", ismc);
+                        NamedSpillMultiVar thisvar_reco = construct(cuts, var, mode, "reco_particle", ismc);
+                        vars_map.try_emplace(thisvar_mctruth.first, thisvar_mctruth.second);
+                        vars_map.try_emplace(thisvar_reco.first, thisvar_reco.second);
+                    }
                     else if(var_type == "true"
                             || var_type == "reco"
                             || var_type == "mctruth"
                             || var_type == "true_particle"
                             || var_type == "reco_particle"
+                            || var_type == "mctruth_particle"
                             || var_type == "true_bivar"
                             || var_type == "reco_bivar"
                             || var_type == "event")

@@ -32,6 +32,14 @@ using RType = caf::SRInteractionDLPProxy;
 using MCTruth = caf::Proxy<caf::SRTrueInteraction>;
 using TParticleType = caf::Proxy<caf::SRParticleTruthDLP>;
 using RParticleType = caf::Proxy<caf::SRParticleDLP>;
+// A single true final-state primary within a GENIE interaction (an entry
+// of MCTruth::prim). UNVERIFIED against the sbnanaobj headers (not present
+// in this build environment) — inferred from the standard sbn CAF naming
+// convention (SRTrueInteraction/SRParticleTruthDLP/SRParticleDLP all follow
+// the "SR<Name>" + Proxy-wrapper pattern). Confirm this compiles against
+// SRTrueInteraction.h; if the primary particle struct has a different name,
+// only this one line needs to change.
+using MCTruthParticleType = caf::Proxy<caf::SRTrueParticle>;
 using EventType = caf::Proxy<caf::StandardRecord>;
 using SpillType = caf::Proxy<caf::SRBNBInfo>;
 
@@ -268,13 +276,31 @@ inline BiVarFn<ParticleT> bind_bivar(const std::vector<double>& pars)
  */
 enum class RegistrationScope { True, Reco, Both, MCTruth,
                                TrueParticle, RecoParticle, BothParticle,
+                               MCTruthParticle,
                                Event, Spill };
+
+// Helpers to build a unique identifier for the registration flag variables
+// below. The flag variable's name is otherwise derived purely from `name`
+// (e.g. `_reg_cut_##name`), which collides — a hard "redefinition" compile
+// error, since all anonymous namespaces in one translation unit share a
+// single underlying namespace — whenever the same cut/variable `name` is
+// registered more than once in different scopes/files that end up in the
+// same .cc file (e.g. a "true"/"reco"-scope cut in cuts.h and an
+// "mctruth"-scope cut of the same name in mctruth_cuts.h, both included by
+// main.cc). Suffixing with __COUNTER__ (monotonically increasing per use in
+// the translation unit) makes every generated flag variable unique
+// regardless of how many times a given `name` is reused, without changing
+// the registry key strings ("true_"/"reco_"/"mctruth_" + name) that the
+// TOML-driven lookups in framework.cc depend on.
+#define _REGFW_CONCAT_INNER(a, b) a##b
+#define _REGFW_CONCAT(a, b) _REGFW_CONCAT_INNER(a, b)
+#define _REGFW_UNIQUE(prefix) _REGFW_CONCAT(prefix, __COUNTER__)
 
 // Register a cut with scope, auto‐detecting its signature
 #define REGISTER_CUT_SCOPE(scope, name, fn)                                                \
 namespace                                                                                  \
 {                                                                                          \
-    const bool _reg_cut_##name = []{                                                       \
+    const bool _REGFW_UNIQUE(_reg_cut_##name##_) = []{                                     \
         if constexpr((scope)==RegistrationScope::True || (scope)==RegistrationScope::Both) \
             CutFactoryRegistry<TType>::instance().register_fn(                             \
                 "true_" #name, bind<+fn<TType>, TType, bool>                               \
@@ -312,7 +338,7 @@ REGISTER_VAR_SCOPE(scope, name, fn) // Register the variable with the same scope
 #define REGISTER_VAR_SCOPE(scope, name, fn)                                                \
 namespace                                                                                  \
 {                                                                                          \
-    const bool _reg_var_##name = []{                                                       \
+    const bool _REGFW_UNIQUE(_reg_var_##name##_) = []{                                     \
         if constexpr((scope)==RegistrationScope::True || (scope)==RegistrationScope::Both) \
             VarFactoryRegistry<TType>::instance().register_fn(                             \
                 "true_" #name, bind<fn<TType>, TType, double>                              \
@@ -333,10 +359,31 @@ namespace                                                                       
             VarFactoryRegistry<RParticleType>::instance().register_fn(                     \
                 "reco_particle_" #name, bind<fn<RParticleType>, RParticleType, double>     \
             );                                                                             \
+        if constexpr((scope)==RegistrationScope::MCTruthParticle)                          \
+            VarFactoryRegistry<MCTruthParticleType>::instance().register_fn(               \
+                "true_particle_" #name, bind<fn<MCTruthParticleType>, MCTruthParticleType, double> \
+            );                                                                             \
         if constexpr((scope)==RegistrationScope::Event)                                    \
             VarFactoryRegistry<EventType>::instance().register_fn(                         \
                 "event_" #name, bind<fn<EventType>, EventType, double>                     \
             );                                                                             \
+        return true;                                                                       \
+    }();                                                                                   \
+}
+
+// Register a selector that operates on the GENIE-truth MCTruth object
+// (selecting an index into MCTruth::prim), analogous to REGISTER_SELECTOR
+// but for the generator-level final-state particle list rather than a
+// SPINE interaction's particle list. Registers under the same "true_"
+// prefix convention used elsewhere for MCTruth-scope registries (there is
+// no separate "reco" side, since MCTruth has no reconstructed variant).
+#define REGISTER_MCTRUTH_SELECTOR(name, fn)                                                \
+namespace                                                                                  \
+{                                                                                          \
+    const bool _REGFW_UNIQUE(_reg_mctruth_selector_##name##_) = []{                        \
+        SelectorFactoryRegistry<MCTruth>::instance().register_fn(                          \
+            "true_" #name, bind<fn<MCTruth>, MCTruth, size_t>                              \
+        );                                                                                 \
         return true;                                                                       \
     }();                                                                                   \
 }
@@ -413,7 +460,13 @@ enum class Mode { True = 0, Reco = 1, Event = 2 };
  *        - type:       string ("true" or "reco")
  *        - parameters: array of floats (parameters for the variable)
  * @param mode The mode to use for the main loop ("true" or "reco").
- * @param override_type The type to use for the variable ("true" or "reco").
+ * @param override_type The type to use for the variable ("true", "reco",
+ *        "mctruth", "true_particle", "reco_particle", or "mctruth_particle").
+ *        Callers that need both halves of a paired TOML entry (i.e.
+ *        @c type = "both_mctruth" or "both_mctruth_particle") invoke this
+ *        function twice with the two override types. "mctruth_particle"
+ *        requires the branch/cut table to have a "selector" field — there
+ *        is no unfiltered broadcast over every MCTruth::prim entry.
  * @param ismc A boolean indicating whether the data is MC (true) or not (false).
  * @return A NamedSpillMultiVar object that applies the cuts and computes the variable.
  * @throw std::runtime_error if a function is not registered.

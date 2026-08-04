@@ -430,6 +430,32 @@ NamedSpillMultiVar construct(const std::vector<cfg::ConfigurationTable> & cuts,
                 mctruth_cut,
                 ismc));
         }
+        else if(var_type == "mctruth_particle")
+        {
+            if(!var.has_field("selector"))
+                throw std::runtime_error("mctruth_particle variable " + var_name + " requires a 'selector' field; there is no unfiltered broadcast over MCTruth::prim.");
+            std::string full_name = "true_" + var.get_string_field("selector") + "_" + var_name;
+            std::string selector_name = "true_" + var.get_string_field("selector");
+            auto selector_factory = SelectorFactoryRegistry<MCTruth>::instance().get(selector_name);
+            auto selector = selector_factory(std::vector<double>{});
+            std::string particle_var_name = "true_particle_" + var_name;
+            auto factory = VarFactoryRegistry<MCTruthParticleType>::instance().get(particle_var_name);
+            auto var_fn = factory(varPars);
+            VarFn<MCTruth> var_fn_with_selector = [var_fn, selector](const MCTruth & obj) -> double
+            {
+                size_t idx = selector(obj);
+                if(idx == kNoMatch) return kNoMatchValue;
+                return var_fn(obj.prim[idx]);
+            };
+            return std::make_pair(full_name, spill_multivar_helper<TType, RType, TParticleType, MCTruth>(
+                true_cut,
+                reco_cut_functions.empty() ? std::nullopt : std::optional<CutFn<RType>>(reco_cut),
+                true_particle_cut,
+                var_fn_with_selector,
+                event_cut,
+                mctruth_cut,
+                ismc));
+        }
         else if(var_type == "true_particle")
         {
             var_name = "true_particle_" + var_name;
@@ -625,6 +651,32 @@ NamedSpillMultiVar construct(const std::vector<cfg::ConfigurationTable> & cuts,
                 true_cut_functions.empty() ? std::nullopt : std::optional<CutFn<TType>>(true_cut),
                 true_particle_cut,
                 var_fn,
+                event_cut,
+                mctruth_cut,
+                ismc));
+        }
+        else if(var_type == "mctruth_particle")
+        {
+            if(!var.has_field("selector"))
+                throw std::runtime_error("mctruth_particle variable " + var_name + " requires a 'selector' field; there is no unfiltered broadcast over MCTruth::prim.");
+            std::string full_name = "true_" + var.get_string_field("selector") + "_" + var_name;
+            std::string selector_name = "true_" + var.get_string_field("selector");
+            auto selector_factory = SelectorFactoryRegistry<MCTruth>::instance().get(selector_name);
+            auto selector = selector_factory(std::vector<double>{});
+            std::string particle_var_name = "true_particle_" + var_name;
+            auto factory = VarFactoryRegistry<MCTruthParticleType>::instance().get(particle_var_name);
+            auto var_fn = factory(varPars);
+            VarFn<MCTruth> var_fn_with_selector = [var_fn, selector](const MCTruth & obj) -> double
+            {
+                size_t idx = selector(obj);
+                if(idx == kNoMatch) return kNoMatchValue;
+                return var_fn(obj.prim[idx]);
+            };
+            return std::make_pair(full_name, spill_multivar_helper<RType, TType, TParticleType, MCTruth>(
+                reco_cut,
+                true_cut_functions.empty() ? std::nullopt : std::optional<CutFn<TType>>(true_cut),
+                true_particle_cut,
+                var_fn_with_selector,
                 event_cut,
                 mctruth_cut,
                 ismc));
@@ -1137,11 +1189,13 @@ template class Registry<VarFactory<RType>>;
 template class Registry<VarFactory<MCTruth>>;
 template class Registry<VarFactory<TParticleType>>;
 template class Registry<VarFactory<RParticleType>>;
+template class Registry<VarFactory<MCTruthParticleType>>;
 template class Registry<VarFactory<EventType>>;
 
 // Explicit instantiation for selector registries
 template class Registry<SelectorFactory<TType>>;
 template class Registry<SelectorFactory<RType>>;
+template class Registry<SelectorFactory<MCTruth>>;
 
 // Biselector Registry
 template class Registry<BiSelectorFactory<TType>>;

@@ -429,5 +429,35 @@ bool at_least_one_pi0(const T &obj, std::vector<double> params = {
 REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, at_least_one_pi0,
                    at_least_one_pi0);
 
+/**
+ * @brief Containment cut restricted to true track-like final state
+ * primaries, at the GENIE generator level.
+ * @details Generator-level analog of cuts::track_containment_cut
+ * (cuts.h), which requires every SPINE-reconstructed particle classified
+ * as a track (semantic_type == 1) to be contained. There is no semantic
+ * classification on a GENIE primary, so track-like species are identified
+ * by PDG code instead (muon: 13, charged pion: 211, proton: 2212).
+ * Applied to every matching primary in obj.prim regardless of energy or
+ * primary/secondary status, mirroring how the reco/true cut applies to
+ * every track-classified particle rather than only final-state-signal
+ * ones. Containment is read from p.cont_tpc (containment within the TPC
+ * that would read out the particle's hits, matching the "track" wording
+ * of the cut name); p.contained (full-cryostat containment) is also
+ * available on the primary if a looser/stricter definition is desired.
+ * @tparam T the type of the object to apply the cut on.
+ * @param obj the SRTrueInteraction to apply the cut on.
+ * @return true if every true track-like primary is contained.
+ */
+template <typename T> bool track_containment_cut(const T &obj) {
+  for (const auto &p : obj.prim) {
+    const int pdg = std::abs(p.pdg);
+    if ((pdg == 13 || pdg == 211 || pdg == 2212) && !p.cont_tpc)
+      return false;
+  }
+  return true;
+}
+REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, track_containment_cut,
+                   track_containment_cut);
+
 } // namespace mctruth
 #endif

@@ -29,7 +29,7 @@ cuts = [
     { name = "no_charged_pions", parameters = [ "@pion_threshold"   ], type = "mctruth"},
     { name = "no_muons", parameters = [ "@muon_threshold"   ], type = "mctruth"},
     { name = "!no_protons", parameters = [ "@proton_threshold" ,"@proton_upper_threshold"  ], type = "mctruth"},
-    { name = "vertex_z_veto_cut", type = "mctruth", parameters = [-100.0, 100.0]}
+    #{ name = "vertex_z_veto_cut", type = "mctruth", parameters = [-100.0, 100.0]}
 ]
 [[category]] # 1 : Neutrino, Uncontained and Out of Fiducial Volume (OOFV)
 cuts = [

@@ -255,10 +255,8 @@ template <typename T> bool fiducial_cut(const T &obj) {
   const double x = obj.position.x;
   const double y = obj.position.y;
   const double z = obj.position.z;
-  bool in_fv = (std::abs(x) > 10.0 && std::abs(x) < 190.0) &&
-               (y > -190.0 && y < 120.0) && (z > 10.0 && z < 450.0);
-  bool cathode_corner = (x > 210.215 && y > 60.0 && z > 290.0 && z < 390.0);
-  return in_fv && !cathode_corner;
+  return obj.is_fiducial &&
+         !(x > 210.215 && y > 60.0 && (z > 290.0 && z < 390.0));
 }
 REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, fiducial_cut, fiducial_cut);
 

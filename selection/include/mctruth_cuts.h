@@ -362,7 +362,7 @@ bool no_protons(const T &obj, std::vector<double> params = {
       params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
   for (const auto &p : obj.prim) {
     if (p.pdg == 2212) {
-      double ke = (p.genE - (PROTON_MASS / 1000.));
+      double ke = (p.genE - (PROTON_MASS));
       if (ke >= params[0] && ke <= upper)
         return false;
     }

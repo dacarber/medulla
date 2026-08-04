@@ -209,6 +209,40 @@ namespace cuts
     }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, fiducial_cut, fiducial_cut);
 
+    /**
+     * @brief Apply a fiducial volume cut using the full outer borders of the
+     * ICARUS active volume.
+     * @details This cut is applied directly on the interaction vertex rather
+     * than relying on the upstream (SPINE post-processor) `is_fiducial` flag,
+     * so that the fiducial margins are defined here explicitly. The active
+     * volume is treated as the full detector envelope spanning both
+     * cryostats, i.e. only the outer x faces are inset; no fiducialization is
+     * applied at the cathodes or at the inner (gap-facing) TPC faces. The
+     * margins applied to the (low, high) faces are:
+     *   x: (25, 25) cm, y: (25, 25) cm, z: (30, 50) cm.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to select on.
+     * @return true if the vertex is in the fiducial volume.
+     */
+    template<class T>
+    bool fiducial_cut_icarus_full(const T & obj)
+    {
+        // Outer borders of the ICARUS active volume (both cryostats).
+        constexpr double XMIN = -358.49, XMAX =  358.49;
+        constexpr double YMIN = -181.86, YMAX =  134.96;
+        constexpr double ZMIN = -894.951, ZMAX = 894.951;
+
+        // Fiducial margins on the (low, high) faces of each axis.
+        constexpr double XMARGIN_LO = 25.0, XMARGIN_HI = 25.0;
+        constexpr double YMARGIN_LO = 25.0, YMARGIN_HI = 25.0;
+        constexpr double ZMARGIN_LO = 30.0, ZMARGIN_HI = 50.0;
+
+        return obj.vertex[0] > XMIN + XMARGIN_LO && obj.vertex[0] < XMAX - XMARGIN_HI
+            && obj.vertex[1] > YMIN + YMARGIN_LO && obj.vertex[1] < YMAX - YMARGIN_HI
+            && obj.vertex[2] > ZMIN + ZMARGIN_LO && obj.vertex[2] < ZMAX - ZMARGIN_HI;
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, fiducial_cut_icarus_full, fiducial_cut_icarus_full);
+
     template<class T>
     bool fiducial_cut_tmp(const T & obj)
     {

@@ -255,10 +255,48 @@ template <typename T> bool fiducial_cut(const T &obj) {
   const double x = obj.position.x;
   const double y = obj.position.y;
   const double z = obj.position.z;
-  return obj.is_fiducial &&
+  return fiducial_cut_icarus_full(obj) &&
          !(x > 210.215 && y > 60.0 && (z > 290.0 && z < 390.0));
 }
 REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, fiducial_cut, fiducial_cut);
+
+/**
+ * @brief Fiducial volume cut using the full outer borders of the ICARUS
+ * active volume, at the GENIE generator level.
+ * @details The MCTruth counterpart of cuts::fiducial_cut_icarus_full, applied
+ * to the SRTrueInteraction position coordinate (obj.position) rather than
+ * obj.vertex. The cut is applied directly on the vertex rather than relying
+ * on the upstream (SPINE post-processor) `is_fiducial` flag, so that the
+ * fiducial margins are defined here explicitly. The active volume is treated
+ * as the full detector envelope spanning both cryostats, i.e. only the outer
+ * x faces are inset; no fiducialization is applied at the cathodes or at the
+ * inner (gap-facing) TPC faces. The margins applied to the (low, high) faces
+ * are:
+ *   x: (25, 25) cm, y: (25, 25) cm, z: (30, 50) cm.
+ * @tparam T the type of the object to apply the cut on.
+ * @param obj the SRTrueInteraction to apply the cut on.
+ * @return true if the vertex is in the fiducial volume.
+ */
+template <typename T> bool fiducial_cut_icarus_full(const T &obj) {
+  // Outer borders of the ICARUS active volume (both cryostats).
+  constexpr double XMIN = -358.49, XMAX = 358.49;
+  constexpr double YMIN = -181.86, YMAX = 134.96;
+  constexpr double ZMIN = -894.951, ZMAX = 894.951;
+
+  // Fiducial margins on the (low, high) faces of each axis.
+  constexpr double XMARGIN_LO = 25.0, XMARGIN_HI = 25.0;
+  constexpr double YMARGIN_LO = 25.0, YMARGIN_HI = 25.0;
+  constexpr double ZMARGIN_LO = 30.0, ZMARGIN_HI = 50.0;
+
+  const double x = obj.position.x;
+  const double y = obj.position.y;
+  const double z = obj.position.z;
+  return x > XMIN + XMARGIN_LO && x < XMAX - XMARGIN_HI &&
+         y > YMIN + YMARGIN_LO && y < YMAX - YMARGIN_HI &&
+         z > ZMIN + ZMARGIN_LO && z < ZMAX - ZMARGIN_HI;
+}
+REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, fiducial_cut_icarus_full,
+                   fiducial_cut_icarus_full);
 
 /**
  * @brief Veto true interactions whose vertex lies within a z-range.

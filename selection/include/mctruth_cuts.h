@@ -237,30 +237,6 @@ template <typename T> bool neutrino(const T &obj) { return true; }
 REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, neutrino, neutrino);
 
 /**
- * @brief Fiducial volume cut at the GENIE generator level.
- * @details Checks whether the neutrino interaction vertex (obj.position)
- * lies within the ICARUS fiducial volume.  The bounds mirror those used
- * by the SPINE truth-DLP fiducial cut, adapted for the SRTrueInteraction
- * position coordinate system:
- *   |x| in (10, 190) cm  — 10 cm from cathode, 190 cm from wire planes
- *   z in (10, 450) cm    — 10 cm from upstream/downstream ends
- *   y in (-190, 120) cm  — vertical extent of the active volume
- * An additional veto removes the cathode-corner region that is excluded
- * from the SPINE is_fiducial definition.
- * @tparam T the type of the object to apply the cut on.
- * @param obj the SRTrueInteraction to apply the cut on.
- * @return true if the vertex is in the fiducial volume.
- */
-template <typename T> bool fiducial_cut(const T &obj) {
-  const double x = obj.position.x;
-  const double y = obj.position.y;
-  const double z = obj.position.z;
-  return fiducial_cut_icarus_full(obj) &&
-         !(x > 210.215 && y > 60.0 && (z > 290.0 && z < 390.0));
-}
-REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, fiducial_cut, fiducial_cut);
-
-/**
  * @brief Fiducial volume cut using the full outer borders of the ICARUS
  * active volume, at the GENIE generator level.
  * @details The MCTruth counterpart of cuts::fiducial_cut_icarus_full, applied
@@ -297,7 +273,29 @@ template <typename T> bool fiducial_cut_icarus_full(const T &obj) {
 }
 REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, fiducial_cut_icarus_full,
                    fiducial_cut_icarus_full);
-
+/**
+ * @brief Fiducial volume cut at the GENIE generator level.
+ * @details Checks whether the neutrino interaction vertex (obj.position)
+ * lies within the ICARUS fiducial volume.  The bounds mirror those used
+ * by the SPINE truth-DLP fiducial cut, adapted for the SRTrueInteraction
+ * position coordinate system:
+ *   |x| in (10, 190) cm  — 10 cm from cathode, 190 cm from wire planes
+ *   z in (10, 450) cm    — 10 cm from upstream/downstream ends
+ *   y in (-190, 120) cm  — vertical extent of the active volume
+ * An additional veto removes the cathode-corner region that is excluded
+ * from the SPINE is_fiducial definition.
+ * @tparam T the type of the object to apply the cut on.
+ * @param obj the SRTrueInteraction to apply the cut on.
+ * @return true if the vertex is in the fiducial volume.
+ */
+template <typename T> bool fiducial_cut(const T &obj) {
+  const double x = obj.position.x;
+  const double y = obj.position.y;
+  const double z = obj.position.z;
+  return fiducial_cut_icarus_full(obj) &&
+         !(x > 210.215 && y > 60.0 && (z > 290.0 && z < 390.0));
+}
+REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, fiducial_cut, fiducial_cut);
 /**
  * @brief Veto true interactions whose vertex lies within a z-range.
  * @details Mirrors the reco/true-level vertex_z_veto_cut, but operates on

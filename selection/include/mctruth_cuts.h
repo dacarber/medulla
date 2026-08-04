@@ -58,7 +58,7 @@ bool single_muon(const T &obj, std::vector<double> params = {
   int num_muons(0);
   for (const auto &p : obj.prim) {
     if (abs(p.pdg) == 13) {
-      double ke = 1000. * (p.genE - (MUON_MASS / 1000.));
+      double ke = (p.genE - (MUON_MASS));
       if (ke >= params[0] && ke <= upper)
         num_muons++;
     }
@@ -86,7 +86,7 @@ bool no_charged_pions(const T &obj, std::vector<double> params = {
       params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
   for (const auto &p : obj.prim) {
     if (abs(p.pdg) == 211) {
-      double ke = 1000. * (p.genE - (PION_MASS / 1000.));
+      double ke = (p.genE - (PION_MASS));
       if (ke >= params[0] && ke <= upper)
         return false;
     }
@@ -135,7 +135,7 @@ bool no_photons(const T &obj, std::vector<double> params = {
       params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
   for (const auto &p : obj.prim) {
     if (p.pdg == 22) {
-      double energy = 1000. * p.genE;
+      double energy = p.genE;
       if (energy >= params[0] && energy <= upper)
         return false;
     }
@@ -163,7 +163,7 @@ bool no_electrons(const T &obj, std::vector<double> params = {
       params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
   for (const auto &p : obj.prim) {
     if (abs(p.pdg) == 11) {
-      double ke = 1000. * (p.genE - (ELECTRON_MASS / 1000.));
+      double ke = (p.genE - (ELECTRON_MASS));
       if (ke >= params[0] && ke <= upper)
         return false;
     }
@@ -192,7 +192,7 @@ bool single_proton(const T &obj, std::vector<double> params = {
   int count(0);
   for (const auto &p : obj.prim) {
     if (p.pdg == 2212) {
-      double ke = 1000. * (p.genE - (PROTON_MASS / 1000.));
+      double ke = (p.genE - (PROTON_MASS));
       if (ke >= params[0] && ke <= upper)
         count++;
     }
@@ -304,7 +304,7 @@ bool single_electron(const T &obj, std::vector<double> params = {
   int count(0);
   for (const auto &p : obj.prim) {
     if (std::abs(p.pdg) == 11) {
-      double ke = 1000. * (p.genE - (ELECTRON_MASS / 1000.));
+      double ke = (p.genE - (ELECTRON_MASS));
       if (ke >= params[0] && ke <= upper)
         count++;
     }
@@ -393,7 +393,7 @@ bool multiproton(const T &obj, std::vector<double> params = {
   int count(0);
   for (const auto &p : obj.prim) {
     if (p.pdg == 2212) {
-      double ke = 1000. * (p.genE - (PROTON_MASS / 1000.));
+      double ke = (p.genE - (PROTON_MASS));
       if (ke >= params[0] && ke <= upper)
         count++;
     }
@@ -419,7 +419,7 @@ bool at_least_one_pi0(const T &obj, std::vector<double> params = {
     if (p.start_process != 0)
       continue;
     if (p.pdg == 111) {
-      double energy = 1000. * p.genE;
+      double energy = p.genE;
       if (energy >= params[0])
         return true;
     }

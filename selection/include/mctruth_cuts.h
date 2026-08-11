@@ -620,23 +620,6 @@ template <typename T> double no_extra_particles_minerva(const T &obj) {
 }
 REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, no_extra_particles_minerva,
                    no_extra_particles_minerva);
-/**
- * @brief Cut for zero true final state neutral pions.
- * @param obj the SRTrueInteraction to apply the cut on.
- * @param params KE threshold in MeV, defaults to 0 MeV.
- * @return true if no neutral pions above threshold.
- */
-template <typename T> bool no_neutral_pions(const T &obj) {
-  for (const auto &p : obj.prim) {
-    if (p.start_process != 0)
-      continue;
-    if (p.pdg == 111) {
-      return false;
-    }
-  }
-  return true;
-}
-REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, no_neutral_pions,
-                   no_neutral_pions);
+
 } // namespace mctruth
 #endif

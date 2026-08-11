@@ -580,7 +580,7 @@ REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, leading_proton_ke_cut,
  * @param obj the SRTrueInteraction to apply the variable on.
  * @return 1 if none of the above are found, 0 otherwise.
  */
-template <typename T> double no_extra_particles_minerva(const T &obj) {
+template <typename T> bool no_extra_particles_minerva(const T &obj) {
   unsigned int nPhotons(0);
   unsigned int nMesons(0);
   unsigned int nBaryonsAndPi0(0);
@@ -618,7 +618,7 @@ template <typename T> double no_extra_particles_minerva(const T &obj) {
 
   return true;
 }
-REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, no_extra_particles_minerva,
+REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, no_extra_particles_minerva,
                    no_extra_particles_minerva);
 
 } // namespace mctruth

@@ -28,8 +28,11 @@ cuts = [
     { name = "single_electron", parameters = [ "@electron_threshold"   ], type = "mctruth"},
     { name = "no_charged_pions", parameters = [ "@pion_threshold"   ], type = "mctruth"},
     { name = "no_muons", parameters = [ "@muon_threshold"   ], type = "mctruth"},
-    { name = "!no_protons", parameters = [ "@proton_threshold" ,"@proton_upper_threshold"  ], type = "mctruth"},
-    { name = "vertex_z_veto_cut", type = "mctruth", parameters = [-100.0, 100.0]}
+    { name = "!no_protons", parameters = [ "@proton_threshold" ], type = "mctruth"},
+    { name = "vertex_z_veto_cut", type = "mctruth", parameters = [-100.0, 100.0]},
+    { name = no_extra_particles_minerva", type = "mctruth"},
+    { name = "leading_proton_ke", parameters = [ "@proton_threshold" ,"@proton_upper_threshold"  ], type = "mctruth",selector="leading_proton"},
+    { name = "no_neutral_pions", type = "mctruth"}
 ]
 [[category]] # 1 : Neutrino, Uncontained and Out of Fiducial Volume (OOFV)
 cuts = [
@@ -38,7 +41,10 @@ cuts = [
     { name = "single_electron", parameters = [ "@electron_threshold"   ], type = "mctruth"},
     { name = "no_charged_pions", parameters = [ "@pion_threshold"   ], type = "mctruth"},
     { name = "no_muons", parameters = [ "@muon_threshold"   ], type = "mctruth"},
-    { name = "multiproton", parameters = [ "@proton_threshold","@proton_upper_threshold"   ], type = "mctruth"},
+    { name = "!no_protons", parameters = [ "@proton_threshold" ], type = "mctruth"},
+    { name = no_extra_particles_minerva", type = "mctruth", parameters = [-100.0, 100.0]},
+    { name = "leading_proton_ke", parameters = [ "@proton_threshold" ,"@proton_upper_threshold"  ], type = "mctruth",selector="leading_proton"},
+    { name = "no_neutral_pions", type = "mctruth"}
 ]
 [[category]] # 2 : Neutrino, Out of phase space (OOPS)
 cuts = [
@@ -49,7 +55,11 @@ cuts = [
     { name = "single_electron", parameters = [ "@null_threshold"   ], type = "mctruth"},
     { name = "no_charged_pions", parameters = [ "@pion_threshold"   ], type = "mctruth"},
     { name = "no_muons", parameters = [ "@muon_threshold"   ], type = "mctruth"},
-    { name = "!no_protons", parameters = [ "@null_threshold"   ], type = "mctruth"},
+    { name = "no_protons", parameters = [ "@proton_threshold" ], type = "mctruth"},
+    { name = no_extra_particles_minerva", type = "mctruth", parameters = [-100.0, 100.0]},
+    { name = "!leading_proton_ke", parameters = [ "@proton_threshold" ,"@proton_upper_threshold"  ], type = "mctruth",selector="leading_proton"},
+    { name = "no_neutral_pions", type = "mctruth"}
+
 ]
 
 [[category]] # 3 : Neutrino, Other CC Nue, Mpi (M >0)
@@ -62,7 +72,8 @@ cuts = [
 [[category]] # 4 : Neutrino, Other CC Nue, pi0
 cuts = [
     { name = "neutrino" , type = "mctruth"},
-    { name = "at_least_one_pi0", parameters = ["@photon_threshold"], type = "mctruth"}
+    #{ name = "at_least_one_pi0", parameters = ["@photon_threshold"], type = "mctruth"}
+    { name = "!no_neutral_pions", type = "mctruth"}
 ]
 [[category]] # 5 : Neutrino, Other CC Nue
 cuts = [
@@ -233,7 +244,7 @@ cut = [
     { name = "single_electron",     type = "reco", parameters = [ "@electron_threshold" ] },
     { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold"     ] },
     { name = "no_muons",      type = "reco", parameters = [ "@muon_threshold"     ] },
-    { name = "!no_protons",    type = "reco", parameters = [ "@proton_threshold"   , "@proton_upper_threshold" ] },
+    { name = "!no_protons",    type = "reco", parameters = [ "@proton_threshold"  ] },
     { name = "pion_secondary_cut", type = "reco", parameters = [ 0.0, 2.0]},
     { name = "pid_score_cut", type = "reco", parameters = [0.7]},
     { name = "primary_score_cut", type = "reco", parameters = [0.95]},
@@ -242,6 +253,8 @@ cut = [
     { name = "track_containment_cut", type = 'reco'},
 
     { name = "vertex_z_veto_cut", type = "reco", parameters = [-100.0, 100.0] },
+    { name = "leading_proton_ke", parameters = [ "@proton_threshold" ,"@proton_upper_threshold"  ], type = "reco",selector="leading_proton"},
+
 ]
 branch = [
     {name = "is_nu",            type = "both"},
@@ -359,7 +372,7 @@ cut = [
     { name = "single_electron",     type = "reco", parameters = [ "@electron_threshold" ] },
     { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold"     ] },
     { name = "no_muons",      type = "reco", parameters = [ "@muon_threshold"     ] },
-    { name = "!no_protons",    type = "reco", parameters = [ "@proton_threshold"   , "@proton_upper_threshold"] },
+    { name = "!no_protons",    type = "reco", parameters = [ "@proton_threshold"] },
     { name = "pion_secondary_cut", type = "reco", parameters = [ 0.0, 2.0]},
     { name = "pid_score_cut", type = "reco", parameters = [0.7]},
     { name = "primary_score_cut", type = "reco", parameters = [0.95]},
@@ -368,6 +381,8 @@ cut = [
     { name = "track_containment_cut", type = 'reco'},
 
     { name = "vertex_z_veto_cut", type = "reco", parameters = [-100.0, 100.0] },
+    { name = "leading_proton_ke", parameters = [ "@proton_threshold" ,"@proton_upper_threshold"  ], type = "reco",selector="leading_proton"},
+
 ]
 
 branch = [
@@ -486,7 +501,7 @@ cut = [
     { name = "single_electron",     type = "reco", parameters = [ "@electron_threshold" ] },
     { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold"     ] },
     { name = "no_muons",      type = "reco", parameters = [ "@muon_threshold"     ] },
-    { name = "!no_protons",    type = "reco", parameters = [ "@proton_threshold"   , "@proton_upper_threshold"] },
+    { name = "!no_protons",    type = "reco", parameters = [ "@proton_threshold" ] },
     { name = "pion_secondary_cut", type = "reco", parameters = [ 0.0, 2.0]},
     { name = "pid_score_cut", type = "reco", parameters = [0.7]},
     { name = "primary_score_cut", type = "reco", parameters = [0.95]},
@@ -495,6 +510,8 @@ cut = [
     { name = "track_containment_cut", type = 'reco'},
 
     { name = "vertex_z_veto_cut", type = "reco", parameters = [-100.0, 100.0] },
+    { name = "leading_proton_ke", parameters = [ "@proton_threshold" ,"@proton_upper_threshold"  ], type = "reco",selector="leading_proton"},
+
 ]
 
 branch = [
@@ -614,8 +631,11 @@ cut = [
     { name = "single_electron",     type = "mctruth", parameters = [ "@electron_threshold" ] },
     { name = "no_charged_pions", type = "mctruth", parameters = [ "@pion_threshold"     ] },
     { name = "no_muons",      type = "mctruth", parameters = [ "@muon_threshold"     ] },
-    { name = "!no_protons",    type = "mctruth", parameters = [ "@proton_threshold"   , "@proton_upper_threshold"] },
-    { name = "vertex_z_veto_cut", type = "mctruth", parameters = [-100.0, 100.0] },
+    { name = "!no_protons", parameters = [ "@proton_threshold" ], type = "mctruth"},
+    { name = "vertex_z_veto_cut", type = "mctruth", parameters = [-100.0, 100.0]},
+    { name = "no_extra_particles_minerva", type = "mctruth"},
+    { name = "leading_proton_ke", parameters = [ "@proton_threshold" ,"@proton_upper_threshold"  ], type = "mctruth",selector="leading_proton"},
+    { name = "no_neutral_pions", type = "mctruth"}
 ]
 
 branch = [

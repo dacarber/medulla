@@ -1168,5 +1168,27 @@ namespace cuts
     }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, at_least_one_pion, at_least_one_pion);
 
+    /**
+     * @brief Cut on the kinetic energy of the leading proton in an interaction.
+     * @details Finds the leading proton of the interaction using selectors::leading_proton
+     * and checks if its kinetic energy is within [params[0], params[1]].
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to select on.
+     * @param params KE lower threshold (params[0], default 50.0) and optional
+     * upper threshold (params[1]).
+     * @return true if a leading proton exists and its KE is within range.
+     */
+    template<class T>
+    bool leading_proton_ke(const T & obj, std::vector<double> params={50.0})
+    {
+        if(params.empty()) params.push_back(50.0);
+        double upper = params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
+        size_t pi = selectors::leading_proton(obj);
+        if(pi == kNoMatch) return false;
+        double ke = pvars::ke(obj.particles[pi]);
+        return ke >= params[0] && ke <= upper;
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, leading_proton_ke, leading_proton_ke);
+
 }
 #endif

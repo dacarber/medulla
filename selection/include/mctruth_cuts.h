@@ -492,6 +492,151 @@ template <typename T> bool track_containment_cut(const T &obj) {
 }
 REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, track_containment_cut,
                    track_containment_cut);
+template <typename T> double nuisance_nMesons(const T &obj) {
+  unsigned int n = 0;
+  for (const auto &p : obj.prim) {
+    double px = p.genp.x, py = p.genp.y, pz = p.genp.z;
+    double momentum = std::sqrt(px * px + py * py + pz * pz);
+    if (p.pdg == 22 && p.genE * 1000. > 25.0)
+      continue;
+    else if (std::abs(p.pdg) == 11 && momentum > 0.0255)
+      continue;
+    else if (std::abs(p.pdg) == 211 || std::abs(p.pdg) == 321 ||
+             std::abs(p.pdg) == 323 || p.pdg == 111 || p.pdg == 130 ||
+             p.pdg == 310 || p.pdg == 311 || p.pdg == 313 ||
+             std::abs(p.pdg) == 221 || std::abs(p.pdg) == 331)
+      n++;
+  }
+  return n;
+}
+REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, nuisance_nMesons,
+                   nuisance_nMesons);
 
+template <typename T> double nuisance_nBaryons(const T &obj) {
+  unsigned int n = 0;
+  for (const auto &p : obj.prim) {
+    double px = p.genp.x, py = p.genp.y, pz = p.genp.z;
+    double momentum = std::sqrt(px * px + py * py + pz * pz);
+    if (p.pdg == 22 && p.genE * 1000. > 25.0)
+      continue;
+    else if (std::abs(p.pdg) == 11 && momentum > 0.0255)
+      continue;
+    else if (p.pdg == 3112 || p.pdg == 3122 || p.pdg == 3212 || p.pdg == 3222 ||
+             p.pdg == 4112 || p.pdg == 4122 || p.pdg == 4212 || p.pdg == 4222 ||
+             p.pdg == 411 || p.pdg == 421 || p.pdg == 111)
+      n++;
+  }
+  return n;
+}
+REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, nuisance_nBaryons,
+                   nuisance_nBaryons);
+
+/**
+ * @brief Cut to select interactions with more than one proton within kinetic
+ * energy range.
+ * @details Applied at the GENIE generator level using obj.prim. The
+ * kinetic energy is computed from the GENIE genE field.
+ * @tparam T the type of the object to apply the cut on.
+ * @param obj the SRTrueInteraction to apply the cut on.
+ * @param params KE lower threshold in MeV (defaults to 50 MeV), and optional
+ * upper threshold in MeV.
+ * @return true if more than one proton within kinetic energy range.
+ */
+template <typename T>
+bool leading_proton_ke_cut(const T &obj, std::vector<double> params = {
+                                             50.0,
+                                         }) {
+  if (params.empty())
+    params.push_back(50.0);
+  double upper =
+      params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
+  int count(0);
+  for (const auto &p : obj.prim) {
+    if (p.pdg == 2212) {
+      double ke = (p.genE - (PROTON_MASS));
+      if (ke >= params[0] && ke <= upper)
+        return true;
+    }
+  }
+  return false;
+}
+REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, leading_proton_ke_cut,
+                   leading_proton_ke_cut);
+
+/**
+ * @brief Returns 1 if no photons, extra mesons, or heavy baryons/pi0 are
+ *        present in the event, replicating the MINERvA-style signal definition.
+ * @details Checks (exclusively, in order) for the absence of:
+ *   - Photons with E > 10 MeV (PDG 22)
+ *   - Mesons: charged pions, kaons (charged/neutral), eta, pi0, K* (PDG 211,
+ *             321, 323, 111, 130, 310, 311, 313, 221, 331)
+ *   - Heavy baryons + pi0: strange/charmed baryons, D mesons, pi0 (PDG 3112,
+ *             3122, 3212, 3222, 4112, 4122, 4212, 4222, 411, 421, 111)
+ * Each particle increments at most one counter (else-if chain), matching the
+ * NUISANCE FlatTree signal definition for ICARUS_1muNp0pi.
+ * Inspired by MINERvA:
+ * https://github.com/NUISANCEMC/nuisance/blob/main/src/MINERvA/MINERvA_SignalDef.cxx#L469-L481
+ * @tparam T the type of the object to apply the variable on.
+ * @param obj the SRTrueInteraction to apply the variable on.
+ * @return 1 if none of the above are found, 0 otherwise.
+ */
+template <typename T> double no_extra_particles_minerva(const T &obj) {
+  unsigned int nPhotons(0);
+  unsigned int nMesons(0);
+  unsigned int nBaryonsAndPi0(0);
+
+  for (const auto &p : obj.prim) {
+    if (p.start_process != 0)
+      continue;
+
+    int pdg = p.pdg;
+
+    // ── Photons with E > 10 MeV ───────────────────────────────────────
+    if (std::abs(pdg) == 22 && p.startE > 0.01)
+      nPhotons++;
+
+    // ── Mesons (charged pions, kaons, eta, pi0, K*) ───────────────────
+    else if (std::abs(pdg) == 211 || std::abs(pdg) == 321 ||
+             std::abs(pdg) == 323 || pdg == 111 || pdg == 130 || pdg == 310 ||
+             pdg == 311 || pdg == 313 || std::abs(pdg) == 221 ||
+             std::abs(pdg) == 331)
+      nMesons++;
+
+    // ── Heavy baryons + pi0 (strange, charmed, D mesons) ─────────────
+    else if (pdg == 3112 || pdg == 3122 || pdg == 3212 || pdg == 3222 ||
+             pdg == 4112 || pdg == 4122 || pdg == 4212 || pdg == 4222 ||
+             pdg == 411 || pdg == 421 || pdg == 111)
+      nBaryonsAndPi0++;
+  }
+
+  if (nPhotons > 0)
+    return false;
+  if (nMesons > 0)
+    return false;
+  if (nBaryonsAndPi0 > 0)
+    return false;
+
+  return true;
+}
+REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, no_extra_particles_minerva,
+                   no_extra_particles_minerva);
+/**
+ * @brief Cut for zero true final state neutral pions.
+ * @param obj the SRTrueInteraction to apply the cut on.
+ * @param params KE threshold in MeV, defaults to 0 MeV.
+ * @return true if no neutral pions above threshold.
+ */
+template <typename T> bool no_neutral_pions(const T &obj) {
+  for (const auto &p : obj.prim) {
+    if (p.start_process != 0)
+      continue;
+    if (p.pdg == 111) {
+      return false;
+    }
+  }
+  return true;
+}
+REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, no_neutral_pions,
+                   no_neutral_pions);
 } // namespace mctruth
 #endif

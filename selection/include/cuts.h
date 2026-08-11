@@ -1179,7 +1179,7 @@ namespace cuts
      * @return true if a leading proton exists and its KE is within range.
      */
     template<class T>
-    bool leading_proton_ke(const T & obj, std::vector<double> params={50.0})
+    bool leading_proton_ke_cut(const T & obj, std::vector<double> params={50.0})
     {
         if(params.empty()) params.push_back(50.0);
         double upper = params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
@@ -1188,7 +1188,7 @@ namespace cuts
         double ke = pvars::ke(obj.particles[pi]);
         return ke >= params[0] && ke <= upper;
     }
-    REGISTER_CUT_SCOPE(RegistrationScope::Both, leading_proton_ke, leading_proton_ke);
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, leading_proton_ke_cut, leading_proton_ke_cut);
 
 }
 #endif

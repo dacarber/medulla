@@ -30,7 +30,7 @@ cuts = [
     { name = "no_muons", parameters = [ "@muon_threshold"   ], type = "mctruth"},
     { name = "!no_protons", parameters = [ "@proton_threshold" ], type = "mctruth"},
     { name = "vertex_z_veto_cut", type = "mctruth", parameters = [-100.0, 100.0]},
-    { name = no_extra_particles_minerva", type = "mctruth"},
+    { name = "no_extra_particles_minerva", type = "mctruth"},
     { name = "leading_proton_ke", parameters = [ "@proton_threshold" ,"@proton_upper_threshold"  ], type = "mctruth",selector="leading_proton"},
     { name = "no_neutral_pions", type = "mctruth"}
 ]
@@ -42,7 +42,7 @@ cuts = [
     { name = "no_charged_pions", parameters = [ "@pion_threshold"   ], type = "mctruth"},
     { name = "no_muons", parameters = [ "@muon_threshold"   ], type = "mctruth"},
     { name = "!no_protons", parameters = [ "@proton_threshold" ], type = "mctruth"},
-    { name = no_extra_particles_minerva", type = "mctruth", parameters = [-100.0, 100.0]},
+    { name = "no_extra_particles_minerva", type = "mctruth"},
     { name = "leading_proton_ke", parameters = [ "@proton_threshold" ,"@proton_upper_threshold"  ], type = "mctruth",selector="leading_proton"},
     { name = "no_neutral_pions", type = "mctruth"}
 ]
@@ -56,7 +56,8 @@ cuts = [
     { name = "no_charged_pions", parameters = [ "@pion_threshold"   ], type = "mctruth"},
     { name = "no_muons", parameters = [ "@muon_threshold"   ], type = "mctruth"},
     { name = "no_protons", parameters = [ "@proton_threshold" ], type = "mctruth"},
-    { name = no_extra_particles_minerva", type = "mctruth", parameters = [-100.0, 100.0]},
+    { name = "vertex_z_veto_cut", type = "mctruth", parameters = [-100.0, 100.0]},
+    { name = "no_extra_particles_minerva", type = "mctruth" },
     { name = "!leading_proton_ke", parameters = [ "@proton_threshold" ,"@proton_upper_threshold"  ], type = "mctruth",selector="leading_proton"},
     { name = "no_neutral_pions", type = "mctruth"}
 

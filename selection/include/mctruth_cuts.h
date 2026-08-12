@@ -592,7 +592,7 @@ template <typename T> bool no_extra_particles_minerva(const T &obj) {
     int pdg = p.pdg;
 
     // ── Photons with E > 10 MeV ───────────────────────────────────────
-    if (std::abs(pdg) == 22 && p.startE > 0.01)
+    if (std::abs(pdg) == 22 && p.startE > 0.025)
       nPhotons++;
 
     // ── Mesons (charged pions, kaons, eta, pi0, K*) ───────────────────

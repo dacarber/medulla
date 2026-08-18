@@ -17,6 +17,7 @@
 #include <limits>
 
 #include "framework.h"
+#include "mctruth_particle_variables.h"
 #include "variables.h"
 
 /**
@@ -532,15 +533,24 @@ REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, nuisance_nBaryons,
                    nuisance_nBaryons);
 
 /**
- * @brief Cut to select interactions with more than one proton within kinetic
- * energy range.
- * @details Applied at the GENIE generator level using obj.prim. The
- * kinetic energy is computed from the GENIE genE field.
+ * @brief Cut on the kinetic energy of the leading proton in an interaction.
+ * @details The MCTruth counterpart of cuts::leading_proton_ke_cut. Finds the
+ * leading proton with mctruth_selectors::leading_proton (highest-KE proton in
+ * obj.prim, no threshold, matching selectors::leading_proton) and checks that
+ * *its* kinetic energy is within [params[0], params[1]].
+ *
+ * This previously looped over every proton and returned true as soon as any
+ * one of them fell in the window, which is a different cut: an interaction
+ * whose leading proton was above the upper bound still passed on the strength
+ * of a softer second proton. That let events through which the equivalent
+ * NUISANCE definition (GenericFlux_Tester.cxx, leading-proton momentum in
+ * (0.2769, 1.219) GeV/c) rejects, and put a tail on the CAF differential cross
+ * section above the intended upper bound.
  * @tparam T the type of the object to apply the cut on.
  * @param obj the SRTrueInteraction to apply the cut on.
- * @param params KE lower threshold in MeV (defaults to 50 MeV), and optional
- * upper threshold in MeV.
- * @return true if more than one proton within kinetic energy range.
+ * @param params KE lower threshold in GeV (defaults to 50), and optional
+ * upper threshold.
+ * @return true if a leading proton exists and its KE is within range.
  */
 template <typename T>
 bool leading_proton_ke_cut(const T &obj, std::vector<double> params = {
@@ -550,15 +560,11 @@ bool leading_proton_ke_cut(const T &obj, std::vector<double> params = {
     params.push_back(50.0);
   double upper =
       params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
-  int count(0);
-  for (const auto &p : obj.prim) {
-    if (p.pdg == 2212) {
-      double ke = (p.genE - (PROTON_MASS));
-      if (ke >= params[0] && ke <= upper)
-        return true;
-    }
-  }
-  return false;
+  size_t pi = mctruth_selectors::leading_proton(obj);
+  if (pi == kNoMatch)
+    return false;
+  double ke = (obj.prim[pi].genE - (PROTON_MASS));
+  return ke >= params[0] && ke <= upper;
 }
 REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, leading_proton_ke_cut,
                    leading_proton_ke_cut);
@@ -567,7 +573,7 @@ REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, leading_proton_ke_cut,
  * @brief Returns 1 if no photons, extra mesons, or heavy baryons/pi0 are
  *        present in the event, replicating the MINERvA-style signal definition.
  * @details Checks (exclusively, in order) for the absence of:
- *   - Photons with E > 10 MeV (PDG 22)
+ *   - Photons with E > 25 MeV (PDG 22)
  *   - Mesons: charged pions, kaons (charged/neutral), eta, pi0, K* (PDG 211,
  *             321, 323, 111, 130, 310, 311, 313, 221, 331)
  *   - Heavy baryons + pi0: strange/charmed baryons, D mesons, pi0 (PDG 3112,
@@ -591,8 +597,12 @@ template <typename T> bool no_extra_particles_minerva(const T &obj) {
 
     int pdg = p.pdg;
 
-    // ── Photons with E > 10 MeV ───────────────────────────────────────
-    if (std::abs(pdg) == 22 && p.startE > 0.025)
+    // ── Photons with E > 25 MeV ───────────────────────────────────────
+    // genE, not startE: every other cut in this file works from the GENIE
+    // energy, and so does the NUISANCE definition this mirrors (which uses the
+    // GENIE final-state 4-momentum). startE is the post-Geant4 energy at the
+    // particle's start point and disagrees for a handful of events.
+    if (std::abs(pdg) == 22 && p.genE > 0.025)
       nPhotons++;
 
     // ── Mesons (charged pions, kaons, eta, pi0, K*) ───────────────────

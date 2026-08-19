@@ -43,6 +43,7 @@ REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, iscc, iscc);
  * @brief Cut for exactly one true final state muon above threshold.
  * @details Applied at the GENIE generator level using obj.prim. The
  * kinetic energy is computed from the GENIE genE field.
+ * Only primary particles (start_process == 0) are considered.
  * @tparam T the type of the object to apply the cut on.
  * @param obj the SRTrueInteraction to apply the cut on.
  * @param params KE threshold in MeV, defaults to 143.425 MeV.
@@ -58,6 +59,8 @@ bool single_muon(const T &obj, std::vector<double> params = {
       params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
   int num_muons(0);
   for (const auto &p : obj.prim) {
+    if (p.start_process != 0)
+      continue;
     if (abs(p.pdg) == 13) {
       double ke = (p.genE - (MUON_MASS));
       if (ke >= params[0] && ke <= upper)
@@ -72,6 +75,7 @@ REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, single_muon, single_muon);
  * @brief Cut for zero true final state charged pions above threshold.
  * @details Applied at the GENIE generator level using obj.prim. The
  * kinetic energy is computed from the GENIE genE field.
+ * Only primary particles (start_process == 0) are considered.
  * @tparam T the type of the object to apply the cut on.
  * @param obj the SRTrueInteraction to apply the cut on.
  * @param params KE threshold in MeV, defaults to 25 MeV.
@@ -86,6 +90,8 @@ bool no_charged_pions(const T &obj, std::vector<double> params = {
   double upper =
       params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
   for (const auto &p : obj.prim) {
+    if (p.start_process != 0)
+      continue;
     if (abs(p.pdg) == 211) {
       double ke = (p.genE - (PION_MASS));
       if (ke >= params[0] && ke <= upper)
@@ -121,6 +127,7 @@ REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, no_neutral_pions,
  * @brief Cut for zero true final state photons above threshold.
  * @details Applied at the GENIE generator level using obj.prim. The
  * energy is computed from the GENIE genE field.
+ * Only primary particles (start_process == 0) are considered.
  * @tparam T the type of the object to apply the cut on.
  * @param obj the SRTrueInteraction to apply the cut on.
  * @param params energy threshold in MeV, defaults to 25 MeV.
@@ -135,6 +142,8 @@ bool no_photons(const T &obj, std::vector<double> params = {
   double upper =
       params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
   for (const auto &p : obj.prim) {
+    if (p.start_process != 0)
+      continue;
     if (p.pdg == 22) {
       double energy = p.genE;
       if (energy >= params[0] && energy <= upper)
@@ -149,6 +158,7 @@ REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, no_photons, no_photons);
  * @brief Cut for zero true final state electrons above threshold.
  * @details Applied at the GENIE generator level using obj.prim. The
  * kinetic energy is computed from the GENIE genE field.
+ * Only primary particles (start_process == 0) are considered.
  * @tparam T the type of the object to apply the cut on.
  * @param obj the SRTrueInteraction to apply the cut on.
  * @param params KE threshold in MeV, defaults to 25 MeV.
@@ -163,6 +173,8 @@ bool no_electrons(const T &obj, std::vector<double> params = {
   double upper =
       params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
   for (const auto &p : obj.prim) {
+    if (p.start_process != 0)
+      continue;
     if (abs(p.pdg) == 11) {
       double ke = (p.genE - (ELECTRON_MASS));
       if (ke >= params[0] && ke <= upper)
@@ -177,6 +189,7 @@ REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, no_electrons, no_electrons);
  * @brief Cut for exactly one true final state proton above threshold.
  * @details Applied at the GENIE generator level using obj.prim. The
  * kinetic energy is computed from the GENIE genE field.
+ * Only primary particles (start_process == 0) are considered.
  * @tparam T the type of the object to apply the cut on.
  * @param obj the SRTrueInteraction to apply the cut on.
  * @param params KE threshold in MeV, defaults to 50 MeV.
@@ -192,6 +205,8 @@ bool single_proton(const T &obj, std::vector<double> params = {
       params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
   int count(0);
   for (const auto &p : obj.prim) {
+    if (p.start_process != 0)
+      continue;
     if (p.pdg == 2212) {
       double ke = (p.genE - (PROTON_MASS));
       if (ke >= params[0] && ke <= upper)
@@ -323,6 +338,7 @@ REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, vertex_z_veto_cut,
  * @brief Cut for exactly one true final state electron above threshold.
  * @details Applied at the GENIE generator level using obj.prim. The
  * kinetic energy is computed from the GENIE genE field.
+ * Only primary particles (start_process == 0) are considered.
  * @tparam T the type of the object to apply the cut on.
  * @param obj the SRTrueInteraction to apply the cut on.
  * @param params KE threshold in MeV, defaults to 25 MeV.
@@ -338,6 +354,8 @@ bool single_electron(const T &obj, std::vector<double> params = {
       params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
   int count(0);
   for (const auto &p : obj.prim) {
+    if (p.start_process != 0)
+      continue;
     if (std::abs(p.pdg) == 11) {
       double ke = (p.genE - (ELECTRON_MASS));
       if (ke >= params[0] && ke <= upper)
@@ -353,6 +371,7 @@ REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, single_electron,
  * @brief Cut for zero true final state muons above threshold.
  * @details Applied at the GENIE generator level using obj.prim. The
  * kinetic energy is computed from the GENIE genE field.
+ * Only primary particles (start_process == 0) are considered.
  * @tparam T the type of the object to apply the cut on.
  * @param obj the SRTrueInteraction to apply the cut on.
  * @param params KE threshold in MeV, defaults to 143.425 MeV.
@@ -367,6 +386,8 @@ bool no_muons(const T &obj, std::vector<double> params = {
   double upper =
       params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
   for (const auto &p : obj.prim) {
+    if (p.start_process != 0)
+      continue;
     if (std::abs(p.pdg) == 13) {
       double ke = (p.genE - (MUON_MASS));
       if (ke >= params[0] && ke <= upper)
@@ -381,6 +402,7 @@ REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, no_muons, no_muons);
  * @brief Cut for zero true final state protons within kinetic energy range.
  * @details Applied at the GENIE generator level using obj.prim. The
  * kinetic energy is computed from the GENIE genE field.
+ * Only primary particles (start_process == 0) are considered.
  * @tparam T the type of the object to apply the cut on.
  * @param obj the SRTrueInteraction to apply the cut on.
  * @param params KE lower threshold in MeV (defaults to 50 MeV), and optional
@@ -396,6 +418,8 @@ bool no_protons(const T &obj, std::vector<double> params = {
   double upper =
       params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
   for (const auto &p : obj.prim) {
+    if (p.start_process != 0)
+      continue;
     if (p.pdg == 2212) {
       double ke = (p.genE - (PROTON_MASS));
       if (ke >= params[0] && ke <= upper)
@@ -411,6 +435,7 @@ REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, no_protons, no_protons);
  * energy range.
  * @details Applied at the GENIE generator level using obj.prim. The
  * kinetic energy is computed from the GENIE genE field.
+ * Only primary particles (start_process == 0) are considered.
  * @tparam T the type of the object to apply the cut on.
  * @param obj the SRTrueInteraction to apply the cut on.
  * @param params KE lower threshold in MeV (defaults to 50 MeV), and optional
@@ -427,6 +452,8 @@ bool multiproton(const T &obj, std::vector<double> params = {
       params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
   int count(0);
   for (const auto &p : obj.prim) {
+    if (p.start_process != 0)
+      continue;
     if (p.pdg == 2212) {
       double ke = (p.genE - (PROTON_MASS));
       if (ke >= params[0] && ke <= upper)
@@ -535,9 +562,13 @@ REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, nuisance_nBaryons,
 /**
  * @brief Cut on the kinetic energy of the leading proton in an interaction.
  * @details The MCTruth counterpart of cuts::leading_proton_ke_cut. Finds the
- * leading proton with mctruth_selectors::leading_proton (highest-KE proton in
- * obj.prim, no threshold, matching selectors::leading_proton) and checks that
- * *its* kinetic energy is within [params[0], params[1]].
+ * highest-KE *primary* proton in obj.prim (start_process == 0, no energy
+ * threshold) and checks that *its* kinetic energy is within
+ * [params[0], params[1]]. The primary restriction matches the other cuts in
+ * this file and the NUISANCE definition this mirrors, which only ever sees
+ * GENIE final-state particles; mctruth_selectors::leading_proton is
+ * intentionally not used here, since it is unfiltered and also drives the
+ * leading_proton output branches.
  *
  * This previously looped over every proton and returned true as soon as any
  * one of them fell in the window, which is a different cut: an interaction
@@ -560,10 +591,29 @@ bool leading_proton_ke_cut(const T &obj, std::vector<double> params = {
     params.push_back(50.0);
   double upper =
       params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
-  size_t pi = mctruth_selectors::leading_proton(obj);
+  // Primary protons only (start_process == 0), matching the other cuts in
+  // this file and the NUISANCE GenericFlux_Tester definition this mirrors,
+  // which sees only GENIE final-state particles. This does not call
+  // mctruth_selectors::leading_proton, which is deliberately left unfiltered
+  // because it also drives the leading_proton output branches -- changing
+  // those is a separate decision.
+  size_t pi = kNoMatch;
+  double leading_ke(0);
+  for (size_t i = 0; i < obj.prim.size(); ++i) {
+    const auto &p = obj.prim[i];
+    if (p.start_process != 0)
+      continue;
+    if (p.pdg != 2212)
+      continue;
+    const double this_ke = (p.genE - (PROTON_MASS));
+    if (this_ke > leading_ke) {
+      leading_ke = this_ke;
+      pi = i;
+    }
+  }
   if (pi == kNoMatch)
     return false;
-  double ke = (obj.prim[pi].genE - (PROTON_MASS));
+  double ke = leading_ke;
   return ke >= params[0] && ke <= upper;
 }
 REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, leading_proton_ke_cut,

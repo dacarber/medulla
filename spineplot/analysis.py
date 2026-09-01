@@ -4,7 +4,7 @@ import uproot
 from matplotlib import pyplot as plt
 
 from sample import Sample
-from figure import SpineFigure, SimpleFigure
+from figure import SpineFigure, SimpleFigure, RatioFigure
 from spectra1d import SpineSpectra1D
 from spectra2d import SpineSpectra2D
 from efficiency import SpineEfficiency
@@ -200,7 +200,39 @@ class Analysis:
                                           restrict_categories, x.get('title', None))
                             self._figures[fig['name']].register_spine_artist(art, draw_kwargs=x.get('draw_kwargs', {}))
                             self._artists.append(art)
-                            
+
+            elif fig['type'] == 'RatioFigure':
+                with self._styles[fig['style']] as style:
+                    self._figures[fig['name']] = RatioFigure(fig.get('figsize', style.default_figsize), style,
+                                                              fig.get('title', style.default_title),
+                                                              fig.get('height_ratios', (3, 1)))
+                    if len(fig['artists']) != 1 or fig['artists'][0]['type'] != 'SpineSpectra1D':
+                        raise ConfigException(f"RatioFigure '{fig['name']}' must have exactly one artist of type 'SpineSpectra1D'.")
+                    x = fig['artists'][0]
+
+                    restrict_categories = {}
+                    group_setting = x.get('groups', [])
+                    if group_setting:
+                        for g in group_setting:
+                            restrict_categories.update({k : v for k,v in self._categories.items() if v == g})
+                    else:
+                        restrict_categories = self._categories.copy()
+
+                    if not all(self._variables[x['variable']]._validity_check.values()):
+                        missing_samples = [k for k, v in self._variables[x['variable']]._validity_check.items() if not v]
+                        raise ConfigException(f"Variable '{x['variable']}' not found in all samples ({' '.join(missing_samples)}).")
+
+                    art = SpineSpectra1D(self._variables[x['variable']], restrict_categories,
+                                         self._colors, self._category_types, x.get('title', None),
+                                         x.get('xrange', None), x.get('xtitle', None),
+                                         x.get('yrange', None), x.get('ytitle', None))
+                    draw_kwargs = x.get('draw_kwargs', {})
+                    draw_kwargs['draw_error'] = draw_kwargs.get('draw_error', None)
+                    ratio_kwargs = x.get('ratio_kwargs', {})
+                    ratio_kwargs['draw_error'] = ratio_kwargs.get('draw_error', draw_kwargs['draw_error'])
+                    self._figures[fig['name']].register_spine_artist(art, draw_kwargs=draw_kwargs, method='draw')
+                    self._figures[fig['name']].register_spine_artist(art, draw_kwargs=ratio_kwargs, method='draw_ratio')
+                    self._artists.append(art)
 
     def override_exposure(self, sample_name, exposure, exposure_type='pot') -> None:
         """
@@ -323,6 +355,9 @@ class Analysis:
             else:
                 for key, value in c.items():
                     if key in config.keys():
-                        config[key].update(value)
+                        if isinstance(config[key], list):
+                            config[key].extend(value)
+                        else:
+                            config[key].update(value)
                     else:
                         config[key] = value

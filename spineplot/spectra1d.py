@@ -155,7 +155,7 @@ class SpineSpectra1D(SpineSpectra):
     def draw(self, ax, style, show_component_number=False,
              show_component_percentage=False, invert_stack_order=False,
              fit_type=None, logx=False, logy=False, normalize=False,
-             draw_error=None) -> None:
+             draw_error=None,legend_ncol=1, leg_loc = 'upper right') -> None:
         """
         Plots the data for the SpineSpectra1D object.
 
@@ -193,6 +193,13 @@ class SpineSpectra1D(SpineSpectra):
         draw_error : str, optional
             Indicates the name of the Systematic object to use for
             drawing the error boxes. The default is None.
+        legend_ncol : int, optional
+            The number of columns to use in the legend. The default
+            is 1.
+        leg_loc : str, optional
+            The location of the legend on the axis, passed directly
+            to matplotlib's `ax.legend(loc=...)`. The default is
+            'upper right'.
 
         Returns
         -------
@@ -258,15 +265,15 @@ class SpineSpectra1D(SpineSpectra):
             if draw_error:
                 h.append(plt.Rectangle((0, 0), 1, 1, fc='gray', alpha=0.5, hatch='///'))
                 l.append(systs[0].label)
-                ax.legend(h[-2::-1]+h[-1:], l[-2::-1]+l[-1:])
+                ax.legend(h[-2::-1]+h[-1:], l[-2::-1]+l[-1:], loc=leg_loc, ncol=legend_ncol)
             else:
-                ax.legend(h[::-1], l[::-1])
+                ax.legend(h[::-1], l[::-1], loc=leg_loc, ncol=legend_ncol)
         else:
             h, l = ax.get_legend_handles_labels()
             if draw_error:
                 h.append(plt.Rectangle((0, 0), 1, 1, fc='gray', alpha=0.5, hatch='///'))
                 l.append(systs[0].label)
-            ax.legend(h, l)
+            ax.legend(h, l, loc=leg_loc, ncol=legend_ncol)
 
         if isinstance(self._yrange, (tuple, list)):
             ax.set_ylim(*self._yrange)
@@ -304,7 +311,6 @@ class SpineSpectra1D(SpineSpectra):
         if style.scilimits and not logy:
             ax.ticklabel_format(axis='y', scilimits=style.scilimits)
             hadj = 0.035
-
         # The vadj value is adjusted to ensure that the POT label does
         # not overlap with the top axis of the plot when the y-axis is
         # logarithmic.
@@ -316,3 +322,76 @@ class SpineSpectra1D(SpineSpectra):
             mark_pot(ax, self._exposure, style.mark_pot_horizontal, vadj=vadj)
         if style.mark_preliminary is not None:
             mark_preliminary(ax, style.mark_preliminary, hadj=hadj, vadj=vadj)
+
+    def draw_ratio(self, ax, style, ratio_range=(0.5, 1.5), logx=False,
+                    draw_error=None) -> None:
+        """
+        Plots the ratio of the 'scatter' categories (typically data)
+        over the sum of the 'histogram' categories (typically MC) for
+        the SpineSpectra1D object. This is intended to be drawn on the
+        axis below the main spectrum in a RatioFigure to give a
+        data/MC comparison panel.
+
+        Parameters
+        ----------
+        ax : matplotlib.axes.Axes
+            The axis to draw the ratio panel on.
+        style : Style
+            The style to use when drawing the artist.
+        ratio_range : tuple, optional
+            The range of the y-axis for the ratio panel. The default
+            is (0.5, 1.5).
+        logx : bool
+            A flag to indicate if the x-axis should be logarithmic.
+            The default is False.
+        draw_error : str, optional
+            Indicates the name of the Systematic object to use for
+            drawing the MC uncertainty band around unity. The default
+            is None.
+
+        Returns
+        -------
+        None.
+        """
+        ax.set_xlabel(self._variable._xlabel if self._xtitle is None else self._xtitle)
+        ax.set_ylabel('Data / MC')
+        xr = self._variable._range if self._xrange is None else self._xrange
+        ax.set_xlim(*xr)
+
+        if self._plotdata is not None:
+            labels = list(self._plotdata.keys())
+            bincenters = {l: self._binedges[l][:-1] + np.diff(self._binedges[l]) / 2 for l in labels}
+            binwidths = {l: np.diff(self._binedges[l]) for l in labels}
+
+            histogram_labels = [l for l in labels if self._category_types[l] == 'histogram']
+            scatter_labels = [l for l in labels if self._category_types[l] == 'scatter']
+
+            mc_total = np.sum([self._plotdata[l] for l in histogram_labels], axis=0)
+
+            if draw_error and len(histogram_labels) > 0:
+                systs = [s[draw_error] for s in self._systematics.values() if draw_error in s]
+                cov = np.sum(s.get_covariance(self._variable._key) for s in systs)
+                x = bincenters[histogram_labels[0]]
+                xerr = binwidths[histogram_labels[0]] / 2
+                scov = Systematic.transform_as(cov, mc_total)
+                with np.errstate(divide='ignore', invalid='ignore'):
+                    yerr = np.where(mc_total > 0, np.sqrt(np.diag(scov)) / mc_total, np.nan)
+                draw_error_boxes(ax, x, np.ones_like(mc_total), xerr, yerr, facecolor='gray', edgecolor='none', alpha=0.5, hatch='///')
+
+            for l in scatter_labels:
+                data_counts = self._plotdata[l]
+                with np.errstate(divide='ignore', invalid='ignore'):
+                    ratio = np.where(mc_total > 0, data_counts / mc_total, np.nan)
+                    ratio_err = np.where(mc_total > 0, np.sqrt(data_counts) / mc_total, np.nan)
+                ax.errorbar(bincenters[l], ratio, yerr=ratio_err, fmt='o', color=self._colors[l], label=l)
+
+            ax.axhline(1.0, color='black', linestyle='--', linewidth=1)
+
+        ax.set_ylim(*ratio_range)
+        if logx:
+            xr = self._variable._range if self._xrange is None else self._xrange
+            if xr[0] == 0:
+                xhigh_exporder = np.floor(np.log10(xr[1]))
+                xlow = xhigh_exporder - 3
+                ax.set_xlim(10**xlow, xr[1])
+            ax.set_xscale('log')

@@ -185,3 +185,8 @@ key = "reco_leading_proton_NuMI_polar_angle"
 range = [0.0, 1.0]
 nbins = 10#10
 xlabel = 'Reconstructed Proton Polar Angle w.r.t NuMI [rad]'
+[variables.reco_proton_multiplicity]
+key = "reco_proton_multiplicity"
+range = [0.0, 7.0]
+nbins = 7#10
+xlabel = 'Reconstructed Proton #'

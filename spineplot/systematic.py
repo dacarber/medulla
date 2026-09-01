@@ -95,6 +95,11 @@ class Systematic:
         self._label = label
         self._handle = handle
         self._variables = dict()
+        # Defaults so that systematics which are skipped during
+        # `process` (e.g. non per-universe branches that stack to a
+        # 1-dimensional array) remain valid no-ops downstream.
+        self._covariances = dict()
+        self._std = 0.0
 
     def register_variable(self, variable):
         """
@@ -130,10 +135,16 @@ class Systematic:
         # Check that the handle is valid. This is the "usual" case
         # where the systematic weights are stored in a TTree.
         if self._handle is not None:
-            # Read the weights from the TTree
-            weights_array = np.stack(
-                self._handle.array(library='np')
-            )[mask, :]
+            # Read the weights from the TTree. Some branches stored in
+            # the systematic trees are not per-universe weight vectors
+            # (e.g. true_neutrino_energy), so stacking them yields a
+            # 1-dimensional array rather than the expected (N, M) matrix.
+            # These cannot be processed as multi-universe systematics and
+            # are skipped here.
+            weights_array = np.stack(self._handle.array(library='np'))
+            if weights_array.ndim < 2:
+                return
+            weights_array = weights_array[mask, :]
 
             # Some assumptions are made here about the shape and
             # structure of the weights array. If the shape indicates
@@ -276,7 +287,9 @@ class Systematic:
         None.
         """
         for kvar, vvar in self._variables.items():
-            self._covariances[f'{self._name}_{kvar}'] *= weight**2
+            key = f'{self._name}_{kvar}'
+            if key in self._covariances:
+                self._covariances[key] *= weight**2
 
     @staticmethod
     def combine(systematics, name, label) -> 'Systematic':

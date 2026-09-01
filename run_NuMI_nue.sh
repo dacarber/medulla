@@ -13,6 +13,14 @@
 #   --create              Create the project database (requires --batch-size).
 #   --launch [N]          Launch all pending jobs, or N jobs if given.
 #   --test                Launch a single test job.
+#   --check-outputs       Validate every output ROOT file in the project and
+#                         report the jobs whose output is truncated/corrupt.
+#                         Nothing is deleted or modified.  Bad job IDs are
+#                         written to <project-dir>/bad_jobs.txt.
+#   --fix-outputs         Same check, but delete the bad output files and mark
+#                         those jobs 'pending' again so they can be relaunched.
+#   --rerun-failed [N]    --fix-outputs followed by --launch (all pending jobs,
+#                         or N jobs if given).
 #
 # Options:
 #   --project-dir=PATH    (required) dCache directory for this project.
@@ -36,6 +44,12 @@
 #   --memory=MB           Memory per job in MB (default: 1800).
 #   --disk=GB             Disk per job in GB (default: 25).
 #   --lifetime=DUR        Expected job wall time, e.g. 1h, 30m (default: 1h).
+#   --deep-check          With --check-outputs/--fix-outputs/--rerun-failed:
+#                         also read the first and last entry of every TTree.
+#                         Slower, but catches files whose header is intact
+#                         while their baskets are truncated.  Needs PyROOT.
+#   --min-size=BYTES      Smallest output file considered non-stub (default:
+#                         1024).
 #   -h, --help            Print this message and exit.
 #
 # Examples:
@@ -55,6 +69,14 @@
 #       --toml=NuMI_nue_data.toml --create --batch-size=1 --tag=develop
 #   ./run_NuMI_nue.sh --project-dir=/pnfs/icarus/scratch/users/$USER/numi_nue_test \
 #       --test
+#
+#   # A job died with "error reading all requested bytes" / hadd complains that
+#   # a file was "probably not closed": find the offenders, then clear and
+#   # resubmit them.
+#   ./run_NuMI_nue.sh --project-dir=/pnfs/icarus/scratch/users/$USER/numi_nue_run1 \
+#       --check-outputs
+#   ./run_NuMI_nue.sh --project-dir=/pnfs/icarus/scratch/users/$USER/numi_nue_run1 \
+#       --rerun-failed
 # =============================================================================
 
 set -euo pipefail
@@ -77,8 +99,10 @@ EXPERIMENT="icarus"
 MEMORY=1800
 DISK=25
 LIFETIME="1h"
-MODE=""        # create | launch | test | (empty = status only)
-NJOBS=""       # only used when MODE=launch
+MODE=""        # create | launch | test | check-outputs | fix-outputs | rerun-failed | (empty = status only)
+NJOBS=""       # only used when MODE=launch or MODE=rerun-failed
+DEEP_CHECK=0   # only used by the output-validation modes
+MIN_SIZE=1024  # only used by the output-validation modes
 
 # ---------------------------------------------------------------------------
 # Argument parsing
@@ -117,6 +141,21 @@ while [[ $# -gt 0 ]]; do
             ;;
         --launch=*)       MODE="launch"; NJOBS="${1#*=}"; shift ;;
         --test)           MODE="test"; shift ;;
+        --check-outputs)  MODE="check-outputs"; shift ;;
+        --fix-outputs)    MODE="fix-outputs"; shift ;;
+        --rerun-failed)
+            MODE="rerun-failed"
+            # Optional inline job count: --rerun-failed 10
+            if [[ -n "${2:-}" && "$2" =~ ^[0-9]+$ ]]; then
+                NJOBS="$2"; shift 2
+            else
+                shift
+            fi
+            ;;
+        --rerun-failed=*) MODE="rerun-failed"; NJOBS="${1#*=}"; shift ;;
+        --deep-check)     DEEP_CHECK=1; shift ;;
+        --min-size=*)     MIN_SIZE="${1#*=}"; shift ;;
+        --min-size)       MIN_SIZE="$2"; shift 2 ;;
         -h|--help)        usage; exit 0 ;;
         *)
             echo "ERROR: unknown option: $1" >&2
@@ -176,6 +215,18 @@ PYTHON_CMD=(
 )
 
 # ---------------------------------------------------------------------------
+# Build the output-validation command (used by the check/fix/rerun modes)
+# ---------------------------------------------------------------------------
+CHECK_CMD=(
+    python3 "${BATCH_DIR}/check_outputs.py"
+    --project-dir "${PROJECT_DIR}"
+    --min-size    "${MIN_SIZE}"
+)
+if [[ "$DEEP_CHECK" -eq 1 ]]; then
+    CHECK_CMD+=( --deep )
+fi
+
+# ---------------------------------------------------------------------------
 # Execute the requested mode
 # ---------------------------------------------------------------------------
 echo "[INFO] Repository : ${SCRIPT_DIR}"
@@ -209,6 +260,31 @@ case "$MODE" in
     test)
         echo "[INFO] Launching single test job..."
         "${PYTHON_CMD[@]}" --test-job
+        ;;
+
+    check-outputs)
+        echo "[INFO] Checking job outputs for truncated/corrupt ROOT files..."
+        # check_outputs.py exits 1 when bad jobs are found in report-only
+        # mode, which is informational rather than an error here.
+        "${CHECK_CMD[@]}" || true
+        ;;
+
+    fix-outputs)
+        echo "[INFO] Checking job outputs and clearing the bad ones..."
+        "${CHECK_CMD[@]}" --fix
+        ;;
+
+    rerun-failed)
+        echo "[INFO] Checking job outputs and clearing the bad ones..."
+        "${CHECK_CMD[@]}" --fix
+        echo ""
+        if [[ -n "$NJOBS" ]]; then
+            echo "[INFO] Relaunching ${NJOBS} job(s)..."
+            "${PYTHON_CMD[@]}" --launch-jobs "${NJOBS}"
+        else
+            echo "[INFO] Relaunching all pending jobs..."
+            "${PYTHON_CMD[@]}" --launch-jobs
+        fi
         ;;
 
     *)

@@ -12,7 +12,7 @@ plot_kwargs = {'histtype' = 'barstacked', 'stacked' = true}
 name = 'selected_icarus_nue'
 style_sheet = "../styles/muon2024.mplstyle"
 markers = ['o', '^', 's', 'P', 'D']
-default_figsize = [10.0,5.0]
+default_figsize = [8.0,7.0]
 #default_figsize = [12,10]
 #default_figsize = [12,8]
 title = ""

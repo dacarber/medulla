@@ -48,8 +48,9 @@ class SpineFigure:
         self._axs = []
         self._artists = []
         self._draw_kwargs = []
+        self._draw_methods = []
 
-    def register_spine_artist(self, artist, draw_kwargs):
+    def register_spine_artist(self, artist, draw_kwargs, method='draw'):
         """
         Register an artist with the figure. This method is used to
         add an artist to the figure so that it can be displayed when
@@ -62,9 +63,15 @@ class SpineFigure:
         draw_kwargs : dict
             A dictionary of keyword arguments to pass to the draw
             method of the artist.
+        method : str, optional
+            The name of the method to call on the artist to draw it
+            on the axis assigned to it. The default is 'draw'. This
+            is useful for artists that support multiple ways of being
+            drawn on an axis (e.g. a ratio panel).
         """
         self._artists.append(artist)
         self._draw_kwargs.append(draw_kwargs)
+        self._draw_methods.append(method)
 
     def create(self):
         """
@@ -77,7 +84,8 @@ class SpineFigure:
         """
         with self._style as style:
             for axi, ax in enumerate(self._axs):
-                self._artists[axi].draw(ax, **self._draw_kwargs[axi], style=style)
+                draw = getattr(self._artists[axi], self._draw_methods[axi])
+                draw(ax, **self._draw_kwargs[axi], style=style)
             self._figure.suptitle(self._title)
     
     def close(self):
@@ -142,3 +150,48 @@ class SimpleFigure(SpineFigure):
             self._figure = plt.figure(figsize=self._figsize)
             self._axs = [self._figure.add_subplot(),]
             super().create()
+
+class RatioFigure(SpineFigure):
+    """
+    A figure with a main axis and a smaller axis below it, sharing the
+    same x-axis. This is typically used to show a histogram on the
+    main axis (e.g. a data/MC comparison) and the ratio of two of its
+    components (e.g. data over MC) on the axis below it. The class is
+    a subclass of SpineFigure.
+    """
+    def __init__(self, figsize, style, title=None, height_ratios=(3, 1)):
+        """
+        Parameters
+        ----------
+        figsize : tuple
+            The size of the figure to create.
+        style : Style
+            The style to use when drawing the figure.
+        title : str, optional
+            The title of the figure. The default is None.
+        height_ratios : tuple, optional
+            The relative heights of the main axis and the ratio axis,
+            respectively. The default is (3, 1).
+        """
+        super().__init__(figsize=figsize, style=style, title=title)
+        self._height_ratios = height_ratios
+
+    def create(self):
+        """
+        Create the figure. This method is used to create the figure
+        and the two subplots (main and ratio) that will be used to
+        display the data.
+
+        Returns
+        -------
+        None.
+        """
+        with self._style as style:
+            self._figure = plt.figure(figsize=self._figsize)
+            gs = self._figure.add_gridspec(2, 1, height_ratios=self._height_ratios, hspace=0.05)
+            ax_main = self._figure.add_subplot(gs[0])
+            ax_ratio = self._figure.add_subplot(gs[1], sharex=ax_main)
+            self._axs = [ax_main, ax_ratio]
+            super().create()
+            plt.setp(ax_main.get_xticklabels(), visible=False)
+            ax_main.set_xlabel(None)

@@ -649,7 +649,7 @@ branch = [
     { name = "no_muons",      type = "both_mctruth", parameters = [ "@muon_threshold"     ] },
     { name = "no_protons",    type = "both_mctruth", parameters = [ "@proton_threshold"  ] },
     { name = "vertex_z_veto_cut", type = "both_mctruth", parameters = [-100.0, 100.0] },
-    { name = "no_extra_particles_minerva", type = "both_mctruth" },
+    { name = "no_extra_particles_minerva", type = "mctruth" },
     { name = "leading_proton_ke_cut", type = "both_mctruth", parameters = [ "@proton_threshold" ,"@proton_upper_threshold" ], selector = "leading_proton" },
     { name = "no_neutral_pions", type = "both_mctruth" },
     {name = "neutrino_id",            type = "true"},

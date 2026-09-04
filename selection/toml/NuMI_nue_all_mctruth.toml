@@ -652,7 +652,7 @@ branch = [
     { name = "no_extra_particles_minerva", type = "mctruth" },
     { name = "leading_proton_ke_cut", type = "mctruth", parameters = [ "@proton_threshold" ,"@proton_upper_threshold" ] },
     { name = "leading_proton_ke_cut", type = "reco", parameters = [ "@proton_threshold" ,"@proton_upper_threshold" ] },
-    { name = "no_neutral_pions", type = "both_mctruth" },
+    { name = "no_neutral_pions", type = "mctruth" },
     {name = "neutrino_id",            type = "true"},
     {name = "energy_init",      type = "mctruth"},
     {name = "cc",                    type = "mctruth"},

@@ -627,7 +627,7 @@ add_systematics = false
 cut = [
     { name = "neutrino" , type = "mctruth"},
     { name = "fiducial_cut",     type = "true" },
-    { name = "nonelectron_containment_cut",  type = "mctruth" },
+    #{ name = "nonelectron_containment_cut",  type = "mctruth" },
     #{ name = "track_containment_cut",  type = "mctruth" },
     #{ name = "no_photons",       type = "mctruth", parameters = [ "@photon_threshold"   ] },
     { name = "single_electron",     type = "mctruth", parameters = [ "@electron_threshold" ] },

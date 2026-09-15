@@ -24,7 +24,7 @@ cuts = [
     { name = "neutrino" , type = "mctruth"},
     { name = "fiducial_cut", type = "true"},
     #{ name = "track_containment_cut"},
-    #{ name = "no_photons", parameters = [ "@photon_threshold"   ], type = "mctruth"},
+    { name = "no_photons", parameters = [ "@photon_threshold"   ], type = "mctruth"},
     { name = "single_electron", parameters = [ "@electron_threshold"   ], type = "mctruth"},
     #{ name = "no_charged_pions", parameters = [ "@pion_threshold"   ], type = "mctruth"},
     { name = "no_muons", parameters = [ "@muon_threshold"   ], type = "mctruth"},

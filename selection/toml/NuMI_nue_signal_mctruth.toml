@@ -162,16 +162,13 @@ add_systematics = false
 cut = [
     { name = "neutrino" , type = "true"},
     { name = "fiducial_cut",     type = "true" },
-    #{ name = "nonelectron_containment_cut",  type = "mctruth" },
-    #{ name = "track_containment_cut",  type = "mctruth" },
-    #{ name = "no_photons",       type = "mctruth", parameters = [ "@photon_threshold"   ] },
-    { name = "single_electron",     type = "true", parameters = [ "@electron_threshold" ] },
-    { name = "no_charged_pions", type = "true", parameters = [ "@pion_threshold"     ] },
-    { name = "no_muons",      type = "true", parameters = [ "@muon_threshold"     ] },
+    #{ name = "single_electron",     type = "true", parameters = [ "@electron_threshold" ] },
+    #{ name = "no_charged_pions", type = "true", parameters = [ "@pion_threshold"     ] },
+    #{ name = "no_muons",      type = "true", parameters = [ "@muon_threshold"     ] },
     #{ name = "!no_protons", parameters = [ "@proton_threshold" ], type = "true"},
-    { name = "vertex_z_veto_cut", type = "true", parameters = [-100.0, 100.0]},
-    { name = "no_extra_particles_minerva", type = "mctruth"},
-    { name = "leading_proton_ke_cut", parameters = [ "@proton_threshold" ,"@proton_upper_threshold"  ], type = "true",selector="leading_proton"},
+    #{ name = "vertex_z_veto_cut", type = "true", parameters = [-100.0, 100.0]},
+    #{ name = "no_extra_particles_minerva", type = "mctruth"},
+    #{ name = "leading_proton_ke_cut", parameters = [ "@proton_threshold" ,"@proton_upper_threshold"  ], type = "true",selector="leading_proton"},
     #{ name = "no_neutral_pions", type = "mctruth"}
 ]
 

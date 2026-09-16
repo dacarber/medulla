@@ -57,7 +57,7 @@ namespace mctruth_selectors
             const auto & p = obj.prim[i];
             if(mctruth::genie_pid(p.pdg) != pid) continue;
             if(secondary_only && p.start_process == 0) continue;
-            const double ke = p.startE - mctruth::genie_pid_mass(pid);
+            const double ke = p.genE - mctruth::genie_pid_mass(pid);
             if(ke > leading_ke)
             {
                 leading_ke = ke;
@@ -162,7 +162,7 @@ namespace mctruth_pvars
 
     /**
      * @brief Variable for the true kinetic energy of the primary.
-     * @details GENIE-native analog of pvars::ke, using p.startE and the
+     * @details GENIE-native analog of pvars::ke, using p.genE and the
      * species rest mass (via mctruth::genie_pid/genie_pid_mass) rather than
      * SPINE's calorimetric/CSDA/MCS branching.
      * @tparam T the type of the GENIE primary (an entry of MCTruth::prim).
@@ -170,7 +170,7 @@ namespace mctruth_pvars
      * @return the true kinetic energy of the primary.
      */
     template<typename T>
-    double ke(const T & p) { return p.startE - mctruth::genie_pid_mass(mctruth::genie_pid(p.pdg)); }
+    double ke(const T & p) { return p.genE - mctruth::genie_pid_mass(mctruth::genie_pid(p.pdg)); }
     REGISTER_VAR_SCOPE(RegistrationScope::MCTruthParticle, ke, ke);
 
     /**

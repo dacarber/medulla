@@ -299,7 +299,7 @@ namespace mctruth
         if(p.start_process != 0) return false;
         int pid = genie_pid(p.pdg);
         if(pid == pvars::kUnknown) return false;
-        double ke = p.startE - genie_pid_mass(pid);
+        double ke = p.genE - genie_pid_mass(pid);
         return ke > pcuts::final_state_signal_thresholds[pid];
     }
 
@@ -316,7 +316,7 @@ namespace mctruth
      * beam-direction estimate — matching vars::dpT, which uses each
      * particle's own start point rather than the shared interaction
      * vertex — and generation-level momentum (p.genp), which pairs with
-     * the p.startE used elsewhere in this file.
+     * the p.genE used elsewhere in this file.
      * @tparam T the type of the object to apply the variable on.
      * @param obj the SRTrueInteraction to apply the variable on.
      * @return the true transverse momentum of the final-state primaries.
@@ -358,7 +358,7 @@ namespace mctruth
         {
             if(!prim_final_state_signal(p)) continue;
             const int pid = genie_pid(p.pdg);
-            const double ke = p.startE - genie_pid_mass(pid);
+            const double ke = p.genE - genie_pid_mass(pid);
             utilities::three_vector momentum = {p.genp.x, p.genp.y, p.genp.z};
             utilities::three_vector vtx = {p.start.x, p.start.y, p.start.z};
             if((pid == pvars::kElectron || pid == pvars::kMuon) && ke > l_ke)
@@ -461,7 +461,7 @@ namespace mctruth
         {
             if(!prim_final_state_signal(p)) continue;
             const int pid = genie_pid(p.pdg);
-            const double ke = p.startE - genie_pid_mass(pid);
+            const double ke = p.genE - genie_pid_mass(pid);
             utilities::three_vector momentum = {p.genp.x, p.genp.y, p.genp.z};
             if(pid == pvars::kElectron && ke > e_ke)
             {
@@ -484,7 +484,7 @@ namespace mctruth
     /**
      * @brief Variable for the total true visible energy of the interaction.
      * @details Generator-level analog of vars::visible_energy: sums
-     * p.startE (total energy) over true final-state signal primaries, with
+     * p.genE (total energy) over true final-state signal primaries, with
      * the same proton binding-energy correction applied by vars::visible_energy
      * (subtracting mass - PROTON_BINDING_ENERGY for each proton, leaving
      * KE + binding energy for protons but full E for other species,
@@ -501,7 +501,7 @@ namespace mctruth
         {
             if(!prim_final_state_signal(p)) continue;
             const int pid = genie_pid(p.pdg);
-            energy += p.startE;
+            energy += p.genE;
             if(pid == pvars::kProton)
                 energy -= (genie_pid_mass(pid) - PROTON_BINDING_ENERGY);
         }
@@ -540,7 +540,7 @@ namespace mctruth
             const int this_pid = genie_pid(p.pdg);
             if(pid >= 0 && this_pid != pid) continue;
             if(pid < 0 && this_pid == pvars::kUnknown) continue;
-            const double ke = p.startE - genie_pid_mass(this_pid);
+            const double ke = p.genE - genie_pid_mass(this_pid);
             if(ke >= threshold) ++count;
         }
         return count;

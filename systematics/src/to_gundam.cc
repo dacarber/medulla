@@ -3,6 +3,7 @@
 #include <cstring>
 #include <iostream>
 #include <map>
+#include <deque>
 #include <string>
 #include <vector>
 
@@ -212,7 +213,8 @@ void copy_no_syst(cfg::ConfigurationTable table, TTree *out_tree,
   bool has_cut_type = false, has_is_nu = false, has_is_data = false,
        has_category = false;
 
-  std::vector<GenericBranchBuffer> other_branches;
+  // deque: buffer addresses are bound to the trees, so elements must not move
+  std::deque<GenericBranchBuffer> other_branches;
 
   for (int i = 0; i < n_branches; ++i) {
     TBranch *branch = (TBranch *)branches->At(i);
@@ -241,10 +243,10 @@ void copy_no_syst(cfg::ConfigurationTable table, TTree *out_tree,
       category_buf.bind_input(in_tree, branch);
       has_category = true;
     } else {
-      GenericBranchBuffer gbuf;
+      other_branches.emplace_back();
+      GenericBranchBuffer& gbuf = other_branches.back();
       gbuf.bind_input(in_tree, branch);
       gbuf.bind_output(out_tree);
-      other_branches.push_back(gbuf);
     }
   }
 

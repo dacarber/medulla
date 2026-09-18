@@ -35,12 +35,16 @@ set_target_properties(sbnanaobj_standardrecord PROPERTIES
     INTERFACE_INCLUDE_DIRECTORIES "${SBNANAOBJ_INC}"
 )
 
-# Add the executable target
+# Add the executable targets
 add_executable(run_systematics src/main.cc)
 
 # Link the ROOT libraries to the target
 target_link_libraries(run_systematics PRIVATE ${ROOT_LIBRARIES} sbnanaobj_standardrecord shared detsys trees)
 target_include_directories(run_systematics PRIVATE include/ ${SBNANAOBJ_INC} ${ROOT_INCLUDE_DIRS})
+
+add_executable(to_gundam src/to_gundam.cc)
+target_link_libraries(to_gundam PRIVATE ${ROOT_LIBRARIES} sbnanaobj_standardrecord shared detsys trees)
+target_include_directories(to_gundam PRIVATE include/ ${SBNANAOBJ_INC} ${ROOT_INCLUDE_DIRS})
 
 # Add ROOT definitions
 add_definitions(${ROOT_CXX_FLAGS})

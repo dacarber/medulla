@@ -17,4 +17,4 @@ export LD_LIBRARY_PATH="@MEDULLA_BUILD_DIR@/selection:@MEDULLA_BUILD_DIR@/system
 echo "medulla environment configured:"
 echo "  MEDULLA_SOURCE_DIR = ${MEDULLA_SOURCE_DIR}"
 echo "  MEDULLA_BUILD_DIR = ${MEDULLA_BUILD_DIR}"
-echo "  Executables available: medulla, run_systematics"
+echo "  Executables available: medulla, run_systematics, to_gundam"

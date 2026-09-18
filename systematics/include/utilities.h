@@ -51,7 +51,8 @@ struct SysVariable
  * @param path The desired output destination.
  * @return directory The final directory in the output ROOT file.
  */
-TDirectory * create_directory(TDirectory * parent, std::string path)
+TDirectory * create_directory(TDirectory * parent, std::string path);
+inline TDirectory * create_directory(TDirectory * parent, std::string path)
 {
     TDirectory * directory = parent;
     size_t pos(path.find_last_of("/"));
@@ -85,7 +86,7 @@ TDirectory * create_directory(TDirectory * parent, std::string path)
  * @param path The desired output destination.
  * @return directory The parent directory of the object specified in the path.
  */
-TDirectory * get_parent_directory(TDirectory * parent, std::string path)
+inline TDirectory * get_parent_directory(TDirectory * parent, std::string path)
 {
     TDirectory * directory = parent;
     size_t pos(path.find_last_of("/"));

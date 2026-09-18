@@ -8,6 +8,8 @@
 
 #include <TFile.h>
 #include <TTree.h>
+#include <TBranch.h>
+#include <TLeaf.h>
 #include <TDirectory.h>
 #include <TH1D.h>
 #include <TClonesArray.h>
@@ -18,6 +20,48 @@
 #include "configuration.h"
 #include "trees.h"
 #include "utilities.h"
+
+struct GenericBranchBuffer {
+    std::string name;
+    std::string type; // "int", "float", "double"
+    int val_i = 0;
+    float val_f = 0.0f;
+    double val_d = 0.0;
+
+    void bind_input(TTree* tree, TBranch* branch) {
+        name = branch->GetName();
+        TLeaf* leaf = (TLeaf*)branch->GetListOfLeaves()->At(0);
+        TString tname = leaf ? leaf->GetTypeName() : "Double_t";
+        if (tname == "Int_t" || tname == "int" || tname == "Short_t" || tname == "UShort_t" || 
+            tname == "UInt_t" || tname == "Long64_t" || tname == "ULong64_t" || tname == "Bool_t" || 
+            tname == "Char_t" || tname == "UChar_t") {
+            type = "int";
+            tree->SetBranchAddress(name.c_str(), &val_i);
+        } else if (tname == "Float_t" || tname == "float") {
+            type = "float";
+            tree->SetBranchAddress(name.c_str(), &val_f);
+        } else {
+            type = "double";
+            tree->SetBranchAddress(name.c_str(), &val_d);
+        }
+    }
+
+    void bind_output(TTree* tree) {
+        if (type == "int") {
+            tree->Branch(name.c_str(), &val_i, (name + "/I").c_str());
+        } else if (type == "float") {
+            tree->Branch(name.c_str(), &val_f, (name + "/F").c_str());
+        } else {
+            tree->Branch(name.c_str(), &val_d, (name + "/D").c_str());
+        }
+    }
+
+    double get_as_double() const {
+        if (type == "int") return (double)val_i;
+        if (type == "float") return (double)val_f;
+        return val_d;
+    }
+};
 
 void copy_no_syst(cfg::ConfigurationTable table, TTree * out_tree, TTree * in_tree);
 void copy_with_syst(cfg::ConfigurationTable config, cfg::ConfigurationTable table, TTree * out_tree, TTree * in_tree, TTree* syst_in_tree, std::string syst_type);
@@ -132,62 +176,97 @@ void copy_no_syst(cfg::ConfigurationTable table, TTree * out_tree, TTree * in_tr
     return;
   }
 
-  // Input tree
-  int run(0), subrun(0), event(0);
-  int n_branches = in_tree->GetNbranches();
+  TObjArray *branches = in_tree->GetListOfBranches();
+  if (!branches) return;
+
+  int n_branches = branches->GetEntries();
   std::cout << "Number of branches: " << n_branches << std::endl;
-  int num_data_branches = std::max(0, n_branches - 3);
-  std::vector<double> br(num_data_branches, 0.0);
 
-  for (int i = 0; i < num_data_branches; i++)
-    in_tree->SetBranchAddress(in_tree->GetListOfBranches()->At(i)->GetName(), &br[i]);
-
-  in_tree->SetBranchAddress("Run", &run);
-  in_tree->SetBranchAddress("Subrun", &subrun);
-  in_tree->SetBranchAddress("Evt", &event);
-
-  // These are branches we wish to modify
-  double _cut_type(0), _is_nu(0), _is_data(0), _category(0);
-  in_tree->SetBranchAddress("reco_cut_type", &_cut_type);
-  in_tree->SetBranchAddress("reco_is_nu", &_is_nu);
-  in_tree->SetBranchAddress("reco_is_data", &_is_data);
-  in_tree->SetBranchAddress("true_category", &_category);
-
-  // Output tree
-  for (int i = 0; i < num_data_branches; i++)
-    out_tree->Branch(in_tree->GetListOfBranches()->At(i)->GetName(), &br[i]);
-
-  out_tree->Branch("Run", &run);
-  out_tree->Branch("Subrun", &subrun);
-  out_tree->Branch("Evt", &event);
-
+  // Variables for special branches
+  int run(0), subrun(0), event(0);
   int cut_type(0), is_nu(0), is_data(0), category(0);
+
+  GenericBranchBuffer run_buf, subrun_buf, evt_buf;
+  GenericBranchBuffer cut_type_buf, is_nu_buf, is_data_buf, category_buf;
+
+  bool has_run = false, has_subrun = false, has_evt = false;
+  bool has_cut_type = false, has_is_nu = false, has_is_data = false, has_category = false;
+
+  std::vector<GenericBranchBuffer> other_branches;
+
+  for (int i = 0; i < n_branches; ++i)
+    {
+      TBranch *branch = (TBranch*)branches->At(i);
+      std::string bname = branch->GetName();
+
+      if (bname == "Run" || bname == "run") {
+        run_buf.bind_input(in_tree, branch);
+        has_run = true;
+      } else if (bname == "Subrun" || bname == "subrun") {
+        subrun_buf.bind_input(in_tree, branch);
+        has_subrun = true;
+      } else if (bname == "Evt" || bname == "evt" || bname == "Event" || bname == "event") {
+        evt_buf.bind_input(in_tree, branch);
+        has_evt = true;
+      } else if (bname == "reco_cut_type" || bname == "cut_type") {
+        cut_type_buf.bind_input(in_tree, branch);
+        has_cut_type = true;
+      } else if (bname == "reco_is_nu" || bname == "is_nu") {
+        is_nu_buf.bind_input(in_tree, branch);
+        has_is_nu = true;
+      } else if (bname == "reco_is_data" || bname == "is_data") {
+        is_data_buf.bind_input(in_tree, branch);
+        has_is_data = true;
+      } else if (bname == "true_category" || bname == "category") {
+        category_buf.bind_input(in_tree, branch);
+        has_category = true;
+      } else {
+        GenericBranchBuffer gbuf;
+        gbuf.bind_input(in_tree, branch);
+        gbuf.bind_output(out_tree);
+        other_branches.push_back(gbuf);
+      }
+    }
+
+  // Create standard required output branches
+  out_tree->Branch("Run", &run, "Run/I");
+  out_tree->Branch("Subrun", &subrun, "Subrun/I");
+  out_tree->Branch("Evt", &event, "Evt/I");
   out_tree->Branch("cut_type", &cut_type, "cut_type/I");
   out_tree->Branch("is_nu", &is_nu, "is_nu/I");
   out_tree->Branch("is_data", &is_data, "is_data/I");
   out_tree->Branch("category", &category, "category/I");
 
-  // Copy entries from input tree to output tree
-  for(Long64_t i = 0; i < in_tree->GetEntries(); ++i)
+  // Copy entries
+  Long64_t nentries = in_tree->GetEntries();
+  for (Long64_t i = 0; i < nentries; ++i)
     {
       in_tree->GetEntry(i);
 
-      cut_type = (int)_cut_type;
+      if (has_run) run = (int)run_buf.get_as_double();
+      if (has_subrun) subrun = (int)subrun_buf.get_as_double();
+      if (has_evt) event = (int)evt_buf.get_as_double();
 
-      if(table.get_bool_field("is_nu") == true)
+      if (has_cut_type) cut_type = (int)cut_type_buf.get_as_double();
+      else cut_type = 0;
+
+      if (table.get_bool_field("is_nu"))
         is_nu = 1;
+      else if (has_is_nu)
+        is_nu = (int)is_nu_buf.get_as_double();
       else
         is_nu = 0;
 
-      if(table.get_bool_field("is_data") == true)
+      if (table.get_bool_field("is_data"))
         {
           is_data = 1;
-          category = (int)10;
+          category = 10;
         }
       else
         {
           is_data = 0;
-          category = (int)_category;
+          if (has_category) category = (int)category_buf.get_as_double();
+          else category = 0;
         }
 
       out_tree->Fill();
@@ -308,7 +387,7 @@ void copy_with_syst(cfg::ConfigurationTable config, cfg::ConfigurationTable tabl
             weights.push_back(w05);
             weights.push_back(1.f);
             weights.push_back(w05);
-            weights.push_back(w1);
+            weights.push_back(1.f);
         }
         else
         {

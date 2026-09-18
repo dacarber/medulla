@@ -264,7 +264,9 @@ void copy_no_syst(cfg::ConfigurationTable table, TTree * out_tree, TTree * in_tr
         }
       else
         {
-          is_data = 0;
+          if (has_is_data) is_data = (int)is_data_buf.get_as_double();
+          else is_data = 0;
+
           if (has_category) category = (int)category_buf.get_as_double();
           else category = 0;
         }

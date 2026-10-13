@@ -16,7 +16,7 @@ photon_threshold = 0.025
 electron_threshold = 0.15
 muon_threshold = 0.025
 pion_threshold = 0.025
-proton_threshold = 0.05
+proton_threshold = 0.06
 null_threshold = 0.0
 proton_upper_threshold = 0.6
 [[category]] # 0 : Neutrino, CC 1eNp0pi

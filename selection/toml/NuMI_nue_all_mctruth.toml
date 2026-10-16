@@ -109,9 +109,9 @@ cuts = [
 # Samples — CV + data
 # =============================================================================
 
-[[sample]] # CV extended (NuMI_nue.toml)
+[[sample]] # CV extended +nominal (NuMI_nue.toml)
 name = "cvext"
-path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_CV_ext/v09_89_01_02p02_redo/*.root"
+path = "/pnfs/icarus/persistent/users/dcarber/spine/NuMI_CV_ext/v09_89_01_02p02_redo*/*.root"
 ismc = true
 disable = false
 

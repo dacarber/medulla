@@ -615,5 +615,91 @@ namespace mctruth
     { return count_prim_multiplicity(obj, -1, false, params[0]); }
     REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, secondary_multiplicity, secondary_multiplicity);
 
+    /**
+     * @brief Variable for total true visible energy from hadrons in interaction.
+     * @details Generator-level analog of vars::hadronic_visible_energy. Sums KE minus
+     * proton binding energy for protons and total energy for charged pions among
+     * true final-state signal primaries.
+     * @tparam T the type of the object to apply the variable on.
+     * @param obj the SRTrueInteraction to apply the variable on.
+     * @return the true visible hadronic energy of the interaction in GeV.
+     */
+    template<typename T>
+    double hadronic_visible_energy(const T & obj)
+    {
+        double energy(0);
+        for(const auto & p : obj.prim)
+        {
+            if(!prim_final_state_signal(p)) continue;
+            const int pid = genie_pid(p.pdg);
+            if(pid == pvars::kProton)
+                energy += (p.genE - genie_pid_mass(pid) - PROTON_BINDING_ENERGY);
+            else if(pid == pvars::kPion)
+                energy += p.genE;
+        }
+        return energy;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, hadronic_visible_energy, hadronic_visible_energy);
+
+    /**
+     * @brief Variable for total true hadronic energy.
+     * @details Alias for hadronic_visible_energy.
+     * @tparam T the type of the object to apply the variable on.
+     * @param obj the SRTrueInteraction to apply the variable on.
+     * @return the true visible hadronic energy of the interaction in GeV.
+     */
+    template<typename T>
+    double total_hadronic_energy(const T & obj)
+    {
+        return hadronic_visible_energy(obj);
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, total_hadronic_energy, total_hadronic_energy);
+
+    /**
+     * @brief Variable for true neutral pion mass peak.
+     * @details Returns the pi0 PDG mass (0.1349768 GeV) if a primary neutral pion is present
+     * in obj.prim, or PLACEHOLDERVALUE if none is found.
+     * @tparam T the type of the object to apply the variable on.
+     * @param obj the SRTrueInteraction to apply the variable on.
+     * @return the true neutral pion mass in GeV, or PLACEHOLDERVALUE.
+     */
+    template<typename T>
+    double pi0_mass_peak(const T & obj)
+    {
+        for(const auto & p : obj.prim)
+        {
+            if(p.start_process != 0) continue;
+            if(p.pdg == 111) return 0.1349768;
+        }
+        return PLACEHOLDERVALUE;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, pi0_mass_peak, pi0_mass_peak);
+    REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, pi0_mass, pi0_mass_peak);
+
+    /**
+     * @brief Variable for true neutral pion kinetic energy.
+     * @details Returns the kinetic energy (genE - mass) of the leading primary neutral pion
+     * in obj.prim, or PLACEHOLDERVALUE if none is found.
+     * @tparam T the type of the object to apply the variable on.
+     * @param obj the SRTrueInteraction to apply the variable on.
+     * @return the true neutral pion kinetic energy in GeV, or PLACEHOLDERVALUE.
+     */
+    template<typename T>
+    double pi0_ke(const T & obj)
+    {
+        double max_ke = PLACEHOLDERVALUE;
+        for(const auto & p : obj.prim)
+        {
+            if(p.start_process != 0) continue;
+            if(p.pdg == 111)
+            {
+                double ke = p.genE - 0.1349768;
+                if(ke > max_ke) max_ke = ke;
+            }
+        }
+        return max_ke;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::MCTruth, pi0_ke, pi0_ke);
+
 } // namespace mctruth
 #endif

@@ -169,6 +169,19 @@ namespace selectors
     REGISTER_SELECTOR(leading_photon, leading_photon);
 
     /**
+     * @brief Finds the index corresponding to the leading gamma (alias for leading photon).
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to operate on.
+     * @return the index of the leading gamma (highest KE).
+     */
+    template<class T>
+    size_t leading_gamma(const T & obj)
+    {
+        return leading_photon(obj);
+    }
+    REGISTER_SELECTOR(leading_gamma, leading_gamma);
+
+    /**
      * @brief Finds the index corresponding to the leading electron.
      * @details The leading electron is defined as the electron with the highest
      * kinetic energy. If the interaction is a true interaction, the initial

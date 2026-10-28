@@ -28,6 +28,7 @@
 #include "include/selectors.h"
 #include "include/biselectors.h"
 #include "include/bivariables.h"
+#include "include/utilities_pi0ana.h"
 #include "framework.h"
 
 /**
@@ -180,6 +181,20 @@ namespace vars
         return energy;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, hadronic_visible_energy, hadronic_visible_energy);
+
+    /**
+     * @brief Variable for total visible energy from hadrons in interaction.
+     * @details Alias for hadronic_visible_energy.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj interaction to apply the variable on.
+     * @return the total hadronic visible energy of the interaction in GeV.
+     */
+    template<class T>
+    double total_hadronic_energy(const T & obj)
+    {
+        return hadronic_visible_energy(obj);
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, total_hadronic_energy, total_hadronic_energy);
 
     /**
      * @brief Variable for energy reconstruction assuming CCQE kinematics using
@@ -1220,5 +1235,41 @@ namespace vars
         return (double)count;
     }
     REGISTER_VAR_SCOPE(RegistrationScope::Both, secondary_multiplicity, secondary_multiplicity);
+
+    /**
+     * @brief Variable for neutral pion invariant mass peak.
+     * @details Returns invariant mass of the diphoton candidate from utilities_pi0ana::pi0_info,
+     * or PLACEHOLDERVALUE if no candidate pair is found.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj interaction to apply the variable on.
+     * @return the neutral pion invariant mass in GeV, or PLACEHOLDERVALUE.
+     */
+    template<class T>
+    double pi0_mass_peak(const T & obj)
+    {
+        pi0 s = utilities_pi0ana::pi0_info(obj);
+        if(s.mass < 0) return PLACEHOLDERVALUE;
+        return s.mass;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, pi0_mass_peak, pi0_mass_peak);
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, pi0_mass, pi0_mass_peak);
+
+    /**
+     * @brief Variable for neutral pion kinetic energy.
+     * @details Returns kinetic energy of the neutral pion candidate (energy - PI0_MASS),
+     * or PLACEHOLDERVALUE if no candidate pair is found.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj interaction to apply the variable on.
+     * @return the neutral pion kinetic energy in GeV, or PLACEHOLDERVALUE.
+     */
+    template<class T>
+    double pi0_ke(const T & obj)
+    {
+        pi0 s = utilities_pi0ana::pi0_info(obj);
+        if(s.energy < 0) return PLACEHOLDERVALUE;
+        double ke = s.energy - PI0_MASS;
+        return (ke > 0) ? ke : 0.0;
+    }
+    REGISTER_VAR_SCOPE(RegistrationScope::Both, pi0_ke, pi0_ke);
 }
 #endif // VARIABLES_H

@@ -82,6 +82,22 @@ namespace mctruth_selectors
     template<typename T>
     size_t leading_secondary_proton(const T & obj) { return leading_prim_index(obj, pvars::kProton, true); }
     REGISTER_MCTRUTH_SELECTOR(leading_secondary_proton, leading_secondary_proton);
+
+    template<typename T>
+    size_t leading_pion(const T & obj) { return leading_prim_index(obj, pvars::kPion, false); }
+    REGISTER_MCTRUTH_SELECTOR(leading_pion, leading_pion);
+
+    template<typename T>
+    size_t leading_muon(const T & obj) { return leading_prim_index(obj, pvars::kMuon, false); }
+    REGISTER_MCTRUTH_SELECTOR(leading_muon, leading_muon);
+
+    template<typename T>
+    size_t leading_photon(const T & obj) { return leading_prim_index(obj, pvars::kPhoton, false); }
+    REGISTER_MCTRUTH_SELECTOR(leading_photon, leading_photon);
+
+    template<typename T>
+    size_t leading_gamma(const T & obj) { return leading_prim_index(obj, pvars::kPhoton, false); }
+    REGISTER_MCTRUTH_SELECTOR(leading_gamma, leading_gamma);
 }
 
 /**

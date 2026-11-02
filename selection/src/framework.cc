@@ -762,6 +762,7 @@ ana::SpillMultiVar spill_multivar_helper(
         std::vector<double> values;
 
         context::current_detector = sr->hdr.det;
+        context::current_event = sr;
 
         // Check if this event passes the event cut.
         if(!event_cut(*sr)) return values;
@@ -789,6 +790,8 @@ ana::SpillMultiVar spill_multivar_helper(
             {
                 // Check for match
                 size_t match_id = (i.match_ids.size() > 0) ? (size_t)i.match_ids[0] : kNoMatch;
+                context::current_true = &i;
+                context::current_reco = (match_id != kNoMatch && match_id < sr->dlp.size()) ? &sr->dlp[match_id] : nullptr;
 
                 if constexpr(std::is_same_v<VarOn, RType>)
                 {
@@ -862,6 +865,8 @@ ana::SpillMultiVar spill_multivar_helper(
             {
                 // Check for match
                 size_t match_id = (i.match_ids.size() > 0) ? (size_t)i.match_ids[0] : kNoMatch;
+                context::current_reco = &i;
+                context::current_true = (match_id != kNoMatch && match_id < sr->dlp_true.size()) ? &sr->dlp_true[match_id] : nullptr;
 
                 if constexpr(std::is_same_v<VarOn, TType>)
                 {
@@ -931,6 +936,8 @@ ana::SpillMultiVar spill_multivar_helper(const CutFn<EventType> & cut, const Var
     return ana::SpillMultiVar([cut, var](const caf::Proxy<caf::StandardRecord> * sr) -> std::vector<double>
     {
         std::vector<double> values;
+        context::current_detector = sr->hdr.det;
+        context::current_event = sr;
         if(cut(*sr))
             values.push_back(var(*sr));
         return values;
@@ -1007,6 +1014,8 @@ NamedSpillMultiVar construct_category(
         (const caf::Proxy<caf::StandardRecord> * sr) -> std::vector<double>
         {
             std::vector<double> values;
+            context::current_detector = sr->hdr.det;
+            context::current_event = sr;
             if(!event_cut(*sr)) return values;
 
             // Walk the category list and push the index of the first match,
@@ -1029,8 +1038,10 @@ NamedSpillMultiVar construct_category(
             {
                 for(auto const & i : sr->dlp_true)
                 {
-                    if(!true_cut(i)) continue;
                     size_t match_id = i.match_ids.size() > 0 ? (size_t)i.match_ids[0] : kNoMatch;
+                    context::current_true = &i;
+                    context::current_reco = (match_id != kNoMatch && match_id < sr->dlp.size()) ? &sr->dlp[match_id] : nullptr;
+                    if(!true_cut(i)) continue;
                     if(has_reco_cuts)
                     {
                         if(match_id == kNoMatch) continue;
@@ -1056,8 +1067,10 @@ NamedSpillMultiVar construct_category(
             {
                 for(auto const & i : sr->dlp)
                 {
-                    if(!reco_cut(i)) continue;
                     size_t match_id = i.match_ids.size() > 0 ? (size_t)i.match_ids[0] : kNoMatch;
+                    context::current_reco = &i;
+                    context::current_true = (match_id != kNoMatch && match_id < sr->dlp_true.size()) ? &sr->dlp_true[match_id] : nullptr;
+                    if(!reco_cut(i)) continue;
                     // Mirror spill_multivar_helper: on MC the complementary
                     // true-level cuts require a match, so an unmatched reco
                     // interaction is dropped rather than filled with NaN. On

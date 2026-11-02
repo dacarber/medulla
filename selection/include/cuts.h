@@ -1190,5 +1190,104 @@ namespace cuts
     }
     REGISTER_CUT_SCOPE(RegistrationScope::Both, leading_proton_ke_cut, leading_proton_ke_cut);
 
+    /**
+     * @brief Cut to check if the leading electron shower is a true photon with a parent of a pi0.
+     * @details Identifies the leading electron shower in the reconstructed interaction using
+     * selectors::leading_electron. If a matched true particle exists in the truth record,
+     * checks whether its true PDG code corresponds to a photon (|pdg| == 22 or pid == kPhoton)
+     * and its true parent particle is a neutral pion (|parent_pdg_code| == 111).
+     * An optional parameter params[0] can specify a minimum kinetic energy threshold for the photon (in GeV).
+     * When evaluated on a true interaction, it checks the corresponding reconstructed interaction
+     * if available in context::current_reco, or falls back to checking whether the true interaction's
+     * leading particle is a photon originating from a pi0.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to select on.
+     * @param params [0] optional minimum photon kinetic energy in GeV (default 0.0, no threshold).
+     * @return true if the leading electron shower is matched to a true photon from a pi0 decay.
+     */
+    template<class T>
+    bool leading_electron_is_pi0_photon(const T & obj, std::vector<double> params = {})
+    {
+        double min_ke = (!params.empty()) ? params[0] : 0.0;
+
+        auto is_pi0_photon = [min_ke](const auto & tp) -> bool {
+            bool is_gamma = (std::abs(tp.pdg_code) == 22 || tp.pid == pvars::kPhoton);
+            bool is_from_pi0 = (std::abs(tp.parent_pdg_code) == 111);
+            if (!is_gamma || !is_from_pi0) return false;
+            if (min_ke > 0.0 && pvars::ke(tp) < min_ke) return false;
+            return true;
+        };
+
+        if constexpr (std::is_same_v<T, caf::SRInteractionTruthDLPProxy>)
+        {
+            if (context::current_reco)
+            {
+                size_t ei = selectors::leading_electron(*context::current_reco);
+                if (ei == kNoMatch || ei >= context::current_reco->particles.size())
+                    return false;
+                const auto & rp = context::current_reco->particles[ei];
+                if (rp.match_ids.empty()) return false;
+                int64_t matched_id = rp.match_ids[0];
+
+                for (const auto & tp : obj.particles)
+                {
+                    if (tp.id == matched_id)
+                        return is_pi0_photon(tp);
+                }
+                if (context::current_event)
+                {
+                    for (const auto & tint : context::current_event->dlp_true)
+                    {
+                        for (const auto & tp : tint.particles)
+                        {
+                            if (tp.id == matched_id)
+                                return is_pi0_photon(tp);
+                        }
+                    }
+                }
+                return false;
+            }
+
+            size_t ei = selectors::leading_electron(obj);
+            if (ei == kNoMatch || ei >= obj.particles.size()) return false;
+            return is_pi0_photon(obj.particles[ei]);
+        }
+        else
+        {
+            size_t ei = selectors::leading_electron(obj);
+            if (ei == kNoMatch || ei >= obj.particles.size())
+                return false;
+            const auto & rp = obj.particles[ei];
+            if (rp.match_ids.empty())
+                return false;
+            int64_t matched_id = rp.match_ids[0];
+
+            if (context::current_true)
+            {
+                for (const auto & tp : context::current_true->particles)
+                {
+                    if (tp.id == matched_id)
+                        return is_pi0_photon(tp);
+                }
+            }
+
+            if (context::current_event)
+            {
+                for (const auto & tint : context::current_event->dlp_true)
+                {
+                    for (const auto & tp : tint.particles)
+                    {
+                        if (tp.id == matched_id)
+                            return is_pi0_photon(tp);
+                    }
+                }
+            }
+
+            return false;
+        }
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, leading_electron_is_pi0_photon, leading_electron_is_pi0_photon);
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, leading_electron_is_true_pi0_photon, leading_electron_is_pi0_photon);
+
 }
 #endif

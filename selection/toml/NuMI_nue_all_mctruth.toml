@@ -70,37 +70,44 @@ cuts = [
     { name = "single_electron", parameters = [ "@electron_threshold"   ], type = "mctruth"},
     { name = "!no_charged_pions", parameters = [ "@pion_threshold"   ], type = "mctruth"},
 ]
-[[category]] # 4 : Neutrino, Other CC Nue, pi0
+[[category]] # 4 : Neutrino, Other Nue, pi0 with electron as photon
+cuts = [
+    { name = "neutrino" , type = "mctruth"},
+    { name = "leading_electron_is_pi0_photon", type = "mctruth" },
+    #{ name = "at_least_one_pi0", parameters = ["@photon_threshold"], type = "mctruth"}
+    { name = "!no_neutral_pions", type = "mctruth"}
+]
+[[category]] # 5 : Neutrino, Other Nue, pi0 with electron
 cuts = [
     { name = "neutrino" , type = "mctruth"},
     #{ name = "at_least_one_pi0", parameters = ["@photon_threshold"], type = "mctruth"}
     { name = "!no_neutral_pions", type = "mctruth"}
 ]
-[[category]] # 5 : Neutrino, Other CC Nue
+[[category]] # 6 : Neutrino, Other CC Nue
 cuts = [
     { name = "neutrino" , type = "mctruth"},
     { name = "iscc"    , type = "mctruth"},
     { name = "single_electron", parameters = [ "@electron_threshold"   ], type = "mctruth"},
 ]
 
-[[category]] # 6 : Neutrino, Other CC Numu
+[[category]] # 7 : Neutrino, Other CC Numu
 cuts = [
     { name = "neutrino" , type = "mctruth"},
     { name = "iscc"    , type = "mctruth"},
     { name = "single_muon", parameters = [ "@muon_threshold"   ], type = "mctruth"},
 ]
 
-[[category]] # 7 : Neutrino, neutral current
+[[category]] # 8 : Neutrino, neutral current
 cuts = [
     { name = "neutrino" , type = "mctruth"},
     { name = "!iscc"    , type = "mctruth"},
 ]
 
-[[category]] # 8 : Cosmic
+[[category]] # 9 : Cosmic
 cuts = [
     { name = "!neutrino" , type = "mctruth"},
 ]
-[[category]] # 9 : Neutrino, Other
+[[category]] # 10 : Neutrino, Other
 cuts = [
     { name = "neutrino" , type = "mctruth"},
 ]

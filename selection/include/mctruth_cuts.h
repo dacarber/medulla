@@ -681,5 +681,29 @@ template <typename T> bool no_extra_particles_minerva(const T &obj) {
 REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, no_extra_particles_minerva,
                    no_extra_particles_minerva);
 
+/**
+ * @brief Cut to check if the leading electron shower is a true photon with a parent of a pi0.
+ * @details MCTruth (generator-level) interface for leading_electron_is_pi0_photon.
+ * Because a "leading electron shower" is a detector/reconstruction-level object,
+ * this cut accesses the current reconstructed interaction from context::current_reco
+ * (or the matched true interaction context::current_true) and delegates to
+ * cuts::leading_electron_is_pi0_photon.
+ * @tparam T the type of the object (SRTrueInteraction).
+ * @param obj the SRTrueInteraction to apply the cut on.
+ * @param params [0] optional minimum photon kinetic energy in GeV (default 0.0, no threshold).
+ * @return true if the leading electron shower is matched to a true photon from a pi0 decay.
+ */
+template <typename T>
+bool leading_electron_is_pi0_photon(const T &obj, std::vector<double> params = {})
+{
+    if (context::current_reco)
+        return cuts::leading_electron_is_pi0_photon(*context::current_reco, params);
+    if (context::current_true)
+        return cuts::leading_electron_is_pi0_photon(*context::current_true, params);
+    return false;
+}
+REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, leading_electron_is_pi0_photon,
+                   leading_electron_is_pi0_photon);
+
 } // namespace mctruth
 #endif

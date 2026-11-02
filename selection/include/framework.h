@@ -59,9 +59,10 @@ constexpr double kNoMatchValue = std::numeric_limits<double>::quiet_NaN();
  */
 namespace context
 {
-    const TType * current_true = nullptr;
-    const RType * current_reco = nullptr;
-    caf::Det_t current_detector = caf::Det_t::kUNKNOWN;
+    inline const TType * current_true = nullptr;
+    inline const RType * current_reco = nullptr;
+    inline const EventType * current_event = nullptr;
+    inline caf::Det_t current_detector = caf::Det_t::kUNKNOWN;
 }
 
 //-----------------------------------------------------------------------------

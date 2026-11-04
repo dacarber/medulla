@@ -1289,5 +1289,102 @@ namespace cuts
     REGISTER_CUT_SCOPE(RegistrationScope::Both, leading_electron_is_pi0_photon, leading_electron_is_pi0_photon);
     REGISTER_CUT_SCOPE(RegistrationScope::Both, leading_electron_is_true_pi0_photon, leading_electron_is_pi0_photon);
 
+    /**
+     * @brief Cut to check if the leading shower is an electron and there is at least one additional shower (gamma or electron).
+     * @details Searches for all primary shower candidates (particles with primary_classification == true
+     * and PID kElectron or kPhoton).
+     * The leading shower is defined as the primary shower with the highest kinetic energy.
+     * The cut passes if:
+     * 1. The leading shower is an electron (pid == kElectron) with KE >= electron_threshold (params[0], default 0.15 GeV).
+     * 2. There is at least one additional primary shower (either photon or electron) with KE >= shower_threshold (params[1], default 0.025 GeV).
+     * If parameters are provided as [shower_threshold, electron_threshold] where params[0] < params[1],
+     * they are automatically assigned so electron_threshold is the larger value.
+     * @tparam T the type of interaction (true or reco).
+     * @param obj the interaction to select on.
+     * @param params [0] electron threshold in GeV (default 0.15), [1] additional shower threshold in GeV (default 0.025).
+     * @return true if the leading shower is an electron above threshold and at least one other shower is present above threshold.
+     */
+    template<class T>
+    bool leading_shower_is_electron_with_extra_shower(const T & obj, std::vector<double> params = {})
+    {
+        double electron_threshold = 0.15;
+        double shower_threshold = 0.025;
+        if(params.size() == 1)
+        {
+            electron_threshold = params[0];
+            shower_threshold = params[0];
+        }
+        else if(params.size() >= 2)
+        {
+            if(params[0] < params[1])
+            {
+                electron_threshold = params[1];
+                shower_threshold = params[0];
+            }
+            else
+            {
+                electron_threshold = params[0];
+                shower_threshold = params[1];
+            }
+        }
+
+        double max_shower_ke = -1.0;
+        size_t leading_shower_idx = kNoMatch;
+        int leading_shower_pid = -1;
+
+        for(size_t i = 0; i < obj.particles.size(); ++i)
+        {
+            const auto & p = obj.particles[i];
+            if(!pvars::primary_classification(p))
+                continue;
+
+            int pid = static_cast<int>(pvars::pid(p));
+            if(pid != pvars::kPhoton && pid != pvars::kElectron)
+                continue;
+
+            double p_ke = pvars::ke(p);
+            if(p_ke > max_shower_ke)
+            {
+                max_shower_ke = p_ke;
+                leading_shower_idx = i;
+                leading_shower_pid = pid;
+            }
+        }
+
+        if(leading_shower_idx == kNoMatch)
+            return false;
+
+        if(leading_shower_pid != pvars::kElectron)
+            return false;
+
+        if(max_shower_ke < electron_threshold)
+            return false;
+
+        size_t extra_shower_count = 0;
+        for(size_t i = 0; i < obj.particles.size(); ++i)
+        {
+            if(i == leading_shower_idx)
+                continue;
+
+            const auto & p = obj.particles[i];
+            if(!pvars::primary_classification(p))
+                continue;
+
+            int pid = static_cast<int>(pvars::pid(p));
+            if(pid != pvars::kPhoton && pid != pvars::kElectron)
+                continue;
+
+            double p_ke = pvars::ke(p);
+            if(p_ke >= shower_threshold)
+            {
+                extra_shower_count++;
+            }
+        }
+
+        return extra_shower_count >= 1;
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, leading_shower_is_electron_with_extra_shower, leading_shower_is_electron_with_extra_shower);
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, leading_electron_with_extra_shower, leading_shower_is_electron_with_extra_shower);
+
 }
 #endif

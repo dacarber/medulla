@@ -705,5 +705,104 @@ bool leading_electron_is_pi0_photon(const T &obj, std::vector<double> params = {
 REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, leading_electron_is_pi0_photon,
                    leading_electron_is_pi0_photon);
 
+/**
+ * @brief Cut to check if the leading shower is an electron and there is at least one additional shower (gamma or electron).
+ * @details MCTruth (generator-level) interface using obj.prim.
+ * The leading shower is defined as the primary particle (start_process == 0) with the highest kinetic energy
+ * among photons (pdg 22) and electrons (abs(pdg) 11).
+ * This cut passes if:
+ * 1. The leading shower is an electron with KE >= electron_threshold (params[0], default 0.15 GeV).
+ * 2. There is at least one additional primary shower (gamma or electron) with KE >= shower_threshold (params[1], default 0.025 GeV).
+ * If parameters are provided as [shower_threshold, electron_threshold] where params[0] < params[1],
+ * they are automatically assigned so electron_threshold is the larger value.
+ * @tparam T the type of the object (SRTrueInteraction).
+ * @param obj the SRTrueInteraction to apply the cut on.
+ * @param params [0] electron threshold in GeV (default 0.15), [1] additional shower threshold in GeV (default 0.025).
+ * @return true if leading shower is an electron above threshold and an additional shower is present above threshold.
+ */
+template <typename T>
+bool leading_shower_is_electron_with_extra_shower(const T &obj, std::vector<double> params = {})
+{
+    double electron_threshold = 0.15;
+    double shower_threshold = 0.025;
+    if(params.size() == 1)
+    {
+        electron_threshold = params[0];
+        shower_threshold = params[0];
+    }
+    else if(params.size() >= 2)
+    {
+        if(params[0] < params[1])
+        {
+            electron_threshold = params[1];
+            shower_threshold = params[0];
+        }
+        else
+        {
+            electron_threshold = params[0];
+            shower_threshold = params[1];
+        }
+    }
+
+    double max_shower_ke = -1.0;
+    size_t leading_shower_idx = kNoMatch;
+    int leading_shower_pid = -1;
+
+    for (size_t i = 0; i < obj.prim.size(); ++i)
+    {
+        const auto &p = obj.prim[i];
+        if (p.start_process != 0)
+            continue;
+
+        int pid = mctruth::genie_pid(p.pdg);
+        if (pid != pvars::kPhoton && pid != pvars::kElectron)
+            continue;
+
+        double ke = p.genE - mctruth::genie_pid_mass(pid);
+        if (ke > max_shower_ke)
+        {
+            max_shower_ke = ke;
+            leading_shower_idx = i;
+            leading_shower_pid = pid;
+        }
+    }
+
+    if (leading_shower_idx == kNoMatch)
+        return false;
+
+    if (leading_shower_pid != pvars::kElectron)
+        return false;
+
+    if (max_shower_ke < electron_threshold)
+        return false;
+
+    size_t extra_shower_count = 0;
+    for (size_t i = 0; i < obj.prim.size(); ++i)
+    {
+        if (i == leading_shower_idx)
+            continue;
+
+        const auto &p = obj.prim[i];
+        if (p.start_process != 0)
+            continue;
+
+        int pid = mctruth::genie_pid(p.pdg);
+        if (pid != pvars::kPhoton && pid != pvars::kElectron)
+            continue;
+
+        double ke = p.genE - mctruth::genie_pid_mass(pid);
+        if (ke >= shower_threshold)
+        {
+            extra_shower_count++;
+        }
+    }
+
+    return extra_shower_count >= 1;
+}
+REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, leading_shower_is_electron_with_extra_shower,
+                   leading_shower_is_electron_with_extra_shower);
+REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, leading_electron_with_extra_shower,
+                   leading_shower_is_electron_with_extra_shower);
+
 } // namespace mctruth
 #endif

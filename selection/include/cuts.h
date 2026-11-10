@@ -576,6 +576,39 @@ namespace cuts
     REGISTER_CUT_SCOPE(RegistrationScope::Both, single_photon, single_photon);
 
     /**
+     * @brief Binding for a two particle photon multiplicity cut (exactly 2 photons).
+     * @details This function binds the two particle multiplicity cut for
+     * photons, which corresponds to the index 0 in the
+     * @ref utilities::count_primaries function.
+     * @param obj the interaction to select on.
+     * @param params the parameters for the cut. In this case, this sets the
+     * kinetic energy threshold for a photon to count towards the
+     * multiplicity. Defaults to 25 MeV (0.025 GeV).
+     * @return true if the interaction has exactly two primary photons.
+     */
+    template<class T>
+    bool two_photons(const T & obj, std::vector<double> params={25.0,})
+    {
+        return particle_multiplicity(obj, 2, 0, params) == 2;
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, two_photons, two_photons);
+
+    /**
+     * @brief Binding for at least two particle photon multiplicity cut (>= 2 photons).
+     * @param obj the interaction to select on.
+     * @param params the parameters for the cut. In this case, this sets the
+     * kinetic energy threshold for a photon to count towards the
+     * multiplicity. Defaults to 25 MeV (0.025 GeV).
+     * @return true if the interaction has at least two primary photons.
+     */
+    template<class T>
+    bool at_least_two_photons(const T & obj, std::vector<double> params={25.0,})
+    {
+        return particle_multiplicity(obj, 2, 0, params) >= 2;
+    }
+    REGISTER_CUT_SCOPE(RegistrationScope::Both, at_least_two_photons, at_least_two_photons);
+
+    /**
      * @brief Binding for a single particle electron multiplicity cut.
      * @details This function binds the single particle multiplicity cut for
      * electrons, which corresponds to the index 1 in the

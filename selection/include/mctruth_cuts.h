@@ -155,6 +155,71 @@ bool no_photons(const T &obj, std::vector<double> params = {
 REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, no_photons, no_photons);
 
 /**
+ * @brief Cut for exactly two true final state photons above threshold.
+ * @details Applied at the GENIE generator level using obj.prim. The
+ * kinetic energy is computed from the GENIE genE field.
+ * Only primary particles (start_process == 0) are considered.
+ * @tparam T the type of the object to apply the cut on.
+ * @param obj the SRTrueInteraction to apply the cut on.
+ * @param params KE threshold in MeV / GeV (defaults to 25 MeV / 0.025 GeV).
+ * @return true if exactly two photons above threshold.
+ */
+template <typename T>
+bool two_photons(const T &obj, std::vector<double> params = {
+                                 25.0,
+                             }) {
+  if (params.empty())
+    params.push_back(25.0);
+  double upper =
+      params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
+  int count(0);
+  for (const auto &p : obj.prim) {
+    if (p.start_process != 0)
+      continue;
+    if (p.pdg == 22) {
+      double energy = p.genE;
+      if (energy >= params[0] && energy <= upper)
+        count++;
+    }
+  }
+  return count == 2;
+}
+REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, two_photons, two_photons);
+
+/**
+ * @brief Cut for at least two true final state photons above threshold.
+ * @details Applied at the GENIE generator level using obj.prim. The
+ * kinetic energy is computed from the GENIE genE field.
+ * Only primary particles (start_process == 0) are considered.
+ * @tparam T the type of the object to apply the cut on.
+ * @param obj the SRTrueInteraction to apply the cut on.
+ * @param params KE threshold in MeV / GeV (defaults to 25 MeV / 0.025 GeV).
+ * @return true if at least two photons above threshold.
+ */
+template <typename T>
+bool at_least_two_photons(const T &obj, std::vector<double> params = {
+                                          25.0,
+                                      }) {
+  if (params.empty())
+    params.push_back(25.0);
+  double upper =
+      params.size() > 1 ? params[1] : std::numeric_limits<double>::infinity();
+  int count(0);
+  for (const auto &p : obj.prim) {
+    if (p.start_process != 0)
+      continue;
+    if (p.pdg == 22) {
+      double energy = p.genE;
+      if (energy >= params[0] && energy <= upper)
+        count++;
+    }
+  }
+  return count >= 2;
+}
+REGISTER_CUT_SCOPE(RegistrationScope::MCTruth, at_least_two_photons,
+                   at_least_two_photons);
+
+/**
  * @brief Cut for zero true final state electrons above threshold.
  * @details Applied at the GENIE generator level using obj.prim. The
  * kinetic energy is computed from the GENIE genE field.

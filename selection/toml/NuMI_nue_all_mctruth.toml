@@ -734,14 +734,11 @@ add_systematics = false
 cut = [
     { name = "fiducial_cut",     type = "reco" },
     { name = "flash_cut", type = "reco", parameters = [0.0,9.6]},
-    { name = "leading_shower_is_electron_with_extra_shower", type = "reco", parameters = [ "@electron_threshold", "@photon_threshold" ] },
+    { name = "two_photons", type = "reco", parameters = [ "@photon_threshold" ] },
     { name = "no_charged_pions", type = "reco", parameters = [ "@pion_threshold"     ] },
     { name = "no_muons",      type = "reco", parameters = [ "@muon_threshold"     ] },
     { name = "!no_protons",    type = "reco", parameters = [ "@proton_threshold"] },
     { name = "pion_secondary_cut", type = "reco", parameters = [ 0.0, 2.0]},
-    { name = "pid_score_cut", type = "reco", parameters = [0.7]},
-    { name = "primary_score_cut", type = "reco", parameters = [0.95]},
-    { name = "directional_spread_cut", type = "reco", parameters = [0.35]},
     { name = "mip_score_cut", type = "reco", parameters = [0.4]},
     { name = "track_containment_cut", type = 'reco'},
 
@@ -914,6 +911,7 @@ branch = [
     { name = "track_containment_cut",  type = "both_mctruth" },
     { name = "no_photons",       type = "both_mctruth", parameters = [ "@photon_threshold"   ] },
     { name = "single_electron",     type = "both_mctruth", parameters = [ "@electron_threshold" ] },
+    { name = "two_photons",          type = "both_mctruth", parameters = [ "@photon_threshold" ] },
     { name = "leading_shower_is_electron_with_extra_shower", type = "both_mctruth", parameters = [ "@electron_threshold", "@photon_threshold" ] },
     { name = "no_charged_pions", type = "both_mctruth", parameters = [ "@pion_threshold"     ] },
     { name = "no_muons",      type = "both_mctruth", parameters = [ "@muon_threshold"     ] },

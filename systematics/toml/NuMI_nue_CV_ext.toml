@@ -1,8 +1,8 @@
 
 [input]
-path = '/exp/icarus/app/users/dcarber/medulla_grid/test_branch/NuMI_nue_full_new.root'
+path = '/exp/icarus/app/users/dcarber/medulla_grid/test_branch/NuMI_nue_full_mctruth_v04.root'
 #weights = '/pnfs/icarus/persistent/users/spine/NuMI/Nu_det_sys/CV/*flat_merged_geant4.root'
-weights = '/pnfs/icarus/persistent/users/dcarber/spine/NuMI_CV_ext/v09_89_01_02p02_2/combined_files/*.flat.root'
+weights = '/pnfs/icarus/persistent/users/dcarber/spine/NuMI_CV_ext/v09_89_01_02p02_redo*/*.flat.root'
 
 use_additional_hash = true
 
